@@ -1,0 +1,420 @@
+2018-12-24 18:35:38 -Starting LibraryApplication on DESKTOP-9BL6UMN with PID 6676 (F:\idea\Library\target\classes started by DELL in F:\idea\Library)
+2018-12-24 18:35:38 -The following profiles are active: dev
+2018-12-24 18:35:38 -Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@16d63441: startup date [Mon Dec 24 18:35:38 CST 2018]; root of context hierarchy
+2018-12-24 18:35:39 -Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-12-24 18:35:40 -Bean 'com.alicp.jetcache.anno.config.JetCacheProxyConfiguration' of type [com.alicp.jetcache.anno.config.JetCacheProxyConfiguration$$EnhancerBySpringCGLIB$$87258b6e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-24 18:35:40 -Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$7abdc857] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-24 18:35:40 -Bean 'shiroConfig' of type [top.cflwork.config.ShiroConfig$$EnhancerBySpringCGLIB$$10f769b0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-24 18:35:40 -Bean 'userRealm' of type [top.cflwork.shiro.UserRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-24 18:35:40 -No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/C:/Users/DELL/.m2/repository/net/sf/ehcache/ehcache/2.10.5/ehcache-2.10.5.jar!/ehcache-failsafe.xml
+2018-12-24 18:35:41 -Bean 'cacheManager2' of type [net.sf.ehcache.CacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-24 18:35:41 -Bean 'ehCacheManager' of type [org.apache.shiro.cache.ehcache.EhCacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-24 18:35:41 -Cache with name 'top.cflwork.shiro.UserRealm.authorizationCache' does not yet exist.  Creating now.
+2018-12-24 18:35:41 -Added EhCache named [top.cflwork.shiro.UserRealm.authorizationCache]
+2018-12-24 18:35:41 -Bean 'sessionDAO' of type [org.apache.shiro.session.mgt.eis.MemorySessionDAO] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-24 18:35:41 -Bean 'sessionManager' of type [org.apache.shiro.web.session.mgt.DefaultWebSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-24 18:35:41 -Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-24 18:35:41 -Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2018-12-24 18:35:41 -Tomcat initialized with port(s): 8088 (http)
+2018-12-24 18:35:41 -Initializing ProtocolHandler ["http-nio-8088"]
+2018-12-24 18:35:41 -Starting service [Tomcat]
+2018-12-24 18:35:41 -Starting Servlet Engine: Apache Tomcat/8.5.31
+2018-12-24 18:35:41 -The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_181\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Git\cmd;D:\Program Files\PuTTY\;C:\Program Files\TortoiseGit\bin;C:\Program Files\TortoiseSVN\bin;C:\Program Files\nodejs\;C:\Program Files\VisualSVN Server\bin;C:\WINDOWS\System32\OpenSSH\;C:\Users\DELL\AppData\Roaming\npm;C:\Users\DELL\AppData\Local\Microsoft\WindowsApps;";C:\Program Files\Java\jdk1.6.0_43\bin";;.]
+2018-12-24 18:35:41 -Initializing Spring embedded WebApplicationContext
+2018-12-24 18:35:41 -Root WebApplicationContext: initialization completed in 3650 ms
+2018-12-24 18:35:42 -Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-12-24 18:35:42 -Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-12-24 18:35:42 -Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-12-24 18:35:42 -Mapping filter: 'requestContextFilter' to: [/*]
+2018-12-24 18:35:42 -Filter xssFilter was not registered (disabled)
+2018-12-24 18:35:42 -Mapping filter: 'webStatFilter' to urls: [/*]
+2018-12-24 18:35:42 -Mapping filter: 'shiroFilterFactoryBean' to: [/*]
+2018-12-24 18:35:42 -Servlet statViewServlet mapped to [/druid/*]
+2018-12-24 18:35:42 -Servlet dispatcherServlet mapped to [/]
+2018-12-24 18:35:42 -Using default implementation for ThreadExecutor
+2018-12-24 18:35:42 -Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2018-12-24 18:35:42 -Quartz Scheduler v.2.2.1 created.
+2018-12-24 18:35:42 -RAMJobStore initialized.
+2018-12-24 18:35:42 -Scheduler meta-data: Quartz Scheduler (v2.2.1) 'schedulerFactoryBean' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2018-12-24 18:35:42 -Quartz scheduler 'schedulerFactoryBean' initialized from an externally provided properties instance.
+2018-12-24 18:35:42 -Quartz scheduler version: 2.2.1
+2018-12-24 18:35:42 -JobFactory set to: top.cflwork.common.quartz.factory.JobFactory@75a51297
+2018-12-24 18:35:43 -Initializing ExecutorService  'clientInboundChannelExecutor'
+2018-12-24 18:35:43 -Initializing ExecutorService  'clientOutboundChannelExecutor'
+2018-12-24 18:35:46 -ProcessEngine default created
+2018-12-24 18:35:47 -Mapped "{[/error]}" onto public top.cflwork.util.R top.cflwork.common.exception.MainsiteErrorController.handleError(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-12-24 18:35:47 -Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView top.cflwork.common.exception.MainsiteErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-12-24 18:35:47 -Mapped "{[/blog/open/post/{cid}],methods=[GET]}" onto java.lang.String top.cflwork.controller.BlogController.post(java.lang.Long,org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/blog],methods=[GET]}" onto public java.lang.String top.cflwork.controller.BlogController.blog()
+2018-12-24 18:35:47 -Mapped "{[/blog/open/list],methods=[GET]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.BlogController.opentList(java.util.Map<java.lang.String, java.lang.Object>)
+2018-12-24 18:35:47 -Mapped "{[/blog/open/page/{categories}],methods=[GET]}" onto java.lang.String top.cflwork.controller.BlogController.about(java.lang.String,org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/system/book/add],methods=[GET]}" onto java.lang.String top.cflwork.controller.BookController.add()
+2018-12-24 18:35:47 -Mapped "{[/system/book/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.BookController.remove(java.lang.Long)
+2018-12-24 18:35:47 -Mapped "{[/system/book/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.BookController.remove(java.lang.Long[])
+2018-12-24 18:35:47 -Mapped "{[/system/book/update]}" onto public top.cflwork.util.R top.cflwork.controller.BookController.update(top.cflwork.domain.BookDO)
+2018-12-24 18:35:47 -Mapped "{[/system/book/list],methods=[GET]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.BookController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-12-24 18:35:47 -Mapped "{[/system/book/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.BookController.save(top.cflwork.domain.BookDO)
+2018-12-24 18:35:47 -Mapped "{[/system/book/edit/{id}],methods=[GET]}" onto java.lang.String top.cflwork.controller.BookController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/system/book/lookPpt]}" onto public void top.cflwork.controller.BookController.lookPpt(java.lang.String,javax.servlet.http.HttpServletResponse) throws java.lang.Exception
+2018-12-24 18:35:47 -Mapped "{[/system/book/downLoad]}" onto public void top.cflwork.controller.BookController.pdfDownLoad(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-12-24 18:35:47 -Mapped "{[/system/book/lookDoc]}" onto public void top.cflwork.controller.BookController.word(java.lang.String,javax.servlet.http.HttpServletResponse) throws java.lang.Exception
+2018-12-24 18:35:47 -Mapped "{[/system/book],methods=[GET]}" onto java.lang.String top.cflwork.controller.BookController.Book()
+2018-12-24 18:35:47 -Mapped "{[/blog/bContent/add],methods=[GET]}" onto java.lang.String top.cflwork.controller.ContentController.add()
+2018-12-24 18:35:47 -Mapped "{[/blog/bContent/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ContentController.remove(java.lang.Long)
+2018-12-24 18:35:47 -Mapped "{[/blog/bContent/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ContentController.remove(java.lang.Long[])
+2018-12-24 18:35:47 -Mapped "{[/blog/bContent/update]}" onto public top.cflwork.util.R top.cflwork.controller.ContentController.update(top.cflwork.domain.ContentDO)
+2018-12-24 18:35:47 -Mapped "{[/blog/bContent/list],methods=[GET]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.ContentController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-12-24 18:35:47 -Mapped "{[/blog/bContent/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ContentController.save(top.cflwork.domain.ContentDO)
+2018-12-24 18:35:47 -Mapped "{[/blog/bContent],methods=[GET]}" onto java.lang.String top.cflwork.controller.ContentController.bContent()
+2018-12-24 18:35:47 -Mapped "{[/blog/bContent/edit/{cid}],methods=[GET]}" onto java.lang.String top.cflwork.controller.ContentController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/sysDept/add/{pId}],methods=[GET]}" onto java.lang.String top.cflwork.controller.DeptController.add(java.lang.Long,org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/sysDept/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.DeptController.remove(java.lang.Long)
+2018-12-24 18:35:47 -Mapped "{[/sysDept/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.DeptController.remove(java.lang.Long[])
+2018-12-24 18:35:47 -Mapped "{[/sysDept/update]}" onto public top.cflwork.util.R top.cflwork.controller.DeptController.update(top.cflwork.domain.DeptDO)
+2018-12-24 18:35:47 -Mapped "{[/sysDept/list],methods=[GET]}" onto public java.util.List<top.cflwork.domain.DeptDO> top.cflwork.controller.DeptController.list()
+2018-12-24 18:35:47 -Mapped "{[/sysDept/save]}" onto public top.cflwork.util.R top.cflwork.controller.DeptController.save(top.cflwork.domain.DeptDO)
+2018-12-24 18:35:47 -Mapped "{[/sysDept/tree],methods=[GET]}" onto public top.cflwork.vo.Tree<top.cflwork.domain.DeptDO> top.cflwork.controller.DeptController.tree()
+2018-12-24 18:35:47 -Mapped "{[/sysDept/edit/{deptId}],methods=[GET]}" onto java.lang.String top.cflwork.controller.DeptController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/sysDept/sysDeptPage],methods=[GET]}" onto java.lang.String top.cflwork.controller.DeptController.dept()
+2018-12-24 18:35:47 -Mapped "{[/sysDept/treeView],methods=[GET]}" onto java.lang.String top.cflwork.controller.DeptController.treeView()
+2018-12-24 18:35:47 -Mapped "{[/common/dict/add],methods=[GET]}" onto java.lang.String top.cflwork.controller.DictController.add()
+2018-12-24 18:35:47 -Mapped "{[/common/dict/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.DictController.remove(java.lang.Long)
+2018-12-24 18:35:47 -Mapped "{[/common/dict/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.DictController.remove(java.lang.Long[])
+2018-12-24 18:35:47 -Mapped "{[/common/dict/update]}" onto public top.cflwork.util.R top.cflwork.controller.DictController.update(top.cflwork.vo.DictDO)
+2018-12-24 18:35:47 -Mapped "{[/common/dict/list],methods=[GET]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.DictController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-12-24 18:35:47 -Mapped "{[/common/dict/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.DictController.save(top.cflwork.vo.DictDO)
+2018-12-24 18:35:47 -Mapped "{[/common/dict/type],methods=[GET]}" onto public java.util.List<top.cflwork.vo.DictDO> top.cflwork.controller.DictController.listType()
+2018-12-24 18:35:47 -Mapped "{[/common/dict/edit/{id}],methods=[GET]}" onto java.lang.String top.cflwork.controller.DictController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/common/dict/add/{type}/{description}],methods=[GET]}" onto java.lang.String top.cflwork.controller.DictController.addD(org.springframework.ui.Model,java.lang.String,java.lang.String)
+2018-12-24 18:35:47 -Mapped "{[/common/dict/list/{type}],methods=[GET]}" onto public java.util.List<top.cflwork.vo.DictDO> top.cflwork.controller.DictController.listByType(java.lang.String)
+2018-12-24 18:35:47 -Mapped "{[/common/dict],methods=[GET]}" onto java.lang.String top.cflwork.controller.DictController.dict()
+2018-12-24 18:35:47 -Mapped "{[/common/sysFile/add],methods=[GET]}" onto java.lang.String top.cflwork.controller.FileController.add()
+2018-12-24 18:35:47 -Mapped "{[/common/sysFile/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.FileController.remove(java.lang.Long,javax.servlet.http.HttpServletRequest)
+2018-12-24 18:35:47 -Mapped "{[/common/sysFile/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.FileController.remove(java.lang.Long[])
+2018-12-24 18:35:47 -Mapped "{[/common/sysFile/update]}" onto public top.cflwork.util.R top.cflwork.controller.FileController.update(top.cflwork.vo.FileDO)
+2018-12-24 18:35:47 -Mapped "{[/common/sysFile/list],methods=[GET]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.FileController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-12-24 18:35:47 -Mapped "{[/common/sysFile/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.FileController.save(top.cflwork.vo.FileDO)
+2018-12-24 18:35:47 -Mapped "{[/common/sysFile/info/{id}]}" onto public top.cflwork.util.R top.cflwork.controller.FileController.info(java.lang.Long)
+2018-12-24 18:35:47 -Mapped "{[/common/sysFile/edit],methods=[GET]}" onto java.lang.String top.cflwork.controller.FileController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/common/sysFile],methods=[GET]}" onto java.lang.String top.cflwork.controller.FileController.sysFile(org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/common/sysFile/upload],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.FileController.upload(org.springframework.web.multipart.MultipartFile,javax.servlet.http.HttpServletRequest)
+2018-12-24 18:35:47 -Mapped "{[/common/generator/update],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.GeneratorController.update(java.util.Map<java.lang.String, java.lang.Object>)
+2018-12-24 18:35:47 -Mapped "{[/common/generator/list],methods=[GET]}" onto java.util.List<java.util.Map<java.lang.String, java.lang.Object>> top.cflwork.controller.GeneratorController.list()
+2018-12-24 18:35:47 -Mapped "{[/common/generator/code/{tableName}]}" onto public void top.cflwork.controller.GeneratorController.code(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String) throws java.io.IOException
+2018-12-24 18:35:47 -Mapped "{[/common/generator],methods=[GET]}" onto java.lang.String top.cflwork.controller.GeneratorController.generator()
+2018-12-24 18:35:47 -Mapped "{[/common/generator/edit],methods=[GET]}" onto public java.lang.String top.cflwork.controller.GeneratorController.edit(org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/common/generator/batchCode]}" onto public void top.cflwork.controller.GeneratorController.batchCode(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String) throws java.io.IOException
+2018-12-24 18:35:47 -Mapped "{[/common/job/add],methods=[GET]}" onto java.lang.String top.cflwork.controller.JobController.add()
+2018-12-24 18:35:47 -Mapped "{[/common/job/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.JobController.remove(java.lang.Long)
+2018-12-24 18:35:47 -Mapped "{[/common/job/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.JobController.remove(java.lang.Long[])
+2018-12-24 18:35:47 -Mapped "{[/common/job/update],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.JobController.update(top.cflwork.vo.TaskDO)
+2018-12-24 18:35:47 -Mapped "{[/common/job/list],methods=[GET]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.JobController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-12-24 18:35:47 -Mapped "{[/common/job/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.JobController.save(top.cflwork.vo.TaskDO)
+2018-12-24 18:35:47 -Mapped "{[/common/job/info/{id}]}" onto public top.cflwork.util.R top.cflwork.controller.JobController.info(java.lang.Long)
+2018-12-24 18:35:47 -Mapped "{[/common/job/edit/{id}],methods=[GET]}" onto java.lang.String top.cflwork.controller.JobController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/common/job],methods=[GET]}" onto java.lang.String top.cflwork.controller.JobController.taskScheduleJob()
+2018-12-24 18:35:47 -Mapped "{[/common/job/changeJobStatus],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.JobController.changeJobStatus(java.lang.Long,java.lang.String)
+2018-12-24 18:35:47 -Mapped "{[/common/log/remove],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.LogController.remove(java.lang.Long)
+2018-12-24 18:35:47 -Mapped "{[/common/log],methods=[GET]}" onto java.lang.String top.cflwork.controller.LogController.log()
+2018-12-24 18:35:47 -Mapped "{[/common/log/list],methods=[GET]}" onto top.cflwork.vo.PageDO<top.cflwork.vo.LogDO> top.cflwork.controller.LogController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-12-24 18:35:47 -Mapped "{[/common/log/batchRemove],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.LogController.batchRemove(java.lang.Long[])
+2018-12-24 18:35:47 -Mapped "{[/index],methods=[GET]}" onto org.springframework.web.servlet.ModelAndView top.cflwork.controller.LoginController.index(org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/main],methods=[GET]}" onto java.lang.String top.cflwork.controller.LoginController.main()
+2018-12-24 18:35:47 -Mapped "{[/login],methods=[GET]}" onto java.lang.String top.cflwork.controller.LoginController.login()
+2018-12-24 18:35:47 -Mapped "{[/logout],methods=[GET]}" onto java.lang.String top.cflwork.controller.LoginController.logout()
+2018-12-24 18:35:47 -Mapped "{[/login],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.LoginController.ajaxLogin(java.lang.String,java.lang.String)
+2018-12-24 18:35:47 -Mapped "{[/ || ],methods=[GET]}" onto java.lang.String top.cflwork.controller.LoginController.welcome(org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/menu/add/{pId}],methods=[GET]}" onto java.lang.String top.cflwork.controller.MenuController.add(org.springframework.ui.Model,java.lang.Long)
+2018-12-24 18:35:47 -Mapped "{[/menu/remove],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.MenuController.remove(java.lang.Long)
+2018-12-24 18:35:47 -Mapped "{[/menu/update],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.MenuController.update(top.cflwork.domain.MenuDO)
+2018-12-24 18:35:47 -Mapped "{[/menu/list]}" onto java.util.List<top.cflwork.domain.MenuDO> top.cflwork.controller.MenuController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-12-24 18:35:47 -Mapped "{[/menu/save],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.MenuController.save(top.cflwork.domain.MenuDO)
+2018-12-24 18:35:47 -Mapped "{[/menu/tree/{roleId}],methods=[GET]}" onto top.cflwork.vo.Tree<top.cflwork.domain.MenuDO> top.cflwork.controller.MenuController.tree(java.lang.Long)
+2018-12-24 18:35:47 -Mapped "{[/menu/tree],methods=[GET]}" onto top.cflwork.vo.Tree<top.cflwork.domain.MenuDO> top.cflwork.controller.MenuController.tree()
+2018-12-24 18:35:47 -Mapped "{[/menu/edit/{id}],methods=[GET]}" onto java.lang.String top.cflwork.controller.MenuController.edit(org.springframework.ui.Model,java.lang.Long)
+2018-12-24 18:35:47 -Mapped "{[/menu/menuPage],methods=[GET]}" onto java.lang.String top.cflwork.controller.MenuController.menu(org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/activiti/model/{id}],methods=[DELETE]}" onto public top.cflwork.util.R top.cflwork.controller.ModelController.remove(java.lang.String)
+2018-12-24 18:35:47 -Mapped "{[/activiti/model/list],methods=[GET]}" onto top.cflwork.util.PageUtils top.cflwork.controller.ModelController.list(int,int)
+2018-12-24 18:35:47 -Mapped "{[/activiti/model/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ModelController.batchRemove(java.lang.String[])
+2018-12-24 18:35:47 -Mapped "{[/activiti/model],methods=[GET]}" onto org.springframework.web.servlet.ModelAndView top.cflwork.controller.ModelController.model()
+2018-12-24 18:35:47 -Mapped "{[/activiti/model/edit/{id}],methods=[GET]}" onto public void top.cflwork.controller.ModelController.edit(javax.servlet.http.HttpServletResponse,java.lang.String)
+2018-12-24 18:35:47 -Mapped "{[/activiti/model/add]}" onto public void top.cflwork.controller.ModelController.newModel(javax.servlet.http.HttpServletResponse) throws java.io.UnsupportedEncodingException
+2018-12-24 18:35:47 -Mapped "{[/activiti/model/deploy/{id}],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ModelController.deploy(java.lang.String) throws java.lang.Exception
+2018-12-24 18:35:47 -Mapped "{[/activiti/model/{modelId}/save],methods=[PUT]}" onto public void top.cflwork.controller.ModelController.saveModel(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String)
+2018-12-24 18:35:47 -Mapped "{[/activiti/editor/stencilset],methods=[GET],produces=[application/json;charset=utf-8]}" onto public java.lang.String top.cflwork.controller.ModelController.getStencilset()
+2018-12-24 18:35:47 -Mapped "{[/activiti/model/{modelId}/json],methods=[GET]}" onto public com.fasterxml.jackson.databind.node.ObjectNode top.cflwork.controller.ModelController.getEditorJson(java.lang.String)
+2018-12-24 18:35:47 -Mapped "{[/activiti/model/export/{id}],methods=[GET]}" onto public void top.cflwork.controller.ModelController.exportToXml(java.lang.String,javax.servlet.http.HttpServletResponse)
+2018-12-24 18:35:47 -Mapped "{[/oa/notify/add],methods=[GET]}" onto java.lang.String top.cflwork.controller.NotifyController.add()
+2018-12-24 18:35:47 -Mapped "{[/oa/notify/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.NotifyController.remove(java.lang.Long)
+2018-12-24 18:35:47 -Mapped "{[/oa/notify/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.NotifyController.remove(java.lang.Long[])
+2018-12-24 18:35:47 -Mapped "{[/oa/notify/update]}" onto public top.cflwork.util.R top.cflwork.controller.NotifyController.update(top.cflwork.domain.NotifyDO)
+2018-12-24 18:35:47 -Mapped "{[/oa/notify/read/{id}],methods=[GET]}" onto java.lang.String top.cflwork.controller.NotifyController.read(java.lang.Long,org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/oa/notify/list],methods=[GET]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.NotifyController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-12-24 18:35:47 -Mapped "{[/oa/notify/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.NotifyController.save(top.cflwork.domain.NotifyDO)
+2018-12-24 18:35:47 -Mapped "{[/oa/notify/message],methods=[GET]}" onto top.cflwork.util.PageUtils top.cflwork.controller.NotifyController.message()
+2018-12-24 18:35:47 -Mapped "{[/oa/notify/edit/{id}],methods=[GET]}" onto java.lang.String top.cflwork.controller.NotifyController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/oa/notify],methods=[GET]}" onto java.lang.String top.cflwork.controller.NotifyController.oaNotify()
+2018-12-24 18:35:47 -Mapped "{[/oa/notify/selfNotify],methods=[GET]}" onto java.lang.String top.cflwork.controller.NotifyController.selefNotify()
+2018-12-24 18:35:47 -Mapped "{[/oa/notify/selfList],methods=[GET]}" onto top.cflwork.util.PageUtils top.cflwork.controller.NotifyController.selfList(java.util.Map<java.lang.String, java.lang.Object>)
+2018-12-24 18:35:47 -Mapped "{[/activiti/process/add],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView top.cflwork.controller.ProcessController.add()
+2018-12-24 18:35:47 -Mapped "{[/activiti/process/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ProcessController.remove(java.lang.String)
+2018-12-24 18:35:47 -Mapped "{[/activiti/process/list],methods=[GET]}" onto top.cflwork.util.PageUtils top.cflwork.controller.ProcessController.list(int,int)
+2018-12-24 18:35:47 -Mapped "{[/activiti/process/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ProcessController.batchRemove(java.lang.String[])
+2018-12-24 18:35:47 -Mapped "{[/activiti/process],methods=[GET]}" onto org.springframework.web.servlet.ModelAndView top.cflwork.controller.ProcessController.process()
+2018-12-24 18:35:47 -Mapped "{[/activiti/process/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ProcessController.deploy(java.lang.String,java.lang.String,org.springframework.web.multipart.MultipartFile)
+2018-12-24 18:35:47 -Mapped "{[/activiti/process/convertToModel/{procDefId}]}" onto public top.cflwork.util.R top.cflwork.controller.ProcessController.convertToModel(java.lang.String,org.springframework.web.servlet.mvc.support.RedirectAttributes) throws java.io.UnsupportedEncodingException,javax.xml.stream.XMLStreamException
+2018-12-24 18:35:47 -Mapped "{[/activiti/process/resource/read/{xml}/{id}]}" onto public void top.cflwork.controller.ProcessController.resourceRead(java.lang.String,java.lang.String,javax.servlet.http.HttpServletResponse) throws java.lang.Exception
+2018-12-24 18:35:47 -Mapped "{[/role/add],methods=[GET]}" onto java.lang.String top.cflwork.controller.RoleController.add()
+2018-12-24 18:35:47 -Mapped "{[/role/update],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.RoleController.update(top.cflwork.domain.RoleDO)
+2018-12-24 18:35:47 -Mapped "{[/role/list],methods=[GET]}" onto java.util.List<top.cflwork.domain.RoleDO> top.cflwork.controller.RoleController.list()
+2018-12-24 18:35:47 -Mapped "{[/role/remove],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.RoleController.save(java.lang.Long)
+2018-12-24 18:35:47 -Mapped "{[/role/save],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.RoleController.save(top.cflwork.domain.RoleDO)
+2018-12-24 18:35:47 -Mapped "{[/role/batchRemove],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.RoleController.batchRemove(java.lang.Long[])
+2018-12-24 18:35:47 -Mapped "{[/role/rolePage],methods=[GET]}" onto java.lang.String top.cflwork.controller.RoleController.role()
+2018-12-24 18:35:47 -Mapped "{[/role/edit/{id}],methods=[GET]}" onto java.lang.String top.cflwork.controller.RoleController.edit(java.lang.Long,org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/act/salary/form],methods=[GET]}" onto java.lang.String top.cflwork.controller.SalaryController.add()
+2018-12-24 18:35:47 -Mapped "{[/act/salary/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SalaryController.remove(java.lang.String)
+2018-12-24 18:35:47 -Mapped "{[/act/salary/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SalaryController.remove(java.lang.String[])
+2018-12-24 18:35:47 -Mapped "{[/act/salary/update]}" onto public top.cflwork.util.R top.cflwork.controller.SalaryController.update(top.cflwork.domain.SalaryDO)
+2018-12-24 18:35:47 -Mapped "{[/act/salary/list],methods=[GET]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.SalaryController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-12-24 18:35:47 -Mapped "{[/act/salary/form/{taskId}],methods=[GET]}" onto java.lang.String top.cflwork.controller.SalaryController.edit(java.lang.String,org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/act/salary],methods=[GET]}" onto java.lang.String top.cflwork.controller.SalaryController.Salary()
+2018-12-24 18:35:47 -Mapped "{[/act/salary/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SalaryController.saveOrUpdate(top.cflwork.domain.SalaryDO)
+2018-12-24 18:35:47 -Mapped "{[/sys/online/list]}" onto public java.util.List<top.cflwork.domain.UserOnline> top.cflwork.controller.SessionController.list()
+2018-12-24 18:35:47 -Mapped "{[/sys/online],methods=[GET]}" onto public java.lang.String top.cflwork.controller.SessionController.online()
+2018-12-24 18:35:47 -Mapped "{[/sys/online/sessionList]}" onto public java.util.Collection<org.apache.shiro.session.Session> top.cflwork.controller.SessionController.sessionList()
+2018-12-24 18:35:47 -Mapped "{[/sys/online/forceLogout/{sessionId}]}" onto public top.cflwork.util.R top.cflwork.controller.SessionController.forceLogout(java.lang.String,org.springframework.web.servlet.mvc.support.RedirectAttributes)
+2018-12-24 18:35:47 -Mapped "{[/activiti/task/form/{procDefId}/{taskId}],methods=[GET]}" onto public void top.cflwork.controller.TaskController.form(java.lang.String,java.lang.String,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2018-12-24 18:35:47 -Mapped "{[/activiti/task/gotoList],methods=[GET]}" onto top.cflwork.util.PageUtils top.cflwork.controller.TaskController.list(int,int)
+2018-12-24 18:35:47 -Mapped "{[/activiti/task/form/{procDefId}],methods=[GET]}" onto public void top.cflwork.controller.TaskController.startForm(java.lang.String,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2018-12-24 18:35:47 -Mapped "{[/activiti/task/todoList],methods=[GET]}" onto java.util.List<top.cflwork.vo.TaskVO> top.cflwork.controller.TaskController.todoList()
+2018-12-24 18:35:47 -Mapped "{[/activiti/task/todo],methods=[GET]}" onto org.springframework.web.servlet.ModelAndView top.cflwork.controller.TaskController.todo()
+2018-12-24 18:35:47 -Mapped "{[/activiti/task/trace/photo/{procDefId}/{execId}]}" onto public void top.cflwork.controller.TaskController.tracePhoto(java.lang.String,java.lang.String,javax.servlet.http.HttpServletResponse) throws java.lang.Exception
+2018-12-24 18:35:47 -Mapped "{[/activiti/task/goto],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView top.cflwork.controller.TaskController.gotoTask()
+2018-12-24 18:35:47 -Mapped "{[/user/exit],methods=[POST]}" onto boolean top.cflwork.controller.UserController.exit(java.util.Map<java.lang.String, java.lang.Object>)
+2018-12-24 18:35:47 -Mapped "{[/user/add],methods=[GET]}" onto java.lang.String top.cflwork.controller.UserController.add(org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/user/remove],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.UserController.remove(java.lang.Long)
+2018-12-24 18:35:47 -Mapped "{[/user/update],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.UserController.update(top.cflwork.domain.UserDO)
+2018-12-24 18:35:47 -Mapped "{[/user/list],methods=[GET]}" onto top.cflwork.util.PageUtils top.cflwork.controller.UserController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2018-12-24 18:35:47 -Mapped "{[/user/save],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.UserController.save(top.cflwork.domain.UserDO)
+2018-12-24 18:35:47 -Mapped "{[/user/batchRemove],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.UserController.batchRemove(java.lang.Long[])
+2018-12-24 18:35:47 -Mapped "{[/user/tree],methods=[GET]}" onto public top.cflwork.vo.Tree<top.cflwork.domain.DeptDO> top.cflwork.controller.UserController.tree()
+2018-12-24 18:35:47 -Mapped "{[/user/getInfo],methods=[GET]}" onto public top.cflwork.util.R top.cflwork.controller.UserController.getInfo()
+2018-12-24 18:35:47 -Mapped "{[/user/userPage],methods=[GET]}" onto java.lang.String top.cflwork.controller.UserController.user()
+2018-12-24 18:35:47 -Mapped "{[/user/edit/{id}],methods=[GET]}" onto java.lang.String top.cflwork.controller.UserController.edit(org.springframework.ui.Model,java.lang.Long)
+2018-12-24 18:35:47 -Mapped "{[/user/treeView],methods=[GET]}" onto java.lang.String top.cflwork.controller.UserController.treeView()
+2018-12-24 18:35:47 -Mapped "{[/user/resetPwd/{id}],methods=[GET]}" onto java.lang.String top.cflwork.controller.UserController.resetPwd(java.lang.Long,org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/user/resetPwd],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.UserController.resetPwd(top.cflwork.vo.UserVO)
+2018-12-24 18:35:47 -Mapped "{[/user/updatePeronal],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.UserController.updatePeronal(top.cflwork.domain.UserDO)
+2018-12-24 18:35:47 -Mapped "{[/user/uploadImg],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.UserController.uploadImg(org.springframework.web.multipart.MultipartFile,java.lang.String,javax.servlet.http.HttpServletRequest)
+2018-12-24 18:35:47 -Mapped "{[/user/updateHeadIcon],methods=[POST]}" onto public top.cflwork.vo.FileVo top.cflwork.controller.UserController.updateImg(org.springframework.web.multipart.MultipartFile,javax.servlet.http.HttpServletRequest)
+2018-12-24 18:35:47 -Mapped "{[/user/adminResetPwd],methods=[POST]}" onto top.cflwork.util.R top.cflwork.controller.UserController.adminResetPwd(top.cflwork.vo.UserVO)
+2018-12-24 18:35:47 -Mapped "{[/user/personal],methods=[GET]}" onto java.lang.String top.cflwork.controller.UserController.personal(org.springframework.ui.Model)
+2018-12-24 18:35:47 -Mapped "{[/swagger-resources]}" onto public org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2018-12-24 18:35:47 -Mapped "{[/swagger-resources/configuration/ui]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2018-12-24 18:35:47 -Mapped "{[/swagger-resources/configuration/security]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2018-12-24 18:35:47 -Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2018-12-24 18:35:48 -Initializing ExecutorService  'messageBrokerTaskScheduler'
+2018-12-24 18:35:48 -Mapped URL path [/endpointChat/**] onto handler of type [class org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler]
+2018-12-24 18:35:48 -Initializing ExecutorService  'brokerChannelExecutor'
+2018-12-24 18:35:48 -Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-12-24 18:35:48 -Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@16d63441: startup date [Mon Dec 24 18:35:38 CST 2018]; root of context hierarchy
+2018-12-24 18:35:48 -Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-12-24 18:35:48 -Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-12-24 18:35:48 -Mapped URL path [/files/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-12-24 18:35:48 -Detected @ExceptionHandler methods in BDExceptionHandler
+2018-12-24 18:35:48 -[THYMELEAF][restartedMain] Template Mode 'LEGACYHTML5' is deprecated. Using Template Mode 'HTML' instead.
+2018-12-24 18:35:48 -init cache area default , type= redis
+2018-12-24 18:35:48 -init cache area default , type= linkedhashmap
+2018-12-24 18:35:48 -cache stat period at 15 MINUTES
+2018-12-24 18:35:49 -LiveReload server is running on port 35729
+2018-12-24 18:35:49 -Registering beans for JMX exposure on startup
+2018-12-24 18:35:49 -Bean with name 'dataSource' has been autodetected for JMX exposure
+2018-12-24 18:35:49 -Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+2018-12-24 18:35:49 -Starting beans in phase 2147483647
+2018-12-24 18:35:49 -Context refreshed
+2018-12-24 18:35:49 -Found 1 custom documentation plugin(s)
+2018-12-24 18:35:50 -Scanning for api listing references
+2018-12-24 18:35:50 -Starting Quartz Scheduler now
+2018-12-24 18:35:50 -Scheduler schedulerFactoryBean_$_NON_CLUSTERED started.
+2018-12-24 18:35:50 -Starting...
+2018-12-24 18:35:50 -BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+2018-12-24 18:35:50 -Started.
+2018-12-24 18:35:50 -Starting ProtocolHandler ["http-nio-8088"]
+2018-12-24 18:35:50 -Using a shared selector for servlet write/read
+2018-12-24 18:35:50 -Tomcat started on port(s): 8088 (http) with context path ''
+2018-12-24 18:35:50 -Started LibraryApplication in 12.714 seconds (JVM running for 13.753)
+2018-12-24 18:36:03 -Initializing Spring FrameworkServlet 'dispatcherServlet'
+2018-12-24 18:36:03 -FrameworkServlet 'dispatcherServlet': initialization started
+2018-12-24 18:36:03 -FrameworkServlet 'dispatcherServlet': initialization completed in 27 ms
+2018-12-24 18:36:03 -Enabling session validation scheduler...
+2018-12-24 18:36:03 -请求地址 : http://localhost:8088/
+2018-12-24 18:36:03 -HTTP METHOD : GET
+2018-12-24 18:36:03 -CLASS_METHOD : top.cflwork.controller.LoginController.welcome
+2018-12-24 18:36:03 -参数 : [{}]
+2018-12-24 18:36:03 -耗时 : 2
+2018-12-24 18:36:03 -请求地址 : http://localhost:8088/blog
+2018-12-24 18:36:03 -HTTP METHOD : GET
+2018-12-24 18:36:03 -CLASS_METHOD : top.cflwork.controller.BlogController.blog
+2018-12-24 18:36:03 -参数 : []
+2018-12-24 18:36:03 -耗时 : 4
+2018-12-24 18:36:04 -请求地址 : http://localhost:8088/blog/open/list
+2018-12-24 18:36:04 -HTTP METHOD : GET
+2018-12-24 18:36:04 -CLASS_METHOD : top.cflwork.controller.BlogController.opentList
+2018-12-24 18:36:04 -参数 : [{type=article, limit=10, offset=0}]
+2018-12-24 18:36:04 -耗时 : 150
+2018-12-24 18:36:04 -请求地址 : http://localhost:8088/login;JSESSIONID=ab77c95d-0730-4bed-bc4c-5aa38398b81e
+2018-12-24 18:36:04 -HTTP METHOD : GET
+2018-12-24 18:36:04 -CLASS_METHOD : top.cflwork.controller.LoginController.login
+2018-12-24 18:36:04 -参数 : []
+2018-12-24 18:36:04 -耗时 : 1
+2018-12-24 18:36:05 -请求地址 : http://localhost:8088/login
+2018-12-24 18:36:05 -HTTP METHOD : GET
+2018-12-24 18:36:05 -CLASS_METHOD : top.cflwork.controller.LoginController.login
+2018-12-24 18:36:05 -参数 : []
+2018-12-24 18:36:05 -耗时 : 1
+2018-12-24 18:36:05 -请求地址 : http://localhost:8088/login
+2018-12-24 18:36:05 -HTTP METHOD : GET
+2018-12-24 18:36:05 -CLASS_METHOD : top.cflwork.controller.LoginController.login
+2018-12-24 18:36:05 -参数 : []
+2018-12-24 18:36:05 -耗时 : 0
+2018-12-24 18:36:07 -请求地址 : http://localhost:8088/login
+2018-12-24 18:36:07 -HTTP METHOD : POST
+2018-12-24 18:36:07 -CLASS_METHOD : top.cflwork.controller.LoginController.ajaxLogin
+2018-12-24 18:36:07 -参数 : [admin, 111111]
+2018-12-24 18:36:07 -耗时 : 82
+2018-12-24 18:36:07 -More than one TaskExecutor bean found within the context, and none is named 'taskExecutor'. Mark one of them as primary or name it 'taskExecutor' (possibly as an alias) in order to use it for async processing: [clientInboundChannelExecutor, clientOutboundChannelExecutor, brokerChannelExecutor, messageBrokerTaskScheduler]
+2018-12-24 18:36:07 -请求地址 : http://localhost:8088/index
+2018-12-24 18:36:07 -HTTP METHOD : GET
+2018-12-24 18:36:07 -CLASS_METHOD : top.cflwork.controller.LoginController.index
+2018-12-24 18:36:07 -参数 : [{}]
+2018-12-24 18:36:07 -耗时 : 196
+2018-12-24 18:36:07 -请求地址 : http://localhost:8088/main
+2018-12-24 18:36:07 -HTTP METHOD : GET
+2018-12-24 18:36:07 -CLASS_METHOD : top.cflwork.controller.LoginController.main
+2018-12-24 18:36:07 -参数 : []
+2018-12-24 18:36:07 -耗时 : 0
+2018-12-24 18:36:07 -请求地址 : http://localhost:8088/user/getInfo
+2018-12-24 18:36:07 -HTTP METHOD : GET
+2018-12-24 18:36:07 -CLASS_METHOD : top.cflwork.controller.UserController.getInfo
+2018-12-24 18:36:07 -参数 : []
+2018-12-24 18:36:07 -请求地址 : http://localhost:8088/oa/notify/message
+2018-12-24 18:36:07 -HTTP METHOD : GET
+2018-12-24 18:36:07 -CLASS_METHOD : top.cflwork.controller.NotifyController.message
+2018-12-24 18:36:07 -参数 : []
+2018-12-24 18:36:07 -耗时 : 17
+2018-12-24 18:36:07 -请求地址 : http://localhost:8088/main
+2018-12-24 18:36:07 -HTTP METHOD : GET
+2018-12-24 18:36:07 -CLASS_METHOD : top.cflwork.controller.LoginController.main
+2018-12-24 18:36:07 -参数 : []
+2018-12-24 18:36:07 -耗时 : 0
+2018-12-24 18:36:07 -耗时 : 85
+2018-12-24 18:36:15 -请求地址 : http://localhost:8088/user/updateHeadIcon
+2018-12-24 18:36:15 -HTTP METHOD : POST
+2018-12-24 18:36:15 -CLASS_METHOD : top.cflwork.controller.UserController.updateImg
+2018-12-24 18:36:15 -参数 : [org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@3bcb2946, org.springframework.web.multipart.support.StandardMultipartHttpServletRequest@6e989d78]
+2018-12-24 18:36:15 -耗时 : 773
+2018-12-24 18:36:15 -请求地址 : http://localhost:8088/user/getInfo
+2018-12-24 18:36:15 -HTTP METHOD : GET
+2018-12-24 18:36:15 -CLASS_METHOD : top.cflwork.controller.UserController.getInfo
+2018-12-24 18:36:15 -参数 : []
+2018-12-24 18:36:15 -耗时 : 4
+2018-12-24 18:36:20 -请求地址 : http://localhost:8088/index
+2018-12-24 18:36:20 -HTTP METHOD : GET
+2018-12-24 18:36:20 -CLASS_METHOD : top.cflwork.controller.LoginController.index
+2018-12-24 18:36:20 -参数 : [{}]
+2018-12-24 18:36:20 -耗时 : 7
+2018-12-24 18:36:20 -请求地址 : http://localhost:8088/main
+2018-12-24 18:36:20 -HTTP METHOD : GET
+2018-12-24 18:36:20 -CLASS_METHOD : top.cflwork.controller.LoginController.main
+2018-12-24 18:36:20 -参数 : []
+2018-12-24 18:36:20 -耗时 : 1
+2018-12-24 18:36:20 -请求地址 : http://localhost:8088/user/getInfo
+2018-12-24 18:36:20 -HTTP METHOD : GET
+2018-12-24 18:36:20 -CLASS_METHOD : top.cflwork.controller.UserController.getInfo
+2018-12-24 18:36:20 -参数 : []
+2018-12-24 18:36:20 -请求地址 : http://localhost:8088/oa/notify/message
+2018-12-24 18:36:20 -HTTP METHOD : GET
+2018-12-24 18:36:20 -CLASS_METHOD : top.cflwork.controller.NotifyController.message
+2018-12-24 18:36:20 -参数 : []
+2018-12-24 18:36:20 -耗时 : 5
+2018-12-24 18:36:20 -耗时 : 3
+2018-12-24 18:36:20 -请求地址 : http://localhost:8088/main
+2018-12-24 18:36:20 -HTTP METHOD : GET
+2018-12-24 18:36:20 -CLASS_METHOD : top.cflwork.controller.LoginController.main
+2018-12-24 18:36:20 -参数 : []
+2018-12-24 18:36:20 -耗时 : 1
+2018-12-24 18:36:36 -请求地址 : http://localhost:8088/user/updateHeadIcon
+2018-12-24 18:36:36 -HTTP METHOD : POST
+2018-12-24 18:36:36 -CLASS_METHOD : top.cflwork.controller.UserController.updateImg
+2018-12-24 18:36:36 -参数 : [org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@6ea08eea, org.springframework.web.multipart.support.StandardMultipartHttpServletRequest@75f90999]
+2018-12-24 18:36:37 -耗时 : 458
+2018-12-24 18:36:37 -请求地址 : http://localhost:8088/user/getInfo
+2018-12-24 18:36:37 -HTTP METHOD : GET
+2018-12-24 18:36:37 -CLASS_METHOD : top.cflwork.controller.UserController.getInfo
+2018-12-24 18:36:37 -参数 : []
+2018-12-24 18:36:37 -耗时 : 24
+2018-12-24 18:36:48 -WebSocketSession[1 current WS(1)-HttpStream(0)-HttpPoll(0), 2 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(2)-CONNECTED(2)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 8, active threads = 0, queued tasks = 0, completed tasks = 21], outboundChannelpool size = 3, active threads = 0, queued tasks = 0, completed tasks = 3], sockJsScheduler[pool size = 4, active threads = 1, queued tasks = 2, completed tasks = 10]
+2018-12-24 18:45:00 -jetcache stat from 2018-12-24 18:35:48,698 to 2018-12-24 18:45:00,007
+cache|       qps|   rate|           get|           hit|          fail|        expire|avgLoadTime|maxLoadTime
+-----+----------+-------+--------------+--------------+--------------+--------------+-----------+-----------
+-----+----------+-------+--------------+--------------+--------------+--------------+-----------+-----------
+
+2018-12-24 19:00:00 -jetcache stat from 2018-12-24 18:45:00,007 to 2018-12-24 19:00:00,006
+cache|       qps|   rate|           get|           hit|          fail|        expire|avgLoadTime|maxLoadTime
+-----+----------+-------+--------------+--------------+--------------+--------------+-----------+-----------
+-----+----------+-------+--------------+--------------+--------------+--------------+-----------+-----------
+
+2018-12-24 19:06:48 -WebSocketSession[1 current WS(1)-HttpStream(0)-HttpPoll(0), 2 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(2)-CONNECTED(2)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 21], outboundChannelpool size = 0, active threads = 0, queued tasks = 0, completed tasks = 3], sockJsScheduler[pool size = 4, active threads = 1, queued tasks = 2, completed tasks = 443]
+2018-12-24 19:15:00 -jetcache stat from 2018-12-24 19:00:00,006 to 2018-12-24 19:15:00,027
+cache|       qps|   rate|           get|           hit|          fail|        expire|avgLoadTime|maxLoadTime
+-----+----------+-------+--------------+--------------+--------------+--------------+-----------+-----------
+-----+----------+-------+--------------+--------------+--------------+--------------+-----------+-----------
+
+2018-12-24 19:17:25 -请求地址 : http://localhost:8088/login;JSESSIONID=e14bc659-2f82-4649-9d73-d3ff0bd578f3
+2018-12-24 19:17:25 -HTTP METHOD : GET
+2018-12-24 19:17:25 -CLASS_METHOD : top.cflwork.controller.LoginController.login
+2018-12-24 19:17:25 -参数 : []
+2018-12-24 19:17:25 -耗时 : 36
+2018-12-24 19:17:28 -请求地址 : http://localhost:8088/login;JSESSIONID=e14bc659-2f82-4649-9d73-d3ff0bd578f3
+2018-12-24 19:17:28 -HTTP METHOD : GET
+2018-12-24 19:17:28 -CLASS_METHOD : top.cflwork.controller.LoginController.login
+2018-12-24 19:17:28 -参数 : []
+2018-12-24 19:17:28 -耗时 : 26
+2018-12-24 19:17:34 -请求地址 : http://localhost:8088/login
+2018-12-24 19:17:34 -HTTP METHOD : POST
+2018-12-24 19:17:34 -CLASS_METHOD : top.cflwork.controller.LoginController.ajaxLogin
+2018-12-24 19:17:34 -参数 : [admin, 111111]
+2018-12-24 19:17:34 -耗时 : 863
+2018-12-24 19:17:35 -请求地址 : http://localhost:8088/index
+2018-12-24 19:17:35 -HTTP METHOD : GET
+2018-12-24 19:17:35 -CLASS_METHOD : top.cflwork.controller.LoginController.index
+2018-12-24 19:17:35 -参数 : [{}]
+2018-12-24 19:17:35 -耗时 : 194
+2018-12-24 19:17:57 -请求地址 : http://localhost:8088/main
+2018-12-24 19:17:57 -HTTP METHOD : GET
+2018-12-24 19:17:57 -CLASS_METHOD : top.cflwork.controller.LoginController.main
+2018-12-24 19:17:57 -参数 : []
+2018-12-24 19:17:57 -耗时 : 0
+2018-12-24 19:17:58 -请求地址 : http://localhost:8088/main
+2018-12-24 19:17:58 -HTTP METHOD : GET
+2018-12-24 19:17:58 -CLASS_METHOD : top.cflwork.controller.LoginController.main
+2018-12-24 19:17:58 -参数 : []
+2018-12-24 19:17:58 -耗时 : 0
+2018-12-24 19:17:58 -请求地址 : http://localhost:8088/user/getInfo
+2018-12-24 19:17:58 -HTTP METHOD : GET
+2018-12-24 19:17:58 -CLASS_METHOD : top.cflwork.controller.UserController.getInfo
+2018-12-24 19:17:58 -参数 : []
+2018-12-24 19:17:58 -请求地址 : http://localhost:8088/oa/notify/message
+2018-12-24 19:17:58 -HTTP METHOD : GET
+2018-12-24 19:17:58 -CLASS_METHOD : top.cflwork.controller.NotifyController.message
+2018-12-24 19:17:58 -参数 : []
+2018-12-24 19:17:58 -耗时 : 86
+2018-12-24 19:17:58 -耗时 : 291

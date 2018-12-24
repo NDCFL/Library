@@ -1,4 +1,4 @@
-var prefix = "/sys/user"
+var prefix = "/user"
 $(function () {
     laydate({
         elem : '#birth'
@@ -14,7 +14,7 @@ $("#base_save").click(function () {
             $.ajax({
                 cache : true,
                 type : "POST",
-                url :"/sys/user/updatePeronal",
+                url :"/user/updatePeronal",
                 data : $('#basicInfoForm').serialize(),
                 async : false,
                 error : function(request) {
@@ -36,7 +36,7 @@ $("#pwd_save").click(function () {
         $.ajax({
             cache : true,
             type : "POST",
-            url :"/sys/user/resetPwd",
+            url :"/user/resetPwd",
             data : $('#modifyPwd').serialize(),
             async : false,
             error : function(request) {

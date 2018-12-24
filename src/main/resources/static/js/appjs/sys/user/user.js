@@ -1,4 +1,4 @@
-var prefix = "/sys/user"
+var prefix = "/user";
 $(function() {
 	var deptId = '';
 	getTreeData();
@@ -115,7 +115,7 @@ function remove(id) {
 		btn : [ '确定', '取消' ]
 	}, function() {
 		$.ajax({
-			url : "/sys/user/remove",
+			url : "/user/remove",
 			type : "post",
 			data : {
 				'id' : id
@@ -186,7 +186,7 @@ function batchRemove() {
 function getTreeData() {
 	$.ajax({
 		type : "GET",
-		url : "/system/sysDept/tree",
+		url : "/sysDept/tree",
 		success : function(tree) {
 			loadTree(tree);
 		}

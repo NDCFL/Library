@@ -80,7 +80,7 @@ var openUser = function(){
 		type:2,
 		title:"选择人员",
 		area : [ '300px', '450px' ],
-		content:"/sys/user/treeView"
+		content:"/user/treeView"
 	})
 }
 

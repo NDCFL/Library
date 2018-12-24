@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh_CN" xmlns:th="http://www.thymeleaf.org"
-	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<html>
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <body class="gray-bg">
@@ -21,11 +20,11 @@
 					<div class="ibox-body">
 						<div class="fixed-table-toolbar">
 							<div class="columns pull-left">
-								<button shiro:hasPermission="sys:user:add" type="button"
+								<button shiro:hasPermission="user:add" type="button"
 									class="btn  btn-primary" onclick="add()">
 									<i class="fa fa-plus hidden" aria-hidden="true"></i>添加
 								</button>
-								<button shiro:hasPermission="sys:user:batchRemove" type="button"
+								<button shiro:hasPermission="user:batchRemove" type="button"
 									class="btn  btn-danger" onclick="batchRemove()">
 									<i class="fa fa-trash hidden" aria-hidden="true"></i>删除
 								</button>
@@ -45,7 +44,7 @@
 				</div>
 			</div>
 		</div>
-		<!--shiro控制bootstraptable行内按钮看见性 来自library的创新方案 -->
+		<!--shiro控制bootstraptable行内按钮看见性 来自cflworks的创新方案 -->
 		<div>
 			<script type="text/javascript">
 				var s_edit_h = 'hidden';
@@ -53,17 +52,17 @@
 				var s_resetPwd_h = 'hidden';
 			</script>
 		</div>
-		<div shiro:hasPermission="sys:user:edit">
+		<div shiro:hasPermission="user:edit">
 			<script type="text/javascript">
 				s_edit_h = '';
 			</script>
 		</div>
-		<div shiro:hasPermission="sys:user:remove">
+		<div shiro:hasPermission="user:remove">
 			<script type="text/javascript">
 				var s_remove_h = '';
 			</script>
 		</div>
-		<div shiro:hasPermission="sys:user:resetPwd">
+		<div shiro:hasPermission="user:resetPwd">
 			<script type="text/javascript">
 				var s_resetPwd_h = '';
 			</script>

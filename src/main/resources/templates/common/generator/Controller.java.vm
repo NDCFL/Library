@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ${package}.domain.${className}DO;
 import ${package}.service.${className}Service;
-import com.library.common.utils.PageUtils;
-import com.library.common.utils.Query;
-import com.library.common.utils.R;
+import com.cflworks.common.utils.PageUtils;
+import com.cflworks.common.utils.Query;
+import com.cflworks.common.utils.R;
 
 /**
  * ${comments}
