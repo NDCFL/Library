@@ -2,7 +2,7 @@ package top.cflwork.service.impl;
 
 import top.cflwork.config.ActivitiConstant;
 import top.cflwork.dao.SalaryDao;
-import top.cflwork.domain.SalaryDO;
+import top.cflwork.domain.SalaryVo;
 import top.cflwork.service.SalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,12 +22,12 @@ public class SalaryServiceImpl implements SalaryService {
 	private ActTaskServiceImpl actTaskService;
 	
 	@Override
-	public SalaryDO get(String id){
+	public SalaryVo get(String id){
 		return salaryDao.get(id);
 	}
 	
 	@Override
-	public List<SalaryDO> list(Map<String, Object> map){
+	public List<SalaryVo> list(Map<String, Object> map){
 		return salaryDao.list(map);
 	}
 	
@@ -38,14 +38,14 @@ public class SalaryServiceImpl implements SalaryService {
 
 	@Transactional(rollbackFor=Exception.class)
 	@Override
-	public int save(SalaryDO salary){
+	public int save(SalaryVo salary){
 			salary.setId(UUID.randomUUID().toString().replace("-",""));
 			actTaskService.startProcess(ActivitiConstant.ACTIVITI_SALARY[0],ActivitiConstant.ACTIVITI_SALARY[1],salary.getId(),salary.getContent(),new HashMap<>());
 			return salaryDao.save(salary);
 	}
 	@Transactional(rollbackFor=Exception.class)
 	@Override
-	public int update(SalaryDO salary){
+	public int update(SalaryVo salary){
 		Map<String,Object> vars = new HashMap<>(16);
 		vars.put("pass",  salary.getTaskPass() );
 		vars.put("title","");

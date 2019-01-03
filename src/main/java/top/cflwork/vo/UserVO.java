@@ -1,6 +1,6 @@
 package top.cflwork.vo;
 
-import top.cflwork.domain.UserDO;
+import top.cflwork.domain.UserVo;
 
 /**
  * @author gaoyuzhe
@@ -10,7 +10,7 @@ public class UserVO {
     /**
      * 更新的用户对象
      */
-    private UserDO userDO = new UserDO();
+    private UserVo userDO = new UserVo();
     /**
      * 旧密码
      */
@@ -20,11 +20,11 @@ public class UserVO {
      */
     private String pwdNew;
 
-    public UserDO getUserDO() {
+    public UserVo getUserVo() {
         return userDO;
     }
 
-    public void setUserDO(UserDO userDO) {
+    public void setUserVo(UserVo userDO) {
         this.userDO = userDO;
     }
 

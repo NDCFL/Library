@@ -3,11 +3,11 @@
 
 <mapper namespace="top.cflwork.dao.UserDao">
 
-	<select id="get" resultType="top.cflwork.domain.UserDO">
+	<select id="get" resultType="top.cflwork.domain.UserVo">
 		select `user_id`,`username`,`name`,`password`,`dept_id`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`head_icon`,`live_address`,`hobby`,`province`,`city`,`district` from sys_user where user_id = #{value}
 	</select>
 
-	<select id="list" resultType="top.cflwork.domain.UserDO">
+	<select id="list" resultType="top.cflwork.domain.UserVo">
 		select `user_id`,`username`,`name`,`password`,`dept_id`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`head_icon`,`live_address`,`hobby`,`province`,`city`,`district` from sys_user
         <where>  
 		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
@@ -68,7 +68,7 @@
 		  		</where>
 	</select>
 	 
-	<insert id="save" parameterType="top.cflwork.domain.UserDO" useGeneratedKeys="true" keyProperty="userId">
+	<insert id="save" parameterType="top.cflwork.domain.UserVo" useGeneratedKeys="true" keyProperty="userId">
 		insert into sys_user
 		(
 			`username`, 
@@ -113,7 +113,7 @@
 		)
 	</insert>
 	 
-	<update id="update" parameterType="top.cflwork.domain.UserDO">
+	<update id="update" parameterType="top.cflwork.domain.UserVo">
 		update sys_user 
 		<set>
 			<if test="username != null">`username` = #{username}, </if>

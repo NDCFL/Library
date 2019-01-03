@@ -1,6 +1,6 @@
 package top.cflwork.service;
 
-import top.cflwork.vo.FileDO;
+import top.cflwork.vo.FileListVo;
 
 import java.util.List;
 import java.util.Map;
@@ -14,15 +14,15 @@ import java.util.Map;
  */
 public interface FileService {
 	
-	FileDO get(Long id);
+	FileListVo get(Long id);
 	
-	List<FileDO> list(Map<String, Object> map);
+	List<FileListVo> list(Map<String, Object> map);
 	
 	int count(Map<String, Object> map);
 	
-	int save(FileDO sysFile);
+	int save(FileListVo sysFile);
 	
-	int update(FileDO sysFile);
+	int update(FileListVo sysFile);
 	
 	int remove(Long id);
 	
@@ -30,7 +30,7 @@ public interface FileService {
 
 	/**
 	 * 判断一个文件是否存在
-	 * @param url FileDO中存的路径
+	 * @param url FileListVo中存的路径
 	 * @return
 	 */
     Boolean isExist(String url);

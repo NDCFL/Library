@@ -1,6 +1,6 @@
 package top.cflwork.dao;
 
-import top.cflwork.domain.ContentDO;
+import top.cflwork.domain.ContentVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -15,15 +15,15 @@ import java.util.Map;
 @Mapper
 public interface ContentDao {
 
-	ContentDO get(Long cid);
+	ContentVo get(Long cid);
 	
-	List<ContentDO> list(Map<String, Object> map);
+	List<ContentVo> list(Map<String, Object> map);
 
 	int count(Map<String, Object> map);
 	
-	int save(ContentDO content);
+	int save(ContentVo content);
 	
-	int update(ContentDO content);
+	int update(ContentVo content);
 	
 	int remove(Long cid);
 	

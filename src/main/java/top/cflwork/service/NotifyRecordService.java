@@ -1,6 +1,6 @@
 package top.cflwork.service;
 
-import top.cflwork.domain.NotifyRecordDO;
+import top.cflwork.domain.NotifyRecordVo;
 
 import java.util.List;
 import java.util.Map;
@@ -14,15 +14,15 @@ import java.util.Map;
  */
 public interface NotifyRecordService {
 	
-	NotifyRecordDO get(Long id);
+	NotifyRecordVo get(Long id);
 	
-	List<NotifyRecordDO> list(Map<String, Object> map);
+	List<NotifyRecordVo> list(Map<String, Object> map);
 	
 	int count(Map<String, Object> map);
 	
-	int save(NotifyRecordDO notifyRecord);
+	int save(NotifyRecordVo notifyRecord);
 	
-	int update(NotifyRecordDO notifyRecord);
+	int update(NotifyRecordVo notifyRecord);
 	
 	int remove(Long id);
 	
@@ -32,5 +32,5 @@ public interface NotifyRecordService {
 	 * 更改阅读状态
 	 * @return
 	 */
-	int changeRead(NotifyRecordDO notifyRecord);
+	int changeRead(NotifyRecordVo notifyRecord);
 }

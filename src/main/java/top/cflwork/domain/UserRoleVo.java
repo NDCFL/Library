@@ -1,6 +1,6 @@
 package top.cflwork.domain;
 
-public class UserRoleDO {
+public class UserRoleVo {
     private Long id;
     private Long userId;
     private Long roleId;
@@ -31,7 +31,7 @@ public class UserRoleDO {
 
     @Override
     public String toString() {
-        return "UserRoleDO{" +
+        return "UserRoleVo{" +
                 "id=" + id +
                 ", userId=" + userId +
                 ", roleId=" + roleId +

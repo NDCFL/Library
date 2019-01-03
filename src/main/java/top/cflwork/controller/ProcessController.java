@@ -5,7 +5,7 @@ import top.cflwork.controller.BaseController;
 import top.cflwork.util.PageUtils;
 import top.cflwork.util.R;
 import top.cflwork.service.ProcessService;
-import top.cflwork.vo.ProcessVO;
+import top.cflwork.vo.ProcessVo;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -52,7 +52,7 @@ public class ProcessController extends BaseController{
         int count = (int) repositoryService.createProcessDefinitionQuery().count();
         List<Object> list = new ArrayList<>();
         for(ProcessDefinition processDefinition: processDefinitions){
-            list.add(new ProcessVO(processDefinition));
+            list.add(new ProcessVo(processDefinition));
         }
         PageUtils pageUtils = new PageUtils(list, count);
         return pageUtils;

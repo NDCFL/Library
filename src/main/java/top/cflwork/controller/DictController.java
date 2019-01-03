@@ -5,7 +5,7 @@ import top.cflwork.util.PageUtils;
 import top.cflwork.util.Query;
 import top.cflwork.util.R;
 import top.cflwork.service.DictService;
-import top.cflwork.vo.DictDO;
+import top.cflwork.vo.DictVo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,7 +41,7 @@ public class DictController extends BaseController {
 	public PageUtils list(@RequestParam Map<String, Object> params) {
 		// 查询列表数据
 		Query query = new Query(params);
-		List<DictDO> dictList = dictService.list(query);
+		List<DictVo> dictList = dictService.list(query);
 		int total = dictService.count(query);
 		PageUtils pageUtils = new PageUtils(dictList, total);
 		return pageUtils;
@@ -56,7 +56,7 @@ public class DictController extends BaseController {
 	@GetMapping("/edit/{id}")
 	@RequiresPermissions("common:dict:edit")
 	String edit(@PathVariable("id") Long id, Model model) {
-		DictDO dict = dictService.get(id);
+		DictVo dict = dictService.get(id);
 		model.addAttribute("dict", dict);
 		return "common/dict/edit";
 	}
@@ -67,7 +67,7 @@ public class DictController extends BaseController {
 	@ResponseBody
 	@PostMapping("/save")
 	@RequiresPermissions("common:dict:add")
-	public R save(DictDO dict) {
+	public R save(DictVo dict) {
 		if (dictService.save(dict) > 0) {
 			return R.ok();
 		}
@@ -80,7 +80,7 @@ public class DictController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/update")
 	@RequiresPermissions("common:dict:edit")
-	public R update(DictDO dict) {
+	public R update(DictVo dict) {
 		dictService.update(dict);
 		return R.ok();
 	}
@@ -111,7 +111,7 @@ public class DictController extends BaseController {
 
 	@GetMapping("/type")
 	@ResponseBody
-	public List<DictDO> listType() {
+	public List<DictVo> listType() {
 		return dictService.listType();
 	};
 
@@ -126,11 +126,11 @@ public class DictController extends BaseController {
 
 	@ResponseBody
 	@GetMapping("/list/{type}")
-	public List<DictDO> listByType(@PathVariable("type") String type) {
+	public List<DictVo> listByType(@PathVariable("type") String type) {
 		// 查询列表数据
 		Map<String, Object> map = new HashMap<>(16);
 		map.put("type", type);
-		List<DictDO> dictList = dictService.list(map);
+		List<DictVo> dictList = dictService.list(map);
 		return dictList;
 	}
 }

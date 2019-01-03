@@ -1,6 +1,6 @@
 package top.cflwork.dao;
 
-import top.cflwork.domain.UserDO;
+import top.cflwork.domain.UserVo;
 
 import java.util.List;
 import java.util.Map;
@@ -16,15 +16,15 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserDao {
 
-	UserDO get(Long userId);
+	UserVo get(Long userId);
 	
-	List<UserDO> list(Map<String,Object> map);
+	List<UserVo> list(Map<String,Object> map);
 	
 	int count(Map<String,Object> map);
 	
-	int save(UserDO user);
+	int save(UserVo user);
 	
-	int update(UserDO user);
+	int update(UserVo user);
 	
 	int remove(Long userId);
 	

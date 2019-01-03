@@ -6,10 +6,10 @@ import top.cflwork.config.Constant;
 import top.cflwork.util.MD5Utils;
 import top.cflwork.util.R;
 import top.cflwork.util.ShiroUtils;
-import top.cflwork.domain.MenuDO;
+import top.cflwork.domain.MenuVo;
 import top.cflwork.service.FileService;
 import top.cflwork.service.MenuService;
-import top.cflwork.vo.FileDO;
+import top.cflwork.vo.FileListVo;
 import top.cflwork.vo.Tree;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -44,7 +44,7 @@ public class LoginController extends BaseController {
 	@GetMapping({ "/index" })
 	ModelAndView index(Model model) {
 		ModelAndView modelAndView = new ModelAndView();
-		List<Tree<MenuDO>> menus = menuService.listMenuTree(getUserId());
+		List<Tree<MenuVo>> menus = menuService.listMenuTree(getUserId());
 		modelAndView.addObject("menus", menus);
 		modelAndView.addObject("name", getUser().getName());
 		if(getUser().getHeadIcon()!=null){

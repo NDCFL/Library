@@ -3,11 +3,11 @@
 
 <mapper namespace="top.cflwork.dao.FileDao">
 
-	<select id="get" resultType="top.cflwork.vo.FileDO">
+	<select id="get" resultType="top.cflwork.vo.FileListVo">
 		select `id`,`type`,`url`,`create_date` from sys_file where id = #{value}
 	</select>
 
-	<select id="list" resultType="top.cflwork.vo.FileDO">
+	<select id="list" resultType="top.cflwork.vo.FileListVo">
 		select `id`,`type`,`url`,`create_date` from sys_file
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
@@ -38,7 +38,7 @@
 		  		</where>
 	</select>
 	 
-	<insert id="save" parameterType="top.cflwork.vo.FileDO" useGeneratedKeys="true" keyProperty="id">
+	<insert id="save" parameterType="top.cflwork.vo.FileListVo" useGeneratedKeys="true" keyProperty="id">
 		insert into sys_file
 		(
 			`type`, 
@@ -53,7 +53,7 @@
 		)
 	</insert>
 	 
-	<update id="update" parameterType="top.cflwork.vo.FileDO">
+	<update id="update" parameterType="top.cflwork.vo.FileListVo">
 		update sys_file 
 		<set>
 			<if test="type != null">`type` = #{type}, </if>

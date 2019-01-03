@@ -3,13 +3,13 @@
 
 <mapper namespace="top.cflwork.dao.DictDao">
 
-	<select id="get" resultType="top.cflwork.vo.DictDO">
+	<select id="get" resultType="top.cflwork.vo.DictVo">
 		select
 		`id`,`name`,`value`,`type`,`description`,`sort`,`parent_id`,`create_by`,`create_date`,`update_by`,`update_date`,`remarks`,`del_flag`
 		from sys_dict where id = #{value}
 	</select>
 
-	<select id="list" resultType="top.cflwork.vo.DictDO">
+	<select id="list" resultType="top.cflwork.vo.DictVo">
 		select
 		`id`,`name`,`value`,`type`,`description`,`sort`,`parent_id`,`create_by`,`create_date`,`update_by`,`update_date`,`remarks`,`del_flag`
 		from sys_dict
@@ -60,7 +60,7 @@
 		</where>
 	</select>
 
-	<insert id="save" parameterType="top.cflwork.vo.DictDO"
+	<insert id="save" parameterType="top.cflwork.vo.DictVo"
 		useGeneratedKeys="true" keyProperty="id">
 		insert into sys_dict
 		(
@@ -94,7 +94,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="top.cflwork.vo.DictDO">
+	<update id="update" parameterType="top.cflwork.vo.DictVo">
 		update sys_dict
 		<set>
 			<if test="name != null">`name` = #{name}, </if>
@@ -125,7 +125,7 @@
 		</foreach>
 	</delete>
 
-	<select id="listType" resultType="top.cflwork.vo.DictDO">
+	<select id="listType" resultType="top.cflwork.vo.DictVo">
 		select distinct `type` , description from sys_dict
 	</select>
 

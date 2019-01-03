@@ -15,8 +15,8 @@ import top.cflwork.dao.RoleDao;
 import top.cflwork.dao.RoleMenuDao;
 import top.cflwork.dao.UserDao;
 import top.cflwork.dao.UserRoleDao;
-import top.cflwork.domain.RoleDO;
-import top.cflwork.domain.RoleMenuDO;
+import top.cflwork.domain.RoleVo;
+import top.cflwork.domain.RoleMenuVo;
 import top.cflwork.service.RoleService;
 
 
@@ -37,17 +37,17 @@ public class RoleServiceImpl implements RoleService {
     UserRoleDao userRoleMapper;
 
     @Override
-    public List<RoleDO> list() {
-        List<RoleDO> roles = roleMapper.list(new HashMap<>(16));
+    public List<RoleVo> list() {
+        List<RoleVo> roles = roleMapper.list(new HashMap<>(16));
         return roles;
     }
 
 
     @Override
-    public List<RoleDO> list(Long userId) {
+    public List<RoleVo> list(Long userId) {
         List<Long> rolesIds = userRoleMapper.listRoleId(userId);
-        List<RoleDO> roles = roleMapper.list(new HashMap<>(16));
-        for (RoleDO roleDO : roles) {
+        List<RoleVo> roles = roleMapper.list(new HashMap<>(16));
+        for (RoleVo roleDO : roles) {
             roleDO.setRoleSign("false");
             for (Long roleId : rolesIds) {
                 if (Objects.equals(roleDO.getRoleId(), roleId)) {
@@ -60,13 +60,13 @@ public class RoleServiceImpl implements RoleService {
     }
     @Transactional
     @Override
-    public int save(RoleDO role) {
+    public int save(RoleVo role) {
         int count = roleMapper.save(role);
         List<Long> menuIds = role.getMenuIds();
         Long roleId = role.getRoleId();
-        List<RoleMenuDO> rms = new ArrayList<>();
+        List<RoleMenuVo> rms = new ArrayList<>();
         for (Long menuId : menuIds) {
-            RoleMenuDO rmDo = new RoleMenuDO();
+            RoleMenuVo rmDo = new RoleMenuVo();
             rmDo.setRoleId(roleId);
             rmDo.setMenuId(menuId);
             rms.add(rmDo);
@@ -88,20 +88,20 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public RoleDO get(Long id) {
-        RoleDO roleDO = roleMapper.get(id);
+    public RoleVo get(Long id) {
+        RoleVo roleDO = roleMapper.get(id);
         return roleDO;
     }
 
     @Override
-    public int update(RoleDO role) {
+    public int update(RoleVo role) {
         int r = roleMapper.update(role);
         List<Long> menuIds = role.getMenuIds();
         Long roleId = role.getRoleId();
         roleMenuMapper.removeByRoleId(roleId);
-        List<RoleMenuDO> rms = new ArrayList<>();
+        List<RoleMenuVo> rms = new ArrayList<>();
         for (Long menuId : menuIds) {
-            RoleMenuDO rmDo = new RoleMenuDO();
+            RoleMenuVo rmDo = new RoleMenuVo();
             rmDo.setRoleId(roleId);
             rmDo.setMenuId(menuId);
             rms.add(rmDo);

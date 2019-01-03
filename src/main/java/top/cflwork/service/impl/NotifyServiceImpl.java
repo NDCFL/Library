@@ -5,10 +5,10 @@ import top.cflwork.util.DateUtils;
 import top.cflwork.dao.NotifyDao;
 import top.cflwork.dao.NotifyRecordDao;
 import top.cflwork.dao.UserDao;
-import top.cflwork.domain.NotifyDO;
+import top.cflwork.domain.NotifyVo;
 import top.cflwork.domain.NotifyDTO;
-import top.cflwork.domain.NotifyRecordDO;
-import top.cflwork.domain.UserDO;
+import top.cflwork.domain.NotifyRecordVo;
+import top.cflwork.domain.UserVo;
 import top.cflwork.service.NotifyService;
 import top.cflwork.service.SessionService;
 import top.cflwork.util.PageUtils;
@@ -41,16 +41,16 @@ public class NotifyServiceImpl implements NotifyService {
     private SimpMessagingTemplate template;
 
     @Override
-    public NotifyDO get(Long id) {
-        NotifyDO rDO = notifyDao.get(id);
+    public NotifyVo get(Long id) {
+        NotifyVo rDO = notifyDao.get(id);
         rDO.setType(dictService.getName("oa_notify_type", rDO.getType()));
         return rDO;
     }
 
     @Override
-    public List<NotifyDO> list(Map<String, Object> map) {
-        List<NotifyDO> notifys = notifyDao.list(map);
-        for (NotifyDO notifyDO : notifys) {
+    public List<NotifyVo> list(Map<String, Object> map) {
+        List<NotifyVo> notifys = notifyDao.list(map);
+        for (NotifyVo notifyDO : notifys) {
             notifyDO.setType(dictService.getName("oa_notify_type", notifyDO.getType()));
         }
         return notifys;
@@ -63,15 +63,15 @@ public class NotifyServiceImpl implements NotifyService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int save(NotifyDO notify) {
+    public int save(NotifyVo notify) {
         notify.setUpdateDate(new Date());
         int r = notifyDao.save(notify);
         // 保存到接受者列表中
         Long[] userIds = notify.getUserIds();
         Long notifyId = notify.getId();
-        List<NotifyRecordDO> records = new ArrayList<>();
+        List<NotifyRecordVo> records = new ArrayList<>();
         for (Long userId : userIds) {
-            NotifyRecordDO record = new NotifyRecordDO();
+            NotifyRecordVo record = new NotifyRecordVo();
             record.setNotifyId(notifyId);
             record.setUserId(userId);
             record.setIsRead(0);
@@ -83,7 +83,7 @@ public class NotifyServiceImpl implements NotifyService {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                for (UserDO userDO : sessionService.listOnlineUser()) {
+                for (UserVo userDO : sessionService.listOnlineUser()) {
                     for (Long userId : userIds) {
                         if (userId.equals(userDO.getUserId())) {
                             template.convertAndSendToUser(userDO.toString(), "/queue/notifications", "新消息：" + notify.getTitle());
@@ -97,7 +97,7 @@ public class NotifyServiceImpl implements NotifyService {
     }
 
     @Override
-    public int update(NotifyDO notify) {
+    public int update(NotifyVo notify) {
         return notifyDao.update(notify);
     }
 

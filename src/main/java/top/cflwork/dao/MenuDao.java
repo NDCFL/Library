@@ -1,6 +1,6 @@
 package top.cflwork.dao;
 
-import top.cflwork.domain.MenuDO;
+import top.cflwork.domain.MenuVo;
 
 import java.util.List;
 import java.util.Map;
@@ -16,21 +16,21 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MenuDao {
 
-	MenuDO get(Long menuId);
+	MenuVo get(Long menuId);
 	
-	List<MenuDO> list(Map<String,Object> map);
+	List<MenuVo> list(Map<String,Object> map);
 	
 	int count(Map<String,Object> map);
 	
-	int save(MenuDO menu);
+	int save(MenuVo menu);
 	
-	int update(MenuDO menu);
+	int update(MenuVo menu);
 	
 	int remove(Long menuId);
 	
 	int batchRemove(Long[] menuIds);
 	
-	List<MenuDO> listMenuByUserId(Long id);
+	List<MenuVo> listMenuByUserId(Long id);
 	
 	List<String> listUserPerms(Long id);
 }

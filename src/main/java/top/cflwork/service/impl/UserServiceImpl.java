@@ -5,12 +5,12 @@ import top.cflwork.util.*;
 import top.cflwork.dao.DeptDao;
 import top.cflwork.dao.UserDao;
 import top.cflwork.dao.UserRoleDao;
-import top.cflwork.domain.DeptDO;
-import top.cflwork.domain.UserDO;
-import top.cflwork.domain.UserRoleDO;
+import top.cflwork.domain.DeptVo;
+import top.cflwork.domain.UserVo;
+import top.cflwork.domain.UserRoleVo;
 import top.cflwork.service.FileService;
 import top.cflwork.service.UserService;
-import top.cflwork.vo.FileDO;
+import top.cflwork.vo.FileListVo;
 import top.cflwork.vo.Tree;
 import top.cflwork.vo.UserVO;
 import org.apache.commons.lang.ArrayUtils;
@@ -44,16 +44,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
 //    @Cacheable(key = "#id")
-    public UserDO get(Long id) {
+    public UserVo get(Long id) {
         List<Long> roleIds = userRoleMapper.listRoleId(id);
-        UserDO user = userMapper.get(id);
+        UserVo user = userMapper.get(id);
         user.setDeptName(deptMapper.get(user.getDeptId()).getName());
         user.setRoleIds(roleIds);
         return user;
     }
 
     @Override
-    public List<UserDO> list(Map<String, Object> map) {
+    public List<UserVo> list(Map<String, Object> map) {
         return userMapper.list(map);
     }
 
@@ -64,14 +64,14 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public int save(UserDO user) {
+    public int save(UserVo user) {
         int count = userMapper.save(user);
         Long userId = user.getUserId();
         List<Long> roles = user.getRoleIds();
         userRoleMapper.removeByUserId(userId);
-        List<UserRoleDO> list = new ArrayList<>();
+        List<UserRoleVo> list = new ArrayList<>();
         for (Long roleId : roles) {
-            UserRoleDO ur = new UserRoleDO();
+            UserRoleVo ur = new UserRoleVo();
             ur.setUserId(userId);
             ur.setRoleId(roleId);
             list.add(ur);
@@ -83,14 +83,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int update(UserDO user) {
+    public int update(UserVo user) {
         int r = userMapper.update(user);
         Long userId = user.getUserId();
         List<Long> roles = user.getRoleIds();
         userRoleMapper.removeByUserId(userId);
-        List<UserRoleDO> list = new ArrayList<>();
+        List<UserRoleVo> list = new ArrayList<>();
         for (Long roleId : roles) {
-            UserRoleDO ur = new UserRoleDO();
+            UserRoleVo ur = new UserRoleVo();
             ur.setUserId(userId);
             ur.setRoleId(roleId);
             list.add(ur);
@@ -120,8 +120,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int resetPwd(UserVO userVO, UserDO userDO) throws Exception {
-        if (Objects.equals(userVO.getUserDO().getUserId(), userDO.getUserId())) {
+    public int resetPwd(UserVO userVO, UserVo userDO) throws Exception {
+        if (Objects.equals(userVO.getUserVo().getUserId(), userDO.getUserId())) {
             if (Objects.equals(MD5Utils.encrypt(userDO.getUsername(), userVO.getPwdOld()), userDO.getPassword())) {
                 userDO.setPassword(MD5Utils.encrypt(userDO.getUsername(), userVO.getPwdNew()));
                 return userMapper.update(userDO);
@@ -135,7 +135,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int adminResetPwd(UserVO userVO) throws Exception {
-        UserDO userDO = get(userVO.getUserDO().getUserId());
+        UserVo userDO = get(userVO.getUserVo().getUserId());
         if ("admin".equals(userDO.getUsername())) {
             throw new Exception("超级管理员的账号不允许直接重置！");
         }
@@ -154,17 +154,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Tree<DeptDO> getTree() {
-        List<Tree<DeptDO>> trees = new ArrayList<Tree<DeptDO>>();
-        List<DeptDO> depts = deptMapper.list(new HashMap<String, Object>(16));
+    public Tree<DeptVo> getTree() {
+        List<Tree<DeptVo>> trees = new ArrayList<Tree<DeptVo>>();
+        List<DeptVo> depts = deptMapper.list(new HashMap<String, Object>(16));
         Long[] pDepts = deptMapper.listParentDept();
         Long[] uDepts = userMapper.listAllDept();
         Long[] allDepts = (Long[]) ArrayUtils.addAll(pDepts, uDepts);
-        for (DeptDO dept : depts) {
+        for (DeptVo dept : depts) {
             if (!ArrayUtils.contains(allDepts, dept.getDeptId())) {
                 continue;
             }
-            Tree<DeptDO> tree = new Tree<DeptDO>();
+            Tree<DeptVo> tree = new Tree<DeptVo>();
             tree.setId(dept.getDeptId().toString());
             tree.setParentId(dept.getParentId().toString());
             tree.setText(dept.getName());
@@ -174,9 +174,9 @@ public class UserServiceImpl implements UserService {
             tree.setState(state);
             trees.add(tree);
         }
-        List<UserDO> users = userMapper.list(new HashMap<String, Object>(16));
-        for (UserDO user : users) {
-            Tree<DeptDO> tree = new Tree<DeptDO>();
+        List<UserVo> users = userMapper.list(new HashMap<String, Object>(16));
+        for (UserVo user : users) {
+            Tree<DeptVo> tree = new Tree<DeptVo>();
             tree.setId(user.getUserId().toString());
             tree.setParentId(user.getDeptId().toString());
             tree.setText(user.getName());
@@ -187,12 +187,12 @@ public class UserServiceImpl implements UserService {
             trees.add(tree);
         }
         // 默认顶级菜单为０，根据数据库实际情况调整
-        Tree<DeptDO> t = BuildTree.build(trees);
+        Tree<DeptVo> t = BuildTree.build(trees);
         return t;
     }
 
     @Override
-    public int updatePersonal(UserDO userDO) {
+    public int updatePersonal(UserVo userDO) {
         return userMapper.update(userDO);
     }
 
@@ -200,7 +200,7 @@ public class UserServiceImpl implements UserService {
     public Map<String, Object> updatePersonalImg(MultipartFile file, String avatar_data, Long userId) throws Exception {
         String fileName = file.getOriginalFilename();
         fileName = FileUtil.renameToUUID(fileName);
-        FileDO sysFile = new FileDO(FileType.fileType(fileName), "/files/" + fileName, new Date());
+        FileListVo sysFile = new FileListVo(FileType.fileType(fileName), "/files/" + fileName, new Date());
         //获取图片后缀
         String prefix = fileName.substring((fileName.lastIndexOf(".") + 1));
         String[] str = avatar_data.split(",");
@@ -226,7 +226,7 @@ public class UserServiceImpl implements UserService {
             throw new Exception("图片裁剪错误！！");
         }
         Map<String, Object> result = new HashMap<>();
-        UserDO userDO = new UserDO();
+        UserVo userDO = new UserVo();
         userDO.setUserId(userId);
         userDO.setHeadIcon(sysFile.getUrl());
         if (userMapper.update(userDO) > 0) {

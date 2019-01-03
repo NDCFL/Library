@@ -4,22 +4,22 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import top.cflwork.domain.RoleDO;
+import top.cflwork.domain.RoleVo;
 
 @Service
 public interface RoleService {
 
-	RoleDO get(Long id);
+	RoleVo get(Long id);
 
-	List<RoleDO> list();
+	List<RoleVo> list();
 
-	int save(RoleDO role);
+	int save(RoleVo role);
 
-	int update(RoleDO role);
+	int update(RoleVo role);
 
 	int remove(Long id);
 
-	List<RoleDO> list(Long userId);
+	List<RoleVo> list(Long userId);
 
 	int batchremove(Long[] ids);
 }

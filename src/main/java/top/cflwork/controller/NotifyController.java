@@ -4,12 +4,12 @@ import top.cflwork.config.Constant;
 import top.cflwork.util.PageUtils;
 import top.cflwork.util.Query;
 import top.cflwork.util.R;
-import top.cflwork.domain.NotifyDO;
-import top.cflwork.domain.NotifyRecordDO;
+import top.cflwork.domain.NotifyVo;
+import top.cflwork.domain.NotifyRecordVo;
 import top.cflwork.service.DictService;
 import top.cflwork.service.NotifyRecordService;
 import top.cflwork.service.NotifyService;
-import top.cflwork.vo.DictDO;
+import top.cflwork.vo.DictVo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,7 +51,7 @@ public class NotifyController extends BaseController {
 	public PageUtils list(@RequestParam Map<String, Object> params) {
 		// 查询列表数据
 		Query query = new Query(params);
-		List<NotifyDO> notifyList = notifyService.list(query);
+		List<NotifyVo> notifyList = notifyService.list(query);
 		int total = notifyService.count(query);
 		PageUtils pageUtils = new PageUtils(notifyList, total);
 		return pageUtils;
@@ -66,10 +66,10 @@ public class NotifyController extends BaseController {
 	@GetMapping("/edit/{id}")
 	@RequiresPermissions("oa:notify:edit")
 	String edit(@PathVariable("id") Long id, Model model) {
-		NotifyDO notify = notifyService.get(id);
-		List<DictDO> dictDOS = dictService.listByType("oa_notify_type");
+		NotifyVo notify = notifyService.get(id);
+		List<DictVo> dictDOS = dictService.listByType("oa_notify_type");
 		String type = notify.getType();
-		for (DictDO dictDO:dictDOS){
+		for (DictVo dictDO:dictDOS){
 			if(type.equals(dictDO.getValue())){
 				dictDO.setRemarks("checked");
 			}
@@ -85,7 +85,7 @@ public class NotifyController extends BaseController {
 	@ResponseBody
 	@PostMapping("/save")
 	@RequiresPermissions("oa:notify:add")
-	public R save(NotifyDO notify) {
+	public R save(NotifyVo notify) {
 		notify.setCreateBy(getUserId());
 		if (notifyService.save(notify) > 0) {
 			return R.ok();
@@ -99,7 +99,7 @@ public class NotifyController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/update")
 	@RequiresPermissions("oa:notify:edit")
-	public R update(NotifyDO notify) {
+	public R update(NotifyVo notify) {
 		notifyService.update(notify);
 		return R.ok();
 	}
@@ -157,9 +157,9 @@ public class NotifyController extends BaseController {
 	@GetMapping("/read/{id}")
 	@RequiresPermissions("oa:notify:edit")
 	String read(@PathVariable("id") Long id, Model model) {
-		NotifyDO notify = notifyService.get(id);
+		NotifyVo notify = notifyService.get(id);
 		//更改阅读状态
-		NotifyRecordDO notifyRecordDO = new NotifyRecordDO();
+		NotifyRecordVo notifyRecordDO = new NotifyRecordVo();
 		notifyRecordDO.setNotifyId(id);
 		notifyRecordDO.setUserId(getUserId());
 		notifyRecordDO.setReadDate(new Date());

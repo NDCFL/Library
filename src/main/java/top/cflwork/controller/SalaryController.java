@@ -3,7 +3,7 @@ package top.cflwork.controller;
 import top.cflwork.config.Constant;
 import top.cflwork.controller.BaseController;
 import top.cflwork.util.*;
-import top.cflwork.domain.SalaryDO;
+import top.cflwork.domain.SalaryVo;
 import top.cflwork.service.SalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +39,7 @@ public class SalaryController extends BaseController{
     @GetMapping("/list")
     public PageUtils list(@RequestParam Map<String, Object> params) {
         Query query = new Query(params);
-        List<SalaryDO> salaryList = salaryService.list(query);
+        List<SalaryVo> salaryList = salaryService.list(query);
         int total = salaryService.count(query);
         PageUtils pageUtils = new PageUtils(salaryList, total);
         return pageUtils;
@@ -52,7 +52,7 @@ public class SalaryController extends BaseController{
 
     @GetMapping("/form/{taskId}")
     String edit(@PathVariable("taskId") String taskId, Model model) {
-        SalaryDO salary = salaryService.get(activitiUtils.getBusinessKeyByTaskId(taskId));
+        SalaryVo salary = salaryService.get(activitiUtils.getBusinessKeyByTaskId(taskId));
         salary.setTaskId(taskId);
         model.addAttribute("salary", salary);
         return "act/salary/edit";
@@ -63,7 +63,7 @@ public class SalaryController extends BaseController{
      */
     @ResponseBody
     @PostMapping("/save")
-    public R saveOrUpdate(SalaryDO salary) {
+    public R saveOrUpdate(SalaryVo salary) {
         salary.setCreateDate(new Date());
         salary.setUpdateDate(new Date());
         salary.setCreateBy(ShiroUtils.getUserId().toString());
@@ -80,7 +80,7 @@ public class SalaryController extends BaseController{
      */
     @ResponseBody
     @RequestMapping("/update")
-    public R update(SalaryDO salary) {
+    public R update(SalaryVo salary) {
         String taskKey = activitiUtils.getTaskByTaskId(salary.getTaskId()).getTaskDefinitionKey();
         if ("audit2".equals(taskKey)) {
             salary.setHrText(salary.getTaskComment());

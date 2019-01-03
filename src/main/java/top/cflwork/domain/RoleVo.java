@@ -3,7 +3,7 @@ package top.cflwork.domain;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class RoleDO {
+public class RoleVo {
 	
 	private Long roleId;
 	private String roleName;
@@ -80,7 +80,7 @@ public class RoleDO {
 
 	@Override
 	public String toString() {
-		return "RoleDO{" +
+		return "RoleVo{" +
 				"roleId=" + roleId +
 				", roleName='" + roleName + '\'' +
 				", roleSign='" + roleSign + '\'' +

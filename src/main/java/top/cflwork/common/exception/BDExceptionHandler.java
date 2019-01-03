@@ -4,9 +4,9 @@ import top.cflwork.config.Constant;
 import top.cflwork.util.HttpServletUtils;
 import top.cflwork.util.R;
 import top.cflwork.util.ShiroUtils;
-import top.cflwork.domain.UserDO;
+import top.cflwork.domain.UserVo;
 import top.cflwork.service.LogService;
-import top.cflwork.vo.LogDO;
+import top.cflwork.vo.LogVo;
 import org.apache.shiro.authz.AuthorizationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,12 +63,12 @@ public class BDExceptionHandler {
 
     @ExceptionHandler({Exception.class})
     public Object handleException(Exception e, HttpServletRequest request) {
-        LogDO logDO = new LogDO();
+        LogVo logDO = new LogVo();
         logDO.setGmtCreate(new Date());
         logDO.setOperation(Constant.LOG_ERROR);
         logDO.setMethod(request.getRequestURL().toString());
         logDO.setParams(e.toString());
-        UserDO current = ShiroUtils.getUser();
+        UserVo current = ShiroUtils.getUser();
         if(null!=current){
             logDO.setUserId(current.getUserId());
             logDO.setUsername(current.getUsername());

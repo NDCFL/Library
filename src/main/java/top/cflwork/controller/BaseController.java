@@ -1,12 +1,12 @@
 package top.cflwork.controller;
 
 import top.cflwork.util.ShiroUtils;
-import top.cflwork.domain.UserDO;
+import top.cflwork.domain.UserVo;
 import org.springframework.stereotype.Controller;
 
 @Controller
 public class BaseController {
-	public UserDO getUser() {
+	public UserVo getUser() {
 		return ShiroUtils.getUser();
 	}
 

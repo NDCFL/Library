@@ -2,8 +2,8 @@ package top.cflwork.util;
 
 
 import top.cflwork.config.Constant;
-import top.cflwork.vo.ColumnDO;
-import top.cflwork.vo.TableDO;
+import top.cflwork.vo.ColumnVo;
+import top.cflwork.vo.TableVo;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -56,7 +56,7 @@ public class GenUtils {
         //配置信息
         Configuration config = getConfig();
         //表信息
-        TableDO tableDO = new TableDO();
+        TableVo tableDO = new TableVo();
         tableDO.setTableName(table.get("tableName"));
         tableDO.setComments(table.get("tableComment"));
         //表名转换成Java类名
@@ -65,9 +65,9 @@ public class GenUtils {
         tableDO.setClassname(StringUtils.uncapitalize(className));
 
         //列信息
-        List<ColumnDO> columsList = new ArrayList<>();
+        List<ColumnVo> columsList = new ArrayList<>();
         for (Map<String, String> column : columns) {
-            ColumnDO columnDO = new ColumnDO();
+            ColumnVo columnDO = new ColumnVo();
             columnDO.setColumnName(column.get("columnName"));
             columnDO.setDataType(column.get("dataType"));
             columnDO.setComments(column.get("columnComment"));

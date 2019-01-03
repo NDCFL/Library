@@ -5,7 +5,7 @@ import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
 
-import top.cflwork.domain.UserDO;
+import top.cflwork.domain.UserVo;
 import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import top.cflwork.domain.UserOnline;
 public interface SessionService {
 	List<UserOnline> list();
 
-	List<UserDO> listOnlineUser();
+	List<UserVo> listOnlineUser();
 
 	Collection<Session> sessionList();
 	

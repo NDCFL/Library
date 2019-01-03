@@ -7,27 +7,27 @@ import java.util.Set;
 import top.cflwork.vo.Tree;
 import org.springframework.stereotype.Service;
 
-import top.cflwork.domain.MenuDO;
+import top.cflwork.domain.MenuVo;
 
 @Service
 public interface MenuService {
-	Tree<MenuDO> getSysMenuTree(Long id);
+	Tree<MenuVo> getSysMenuTree(Long id);
 
-	List<Tree<MenuDO>> listMenuTree(Long id);
+	List<Tree<MenuVo>> listMenuTree(Long id);
 
-	Tree<MenuDO> getTree();
+	Tree<MenuVo> getTree();
 
-	Tree<MenuDO> getTree(Long id);
+	Tree<MenuVo> getTree(Long id);
 
-	List<MenuDO> list(Map<String, Object> params);
+	List<MenuVo> list(Map<String, Object> params);
 
 	int remove(Long id);
 
-	int save(MenuDO menu);
+	int save(MenuVo menu);
 
-	int update(MenuDO menu);
+	int update(MenuVo menu);
 
-	MenuDO get(Long id);
+	MenuVo get(Long id);
 
 	Set<String> listPerms(Long userId);
 }

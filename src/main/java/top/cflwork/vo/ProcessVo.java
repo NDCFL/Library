@@ -3,17 +3,17 @@ package top.cflwork.vo;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 
-public class ProcessVO {
+public class ProcessVo {
     private String id;
     private String name;
     private String deploymentId;
 
-    public ProcessVO(Deployment processDefinition) {
+    public ProcessVo(Deployment processDefinition) {
         this.setId(processDefinition.getId());
         this.name = processDefinition.getName();
     }
 
-    public ProcessVO(ProcessDefinition processDefinition) {
+    public ProcessVo(ProcessDefinition processDefinition) {
         this.setId(processDefinition.getId());
         this.name = processDefinition.getName();
         this.deploymentId = processDefinition.getDeploymentId();

@@ -1,6 +1,6 @@
 package top.cflwork.dao;
 
-import top.cflwork.domain.DeptDO;
+import top.cflwork.domain.DeptVo;
 
 import java.util.List;
 import java.util.Map;
@@ -16,15 +16,15 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface DeptDao {
 
-	DeptDO get(Long deptId);
+	DeptVo get(Long deptId);
 	
-	List<DeptDO> list(Map<String,Object> map);
+	List<DeptVo> list(Map<String,Object> map);
 	
 	int count(Map<String,Object> map);
 	
-	int save(DeptDO dept);
+	int save(DeptVo dept);
 	
-	int update(DeptDO dept);
+	int update(DeptVo dept);
 	
 	int remove(Long deptId);
 	

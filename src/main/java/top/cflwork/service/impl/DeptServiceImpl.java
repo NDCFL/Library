@@ -1,7 +1,7 @@
 package top.cflwork.service.impl;
 
 import top.cflwork.dao.DeptDao;
-import top.cflwork.domain.DeptDO;
+import top.cflwork.domain.DeptVo;
 import top.cflwork.service.DeptService;
 import top.cflwork.vo.Tree;
 import top.cflwork.util.BuildTree;
@@ -21,12 +21,12 @@ public class DeptServiceImpl implements DeptService {
 	private DeptDao sysDeptMapper;
 
 	@Override
-	public DeptDO get(Long deptId){
+	public DeptVo get(Long deptId){
 		return sysDeptMapper.get(deptId);
 	}
 
 	@Override
-	public List<DeptDO> list(Map<String, Object> map){
+	public List<DeptVo> list(Map<String, Object> map){
 		return sysDeptMapper.list(map);
 	}
 
@@ -36,12 +36,12 @@ public class DeptServiceImpl implements DeptService {
 	}
 
 	@Override
-	public int save(DeptDO sysDept){
+	public int save(DeptVo sysDept){
 		return sysDeptMapper.save(sysDept);
 	}
 
 	@Override
-	public int update(DeptDO sysDept){
+	public int update(DeptVo sysDept){
 		return sysDeptMapper.update(sysDept);
 	}
 
@@ -56,11 +56,11 @@ public class DeptServiceImpl implements DeptService {
 	}
 
 	@Override
-	public Tree<DeptDO> getTree() {
-		List<Tree<DeptDO>> trees = new ArrayList<Tree<DeptDO>>();
-		List<DeptDO> sysDepts = sysDeptMapper.list(new HashMap<String,Object>(16));
-		for (DeptDO sysDept : sysDepts) {
-			Tree<DeptDO> tree = new Tree<DeptDO>();
+	public Tree<DeptVo> getTree() {
+		List<Tree<DeptVo>> trees = new ArrayList<Tree<DeptVo>>();
+		List<DeptVo> sysDepts = sysDeptMapper.list(new HashMap<String,Object>(16));
+		for (DeptVo sysDept : sysDepts) {
+			Tree<DeptVo> tree = new Tree<DeptVo>();
 			tree.setId(sysDept.getDeptId().toString());
 			tree.setParentId(sysDept.getParentId().toString());
 			tree.setText(sysDept.getName());
@@ -70,7 +70,7 @@ public class DeptServiceImpl implements DeptService {
 			trees.add(tree);
 		}
 		// 默认顶级菜单为０，根据数据库实际情况调整
-		Tree<DeptDO> t = BuildTree.build(trees);
+		Tree<DeptVo> t = BuildTree.build(trees);
 		return t;
 	}
 

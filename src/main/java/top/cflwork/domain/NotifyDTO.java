@@ -1,6 +1,6 @@
 package top.cflwork.domain;
 
-public class NotifyDTO extends NotifyDO {
+public class NotifyDTO extends NotifyVo {
 
     private static final long serialVersionUID = 1L;
 

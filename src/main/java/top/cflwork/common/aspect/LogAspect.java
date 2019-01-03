@@ -5,9 +5,9 @@ import top.cflwork.util.HttpContextUtils;
 import top.cflwork.util.IPUtils;
 import top.cflwork.util.JSONUtils;
 import top.cflwork.util.ShiroUtils;
-import top.cflwork.domain.UserDO;
+import top.cflwork.domain.UserVo;
 import top.cflwork.service.LogService;
-import top.cflwork.vo.LogDO;
+import top.cflwork.vo.LogVo;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -50,7 +50,7 @@ public class LogAspect {
     void saveLog(ProceedingJoinPoint joinPoint, long time) throws InterruptedException {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-        LogDO sysLog = new LogDO();
+        LogVo sysLog = new LogVo();
         Log syslog = method.getAnnotation(Log.class);
         if (syslog != null) {
             // 注解上的描述
@@ -73,7 +73,7 @@ public class LogAspect {
         // 设置IP地址
         sysLog.setIp(IPUtils.getIpAddr(request));
         // 用户名
-        UserDO currUser = ShiroUtils.getUser();
+        UserVo currUser = ShiroUtils.getUser();
         if (null == currUser) {
             if (null != sysLog.getParams()) {
                 sysLog.setUserId(-1L);

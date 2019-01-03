@@ -1,6 +1,6 @@
 package top.cflwork.dao;
 
-import top.cflwork.domain.UserRoleDO;
+import top.cflwork.domain.UserRoleVo;
 
 import java.util.List;
 import java.util.Map;
@@ -17,15 +17,15 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserRoleDao {
 
-	UserRoleDO get(Long id);
+	UserRoleVo get(Long id);
 
-	List<UserRoleDO> list(Map<String, Object> map);
+	List<UserRoleVo> list(Map<String, Object> map);
 
 	int count(Map<String, Object> map);
 
-	int save(UserRoleDO userRole);
+	int save(UserRoleVo userRole);
 
-	int update(UserRoleDO userRole);
+	int update(UserRoleVo userRole);
 
 	int remove(Long id);
 
@@ -37,7 +37,7 @@ public interface UserRoleDao {
 
 	int removeByRoleId(Long roleId);
 
-	int batchSave(List<UserRoleDO> list);
+	int batchSave(List<UserRoleVo> list);
 
 	int batchRemoveByUserId(Long[] ids);
 }

@@ -5,7 +5,7 @@ package top.cflwork.vo;
  * 
  * 
  */
-public class ColumnDO {
+public class ColumnVo {
 	// 列名
 	private String columnName;
 	// 列名类型
@@ -80,7 +80,7 @@ public class ColumnDO {
 
 	@Override
 	public String toString() {
-		return "ColumnDO{" +
+		return "ColumnVo{" +
 				"columnName='" + columnName + '\'' +
 				", dataType='" + dataType + '\'' +
 				", comments='" + comments + '\'' +

@@ -1,7 +1,7 @@
 package top.cflwork.service.impl;
 
 import top.cflwork.dao.ContentDao;
-import top.cflwork.domain.ContentDO;
+import top.cflwork.domain.ContentVo;
 import top.cflwork.service.ContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +16,12 @@ public class ContentServiceImpl implements ContentService {
 	private ContentDao bContentMapper;
 	
 	@Override
-	public ContentDO get(Long cid){
+	public ContentVo get(Long cid){
 		return bContentMapper.get(cid);
 	}
 	
 	@Override
-	public List<ContentDO> list(Map<String, Object> map){
+	public List<ContentVo> list(Map<String, Object> map){
 		return bContentMapper.list(map);
 	}
 	
@@ -31,12 +31,12 @@ public class ContentServiceImpl implements ContentService {
 	}
 	
 	@Override
-	public int save(ContentDO bContent){
+	public int save(ContentVo bContent){
 		return bContentMapper.save(bContent);
 	}
 	
 	@Override
-	public int update(ContentDO bContent){
+	public int update(ContentVo bContent){
 		return bContentMapper.update(bContent);
 	}
 	

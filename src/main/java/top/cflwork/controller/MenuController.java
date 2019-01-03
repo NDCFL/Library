@@ -3,7 +3,7 @@ package top.cflwork.controller;
 import top.cflwork.common.annotation.Log;
 import top.cflwork.config.Constant;
 import top.cflwork.util.R;
-import top.cflwork.domain.MenuDO;
+import top.cflwork.domain.MenuVo;
 import top.cflwork.service.MenuService;
 import top.cflwork.vo.Tree;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -34,8 +34,8 @@ public class MenuController extends BaseController {
 	@RequiresPermissions("menu:menu")
 	@RequestMapping("/list")
 	@ResponseBody
-	List<MenuDO> list(@RequestParam Map<String, Object> params) {
-		List<MenuDO> menus = menuService.list(params);
+	List<MenuVo> list(@RequestParam Map<String, Object> params) {
+		List<MenuVo> menus = menuService.list(params);
 		return menus;
 	}
 
@@ -56,7 +56,7 @@ public class MenuController extends BaseController {
 	@RequiresPermissions("menu:edit")
 	@GetMapping("/edit/{id}")
 	String edit(Model model, @PathVariable("id") Long id) {
-		MenuDO mdo = menuService.get(id);
+		MenuVo mdo = menuService.get(id);
 		Long pId = mdo.getParentId();
 		model.addAttribute("pId", pId);
 		if (pId == 0) {
@@ -72,7 +72,7 @@ public class MenuController extends BaseController {
 	@RequiresPermissions("menu:add")
 	@PostMapping("/save")
 	@ResponseBody
-	R save(MenuDO menu) {
+	R save(MenuVo menu) {
 		if (menuService.save(menu) > 0) {
 			return R.ok();
 		} else {
@@ -84,7 +84,7 @@ public class MenuController extends BaseController {
 	@RequiresPermissions("menu:edit")
 	@PostMapping("/update")
 	@ResponseBody
-	R update(MenuDO menu) {
+	R update(MenuVo menu) {
 		if (menuService.update(menu) > 0) {
 			return R.ok();
 		} else {
@@ -106,15 +106,15 @@ public class MenuController extends BaseController {
 
 	@GetMapping("/tree")
 	@ResponseBody
-	Tree<MenuDO> tree() {
-		Tree<MenuDO>  tree = menuService.getTree();
+	Tree<MenuVo> tree() {
+		Tree<MenuVo>  tree = menuService.getTree();
 		return tree;
 	}
 
 	@GetMapping("/tree/{roleId}")
 	@ResponseBody
-	Tree<MenuDO> tree(@PathVariable("roleId") Long roleId) {
-		Tree<MenuDO> tree = menuService.getTree(roleId);
+	Tree<MenuVo> tree(@PathVariable("roleId") Long roleId) {
+		Tree<MenuVo> tree = menuService.getTree(roleId);
 		return tree;
 	}
 }

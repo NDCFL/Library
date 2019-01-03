@@ -1,6 +1,6 @@
 package top.cflwork.dao;
 
-import top.cflwork.vo.DictDO;
+import top.cflwork.vo.DictVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,19 +16,19 @@ import java.util.Map;
 @Mapper
 public interface DictDao {
 
-	DictDO get(Long id);
+	DictVo get(Long id);
 
-	List<DictDO> list(Map<String, Object> map);
+	List<DictVo> list(Map<String, Object> map);
 
 	int count(Map<String, Object> map);
 
-	int save(DictDO dict);
+	int save(DictVo dict);
 
-	int update(DictDO dict);
+	int update(DictVo dict);
 
 	int remove(Long id);
 
 	int batchRemove(Long[] ids);
 
-	List<DictDO> listType();
+	List<DictVo> listType();
 }

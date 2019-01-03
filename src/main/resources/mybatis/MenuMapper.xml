@@ -3,13 +3,13 @@
 
 <mapper namespace="top.cflwork.dao.MenuDao">
 
-	<select id="get" resultType="top.cflwork.domain.MenuDO">
+	<select id="get" resultType="top.cflwork.domain.MenuVo">
 		select
 		`menu_id`,`parent_id`,`name`,`url`,`perms`,`type`,`icon`,`order_num`,`gmt_create`,`gmt_modified`
 		from sys_menu where menu_id = #{value}
 	</select>
 
-	<select id="list" resultType="top.cflwork.domain.MenuDO">
+	<select id="list" resultType="top.cflwork.domain.MenuVo">
 		select
 		`menu_id`,`parent_id`,`name`,`url`,`perms`,`type`,`icon`,`order_num`,`gmt_create`,`gmt_modified`
 		from sys_menu
@@ -54,7 +54,7 @@
 		</where>
 	</select>
 
-	<insert id="save" parameterType="top.cflwork.domain.MenuDO"
+	<insert id="save" parameterType="top.cflwork.domain.MenuVo"
 		useGeneratedKeys="true" keyProperty="menuId">
 		insert into sys_menu
 		(
@@ -82,7 +82,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="top.cflwork.domain.MenuDO">
+	<update id="update" parameterType="top.cflwork.domain.MenuVo">
 		update sys_menu
 		<set>
 			<if test="parentId != null">`parent_id` = #{parentId}, </if>
@@ -110,7 +110,7 @@
 		</foreach>
 	</delete>
 
-	<select id="listMenuByUserId" resultType="top.cflwork.domain.MenuDO">
+	<select id="listMenuByUserId" resultType="top.cflwork.domain.MenuVo">
 		select distinct
 		m.menu_id , parent_id, name, url,
 		perms,`type`,icon,order_num,gmt_create, gmt_modified

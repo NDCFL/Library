@@ -1,6 +1,6 @@
 package top.cflwork.service;
 
-import top.cflwork.domain.ActivitiDO;
+import top.cflwork.domain.ActivitiVo;
 
 import java.io.InputStream;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  */
 public interface ActTaskService {
-    List<ActivitiDO> listTodo(ActivitiDO act);
+    List<ActivitiVo> listTodo(ActivitiVo act);
 
     void complete(String taskId, String procInsId, String comment, String title, Map<String, Object> vars);
 

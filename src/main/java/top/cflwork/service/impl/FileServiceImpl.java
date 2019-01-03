@@ -3,7 +3,7 @@ package top.cflwork.service.impl;
 import top.cflwork.config.CflworksConfig;
 import top.cflwork.service.FileService;
 import top.cflwork.dao.FileDao;
-import top.cflwork.vo.FileDO;
+import top.cflwork.vo.FileListVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -21,12 +21,12 @@ public class FileServiceImpl implements FileService {
 	@Autowired
 	private CflworksConfig cflworksConfig;
 	@Override
-	public FileDO get(Long id){
+	public FileListVo get(Long id){
 		return sysFileMapper.get(id);
 	}
 	
 	@Override
-	public List<FileDO> list(Map<String, Object> map){
+	public List<FileListVo> list(Map<String, Object> map){
 		return sysFileMapper.list(map);
 	}
 	
@@ -36,12 +36,12 @@ public class FileServiceImpl implements FileService {
 	}
 	
 	@Override
-	public int save(FileDO sysFile){
+	public int save(FileListVo sysFile){
 		return sysFileMapper.save(sysFile);
 	}
 	
 	@Override
-	public int update(FileDO sysFile){
+	public int update(FileListVo sysFile){
 		return sysFileMapper.update(sysFile);
 	}
 	

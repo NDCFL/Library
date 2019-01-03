@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class LogDO {
+public class LogVo {
 	private Long id;
 
 	private Long userId;
@@ -97,7 +97,7 @@ public class LogDO {
 
 	@Override
 	public String toString() {
-		return "LogDO{" +
+		return "LogVo{" +
 				"id=" + id +
 				", userId=" + userId +
 				", username='" + username + '\'' +

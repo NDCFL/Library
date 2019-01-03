@@ -1,6 +1,6 @@
 package top.cflwork.dao;
 
-import top.cflwork.vo.FileDO;
+import top.cflwork.vo.FileListVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -15,15 +15,15 @@ import java.util.Map;
 @Mapper
 public interface FileDao {
 
-	FileDO get(Long id);
+	FileListVo get(Long id);
 	
-	List<FileDO> list(Map<String, Object> map);
+	List<FileListVo> list(Map<String, Object> map);
 
 	int count(Map<String, Object> map);
 	
-	int save(FileDO file);
+	int save(FileListVo file);
 	
-	int update(FileDO file);
+	int update(FileListVo file);
 	
 	int remove(Long id);
 	

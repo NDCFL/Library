@@ -1,7 +1,7 @@
 package top.cflwork.service;
 
-import top.cflwork.domain.DeptDO;
-import top.cflwork.domain.UserDO;
+import top.cflwork.domain.DeptVo;
+import top.cflwork.domain.UserVo;
 import top.cflwork.vo.Tree;
 import top.cflwork.vo.UserVO;
 import org.springframework.stereotype.Service;
@@ -13,15 +13,15 @@ import java.util.Set;
 
 @Service
 public interface UserService {
-	UserDO get(Long id);
+	UserVo get(Long id);
 
-	List<UserDO> list(Map<String, Object> map);
+	List<UserVo> list(Map<String, Object> map);
 
 	int count(Map<String, Object> map);
 
-	int save(UserDO user);
+	int save(UserVo user);
 
-	int update(UserDO user);
+	int update(UserVo user);
 
 	int remove(Long userId);
 
@@ -31,16 +31,16 @@ public interface UserService {
 
 	Set<String> listRoles(Long userId);
 
-	int resetPwd(UserVO userVO,UserDO userDO) throws Exception;
+	int resetPwd(UserVO userVO,UserVo userDO) throws Exception;
 	int adminResetPwd(UserVO userVO) throws Exception;
-	Tree<DeptDO> getTree();
+	Tree<DeptVo> getTree();
 
 	/**
 	 * 更新个人信息
 	 * @param userDO
 	 * @return
 	 */
-	int updatePersonal(UserDO userDO);
+	int updatePersonal(UserVo userDO);
 
 	/**
 	 * 更新个人图片

@@ -2,7 +2,7 @@ package top.cflwork.shiro;
 
 import top.cflwork.config.ApplicationContextRegister;
 import top.cflwork.dao.UserDao;
-import top.cflwork.domain.UserDO;
+import top.cflwork.domain.UserVo;
 import top.cflwork.service.MenuService;
 import top.cflwork.util.ShiroUtils;
 import org.apache.shiro.authc.*;
@@ -40,7 +40,7 @@ public class UserRealm extends AuthorizingRealm {
 
 		UserDao userMapper = ApplicationContextRegister.getBean(UserDao.class);
 		// 查询用户信息
-		UserDO user = userMapper.list(map).get(0);
+		UserVo user = userMapper.list(map).get(0);
 
 		// 账号不存在
 		if (user == null) {

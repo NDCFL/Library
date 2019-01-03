@@ -1,6 +1,6 @@
 package top.cflwork.service.impl;
 
-import top.cflwork.domain.UserDO;
+import top.cflwork.domain.UserVo;
 import top.cflwork.domain.UserOnline;
 import top.cflwork.domain.UserToken;
 import top.cflwork.service.SessionService;
@@ -41,7 +41,7 @@ public class SessionServiceImpl implements SessionService {
             } else {
                 SimplePrincipalCollection principalCollection = (SimplePrincipalCollection) session
                         .getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
-                UserDO userDO = (UserDO) principalCollection.getPrimaryPrincipal();
+                UserVo userDO = (UserVo) principalCollection.getPrimaryPrincipal();
                 userOnline.setUsername(userDO.getUsername());
             }
             userOnline.setId((String) session.getId());
@@ -55,9 +55,9 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public List<UserDO> listOnlineUser() {
-        List<UserDO> list = new ArrayList<>();
-        UserDO userDO;
+    public List<UserVo> listOnlineUser() {
+        List<UserVo> list = new ArrayList<>();
+        UserVo userDO;
         Collection<Session> sessions = sessionDAO.getActiveSessions();
         for (Session session : sessions) {
             SimplePrincipalCollection principalCollection = new SimplePrincipalCollection();
@@ -66,7 +66,7 @@ public class SessionServiceImpl implements SessionService {
             } else {
                 principalCollection = (SimplePrincipalCollection) session
                         .getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
-                userDO = (UserDO) principalCollection.getPrimaryPrincipal();
+                userDO = (UserVo) principalCollection.getPrimaryPrincipal();
                 list.add(userDO);
             }
         }

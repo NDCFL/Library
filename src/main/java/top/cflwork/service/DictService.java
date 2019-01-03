@@ -1,7 +1,7 @@
 package top.cflwork.service;
 
-import top.cflwork.domain.UserDO;
-import top.cflwork.vo.DictDO;
+import top.cflwork.domain.UserVo;
+import top.cflwork.vo.DictVo;
 
 import java.util.List;
 import java.util.Map;
@@ -15,21 +15,21 @@ import java.util.Map;
  */
 public interface DictService {
 	
-	DictDO get(Long id);
+	DictVo get(Long id);
 	
-	List<DictDO> list(Map<String, Object> map);
+	List<DictVo> list(Map<String, Object> map);
 	
 	int count(Map<String, Object> map);
 	
-	int save(DictDO dict);
+	int save(DictVo dict);
 	
-	int update(DictDO dict);
+	int update(DictVo dict);
 	
 	int remove(Long id);
 	
 	int batchRemove(Long[] ids);
 
-	List<DictDO> listType();
+	List<DictVo> listType();
 	
 	String getName(String type, String value);
 
@@ -38,19 +38,19 @@ public interface DictService {
 	 * @return
      * @param userDO
 	 */
-	List<DictDO> getHobbyList(UserDO userDO);
+	List<DictVo> getHobbyList(UserVo userDO);
 
 	/**
 	 * 获取性别列表
  	 * @return
 	 */
-	List<DictDO> getSexList();
+	List<DictVo> getSexList();
 
 	/**
 	 * 根据type获取数据
 	 * @param
 	 * @return
 	 */
-	List<DictDO> listByType(String type);
+	List<DictVo> listByType(String type);
 
 }

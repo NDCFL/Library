@@ -2,7 +2,7 @@ package top.cflwork.service.impl;
 
 import top.cflwork.util.ShiroUtils;
 import top.cflwork.util.StringUtils;
-import top.cflwork.domain.ActivitiDO;
+import top.cflwork.domain.ActivitiVo;
 import top.cflwork.service.ActTaskService;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.engine.*;
@@ -51,9 +51,9 @@ public class ActTaskServiceImpl implements ActTaskService {
     private HistoryService historyService;
 
     @Override
-    public List<ActivitiDO> listTodo(ActivitiDO act) {
+    public List<ActivitiVo> listTodo(ActivitiVo act) {
         String userId = String.valueOf(ShiroUtils.getUserId());
-        List<ActivitiDO> result = new ArrayList<ActivitiDO>();
+        List<ActivitiVo> result = new ArrayList<ActivitiVo>();
         return result;
     }
 

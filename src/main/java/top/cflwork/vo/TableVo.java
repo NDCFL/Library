@@ -9,15 +9,15 @@ import java.util.List;
  * @email sunlightcs@gmail.com
  * @date 2016年12月20日 上午12:02:55
  */
-public class TableDO {
+public class TableVo {
     //表的名称
     private String tableName;
     //表的备注
     private String comments;
     //表的主键
-    private ColumnDO pk;
+    private ColumnVo pk;
     //表的列名(不包含主键)
-    private List<ColumnDO> columns;
+    private List<ColumnVo> columns;
 
     //类名(第一个字母大写)，如：sys_user => SysUser
     private String className;
@@ -40,19 +40,19 @@ public class TableDO {
         this.comments = comments;
     }
 
-    public ColumnDO getPk() {
+    public ColumnVo getPk() {
         return pk;
     }
 
-    public void setPk(ColumnDO pk) {
+    public void setPk(ColumnVo pk) {
         this.pk = pk;
     }
 
-    public List<ColumnDO> getColumns() {
+    public List<ColumnVo> getColumns() {
         return columns;
     }
 
-    public void setColumns(List<ColumnDO> columns) {
+    public void setColumns(List<ColumnVo> columns) {
         this.columns = columns;
     }
 
@@ -74,7 +74,7 @@ public class TableDO {
 
     @Override
     public String toString() {
-        return "TableDO{" +
+        return "TableVo{" +
                 "tableName='" + tableName + '\'' +
                 ", comments='" + comments + '\'' +
                 ", pk=" + pk +

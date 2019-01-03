@@ -1,6 +1,6 @@
 package top.cflwork.dao;
 
-import top.cflwork.domain.RoleMenuDO;
+import top.cflwork.domain.RoleMenuVo;
 
 import java.util.List;
 import java.util.Map;
@@ -16,15 +16,15 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface RoleMenuDao {
 
-	RoleMenuDO get(Long id);
+	RoleMenuVo get(Long id);
 	
-	List<RoleMenuDO> list(Map<String,Object> map);
+	List<RoleMenuVo> list(Map<String,Object> map);
 	
 	int count(Map<String,Object> map);
 	
-	int save(RoleMenuDO roleMenu);
+	int save(RoleMenuVo roleMenu);
 	
-	int update(RoleMenuDO roleMenu);
+	int update(RoleMenuVo roleMenu);
 	
 	int remove(Long id);
 	
@@ -36,5 +36,5 @@ public interface RoleMenuDao {
 
 	int removeByMenuId(Long menuId);
 	
-	int batchSave(List<RoleMenuDO> list);
+	int batchSave(List<RoleMenuVo> list);
 }

@@ -1,6 +1,6 @@
 package top.cflwork.dao;
 
-import top.cflwork.domain.SalaryDO;
+import top.cflwork.domain.SalaryVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -15,15 +15,15 @@ import java.util.Map;
 @Mapper
 public interface SalaryDao {
 
-	SalaryDO get(String id);
+	SalaryVo get(String id);
 	
-	List<SalaryDO> list(Map<String, Object> map);
+	List<SalaryVo> list(Map<String, Object> map);
 	
 	int count(Map<String, Object> map);
 	
-	int save(SalaryDO salary);
+	int save(SalaryVo salary);
 	
-	int update(SalaryDO salary);
+	int update(SalaryVo salary);
 	
 	int remove(String id);
 	

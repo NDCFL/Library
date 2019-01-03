@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PageDO<T> {
+public class PageVo<T> {
 
 	private int offset;
 	private int limit;
@@ -14,7 +14,7 @@ public class PageDO<T> {
 	private String param;
 	private List<T> rows;
 
-	public PageDO() {
+	public PageVo() {
 		super();
 		this.offset = 0;
 		this.limit = 10;
@@ -74,7 +74,7 @@ public class PageDO<T> {
 
 	@Override
 	public String toString() {
-		return "PageDO{" +
+		return "PageVo{" +
 				"offset=" + offset +
 				", limit=" + limit +
 				", total=" + total +

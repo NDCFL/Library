@@ -7,13 +7,13 @@ import top.cflwork.common.annotation.Log;
 import top.cflwork.config.Constant;
 import top.cflwork.service.FileService;
 import top.cflwork.util.*;
-import top.cflwork.domain.DeptDO;
-import top.cflwork.domain.RoleDO;
-import top.cflwork.domain.UserDO;
+import top.cflwork.domain.DeptVo;
+import top.cflwork.domain.RoleVo;
+import top.cflwork.domain.UserVo;
 import top.cflwork.service.DictService;
 import top.cflwork.service.RoleService;
 import top.cflwork.service.UserService;
-import top.cflwork.vo.FileDO;
+import top.cflwork.vo.FileListVo;
 import top.cflwork.vo.FileVo;
 import top.cflwork.vo.Tree;
 import top.cflwork.vo.UserVO;
@@ -54,7 +54,7 @@ public class UserController extends BaseController {
 	PageUtils list(@RequestParam Map<String, Object> params) {
 		// 查询列表数据
 		Query query = new Query(params);
-		List<UserDO> sysUserList = userService.list(query);
+		List<UserVo> sysUserList = userService.list(query);
 		int total = userService.count(query);
 		PageUtils pageUtil = new PageUtils(sysUserList, total);
 		return pageUtil;
@@ -64,7 +64,7 @@ public class UserController extends BaseController {
 	@Log("添加用户")
 	@GetMapping("/add")
 	String add(Model model) {
-		List<RoleDO> roles = roleService.list();
+		List<RoleVo> roles = roleService.list();
 		model.addAttribute("roles", roles);
 		return prefix + "/add";
 	}
@@ -73,9 +73,9 @@ public class UserController extends BaseController {
 	@Log("编辑用户")
 	@GetMapping("/edit/{id}")
 	String edit(Model model, @PathVariable("id") Long id) {
-		UserDO userDO = userService.get(id);
+		UserVo userDO = userService.get(id);
 		model.addAttribute("user", userDO);
-		List<RoleDO> roles = roleService.list(id);
+		List<RoleVo> roles = roleService.list(id);
 		model.addAttribute("roles", roles);
 		return prefix+"/edit";
 	}
@@ -84,7 +84,7 @@ public class UserController extends BaseController {
 	@Log("保存用户")
 	@PostMapping("/save")
 	@ResponseBody
-	R save(UserDO user) {
+	R save(UserVo user) {
 		user.setPassword(MD5Utils.encrypt(user.getUsername(), user.getPassword()));
 		if (userService.save(user) > 0) {
 			return R.ok();
@@ -96,7 +96,7 @@ public class UserController extends BaseController {
 	@Log("更新用户")
 	@PostMapping("/update")
 	@ResponseBody
-	R update(UserDO user) {
+	R update(UserVo user) {
 		if (userService.update(user) > 0) {
 			return R.ok();
 		}
@@ -108,7 +108,7 @@ public class UserController extends BaseController {
 	@Log("更新用户")
 	@PostMapping("/updatePeronal")
 	@ResponseBody
-	R updatePeronal(UserDO user) {
+	R updatePeronal(UserVo user) {
 		if (userService.updatePersonal(user) > 0) {
 			return R.ok();
 		}
@@ -151,7 +151,7 @@ public class UserController extends BaseController {
 	@GetMapping("/resetPwd/{id}")
 	String resetPwd(@PathVariable("id") Long userId, Model model) {
 
-		UserDO userDO = new UserDO();
+		UserVo userDO = new UserVo();
 		userDO.setUserId(userId);
 		model.addAttribute("user", userDO);
 		return prefix + "/reset_pwd";
@@ -184,8 +184,8 @@ public class UserController extends BaseController {
 	}
 	@GetMapping("/tree")
 	@ResponseBody
-	public Tree<DeptDO> tree() {
-		Tree<DeptDO> tree = new Tree<DeptDO>();
+	public Tree<DeptVo> tree() {
+		Tree<DeptVo> tree = new Tree<DeptVo>();
 		tree = userService.getTree();
 		return tree;
 	}
@@ -197,7 +197,7 @@ public class UserController extends BaseController {
 
 	@GetMapping("/personal")
 	String personal(Model model) {
-		UserDO userDO  = userService.get(getUserId());
+		UserVo userDO  = userService.get(getUserId());
 		model.addAttribute("user",userDO);
 		model.addAttribute("hobbyList",dictService.getHobbyList(userDO));
 		model.addAttribute("sexList",dictService.getSexList());
@@ -223,7 +223,7 @@ public class UserController extends BaseController {
 	public FileVo updateImg(MultipartFile file, HttpServletRequest request) {
 		FileVo fileVo = new FileVo();
 		try{
-			UserDO userDO = userService.get(getUserId());
+			UserVo userDO = userService.get(getUserId());
 			String url = QiniuUtil.uploadImage(file, "upload/faceImg");
 			Map<String,String> data = new HashMap<String, String>();
 			data.put("src",url);

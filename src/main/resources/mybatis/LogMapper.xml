@@ -3,11 +3,11 @@
 
 <mapper namespace="top.cflwork.dao.LogDao">
 
-	<select id="get" resultType="top.cflwork.vo.LogDO">
+	<select id="get" resultType="top.cflwork.vo.LogVo">
 		select `id`,`user_id`,`username`,`operation`,`time`,`method`,`params`,`ip`,`gmt_create` from sys_log where id = #{value}
 	</select>
 
-	<select id="list" resultType="top.cflwork.vo.LogDO">
+	<select id="list" resultType="top.cflwork.vo.LogVo">
 		select `id`,`user_id`,`username`,`operation`,`time`,`method`,`params`,`ip`,`gmt_create` from sys_log
         <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
@@ -48,7 +48,7 @@
 		  		</where>
 	</select>
 	 
-	<insert id="save" parameterType="top.cflwork.vo.LogDO" useGeneratedKeys="true" keyProperty="id">
+	<insert id="save" parameterType="top.cflwork.vo.LogVo" useGeneratedKeys="true" keyProperty="id">
 		insert into sys_log
 		(
 			`user_id`, 
@@ -73,7 +73,7 @@
 		)
 	</insert>
 	 
-	<update id="update" parameterType="top.cflwork.vo.LogDO">
+	<update id="update" parameterType="top.cflwork.vo.LogVo">
 		update sys_log 
 		<set>
 			<if test="userId != null">`user_id` = #{userId}, </if>

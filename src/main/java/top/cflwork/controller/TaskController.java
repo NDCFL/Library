@@ -2,7 +2,7 @@ package top.cflwork.controller;
 
 import top.cflwork.util.PageUtils;
 import top.cflwork.service.ActTaskService;
-import top.cflwork.vo.ProcessVO;
+import top.cflwork.vo.ProcessVo;
 import top.cflwork.vo.TaskVO;
 import org.activiti.engine.FormService;
 import org.activiti.engine.RepositoryService;
@@ -48,7 +48,7 @@ public class TaskController {
         int count = (int) repositoryService.createProcessDefinitionQuery().count();
         List<Object> list = new ArrayList<>();
         for(ProcessDefinition processDefinition: processDefinitions){
-            list.add(new ProcessVO(processDefinition));
+            list.add(new ProcessVo(processDefinition));
         }
 
         PageUtils pageUtils = new PageUtils(list, count);

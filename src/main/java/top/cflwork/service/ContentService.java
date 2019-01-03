@@ -1,7 +1,7 @@
 package top.cflwork.service;
 
 
-import top.cflwork.domain.ContentDO;
+import top.cflwork.domain.ContentVo;
 
 import java.util.List;
 import java.util.Map;
@@ -15,15 +15,15 @@ import java.util.Map;
  */
 public interface ContentService {
 	
-	ContentDO get(Long cid);
+	ContentVo get(Long cid);
 	
-	List<ContentDO> list(Map<String, Object> map);
+	List<ContentVo> list(Map<String, Object> map);
 	
 	int count(Map<String, Object> map);
 	
-	int save(ContentDO bContent);
+	int save(ContentVo bContent);
 	
-	int update(ContentDO bContent);
+	int update(ContentVo bContent);
 	
 	int remove(Long cid);
 	

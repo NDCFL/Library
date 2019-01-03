@@ -1,6 +1,6 @@
 package top.cflwork.dao;
 
-import top.cflwork.domain.NotifyDO;
+import top.cflwork.domain.NotifyVo;
 import top.cflwork.domain.NotifyDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,21 +17,21 @@ import java.util.Map;
 @Mapper
 public interface NotifyDao {
 
-	NotifyDO get(Long id);
+	NotifyVo get(Long id);
 
-	List<NotifyDO> list(Map<String, Object> map);
+	List<NotifyVo> list(Map<String, Object> map);
 
 	int count(Map<String, Object> map);
 
-	int save(NotifyDO notify);
+	int save(NotifyVo notify);
 
-	int update(NotifyDO notify);
+	int update(NotifyVo notify);
 
 	int remove(Long id);
 
 	int batchRemove(Long[] ids);
 
-	List<NotifyDO> listByIds(Long[] ids);
+	List<NotifyVo> listByIds(Long[] ids);
 
 	int countDTO(Map<String, Object> map);
 

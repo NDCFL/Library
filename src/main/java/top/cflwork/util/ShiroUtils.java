@@ -1,6 +1,6 @@
 package top.cflwork.util;
 
-import top.cflwork.domain.UserDO;
+import top.cflwork.domain.UserVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
@@ -18,9 +18,9 @@ public class ShiroUtils {
     public static Subject getSubjct() {
         return SecurityUtils.getSubject();
     }
-    public static UserDO getUser() {
+    public static UserVo getUser() {
         Object object = getSubjct().getPrincipal();
-        return (UserDO)object;
+        return (UserVo)object;
     }
     public static Long getUserId() {
         return getUser().getUserId();

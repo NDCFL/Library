@@ -5,7 +5,7 @@ import top.cflwork.controller.BaseController;
 import top.cflwork.util.PageUtils;
 import top.cflwork.util.Query;
 import top.cflwork.util.R;
-import top.cflwork.domain.ContentDO;
+import top.cflwork.domain.ContentVo;
 import top.cflwork.service.ContentService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class ContentController extends BaseController {
 	@RequiresPermissions("blog:bContent:bContent")
 	public PageUtils list(@RequestParam Map<String, Object> params) {
 		Query query = new Query(params);
-		List<ContentDO> bContentList = bContentService.list(query);
+		List<ContentVo> bContentList = bContentService.list(query);
 		int total = bContentService.count(query);
 		PageUtils pageUtils = new PageUtils(bContentList, total);
 		return pageUtils;
@@ -56,8 +56,8 @@ public class ContentController extends BaseController {
 	@GetMapping("/edit/{cid}")
 	@RequiresPermissions("blog:bContent:edit")
 	String edit(@PathVariable("cid") Long cid, Model model) {
-		ContentDO bContentDO = bContentService.get(cid);
-		model.addAttribute("bContent", bContentDO);
+		ContentVo bContentVo = bContentService.get(cid);
+		model.addAttribute("bContent", bContentVo);
 		return "blog/bContent/edit";
 	}
 
@@ -67,7 +67,7 @@ public class ContentController extends BaseController {
 	@ResponseBody
 	@RequiresPermissions("blog:bContent:add")
 	@PostMapping("/save")
-	public R save(ContentDO bContent) {
+	public R save(ContentVo bContent) {
 		if (bContent.getAllowComment() == null) {
 			bContent.setAllowComment(0);
 		}
@@ -97,7 +97,7 @@ public class ContentController extends BaseController {
 	@RequiresPermissions("blog:bContent:edit")
 	@ResponseBody
 	@RequestMapping("/update")
-	public R update( ContentDO bContent) {
+	public R update( ContentVo bContent) {
 		bContent.setGtmCreate(new Date());
 		bContentService.update(bContent);
 		return R.ok();

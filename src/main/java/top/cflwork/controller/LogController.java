@@ -3,8 +3,8 @@ package top.cflwork.controller;
 import top.cflwork.util.Query;
 import top.cflwork.util.R;
 import top.cflwork.service.LogService;
-import top.cflwork.vo.LogDO;
-import top.cflwork.vo.PageDO;
+import top.cflwork.vo.LogVo;
+import top.cflwork.vo.PageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +25,9 @@ public class LogController {
 
 	@ResponseBody
 	@GetMapping("/list")
-	PageDO<LogDO> list(@RequestParam Map<String, Object> params) {
+	PageVo<LogVo> list(@RequestParam Map<String, Object> params) {
 		Query query = new Query(params);
-		PageDO<LogDO> page = logService.queryList(query);
+		PageVo<LogVo> page = logService.queryList(query);
 		return page;
 	}
 	

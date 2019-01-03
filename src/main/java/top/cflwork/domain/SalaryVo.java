@@ -13,7 +13,7 @@ import java.util.Date;
  * @email 275300091@qq.com
  * @date 2017-11-25 13:28:58
  */
-public class SalaryDO extends TaskDO implements Serializable  {
+public class SalaryVo extends TaskDO implements Serializable  {
 	private static final long serialVersionUID = 1L;
 	
 	//编号

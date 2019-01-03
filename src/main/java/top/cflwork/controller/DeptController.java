@@ -3,7 +3,7 @@ package top.cflwork.controller;
 import top.cflwork.config.Constant;
 import top.cflwork.controller.BaseController;
 import top.cflwork.util.R;
-import top.cflwork.domain.DeptDO;
+import top.cflwork.domain.DeptVo;
 import top.cflwork.service.DeptService;
 import top.cflwork.vo.Tree;
 import io.swagger.annotations.ApiOperation;
@@ -42,9 +42,9 @@ public class DeptController extends BaseController {
 	@ResponseBody
 	@GetMapping("/list")
 	@RequiresPermissions("sysDept:sysDeptPage")
-	public List<DeptDO> list() {
+	public List<DeptVo> list() {
 		Map<String, Object> query = new HashMap<>(16);
-		List<DeptDO> sysDeptList = sysDeptService.list(query);
+		List<DeptVo> sysDeptList = sysDeptService.list(query);
 		return sysDeptList;
 	}
 
@@ -63,12 +63,12 @@ public class DeptController extends BaseController {
 	@GetMapping("/edit/{deptId}")
 	@RequiresPermissions("sysDept:edit")
 	String edit(@PathVariable("deptId") Long deptId, Model model) {
-		DeptDO sysDept = sysDeptService.get(deptId);
+		DeptVo sysDept = sysDeptService.get(deptId);
 		model.addAttribute("sysDept", sysDept);
 		if(Constant.DEPT_ROOT_ID.equals(sysDept.getParentId())) {
 			model.addAttribute("parentDeptName", "无");
 		}else {
-			DeptDO parDept = sysDeptService.get(sysDept.getParentId());
+			DeptVo parDept = sysDeptService.get(sysDept.getParentId());
 			model.addAttribute("parentDeptName", parDept.getName());
 		}
 		return  prefix + "/edit";
@@ -80,7 +80,7 @@ public class DeptController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/save")
 	@RequiresPermissions("sysDept:add")
-	public R save(DeptDO sysDept) {
+	public R save(DeptVo sysDept) {
 		if (sysDeptService.save(sysDept) > 0) {
 			return R.ok();
 		}
@@ -93,7 +93,7 @@ public class DeptController extends BaseController {
 	@ResponseBody
 	@RequestMapping("/update")
 	@RequiresPermissions("sysDept:edit")
-	public R update(DeptDO sysDept) {
+	public R update(DeptVo sysDept) {
 		if (sysDeptService.update(sysDept) > 0) {
 			return R.ok();
 		}
@@ -135,8 +135,8 @@ public class DeptController extends BaseController {
 
 	@GetMapping("/tree")
 	@ResponseBody
-	public Tree<DeptDO> tree() {
-		Tree<DeptDO> tree = new Tree<DeptDO>();
+	public Tree<DeptVo> tree() {
+		Tree<DeptVo> tree = new Tree<DeptVo>();
 		tree = sysDeptService.getTree();
 		return tree;
 	}

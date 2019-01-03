@@ -3,8 +3,8 @@ package top.cflwork.service.impl;
 import top.cflwork.service.DictService;
 import top.cflwork.util.StringUtils;
 import top.cflwork.dao.DictDao;
-import top.cflwork.domain.UserDO;
-import top.cflwork.vo.DictDO;
+import top.cflwork.domain.UserVo;
+import top.cflwork.vo.DictVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +20,12 @@ public class DictServiceImpl implements DictService {
     private DictDao dictDao;
 
     @Override
-    public DictDO get(Long id) {
+    public DictVo get(Long id) {
         return dictDao.get(id);
     }
 
     @Override
-    public List<DictDO> list(Map<String, Object> map) {
+    public List<DictVo> list(Map<String, Object> map) {
         return dictDao.list(map);
     }
 
@@ -35,12 +35,12 @@ public class DictServiceImpl implements DictService {
     }
 
     @Override
-    public int save(DictDO dict) {
+    public int save(DictVo dict) {
         return dictDao.save(dict);
     }
 
     @Override
-    public int update(DictDO dict) {
+    public int update(DictVo dict) {
         return dictDao.update(dict);
     }
 
@@ -56,7 +56,7 @@ public class DictServiceImpl implements DictService {
 
     @Override
 
-    public List<DictDO> listType() {
+    public List<DictVo> listType() {
         return dictDao.listType();
     }
 
@@ -70,15 +70,15 @@ public class DictServiceImpl implements DictService {
     }
 
     @Override
-    public List<DictDO> getHobbyList(UserDO userDO) {
+    public List<DictVo> getHobbyList(UserVo userDO) {
         Map<String, Object> param = new HashMap<>(16);
         param.put("type", "hobby");
-        List<DictDO> hobbyList = dictDao.list(param);
+        List<DictVo> hobbyList = dictDao.list(param);
 
         if (StringUtils.isNotEmpty(userDO.getHobby())) {
             String userHobbys[] = userDO.getHobby().split(";");
             for (String userHobby : userHobbys) {
-                for (DictDO hobby : hobbyList) {
+                for (DictVo hobby : hobbyList) {
                     if (!Objects.equals(userHobby, hobby.getId().toString())) {
                         continue;
                     }
@@ -92,14 +92,14 @@ public class DictServiceImpl implements DictService {
     }
 
     @Override
-    public List<DictDO> getSexList() {
+    public List<DictVo> getSexList() {
         Map<String, Object> param = new HashMap<>(16);
         param.put("type", "sex");
         return dictDao.list(param);
     }
 
     @Override
-    public List<DictDO> listByType(String type) {
+    public List<DictVo> listByType(String type) {
         Map<String, Object> param = new HashMap<>(16);
         param.put("type", type);
         return dictDao.list(param);

@@ -3,8 +3,8 @@ package top.cflwork.service.impl;
 import top.cflwork.util.Query;
 import top.cflwork.dao.LogDao;
 import top.cflwork.service.LogService;
-import top.cflwork.vo.LogDO;
-import top.cflwork.vo.PageDO;
+import top.cflwork.vo.LogVo;
+import top.cflwork.vo.PageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -18,15 +18,15 @@ public class LogServiceImpl implements LogService {
 
 	@Async
 	@Override
-	public void save(LogDO logDO) {
+	public void save(LogVo logDO) {
 		 logMapper.save(logDO);
 	}
 
 	@Override
-	public PageDO<LogDO> queryList(Query query) {
+	public PageVo<LogVo> queryList(Query query) {
 		int total = logMapper.count(query);
-		List<LogDO> logs = logMapper.list(query);
-		PageDO<LogDO> page = new PageDO<>();
+		List<LogVo> logs = logMapper.list(query);
+		PageVo<LogVo> page = new PageVo<>();
 		page.setTotal(total);
 		page.setRows(logs);
 		return page;

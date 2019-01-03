@@ -3,7 +3,7 @@ package top.cflwork.controller;
 import top.cflwork.config.CflworksConfig;
 import top.cflwork.service.FileService;
 import top.cflwork.util.*;
-import top.cflwork.vo.FileDO;
+import top.cflwork.vo.FileListVo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,7 +47,7 @@ public class FileController extends BaseController {
 	public PageUtils list(@RequestParam Map<String, Object> params) {
 		// 查询列表数据
 		Query query = new Query(params);
-		List<FileDO> sysFileList = sysFileService.list(query);
+		List<FileListVo> sysFileList = sysFileService.list(query);
 		int total = sysFileService.count(query);
 		PageUtils pageUtils = new PageUtils(sysFileList, total);
 		return pageUtils;
@@ -62,7 +62,7 @@ public class FileController extends BaseController {
 	@GetMapping("/edit")
 	// @RequiresPermissions("common:bComments")
 	String edit(Long id, Model model) {
-		FileDO sysFile = sysFileService.get(id);
+		FileListVo sysFile = sysFileService.get(id);
 		model.addAttribute("sysFile", sysFile);
 		return "common/sysFile/edit";
 	}
@@ -73,7 +73,7 @@ public class FileController extends BaseController {
 	@RequestMapping("/info/{id}")
 	@RequiresPermissions("common:info")
 	public R info(@PathVariable("id") Long id) {
-		FileDO sysFile = sysFileService.get(id);
+		FileListVo sysFile = sysFileService.get(id);
 		return R.ok().put("sysFile", sysFile);
 	}
 
@@ -83,7 +83,7 @@ public class FileController extends BaseController {
 	@ResponseBody
 	@PostMapping("/save")
 	@RequiresPermissions("common:save")
-	public R save(FileDO sysFile) {
+	public R save(FileListVo sysFile) {
 		if (sysFileService.save(sysFile) > 0) {
 			return R.ok();
 		}
@@ -95,7 +95,7 @@ public class FileController extends BaseController {
 	 */
 	@RequestMapping("/update")
 	@RequiresPermissions("common:update")
-	public R update(@RequestBody FileDO sysFile) {
+	public R update(@RequestBody FileListVo sysFile) {
 		sysFileService.update(sysFile);
 
 		return R.ok();
@@ -136,7 +136,7 @@ public class FileController extends BaseController {
 	R upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
 		String fileName = file.getOriginalFilename();
 		fileName = FileUtil.renameToUUID(fileName);
-		FileDO sysFile = new FileDO(FileType.fileType(fileName), "/files/" + fileName, new Date());
+		FileListVo sysFile = new FileListVo(FileType.fileType(fileName), "/files/" + fileName, new Date());
 		try {
 			FileUtil.uploadFile(file.getBytes(), cflworksConfig.getUploadPath(), fileName);
 		} catch (Exception e) {

@@ -4,7 +4,7 @@ import top.cflwork.common.annotation.Log;
 import top.cflwork.config.Constant;
 import top.cflwork.controller.BaseController;
 import top.cflwork.util.R;
-import top.cflwork.domain.RoleDO;
+import top.cflwork.domain.RoleVo;
 import top.cflwork.service.RoleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +30,8 @@ public class RoleController extends BaseController {
 	@RequiresPermissions("role:role")
 	@GetMapping("/list")
 	@ResponseBody()
-	List<RoleDO> list() {
-		List<RoleDO> roles = roleService.list();
+	List<RoleVo> list() {
+		List<RoleVo> roles = roleService.list();
 		return roles;
 	}
 
@@ -46,7 +46,7 @@ public class RoleController extends BaseController {
 	@RequiresPermissions("role:edit")
 	@GetMapping("/edit/{id}")
 	String edit(@PathVariable("id") Long id, Model model) {
-		RoleDO roleDO = roleService.get(id);
+		RoleVo roleDO = roleService.get(id);
 		model.addAttribute("role", roleDO);
 		return prefix + "/edit";
 	}
@@ -55,7 +55,7 @@ public class RoleController extends BaseController {
 	@RequiresPermissions("role:add")
 	@PostMapping("/save")
 	@ResponseBody()
-	R save(RoleDO role) {
+	R save(RoleVo role) {
 		if (roleService.save(role) > 0) {
 			return R.ok();
 		} else {
@@ -67,7 +67,7 @@ public class RoleController extends BaseController {
 	@RequiresPermissions("role:edit")
 	@PostMapping("/update")
 	@ResponseBody()
-	R update(RoleDO role) {
+	R update(RoleVo role) {
 		if (roleService.update(role) > 0) {
 			return R.ok();
 		} else {

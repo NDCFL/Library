@@ -1,6 +1,6 @@
 package top.cflwork.service;
 
-import top.cflwork.domain.DeptDO;
+import top.cflwork.domain.DeptVo;
 import top.cflwork.vo.Tree;
 
 import java.util.List;
@@ -15,21 +15,21 @@ import java.util.Map;
  */
 public interface DeptService {
 	
-	DeptDO get(Long deptId);
+	DeptVo get(Long deptId);
 	
-	List<DeptDO> list(Map<String, Object> map);
+	List<DeptVo> list(Map<String, Object> map);
 	
 	int count(Map<String, Object> map);
 	
-	int save(DeptDO sysDept);
+	int save(DeptVo sysDept);
 	
-	int update(DeptDO sysDept);
+	int update(DeptVo sysDept);
 	
 	int remove(Long deptId);
 	
 	int batchRemove(Long[] deptIds);
 
-	Tree<DeptDO> getTree();
+	Tree<DeptVo> getTree();
 
 	boolean checkDeptHasUser(Long deptId);
 }

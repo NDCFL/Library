@@ -1,6 +1,6 @@
 package top.cflwork.dao;
 
-import top.cflwork.vo.LogDO;
+import top.cflwork.vo.LogVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -15,15 +15,15 @@ import java.util.Map;
 @Mapper
 public interface LogDao {
 
-	LogDO get(Long id);
+	LogVo get(Long id);
 	
-	List<LogDO> list(Map<String, Object> map);
+	List<LogVo> list(Map<String, Object> map);
 
 	int count(Map<String, Object> map);
 	
-	int save(LogDO log);
+	int save(LogVo log);
 	
-	int update(LogDO log);
+	int update(LogVo log);
 	
 	int remove(Long id);
 	
