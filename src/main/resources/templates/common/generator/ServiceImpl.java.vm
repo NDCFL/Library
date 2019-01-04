@@ -2,12 +2,13 @@ package ${package}.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 
 import ${package}.dao.${className}Dao;
-import ${package}.domain.${className}DO;
+import ${package}.vo.${className}Vo;
 import ${package}.service.${className}Service;
 
 
@@ -18,38 +19,50 @@ public class ${className}ServiceImpl implements ${className}Service {
 	private ${className}Dao ${classname}Dao;
 	
 	@Override
-	public ${className}DO get(${pk.attrType} ${pk.attrname}){
+    @Transactional
+	public ${className}Vo get(${pk.attrType} ${pk.attrname}){
 		return ${classname}Dao.get(${pk.attrname});
 	}
 	
 	@Override
-	public List<${className}DO> list(Map<String, Object> map){
+    @Transactional
+	public List<${className}Vo> list(Map<String, Object> map){
 		return ${classname}Dao.list(map);
 	}
 	
 	@Override
+    @Transactional
 	public int count(Map<String, Object> map){
 		return ${classname}Dao.count(map);
 	}
 	
 	@Override
-	public int save(${className}DO ${classname}){
+    @Transactional
+	public int save(${className}Vo ${classname}){
 		return ${classname}Dao.save(${classname});
 	}
 	
 	@Override
-	public int update(${className}DO ${classname}){
+    @Transactional
+	public int update(${className}Vo ${classname}){
 		return ${classname}Dao.update(${classname});
 	}
 	
 	@Override
+    @Transactional
 	public int remove(${pk.attrType} ${pk.attrname}){
 		return ${classname}Dao.remove(${pk.attrname});
 	}
 	
 	@Override
+    @Transactional
 	public int batchRemove(${pk.attrType}[] ${pk.attrname}s){
 		return ${classname}Dao.batchRemove(${pk.attrname}s);
 	}
-	
+
+    @Override
+    @Transactional
+    public int batchSave(List<${className}Vo> ${classname}List){
+        return ${classname}Dao.batchSave(${classname}List);
+    }
 }

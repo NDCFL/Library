@@ -1,55 +1,68 @@
 package top.cflwork.service.impl;
 
-import top.cflwork.dao.BookDao;
-import top.cflwork.domain.BookDO;
-import top.cflwork.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Map;
 
+import top.cflwork.dao.BookDao;
+import top.cflwork.vo.BookVo;
+import top.cflwork.service.BookService;
+
+
+
 @Service
-@EnableCaching
 public class BookServiceImpl implements BookService {
 	@Autowired
 	private BookDao bookDao;
 	
 	@Override
-	public BookDO get(Long id){
+    @Transactional
+	public BookVo get(Long id){
 		return bookDao.get(id);
 	}
 	
 	@Override
-	public List<BookDO> list(Map<String, Object> map){
+    @Transactional
+	public List<BookVo> list(Map<String, Object> map){
 		return bookDao.list(map);
 	}
 	
 	@Override
+    @Transactional
 	public int count(Map<String, Object> map){
 		return bookDao.count(map);
 	}
 	
 	@Override
-	public int save(BookDO book){
+    @Transactional
+	public int save(BookVo book){
 		return bookDao.save(book);
 	}
 	
 	@Override
-	public int update(BookDO book){
+    @Transactional
+	public int update(BookVo book){
 		return bookDao.update(book);
 	}
 	
 	@Override
+    @Transactional
 	public int remove(Long id){
 		return bookDao.remove(id);
 	}
 	
 	@Override
+    @Transactional
 	public int batchRemove(Long[] ids){
 		return bookDao.batchRemove(ids);
 	}
-	
+
+    @Override
+    @Transactional
+    public int batchSave(List<BookVo> bookList){
+        return bookDao.batchSave(bookList);
+    }
 }

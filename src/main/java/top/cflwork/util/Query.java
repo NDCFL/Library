@@ -12,7 +12,10 @@ public class Query extends LinkedHashMap<String, Object> {
 	private int offset;
 	// 每页条数
 	private int limit;
-
+	//排序字段
+	private String sort;
+	//排序方式
+	private String order;
 	public Query(Map<String, Object> params) {
 		this.putAll(params);
 		// 分页参数
@@ -21,6 +24,8 @@ public class Query extends LinkedHashMap<String, Object> {
 		this.put("offset", offset);
 		this.put("page", offset / limit + 1);
 		this.put("limit", limit);
+		this.put("sort",sort);
+		this.put("order",order);
 	}
 
 	public int getOffset() {

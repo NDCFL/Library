@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!VoCTYPE html>
 <html>
 <meta charset="utf-8">
 <head th:include="include :: header"></head>

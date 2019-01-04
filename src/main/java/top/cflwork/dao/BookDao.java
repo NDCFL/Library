@@ -1,33 +1,32 @@
 package top.cflwork.dao;
 
-import com.alicp.jetcache.anno.CacheType;
-import com.alicp.jetcache.anno.CreateCache;
-import top.cflwork.domain.BookDO;
-
 import java.util.List;
 import java.util.Map;
-
 import org.apache.ibatis.annotations.Mapper;
+import top.cflwork.vo.BookVo;
 
 /**
  * 图书表
- * @author 陈飞龙
+ * @author cfl
  * @email 275300091@qq.com
- * @date 2018-10-22 14:17:18
+ * @date 2019-01-04 20:10:23
  */
 @Mapper
 public interface BookDao {
-	BookDO get(Long id);
+
+	BookVo get(Long id);
 	
-	List<BookDO> list(Map<String, Object> map);
+	List<BookVo> list(Map<String, Object> map);
 	
 	int count(Map<String, Object> map);
 	
-	int save(BookDO book);
+	int save(BookVo book);
 	
-	int update(BookDO book);
+	int update(BookVo book);
 	
 	int remove(Long id);
 	
 	int batchRemove(Long[] ids);
+
+	int batchSave(List<BookVo> bookList);
 }
