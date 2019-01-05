@@ -1832,7 +1832,7 @@ Expr = Sizzle.selectors = {
 							}
 						}
 
-						// Incorporate the offset, then check against cycle size
+						// Incorporate the pageIndex, then check against cycle size
 						diff -= last;
 						return diff === first || ( diff % first === 0 && diff / first >= 0 );
 					}
@@ -3730,7 +3730,7 @@ jQuery( function() {
 		// them layout
 		div.style.cssText = "display:inline;margin:0;border:0;padding:1px;width:1px;zoom:1";
 
-		support.inlineBlockNeedsLayout = val = div.offsetWidth === 3;
+		support.inlineBlockNeedsLayout = val = div.pageIndexWidth === 3;
 		if ( val ) {
 
 			// Prevent IE 6 from affecting layout for positioned elements #11048
@@ -4284,7 +4284,7 @@ jQuery.fn.extend( {
 				"box-sizing:content-box;display:block;margin:0;border:0;" +
 				"padding:1px;width:1px;zoom:1";
 			div.appendChild( document.createElement( "div" ) ).style.width = "5px";
-			shrinkWrapBlocksVal = div.offsetWidth !== 3;
+			shrinkWrapBlocksVal = div.pageIndexWidth !== 3;
 		}
 
 		body.removeChild( container );
@@ -4356,7 +4356,7 @@ function adjustCSS( elem, prop, valueParts, tween ) {
 	if ( valueParts ) {
 		initialInUnit = +initialInUnit || +initial || 0;
 
-		// Apply relative offset (+=/-=) if specified
+		// Apply relative pageIndex (+=/-=) if specified
 		adjusted = valueParts[ 1 ] ?
 			initialInUnit + ( valueParts[ 1 ] + 1 ) * valueParts[ 2 ] :
 			+valueParts[ 2 ];
@@ -5362,7 +5362,7 @@ jQuery.event = {
 	},
 
 	mouseHooks: {
-		props: ( "button buttons clientX clientY fromElement offsetX offsetY " +
+		props: ( "button buttons clientX clientY fromElement pageIndexX pageIndexY " +
 			"pageX pageY screenX screenY toElement" ).split( " " ),
 		filter: function( event, original ) {
 			var body, eventDoc, doc,
@@ -6661,11 +6661,11 @@ var documentElement = document.documentElement;
 
 		// Support: IE6-8
 		// First check that getClientRects works as expected
-		// Check if table cells still have offsetWidth/Height when they are set
+		// Check if table cells still have pageIndexWidth/Height when they are set
 		// to display:none and there are still other visible table cells in a
-		// table row; if so, offsetWidth/Height are not reliable for use when
+		// table row; if so, pageIndexWidth/Height are not reliable for use when
 		// determining if an element has been hidden directly using
-		// display:none (it is still safe to use offsets if a parent element is
+		// display:none (it is still safe to use pageIndexs if a parent element is
 		// hidden; don safety goggles and see bug #4512 for more information).
 		div.style.display = "none";
 		reliableHiddenOffsetsVal = div.getClientRects().length === 0;
@@ -6674,11 +6674,11 @@ var documentElement = document.documentElement;
 			div.innerHTML = "<table><tr><td></td><td>t</td></tr></table>";
 			contents = div.getElementsByTagName( "td" );
 			contents[ 0 ].style.cssText = "margin:0;border:0;padding:0;display:none";
-			reliableHiddenOffsetsVal = contents[ 0 ].offsetHeight === 0;
+			reliableHiddenOffsetsVal = contents[ 0 ].pageIndexHeight === 0;
 			if ( reliableHiddenOffsetsVal ) {
 				contents[ 0 ].style.display = "";
 				contents[ 1 ].style.display = "none";
-				reliableHiddenOffsetsVal = contents[ 0 ].offsetHeight === 0;
+				reliableHiddenOffsetsVal = contents[ 0 ].pageIndexHeight === 0;
 			}
 		}
 
@@ -6989,9 +6989,9 @@ function augmentWidthOrHeight( elem, name, extra, isBorderBox, styles ) {
 
 function getWidthOrHeight( elem, name, extra ) {
 
-	// Start with offset property, which is equivalent to the border-box value
+	// Start with pageIndex property, which is equivalent to the border-box value
 	var valueIsBorderBox = true,
-		val = name === "width" ? elem.offsetWidth : elem.offsetHeight,
+		val = name === "width" ? elem.pageIndexWidth : elem.pageIndexHeight,
 		styles = getStyles( elem ),
 		isBorderBox = support.boxSizing &&
 			jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
@@ -7009,7 +7009,7 @@ function getWidthOrHeight( elem, name, extra ) {
 		}
 	}
 
-	// some non-html elements return undefined for offsetWidth, so check for null/undefined
+	// some non-html elements return undefined for pageIndexWidth, so check for null/undefined
 	// svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
 	// MathML - https://bugzilla.mozilla.org/show_bug.cgi?id=491668
 	if ( val <= 0 || val == null ) {
@@ -7206,7 +7206,7 @@ jQuery.each( [ "height", "width" ], function( i, name ) {
 				// certain elements can have dimension info if we invisibly show them
 				// however, it must have a current display style that would benefit from this
 				return rdisplayswap.test( jQuery.css( elem, "display" ) ) &&
-					elem.offsetWidth === 0 ?
+					elem.pageIndexWidth === 0 ?
 						swap( elem, cssShow, function() {
 							return getWidthOrHeight( elem, name, extra );
 						} ) :
@@ -9466,7 +9466,7 @@ jQuery.extend( {
 
 		var
 
-			// Cross-domain detection vars
+			// Cross-vo detection vars
 			parts,
 
 			// Loop variable
@@ -9609,7 +9609,7 @@ jQuery.extend( {
 		// Extract dataTypes list
 		s.dataTypes = jQuery.trim( s.dataType || "*" ).toLowerCase().match( rnotwhite ) || [ "" ];
 
-		// A cross-domain request is in order when we have a protocol:host:port mismatch
+		// A cross-vo request is in order when we have a protocol:host:port mismatch
 		if ( s.crossDomain == null ) {
 			parts = rurl.exec( s.url.toLowerCase() );
 			s.crossDomain = !!( parts &&
@@ -10011,9 +10011,9 @@ function filterHidden( elem ) {
 jQuery.expr.filters.hidden = function( elem ) {
 
 	// Support: Opera <= 12.12
-	// Opera reports offsetWidths and offsetHeights less than zero on some elements
+	// Opera reports pageIndexWidths and pageIndexHeights less than zero on some elements
 	return support.reliableHiddenOffsets() ?
-		( elem.offsetWidth <= 0 && elem.offsetHeight <= 0 &&
+		( elem.pageIndexWidth <= 0 && elem.pageIndexHeight <= 0 &&
 			!elem.getClientRects().length ) :
 			filterHidden( elem );
 };
@@ -10154,7 +10154,7 @@ jQuery.ajaxSettings.xhr = window.ActiveXObject !== undefined ?
 		}
 
 		// Support: IE 9-11
-		// IE seems to error on cross-domain PATCH requests when ActiveX XHR
+		// IE seems to error on cross-vo PATCH requests when ActiveX XHR
 		// is used. In IE 9+ always use the native XHR.
 		// Note: this condition won't catch Edge as it doesn't define
 		// document.documentMode but it also doesn't support ActiveX so it won't
@@ -10200,7 +10200,7 @@ if ( xhrSupported ) {
 
 	jQuery.ajaxTransport( function( options ) {
 
-		// Cross domain only allowed if supported through XMLHttpRequest
+		// Cross vo only allowed if supported through XMLHttpRequest
 		if ( !options.crossDomain || support.cors ) {
 
 			var callback;
@@ -10233,10 +10233,10 @@ if ( xhrSupported ) {
 					}
 
 					// X-Requested-With header
-					// For cross-domain requests, seeing as conditions for a preflight are
+					// For cross-vo requests, seeing as conditions for a preflight are
 					// akin to a jigsaw puzzle, we simply never set it to be sure.
 					// (it can always be set on a per-request basis or even using ajaxSetup)
-					// For same-domain requests, won't change header if already provided.
+					// For same-vo requests, won't change header if already provided.
 					if ( !options.crossDomain && !headers[ "X-Requested-With" ] ) {
 						headers[ "X-Requested-With" ] = "XMLHttpRequest";
 					}
@@ -10289,7 +10289,7 @@ if ( xhrSupported ) {
 								}
 
 								// Firefox throws an exception when accessing
-								// statusText for faulty cross-domain requests
+								// statusText for faulty cross-vo requests
 								try {
 									statusText = xhr.statusText;
 								} catch ( e ) {
@@ -10396,7 +10396,7 @@ jQuery.ajaxPrefilter( "script", function( s ) {
 // Bind script tag hack transport
 jQuery.ajaxTransport( "script", function( s ) {
 
-	// This transport only deals with cross domain requests
+	// This transport only deals with cross vo requests
 	if ( s.crossDomain ) {
 
 		var script,
@@ -10694,7 +10694,7 @@ function getWindow( elem ) {
 			false;
 }
 
-jQuery.offset = {
+jQuery.pageIndex = {
 	setOffset: function( elem, options, i ) {
 		var curPosition, curLeft, curCSSTop, curTop, curOffset, curCSSLeft, calculatePosition,
 			position = jQuery.css( elem, "position" ),
@@ -10706,7 +10706,7 @@ jQuery.offset = {
 			elem.style.position = "relative";
 		}
 
-		curOffset = curElem.offset();
+		curOffset = curElem.pageIndex();
 		curCSSTop = jQuery.css( elem, "top" );
 		curCSSLeft = jQuery.css( elem, "left" );
 		calculatePosition = ( position === "absolute" || position === "fixed" ) &&
@@ -10745,12 +10745,12 @@ jQuery.offset = {
 };
 
 jQuery.fn.extend( {
-	offset: function( options ) {
+	pageIndex: function( options ) {
 		if ( arguments.length ) {
 			return options === undefined ?
 				this :
 				this.each( function( i ) {
-					jQuery.offset.setOffset( this, options, i );
+					jQuery.pageIndex.setOffset( this, options, i );
 				} );
 		}
 
@@ -10787,50 +10787,50 @@ jQuery.fn.extend( {
 			return;
 		}
 
-		var offsetParent, offset,
+		var pageIndexParent, pageIndex,
 			parentOffset = { top: 0, left: 0 },
 			elem = this[ 0 ];
 
-		// Fixed elements are offset from window (parentOffset = {top:0, left: 0},
-		// because it is its only offset parent
+		// Fixed elements are pageIndex from window (parentOffset = {top:0, left: 0},
+		// because it is its only pageIndex parent
 		if ( jQuery.css( elem, "position" ) === "fixed" ) {
 
 			// we assume that getBoundingClientRect is available when computed position is fixed
-			offset = elem.getBoundingClientRect();
+			pageIndex = elem.getBoundingClientRect();
 		} else {
 
-			// Get *real* offsetParent
-			offsetParent = this.offsetParent();
+			// Get *real* pageIndexParent
+			pageIndexParent = this.pageIndexParent();
 
-			// Get correct offsets
-			offset = this.offset();
-			if ( !jQuery.nodeName( offsetParent[ 0 ], "html" ) ) {
-				parentOffset = offsetParent.offset();
+			// Get correct pageIndexs
+			pageIndex = this.pageIndex();
+			if ( !jQuery.nodeName( pageIndexParent[ 0 ], "html" ) ) {
+				parentOffset = pageIndexParent.pageIndex();
 			}
 
-			// Add offsetParent borders
-			parentOffset.top  += jQuery.css( offsetParent[ 0 ], "borderTopWidth", true );
-			parentOffset.left += jQuery.css( offsetParent[ 0 ], "borderLeftWidth", true );
+			// Add pageIndexParent borders
+			parentOffset.top  += jQuery.css( pageIndexParent[ 0 ], "borderTopWidth", true );
+			parentOffset.left += jQuery.css( pageIndexParent[ 0 ], "borderLeftWidth", true );
 		}
 
-		// Subtract parent offsets and element margins
-		// note: when an element has margin: auto the offsetLeft and marginLeft
-		// are the same in Safari causing offset.left to incorrectly be 0
+		// Subtract parent pageIndexs and element margins
+		// note: when an element has margin: auto the pageIndexLeft and marginLeft
+		// are the same in Safari causing pageIndex.left to incorrectly be 0
 		return {
-			top:  offset.top  - parentOffset.top - jQuery.css( elem, "marginTop", true ),
-			left: offset.left - parentOffset.left - jQuery.css( elem, "marginLeft", true )
+			top:  pageIndex.top  - parentOffset.top - jQuery.css( elem, "marginTop", true ),
+			left: pageIndex.left - parentOffset.left - jQuery.css( elem, "marginLeft", true )
 		};
 	},
 
-	offsetParent: function() {
+	pageIndexParent: function() {
 		return this.map( function() {
-			var offsetParent = this.offsetParent;
+			var pageIndexParent = this.pageIndexParent;
 
-			while ( offsetParent && ( !jQuery.nodeName( offsetParent, "html" ) &&
-				jQuery.css( offsetParent, "position" ) === "static" ) ) {
-				offsetParent = offsetParent.offsetParent;
+			while ( pageIndexParent && ( !jQuery.nodeName( pageIndexParent, "html" ) &&
+				jQuery.css( pageIndexParent, "position" ) === "static" ) ) {
+				pageIndexParent = pageIndexParent.pageIndexParent;
 			}
-			return offsetParent || documentElement;
+			return pageIndexParent || documentElement;
 		} );
 	}
 } );
@@ -10866,14 +10866,14 @@ jQuery.each( { scrollLeft: "pageXOffset", scrollTop: "pageYOffset" }, function( 
 // Add the top/left cssHooks using jQuery.fn.position
 // Webkit bug: https://bugs.webkit.org/show_bug.cgi?id=29084
 // getComputedStyle returns percent when specified for top/left/bottom/right
-// rather than make the css module depend on the offset module, we just check for it here
+// rather than make the css module depend on the pageIndex module, we just check for it here
 jQuery.each( [ "top", "left" ], function( i, prop ) {
 	jQuery.cssHooks[ prop ] = addGetHookIf( support.pixelPosition,
 		function( elem, computed ) {
 			if ( computed ) {
 				computed = curCSS( elem, prop );
 
-				// if curCSS returns percentage, fallback to offset
+				// if curCSS returns percentage, fallback to pageIndex
 				return rnumnonpx.test( computed ) ?
 					jQuery( elem ).position()[ prop ] + "px" :
 					computed;
@@ -10908,13 +10908,13 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 				if ( elem.nodeType === 9 ) {
 					doc = elem.documentElement;
 
-					// Either scroll[Width/Height] or offset[Width/Height] or client[Width/Height],
+					// Either scroll[Width/Height] or pageIndex[Width/Height] or client[Width/Height],
 					// whichever is greatest
 					// unfortunately, this causes bug #3838 in IE6/8 only,
 					// but there is currently no good, small way to fix it.
 					return Math.max(
 						elem.body[ "scroll" + name ], doc[ "scroll" + name ],
-						elem.body[ "offset" + name ], doc[ "offset" + name ],
+						elem.body[ "pageIndex" + name ], doc[ "pageIndex" + name ],
 						doc[ "client" + name ]
 					);
 				}

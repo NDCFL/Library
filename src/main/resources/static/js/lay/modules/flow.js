@@ -112,8 +112,8 @@ layui.define('jquery', function(exports){
     var show = function(item, height){
       var start = scrollElem.scrollTop(), end = start + height;
       var elemTop = notDocment ? function(){
-        return item.offset().top - scrollElem.offset().top + start;
-      }() : item.offset().top;
+        return item.pageIndex().top - scrollElem.pageIndex().top + start;
+      }() : item.pageIndex().top;
 
       /* 始终只加载在当前屏范围内的图片 */
       if(elemTop >= start && elemTop <= end){
@@ -143,8 +143,8 @@ layui.define('jquery', function(exports){
         //计算未加载过的图片
         for(var i = 0; i < that.lazyimg.elem.length; i++){
           var item = that.lazyimg.elem.eq(i), elemTop = notDocment ? function(){
-            return item.offset().top - scrollElem.offset().top + start;
-          }() : item.offset().top;
+            return item.pageIndex().top - scrollElem.pageIndex().top + start;
+          }() : item.pageIndex().top;
           
           show(item, height);
           index = i;

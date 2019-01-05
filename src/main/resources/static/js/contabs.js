@@ -48,15 +48,15 @@ $(function () {
             return false;
         } else {
             var tabElement = $(".J_menuTab:first");
-            var offsetVal = 0;
-            while ((offsetVal + $(tabElement).outerWidth(true)) <= marginLeftVal) {//找到离当前tab最近的元素
-                offsetVal += $(tabElement).outerWidth(true);
+            var pageIndexVal = 0;
+            while ((pageIndexVal + $(tabElement).outerWidth(true)) <= marginLeftVal) {//找到离当前tab最近的元素
+                pageIndexVal += $(tabElement).outerWidth(true);
                 tabElement = $(tabElement).next();
             }
-            offsetVal = 0;
+            pageIndexVal = 0;
             if (calSumWidth($(tabElement).prevAll()) > visibleWidth) {
-                while ((offsetVal + $(tabElement).outerWidth(true)) < (visibleWidth) && tabElement.length > 0) {
-                    offsetVal += $(tabElement).outerWidth(true);
+                while ((pageIndexVal + $(tabElement).outerWidth(true)) < (visibleWidth) && tabElement.length > 0) {
+                    pageIndexVal += $(tabElement).outerWidth(true);
                     tabElement = $(tabElement).prev();
                 }
                 scrollVal = calSumWidth($(tabElement).prevAll());
@@ -79,14 +79,14 @@ $(function () {
             return false;
         } else {
             var tabElement = $(".J_menuTab:first");
-            var offsetVal = 0;
-            while ((offsetVal + $(tabElement).outerWidth(true)) <= marginLeftVal) {//找到离当前tab最近的元素
-                offsetVal += $(tabElement).outerWidth(true);
+            var pageIndexVal = 0;
+            while ((pageIndexVal + $(tabElement).outerWidth(true)) <= marginLeftVal) {//找到离当前tab最近的元素
+                pageIndexVal += $(tabElement).outerWidth(true);
                 tabElement = $(tabElement).next();
             }
-            offsetVal = 0;
-            while ((offsetVal + $(tabElement).outerWidth(true)) < (visibleWidth) && tabElement.length > 0) {
-                offsetVal += $(tabElement).outerWidth(true);
+            pageIndexVal = 0;
+            while ((pageIndexVal + $(tabElement).outerWidth(true)) < (visibleWidth) && tabElement.length > 0) {
+                pageIndexVal += $(tabElement).outerWidth(true);
                 tabElement = $(tabElement).next();
             }
             scrollVal = calSumWidth($(tabElement).prevAll());

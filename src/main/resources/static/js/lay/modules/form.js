@@ -102,7 +102,7 @@ layui.define('layer', function(exports){
           
           //展开下拉
           var showDown = function(){
-            var top = reElem.offset().top + reElem.outerHeight() + 5 - win.scrollTop()
+            var top = reElem.pageIndex().top + reElem.outerHeight() + 5 - win.scrollTop()
             ,dlHeight = dl.outerHeight();
             reElem.addClass(CLASS+'ed');
             dds.removeClass(HIDE);

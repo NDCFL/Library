@@ -549,9 +549,9 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
     if(config.loading && config.url){
       return layer.msg('数据请求中', {
         icon: 16
-        ,offset: [
-          that.elem.offset().top + that.elem.height()/2 - 35 - _WIN.scrollTop() + 'px'
-          ,that.elem.offset().left + that.elem.width()/2 - 90 - _WIN.scrollLeft() + 'px'
+        ,pageIndex: [
+          that.elem.pageIndex().top + that.elem.height()/2 - 35 - _WIN.scrollTop() + 'px'
+          ,that.elem.pageIndex().left + that.elem.width()/2 - 90 - _WIN.scrollLeft() + 'px'
         ]
         ,anim: -1
         ,fixed: false
@@ -678,7 +678,7 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
     //拖拽调整宽度    
     th.on('mousemove', function(e){
       var othis = $(this)
-      ,oLeft = othis.offset().left
+      ,oLeft = othis.pageIndex().left
       ,pLeft = e.clientX - oLeft;
       if(othis.attr('colspan') > 1 || othis.attr('unresize') || dict.resizeStart){
         return;
@@ -694,7 +694,7 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
         var field = $(this).data('field');
         e.preventDefault();
         dict.resizeStart = true; //开始拖拽
-        dict.offset = [e.clientX, e.clientY]; //记录初始坐标
+        dict.pageIndex = [e.clientX, e.clientY]; //记录初始坐标
         
         that.getCssRule(field, function(item){
           dict.rule = item;
@@ -707,7 +707,7 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
       if(dict.resizeStart){
         e.preventDefault();
         if(dict.rule){
-          var setWidth = dict.ruleWidth + e.clientX - dict.offset[0];
+          var setWidth = dict.ruleWidth + e.clientX - dict.pageIndex[0];
           dict.rule.style.width = setWidth + 'px';
           layer.close(that.tipsIndex);
         }

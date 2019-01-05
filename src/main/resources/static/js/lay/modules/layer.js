@@ -192,7 +192,7 @@ Class.pt.config = {
   fixed: true,
   move: doms[1],
   title: '&#x4FE1;&#x606F;',
-  offset: 'auto',
+  pageIndex: 'auto',
   area: 'auto',
   closeBtn: 1,
   time: 0, //0表示不自动关闭
@@ -323,10 +323,10 @@ Class.pt.creat = function(){
   config.type == 2 && layer.ie == 6 && that.layero.find('iframe').attr('src', content[0]);
 
   //坐标自适应浏览器窗口尺寸
-  config.type == 4 ? that.tips() : that.offset();
+  config.type == 4 ? that.tips() : that.pageIndex();
   if(config.fixed){
     win.on('resize', function(){
-      that.offset();
+      that.pageIndex();
       (/^\d+%$/.test(config.area[0]) || /^\d+%$/.test(config.area[1])) && that.auto(times);
       config.type == 4 && that.tips();
     });
@@ -394,61 +394,61 @@ Class.pt.auto = function(index){
 };
 
 //计算坐标
-Class.pt.offset = function(){
+Class.pt.pageIndex = function(){
   var that = this, config = that.config, layero = that.layero;
   var area = [layero.outerWidth(), layero.outerHeight()];
-  var type = typeof config.offset === 'object';
-  that.offsetTop = (win.height() - area[1])/2;
-  that.offsetLeft = (win.width() - area[0])/2;
+  var type = typeof config.pageIndex === 'object';
+  that.pageIndexTop = (win.height() - area[1])/2;
+  that.pageIndexLeft = (win.width() - area[0])/2;
   
   if(type){
-    that.offsetTop = config.offset[0];
-    that.offsetLeft = config.offset[1]||that.offsetLeft;
-  } else if(config.offset !== 'auto'){
+    that.pageIndexTop = config.pageIndex[0];
+    that.pageIndexLeft = config.pageIndex[1]||that.pageIndexLeft;
+  } else if(config.pageIndex !== 'auto'){
     
-    if(config.offset === 't'){ //上
-      that.offsetTop = 0;
-    } else if(config.offset === 'r'){ //右
-      that.offsetLeft = win.width() - area[0];
-    } else if(config.offset === 'b'){ //下
-      that.offsetTop = win.height() - area[1];
-    } else if(config.offset === 'l'){ //左
-      that.offsetLeft = 0;
-    } else if(config.offset === 'lt'){ //左上角
-      that.offsetTop = 0;
-      that.offsetLeft = 0;
-    } else if(config.offset === 'lb'){ //左下角
-      that.offsetTop = win.height() - area[1];
-      that.offsetLeft = 0;
-    } else if(config.offset === 'rt'){ //右上角
-      that.offsetTop = 0;
-      that.offsetLeft = win.width() - area[0];
-    } else if(config.offset === 'rb'){ //右下角
-      that.offsetTop = win.height() - area[1];
-      that.offsetLeft = win.width() - area[0];
+    if(config.pageIndex === 't'){ //上
+      that.pageIndexTop = 0;
+    } else if(config.pageIndex === 'r'){ //右
+      that.pageIndexLeft = win.width() - area[0];
+    } else if(config.pageIndex === 'b'){ //下
+      that.pageIndexTop = win.height() - area[1];
+    } else if(config.pageIndex === 'l'){ //左
+      that.pageIndexLeft = 0;
+    } else if(config.pageIndex === 'lt'){ //左上角
+      that.pageIndexTop = 0;
+      that.pageIndexLeft = 0;
+    } else if(config.pageIndex === 'lb'){ //左下角
+      that.pageIndexTop = win.height() - area[1];
+      that.pageIndexLeft = 0;
+    } else if(config.pageIndex === 'rt'){ //右上角
+      that.pageIndexTop = 0;
+      that.pageIndexLeft = win.width() - area[0];
+    } else if(config.pageIndex === 'rb'){ //右下角
+      that.pageIndexTop = win.height() - area[1];
+      that.pageIndexLeft = win.width() - area[0];
     } else {
-      that.offsetTop = config.offset;
+      that.pageIndexTop = config.pageIndex;
     }
     
   }
  
   if(!config.fixed){
-    that.offsetTop = /%$/.test(that.offsetTop) ? 
-      win.height()*parseFloat(that.offsetTop)/100
-    : parseFloat(that.offsetTop);
-    that.offsetLeft = /%$/.test(that.offsetLeft) ? 
-      win.width()*parseFloat(that.offsetLeft)/100
-    : parseFloat(that.offsetLeft);
-    that.offsetTop += win.scrollTop();
-    that.offsetLeft += win.scrollLeft();
+    that.pageIndexTop = /%$/.test(that.pageIndexTop) ?
+      win.height()*parseFloat(that.pageIndexTop)/100
+    : parseFloat(that.pageIndexTop);
+    that.pageIndexLeft = /%$/.test(that.pageIndexLeft) ?
+      win.width()*parseFloat(that.pageIndexLeft)/100
+    : parseFloat(that.pageIndexLeft);
+    that.pageIndexTop += win.scrollTop();
+    that.pageIndexLeft += win.scrollLeft();
   }
   
   if(layero.attr('minLeft')){
-    that.offsetTop = win.height() - (layero.find(doms[1]).outerHeight() || 0);
-    that.offsetLeft = layero.css('left');
+    that.pageIndexTop = win.height() - (layero.find(doms[1]).outerHeight() || 0);
+    that.pageIndexLeft = layero.css('left');
   }
 
-  layero.css({top: that.offsetTop, left: that.offsetLeft});
+  layero.css({top: that.pageIndexTop, left: that.pageIndexLeft});
 };
 
 //Tips
@@ -459,8 +459,8 @@ Class.pt.tips = function(){
   var goal = {
     width: follow.outerWidth(),
     height: follow.outerHeight(),
-    top: follow.offset().top,
-    left: follow.offset().left
+    top: follow.pageIndex().top,
+    left: follow.pageIndex().left
   }, tipsG = layero.find('.layui-layer-TipsG');
   
   var guide = config.tips[0];
@@ -534,7 +534,7 @@ Class.pt.move = function(){
     e.preventDefault();
     if(config.move){
       dict.moveStart = true;
-      dict.offset = [
+      dict.pageIndex = [
         e.clientX - parseFloat(layero.css('left'))
         ,e.clientY - parseFloat(layero.css('top'))
       ];
@@ -545,7 +545,7 @@ Class.pt.move = function(){
   resizeElem.on('mousedown', function(e){
     e.preventDefault();
     dict.resizeStart = true;
-    dict.offset = [e.clientX, e.clientY];
+    dict.pageIndex = [e.clientX, e.clientY];
     dict.area = [
       layero.outerWidth()
       ,layero.outerHeight()
@@ -557,8 +557,8 @@ Class.pt.move = function(){
 
     //拖拽移动
     if(dict.moveStart){
-      var X = e.clientX - dict.offset[0]
-      ,Y = e.clientY - dict.offset[1]
+      var X = e.clientX - dict.pageIndex[0]
+      ,Y = e.clientY - dict.pageIndex[1]
       ,fixed = layero.css('position') === 'fixed';
       
       e.preventDefault();
@@ -584,8 +584,8 @@ Class.pt.move = function(){
     
     //Resize
     if(config.resize && dict.resizeStart){
-      var X = e.clientX - dict.offset[0]
-      ,Y = e.clientY - dict.offset[1];
+      var X = e.clientX - dict.pageIndex[0]
+      ,Y = e.clientY - dict.pageIndex[1];
       
       e.preventDefault();
       

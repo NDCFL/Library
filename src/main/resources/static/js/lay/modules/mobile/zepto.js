@@ -14,7 +14,7 @@ layui.define(function(exports){
     capitalRE = /([A-Z])/g,
 
     // special attributes that should be get/set via method calls
-    methodAttributes = ['val', 'css', 'html', 'text', 'data', 'width', 'height', 'offset'],
+    methodAttributes = ['val', 'css', 'html', 'text', 'data', 'width', 'height', 'pageIndex'],
 
     adjacencyOperators = [ 'after', 'prepend', 'before', 'append' ],
     table = document.createElement('table'),
@@ -687,11 +687,11 @@ layui.define(function(exports){
            this[0].value)
       }
     },
-    offset: function(coordinates){
+    pageIndex: function(coordinates){
       if (coordinates) return this.each(function(index){
         var $this = $(this),
-            coords = funcArg(this, coordinates, index, $this.offset()),
-            parentOffset = $this.offsetParent().offset(),
+            coords = funcArg(this, coordinates, index, $this.pageIndex()),
+            parentOffset = $this.pageIndexParent().pageIndex(),
             props = {
               top:  coords.top  - parentOffset.top,
               left: coords.left - parentOffset.left
@@ -806,33 +806,33 @@ layui.define(function(exports){
       if (!this.length) return
 
       var elem = this[0],
-        // Get *real* offsetParent
-        offsetParent = this.offsetParent(),
-        // Get correct offsets
-        offset       = this.offset(),
-        parentOffset = rootNodeRE.test(offsetParent[0].nodeName) ? { top: 0, left: 0 } : offsetParent.offset()
+        // Get *real* pageIndexParent
+        pageIndexParent = this.pageIndexParent(),
+        // Get correct pageIndexs
+        pageIndex       = this.pageIndex(),
+        parentOffset = rootNodeRE.test(pageIndexParent[0].nodeName) ? { top: 0, left: 0 } : pageIndexParent.pageIndex()
 
       // Subtract element margins
-      // note: when an element has margin: auto the offsetLeft and marginLeft
-      // are the same in Safari causing offset.left to incorrectly be 0
-      offset.top  -= parseFloat( $(elem).css('margin-top') ) || 0
-      offset.left -= parseFloat( $(elem).css('margin-left') ) || 0
+      // note: when an element has margin: auto the pageIndexLeft and marginLeft
+      // are the same in Safari causing pageIndex.left to incorrectly be 0
+      pageIndex.top  -= parseFloat( $(elem).css('margin-top') ) || 0
+      pageIndex.left -= parseFloat( $(elem).css('margin-left') ) || 0
 
-      // Add offsetParent borders
-      parentOffset.top  += parseFloat( $(offsetParent[0]).css('border-top-width') ) || 0
-      parentOffset.left += parseFloat( $(offsetParent[0]).css('border-left-width') ) || 0
+      // Add pageIndexParent borders
+      parentOffset.top  += parseFloat( $(pageIndexParent[0]).css('border-top-width') ) || 0
+      parentOffset.left += parseFloat( $(pageIndexParent[0]).css('border-left-width') ) || 0
 
-      // Subtract the two offsets
+      // Subtract the two pageIndexs
       return {
-        top:  offset.top  - parentOffset.top,
-        left: offset.left - parentOffset.left
+        top:  pageIndex.top  - parentOffset.top,
+        left: pageIndex.left - parentOffset.left
       }
     },
-    offsetParent: function() {
+    pageIndexParent: function() {
       return this.map(function(){
-        var parent = this.offsetParent || document.body
+        var parent = this.pageIndexParent || document.body
         while (parent && !rootNodeRE.test(parent.nodeName) && $(parent).css("position") == "static")
-          parent = parent.offsetParent
+          parent = parent.pageIndexParent
         return parent
       })
     }
@@ -847,10 +847,10 @@ layui.define(function(exports){
       dimension.replace(/./, function(m){ return m[0].toUpperCase() })
 
     $.fn[dimension] = function(value){
-      var offset, el = this[0]
+      var pageIndex, el = this[0]
       if (value === undefined) return isWindow(el) ? el['inner' + dimensionProperty] :
         isDocument(el) ? el.documentElement['scroll' + dimensionProperty] :
-        (offset = this.offset()) && offset[dimension]
+        (pageIndex = this.pageIndex()) && pageIndex[dimension]
       else return this.each(function(idx){
         el = $(this)
         el.css(dimension, funcArg(this, value, idx, el[dimension]()))
@@ -1365,7 +1365,7 @@ layui.define(function(exports){
       html:   htmlType,
       text:   'text/plain'
     },
-    // Whether the request is to another domain
+    // Whether the request is to another vo
     crossDomain: false,
     // Default timeout
     timeout: 0,

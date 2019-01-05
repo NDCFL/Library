@@ -2,7 +2,7 @@
 $('#mytab').bootstrapTable({
     method: 'post',
     contentType: "application/x-www-form-urlencoded",//必须要有！！！！
-    url: "/user/list",//要请求数据的文件路径
+    url: "/book/list",//要请求数据的文件路径
     toolbar: '#toolbar',//指定工具栏
     striped: true, //是否显示行间隔色
     dataField: "res",
@@ -35,116 +35,38 @@ $('#mytab').bootstrapTable({
             valign: 'middle'
         },
 		            {
-                field : 'userId',
-                title : '',
+                field : 'id',
+                title : '图书编号',
                 align: 'center',
                 sortable: true
             },
 		            {
-                field : 'username',
-                title : '用户名',
+                field : 'bookName',
+                title : '图书名称',
                 align: 'center',
                 sortable: true
             },
 		            {
-                field : 'name',
-                title : '',
+                field : 'bookImei',
+                title : '图书序列号',
                 align: 'center',
                 sortable: true
             },
 		            {
-                field : 'password',
-                title : '密码',
+                field : 'author',
+                title : '作者',
                 align: 'center',
                 sortable: true
             },
 		            {
-                field : 'deptId',
-                title : '',
+                field : 'publicTime',
+                title : '发布时间',
                 align: 'center',
                 sortable: true
             },
 		            {
-                field : 'email',
-                title : '邮箱',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'mobile',
-                title : '手机号',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'status',
-                title : '状态 0:禁用，1:正常',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'userIdCreate',
-                title : '创建用户id',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'gmtCreate',
+                field : 'createTime',
                 title : '创建时间',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'gmtModified',
-                title : '修改时间',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'sex',
-                title : '性别',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'birth',
-                title : '出身日期',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'headIcon',
-                title : '',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'liveAddress',
-                title : '现居住地',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'hobby',
-                title : '爱好',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'province',
-                title : '省份',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'city',
-                title : '所在城市',
-                align: 'center',
-                sortable: true
-            },
-		            {
-                field : 'district',
-                title : '所在地区',
                 align: 'center',
                 sortable: true
             },
@@ -153,7 +75,7 @@ $('#mytab').bootstrapTable({
             align: 'center',
             field: '',
             formatter: function (value, row, index) {
-                var e = '<a title="编辑" href="javascript:void(0);" id="user"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
+                var e = '<a title="编辑" href="javascript:void(0);" id="book"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del(' + row.id + ',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
                 var f = '';
                 if (row.isActive == 1) {
@@ -224,7 +146,7 @@ function del(id, status) {
     layer.confirm('确认要删除吗？', function (index) {
         $.ajax({
             type: 'POST',
-            url: '/user/remove',
+            url: '/book/remove',
             dataType: 'json',
             success: function (data) {
                 if (data.message == '删除成功!') {
@@ -241,7 +163,7 @@ function del(id, status) {
     });
 }
 function edit(name) {
-    $.post("/user/edit/" + name,
+    $.get("/book/edit/" + name,
         function (data) {
             $("#updateform").autofill(data);
         },
@@ -249,7 +171,7 @@ function edit(name) {
     );
 }
 function updatestatus(id, status) {
-    $.post("/user/updateStatus/" + id + "/" + status,
+    $.post("/book/updateStatus/" + id + "/" + status,
         function (data) {
             if(status==0){
                 if(data.message=="ok"){
@@ -271,14 +193,14 @@ function updatestatus(id, status) {
 }
 //查询按钮事件
 $('#search_btn').click(function () {
-    $('#mytab').bootstrapTable('refresh', {url: '/user/list'});
+    $('#mytab').bootstrapTable('refresh', {url: '/book/list'});
 })
 function refush() {
-    $('#mytab').bootstrapTable('refresh', {url: '/user/list'});
+    $('#mytab').bootstrapTable('refresh', {url: '/book/list'});
 }
 $("#update").click(function () {
     $.post(
-        "/user/userupdate",
+        "/book/bookupdate",
         $("#updateform").serialize(),
         function (data) {
             if (data.message == "修改成功!") {
@@ -293,7 +215,7 @@ $("#update").click(function () {
 });
 $("#add").click(function () {
     $.post(
-        "/user/save",
+        "/book/save",
         $("#formadd").serialize(),
         function (data) {
             if (data.message == "新增成功!") {
@@ -332,7 +254,7 @@ function deleteMany11() {
     $("#deleteId").val(row);
     layer.confirm('确认要执行批量删除网站信息数据吗？', function (index) {
         $.post(
-            "/user/bachRemove",
+            "/book/bachRemove",
             {
                 "manyId": $("#deleteId").val()
             },
@@ -370,7 +292,7 @@ function deleteMany(){
 $("#updateSta").click(function () {
     layer.confirm('确认要执行批量修改收支科目状态吗？',function(index){
         $.post(
-            "/user/deleteManyUser",
+            "/book/deleteManyBook",
             {
                 "manyId":$("#statusId").val(),
                 "status":$("#status").val()

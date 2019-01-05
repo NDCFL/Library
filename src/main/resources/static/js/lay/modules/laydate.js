@@ -742,8 +742,8 @@
     ,options = that.config
     ,elem = that.bindElem || options.elem[0]
     ,rect = elem.getBoundingClientRect() //绑定元素的坐标
-    ,elemWidth = that.elem.offsetWidth //控件的宽度
-    ,elemHeight = that.elem.offsetHeight //控件的高度
+    ,elemWidth = that.elem.pageIndexWidth //控件的宽度
+    ,elemHeight = that.elem.pageIndexHeight //控件的高度
     
     //滚动条高度
     ,scrollArea = function(type){
