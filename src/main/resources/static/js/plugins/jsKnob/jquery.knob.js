@@ -393,7 +393,7 @@
         };
 
         this._xy = function () {
-            var o = this.$c.offset();
+            var o = this.$c.pageIndex();
             this.x = o.left;
             this.y = o.top;
             return this;
@@ -504,7 +504,7 @@
             this.o = $.extend(
                 {
                     bgColor : this.$.data('bgcolor') || '#EEEEEE',
-                    angleOffset : this.$.data('angleoffset') || 0,
+                    angleOffset : this.$.data('anglepageIndex') || 0,
                     angleArc : this.$.data('anglearc') || 360,
                     inline : true
                 }, this.o

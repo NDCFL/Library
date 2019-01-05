@@ -22,9 +22,9 @@ CodeMirror.defineMode('rst', function (config, options) {
   var rx_negative = /^(?:\s\-[\d]+(?:[\.,]\d+)*)/;
 
   var rx_uri_protocol = "[Hh][Tt][Tt][Pp][Ss]?://";
-  var rx_uri_domain = "(?:[\\d\\w.-]+)\\.(?:\\w{2,6})";
+  var rx_uri_vo = "(?:[\\d\\w.-]+)\\.(?:\\w{2,6})";
   var rx_uri_path = "(?:/[\\d\\w\\#\\%\\&\\-\\.\\,\\/\\:\\=\\?\\~]+)*";
-  var rx_uri = new RegExp("^" + rx_uri_protocol + rx_uri_domain + rx_uri_path);
+  var rx_uri = new RegExp("^" + rx_uri_protocol + rx_uri_vo + rx_uri_path);
 
   var overlay = {
     token: function (stream) {

@@ -87,7 +87,7 @@
     function tokenBase(stream, state) {
       // Handle scope changes
       if (stream.sol() && top(state).type == "py") {
-        var scopeOffset = top(state).offset;
+        var scopeOffset = top(state).pageIndex;
         if (stream.eatSpace()) {
           var lineOffset = stream.indentation();
           if (lineOffset > scopeOffset)
@@ -224,24 +224,24 @@
     }
 
     function pushScope(stream, state, type) {
-      var offset = 0, align = null;
+      var pageIndex = 0, align = null;
       if (type == "py") {
         while (top(state).type != "py")
           state.scopes.pop();
       }
-      offset = top(state).offset + (type == "py" ? conf.indentUnit : hangingIndent);
+      pageIndex = top(state).pageIndex + (type == "py" ? conf.indentUnit : hangingIndent);
       if (type != "py" && !stream.match(/^(\s|#.*)*$/, false))
         align = stream.column() + 1;
-      state.scopes.push({offset: offset, type: type, align: align});
+      state.scopes.push({pageIndex: pageIndex, type: type, align: align});
     }
 
     function dedent(stream, state) {
       var indented = stream.indentation();
-      while (top(state).offset > indented) {
+      while (top(state).pageIndex > indented) {
         if (top(state).type != "py") return true;
         state.scopes.pop();
       }
-      return top(state).offset != indented;
+      return top(state).pageIndex != indented;
     }
 
     function tokenLexer(stream, state) {
@@ -301,7 +301,7 @@
       startState: function(basecolumn) {
         return {
           tokenize: tokenBase,
-          scopes: [{offset: basecolumn || 0, type: "py", align: null}],
+          scopes: [{pageIndex: basecolumn || 0, type: "py", align: null}],
           lastStyle: null,
           lastToken: null,
           lambda: false,
@@ -334,9 +334,9 @@
         if (scope.align != null)
           return scope.align - (closing ? 1 : 0);
         else if (closing && state.scopes.length > 1)
-          return state.scopes[state.scopes.length - 2].offset;
+          return state.scopes[state.scopes.length - 2].pageIndex;
         else
-          return scope.offset;
+          return scope.pageIndex;
       },
 
       lineComment: "#",

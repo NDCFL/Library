@@ -59,7 +59,7 @@ if header :is "Sender" "owner-ietf-mta-filters@imc.org"
 #
 # Keep all messages to or from people in my company
 #
-elsif address :domain :is ["From", "To"] "example.com"
+elsif address :vo :is ["From", "To"] "example.com"
 {
   keep;               # keep in "In" folder
 }

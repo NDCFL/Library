@@ -96,7 +96,7 @@ CodeMirror.defineMode("gas", function(_config, parserConfig) {
     ".noaltmacro" : "builtin",
     ".nolist" : "builtin",
     ".octa" : "builtin",
-    ".offset" : "builtin",
+    ".pageIndex" : "builtin",
     ".org" : "builtin",
     ".p2align" : "builtin",
     ".popsection" : "builtin",

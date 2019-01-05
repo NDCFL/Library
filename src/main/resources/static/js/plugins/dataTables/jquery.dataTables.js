@@ -454,11 +454,11 @@
 		// IE6/7 will oversize a width 100% element inside a scrolling element, to
 		// include the width of the scrollbar, while other browsers ensure the inner
 		// element is contained without forcing scrolling
-		browser.bScrollOversize = test[0].offsetWidth === 100;
+		browser.bScrollOversize = test[0].pageIndexWidth === 100;
 
 		// In rtl text layout, some browsers (most, but not all) will place the
 		// scrollbar on the left, rather than the right.
-		browser.bScrollbarLeft = test.offset().left !== 1;
+		browser.bScrollbarLeft = test.pageIndex().left !== 1;
 
 		n.remove();
 	}
@@ -3527,7 +3527,7 @@
 		// will end up forcing the scrollbar to appear, making our measurements wrong for when we
 		// then hide it (end of this function), so add the header height to the body scroller.
 		if ( scroll.bCollapse && scrollY !== "" ) {
-			divBodyStyle.height = (divBody.offsetHeight + header[0].offsetHeight)+"px";
+			divBodyStyle.height = (divBody.pageIndexHeight + header[0].pageIndexHeight)+"px";
 		}
 
 		// Size the table as a whole
@@ -3539,7 +3539,7 @@
 			// IE7 will make the width of the table when 100% include the scrollbar
 			// - which is shouldn't. When there is a scrollbar we need to take this
 			// into account.
-			if ( ie67 && (table.find('tbody').height() > divBodyEl.offsetHeight ||
+			if ( ie67 && (table.find('tbody').height() > divBodyEl.pageIndexHeight ||
 				divBody.css('overflow-y') == "scroll")
 			) {
 				tableStyle.width = _fnStringToCss( table.outerWidth() - barWidth);
@@ -3630,14 +3630,14 @@
 		if ( table.outerWidth() < sanityWidth )
 		{
 			// The min width depends upon if we have a vertical scrollbar visible or not */
-			correction = ((divBodyEl.scrollHeight > divBodyEl.offsetHeight ||
+			correction = ((divBodyEl.scrollHeight > divBodyEl.pageIndexHeight ||
 				divBody.css('overflow-y') == "scroll")) ?
 					sanityWidth+barWidth :
 					sanityWidth;
 
 			// IE6/7 are a law unto themselves...
 			if ( ie67 && (divBodyEl.scrollHeight >
-				divBodyEl.offsetHeight || divBody.css('overflow-y') == "scroll")
+				divBodyEl.pageIndexHeight || divBody.css('overflow-y') == "scroll")
 			) {
 				tableStyle.width = _fnStringToCss( correction-barWidth );
 			}
@@ -3670,19 +3670,19 @@
 			 * set the height in order to sort this. Don't want to do it in any other browsers.
 			 */
 			if ( ie67 ) {
-				divBodyStyle.height = _fnStringToCss( tableEl.offsetHeight+barWidth );
+				divBodyStyle.height = _fnStringToCss( tableEl.pageIndexHeight+barWidth );
 			}
 		}
 
 		if ( scrollY && scroll.bCollapse ) {
 			divBodyStyle.height = _fnStringToCss( scrollY );
 
-			var iExtra = (scrollX && tableEl.offsetWidth > divBodyEl.offsetWidth) ?
+			var iExtra = (scrollX && tableEl.pageIndexWidth > divBodyEl.pageIndexWidth) ?
 				barWidth :
 				0;
 
-			if ( tableEl.offsetHeight < divBodyEl.offsetHeight ) {
-				divBodyStyle.height = _fnStringToCss( tableEl.offsetHeight+iExtra );
+			if ( tableEl.pageIndexHeight < divBodyEl.pageIndexHeight ) {
+				divBodyStyle.height = _fnStringToCss( tableEl.pageIndexHeight+iExtra );
 			}
 		}
 
@@ -3790,7 +3790,7 @@
 		}
 
 		/* If the number of columns in the DOM equals the number that we have to
-		 * process in DataTables, then we can use the offsets that are created by
+		 * process in DataTables, then we can use the pageIndexs that are created by
 		 * the web- browser. No custom sizes can be set in order for this to happen,
 		 * nor scrolling used
 		 */
@@ -3855,12 +3855,12 @@
 			else if ( scrollX ) {
 				tmpTable.css( 'width', 'auto' );
 
-				if ( tmpTable.width() < tableContainer.offsetWidth ) {
-					tmpTable.width( tableContainer.offsetWidth );
+				if ( tmpTable.width() < tableContainer.pageIndexWidth ) {
+					tmpTable.width( tableContainer.pageIndexWidth );
 				}
 			}
 			else if ( scrollY ) {
-				tmpTable.width( tableContainer.offsetWidth );
+				tmpTable.width( tableContainer.pageIndexWidth );
 			}
 			else if ( tableWidthAttr ) {
 				tmpTable.width( tableWidthAttr );
@@ -3969,7 +3969,7 @@
 			.css( 'width', _fnStringToCss( width ) )
 			.appendTo( parent || document.body );
 
-		var val = n[0].offsetWidth;
+		var val = n[0].pageIndexWidth;
 		n.remove();
 
 		return val;
@@ -4098,9 +4098,9 @@
 				.append( inner )
 				.appendTo( 'body' );
 
-			var w1 = inner.offsetWidth;
+			var w1 = inner.pageIndexWidth;
 			outer.css( 'overflow', 'scroll' );
-			var w2 = inner.offsetWidth;
+			var w2 = inner.pageIndexWidth;
 
 			if ( w1 === w2 ) {
 				w2 = outer[0].clientWidth;

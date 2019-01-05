@@ -911,7 +911,7 @@
      * @return {Boolean}
      */
     var isLeftEdgePoint = function (point) {
-      return point.offset === 0;
+      return point.pageIndex === 0;
     };
 
     /**
@@ -921,7 +921,7 @@
      * @return {Boolean}
      */
     var isRightEdgePoint = function (point) {
-      return point.offset === nodeLength(point.node);
+      return point.pageIndex === nodeLength(point.node);
     };
 
     /**
@@ -994,16 +994,16 @@
     };
 
     /**
-     * returns offset from parent.
+     * returns pageIndex from parent.
      *
      * @param {Node} node
      */
     var position = function (node) {
-      var offset = 0;
+      var pageIndex = 0;
       while ((node = node.previousSibling)) {
-        offset += 1;
+        pageIndex += 1;
       }
-      return offset;
+      return pageIndex;
     };
 
     var hasChildren = function (node) {
@@ -1018,26 +1018,26 @@
      * @return {BoundaryPoint}
      */
     var prevPoint = function (point, isSkipInnerOffset) {
-      var node, offset;
+      var node, pageIndex;
 
-      if (point.offset === 0) {
+      if (point.pageIndex === 0) {
         if (isEditable(point.node)) {
           return null;
         }
 
         node = point.node.parentNode;
-        offset = position(point.node);
+        pageIndex = position(point.node);
       } else if (hasChildren(point.node)) {
-        node = point.node.childNodes[point.offset - 1];
-        offset = nodeLength(node);
+        node = point.node.childNodes[point.pageIndex - 1];
+        pageIndex = nodeLength(node);
       } else {
         node = point.node;
-        offset = isSkipInnerOffset ? 0 : point.offset - 1;
+        pageIndex = isSkipInnerOffset ? 0 : point.pageIndex - 1;
       }
 
       return {
         node: node,
-        offset: offset
+        pageIndex: pageIndex
       };
     };
 
@@ -1049,26 +1049,26 @@
      * @return {BoundaryPoint}
      */
     var nextPoint = function (point, isSkipInnerOffset) {
-      var node, offset;
+      var node, pageIndex;
 
-      if (nodeLength(point.node) === point.offset) {
+      if (nodeLength(point.node) === point.pageIndex) {
         if (isEditable(point.node)) {
           return null;
         }
 
         node = point.node.parentNode;
-        offset = position(point.node) + 1;
+        pageIndex = position(point.node) + 1;
       } else if (hasChildren(point.node)) {
-        node = point.node.childNodes[point.offset];
-        offset = 0;
+        node = point.node.childNodes[point.pageIndex];
+        pageIndex = 0;
       } else {
         node = point.node;
-        offset = isSkipInnerOffset ? nodeLength(point.node) : point.offset + 1;
+        pageIndex = isSkipInnerOffset ? nodeLength(point.node) : point.pageIndex + 1;
       }
 
       return {
         node: node,
-        offset: offset
+        pageIndex: pageIndex
       };
     };
 
@@ -1080,7 +1080,7 @@
      * @return {Boolean}
      */
     var isSamePoint = function (pointA, pointB) {
-      return pointA.node === pointB.node && pointA.offset === pointB.offset;
+      return pointA.node === pointB.node && pointA.pageIndex === pointB.pageIndex;
     };
 
     /**
@@ -1094,8 +1094,8 @@
         return true;
       }
 
-      var leftNode = point.node.childNodes[point.offset - 1];
-      var rightNode = point.node.childNodes[point.offset];
+      var leftNode = point.node.childNodes[point.pageIndex - 1];
+      var rightNode = point.node.childNodes[point.pageIndex];
       if ((!leftNode || isVoid(leftNode)) && (!rightNode || isVoid(rightNode))) {
         return true;
       }
@@ -1152,7 +1152,7 @@
         return false;
       }
 
-      var ch = point.node.nodeValue.charAt(point.offset - 1);
+      var ch = point.node.nodeValue.charAt(point.pageIndex - 1);
       return ch && (ch !== ' ' && ch !== NBSP_CHAR);
     };
 
@@ -1184,7 +1184,7 @@
     /**
      * @method makeOffsetPath
      *
-     * return offsetPath(array of offset) from ancestor
+     * return pageIndexPath(array of pageIndex) from ancestor
      *
      * @param {Node} ancestor - ancestor node
      * @param {Node} node
@@ -1197,18 +1197,18 @@
     /**
      * @method fromOffsetPath
      *
-     * return element from offsetPath(array of offset)
+     * return element from pageIndexPath(array of pageIndex)
      *
      * @param {Node} ancestor - ancestor node
-     * @param {array} offsets - offsetPath
+     * @param {array} pageIndexs - pageIndexPath
      */
-    var fromOffsetPath = function (ancestor, offsets) {
+    var fromOffsetPath = function (ancestor, pageIndexs) {
       var current = ancestor;
-      for (var i = 0, len = offsets.length; i < len; i++) {
-        if (current.childNodes.length <= offsets[i]) {
+      for (var i = 0, len = pageIndexs.length; i < len; i++) {
+        if (current.childNodes.length <= pageIndexs[i]) {
           current = current.childNodes[current.childNodes.length - 1];
         } else {
-          current = current.childNodes[offsets[i]];
+          current = current.childNodes[pageIndexs[i]];
         }
       }
       return current;
@@ -1240,9 +1240,9 @@
 
       // split #text
       if (isText(point.node)) {
-        return point.node.splitText(point.offset);
+        return point.node.splitText(point.pageIndex);
       } else {
-        var childNode = point.node.childNodes[point.offset];
+        var childNode = point.node.childNodes[point.pageIndex];
         var clone = insertAfter(point.node.cloneNode(false), point.node);
         appendChildNodes(clone, listNext(childNode));
 
@@ -1284,7 +1284,7 @@
 
         return splitNode({
           node: parent,
-          offset: node ? dom.position(node) : nodeLength(parent)
+          pageIndex: node ? dom.position(node) : nodeLength(parent)
         }, options);
       });
     };
@@ -1319,9 +1319,9 @@
         isNotSplitEdgePoint: isInline
       });
 
-      // if container is point.node, find pivot with point.offset
+      // if container is point.node, find pivot with point.pageIndex
       if (!pivot && container === point.node) {
-        pivot = point.node.childNodes[point.offset];
+        pivot = point.node.childNodes[point.pageIndex];
       }
 
       return {
@@ -1454,7 +1454,7 @@
 
     var posFromPlaceholder = function (placeholder) {
       var $placeholder = $(placeholder);
-      var pos = $placeholder.offset();
+      var pos = $placeholder.pageIndex();
       var height = $placeholder.outerHeight(true); // include margin
 
       return {
@@ -2393,22 +2393,22 @@
      * @see http://msdn.microsoft.com/en-us/library/ie/ms535872(v=vs.85).aspx
      */
     var textRangeToPoint = function (textRange, isStart) {
-      var container = textRange.parentElement(), offset;
+      var container = textRange.parentElement(), pageIndex;
   
       var tester = document.body.createTextRange(), prevContainer;
       var childNodes = list.from(container.childNodes);
-      for (offset = 0; offset < childNodes.length; offset++) {
-        if (dom.isText(childNodes[offset])) {
+      for (pageIndex = 0; pageIndex < childNodes.length; pageIndex++) {
+        if (dom.isText(childNodes[pageIndex])) {
           continue;
         }
-        tester.moveToElementText(childNodes[offset]);
+        tester.moveToElementText(childNodes[pageIndex]);
         if (tester.compareEndPoints('StartToStart', textRange) >= 0) {
           break;
         }
-        prevContainer = childNodes[offset];
+        prevContainer = childNodes[pageIndex];
       }
   
-      if (offset !== 0 && dom.isText(childNodes[offset - 1])) {
+      if (pageIndex !== 0 && dom.isText(childNodes[pageIndex - 1])) {
         var textRangeStart = document.body.createTextRange(), curTextNode = null;
         textRangeStart.moveToElementText(prevContainer || container);
         textRangeStart.collapse(!prevContainer);
@@ -2434,12 +2434,12 @@
         }
   
         container = curTextNode;
-        offset = textCount;
+        pageIndex = textCount;
       }
   
       return {
         cont: container,
-        offset: offset
+        pageIndex: pageIndex
       };
     };
     
@@ -2449,38 +2449,38 @@
      * @return {TextRange}
      */
     var pointToTextRange = function (point) {
-      var textRangeInfo = function (container, offset) {
+      var textRangeInfo = function (container, pageIndex) {
         var node, isCollapseToStart;
   
         if (dom.isText(container)) {
           var prevTextNodes = dom.listPrev(container, func.not(dom.isText));
           var prevContainer = list.last(prevTextNodes).previousSibling;
           node =  prevContainer || container.parentNode;
-          offset += list.sum(list.tail(prevTextNodes), dom.nodeLength);
+          pageIndex += list.sum(list.tail(prevTextNodes), dom.nodeLength);
           isCollapseToStart = !prevContainer;
         } else {
-          node = container.childNodes[offset] || container;
+          node = container.childNodes[pageIndex] || container;
           if (dom.isText(node)) {
             return textRangeInfo(node, 0);
           }
   
-          offset = 0;
+          pageIndex = 0;
           isCollapseToStart = false;
         }
   
         return {
           node: node,
           collapseToStart: isCollapseToStart,
-          offset: offset
+          pageIndex: pageIndex
         };
       };
   
       var textRange = document.body.createTextRange();
-      var info = textRangeInfo(point.node, point.offset);
+      var info = textRangeInfo(point.node, point.pageIndex);
   
       textRange.moveToElementText(info.node);
       textRange.collapse(info.collapseToStart);
-      textRange.moveStart('character', info.offset);
+      textRange.moveStart('character', info.pageIndex);
       return textRange;
     };
     
@@ -2489,9 +2489,9 @@
      *
      * @constructor
      * @param {Node} sc - start container
-     * @param {Number} so - start offset
+     * @param {Number} so - start pageIndex
      * @param {Node} ec - end container
-     * @param {Number} eo - end offset
+     * @param {Number} eo - end pageIndex
      */
     var WrappedRange = function (sc, so, ec, eo) {
       this.sc = sc;
@@ -2510,12 +2510,12 @@
         } else {
           var textRange = pointToTextRange({
             node: sc,
-            offset: so
+            pageIndex: so
           });
 
           textRange.setEndPoint('EndToEnd', pointToTextRange({
             node: ec,
-            offset: eo
+            pageIndex: eo
           }));
 
           return textRange;
@@ -2534,14 +2534,14 @@
       this.getStartPoint = function () {
         return {
           node: sc,
-          offset: so
+          pageIndex: so
         };
       };
 
       this.getEndPoint = function () {
         return {
           node: ec,
-          offset: eo
+          pageIndex: eo
         };
       };
 
@@ -2570,8 +2570,8 @@
        */
       this.scrollIntoView = function (container) {
         var height = $(container).height();
-        if (container.scrollTop + height < this.sc.offsetTop) {
-          container.scrollTop += Math.abs(container.scrollTop + height - this.sc.offsetTop);
+        if (container.scrollTop + height < this.sc.pageIndexTop) {
+          container.scrollTop += Math.abs(container.scrollTop + height - this.sc.pageIndexTop);
         }
 
         return this;
@@ -2618,9 +2618,9 @@
 
         return new WrappedRange(
           startPoint.node,
-          startPoint.offset,
+          startPoint.pageIndex,
           endPoint.node,
-          endPoint.offset
+          endPoint.pageIndex
         );
       };
 
@@ -2792,9 +2792,9 @@
 
         return new WrappedRange(
           point.node,
-          point.offset,
+          point.pageIndex,
           point.node,
-          point.offset
+          point.pageIndex
         ).normalize();
       };
       
@@ -2953,14 +2953,14 @@
 
         return new WrappedRange(
           startPoint.node,
-          startPoint.offset,
+          startPoint.pageIndex,
           endPoint.node,
-          endPoint.offset
+          endPoint.pageIndex
         );
       };
   
       /**
-       * create offsetPath bookmark
+       * create pageIndexPath bookmark
        *
        * @param {Node} editable
        */
@@ -2968,17 +2968,17 @@
         return {
           s: {
             path: dom.makeOffsetPath(editable, sc),
-            offset: so
+            pageIndex: so
           },
           e: {
             path: dom.makeOffsetPath(editable, ec),
-            offset: eo
+            pageIndex: eo
           }
         };
       };
 
       /**
-       * create offsetPath bookmark base on paragraph
+       * create pageIndexPath bookmark base on paragraph
        *
        * @param {Node[]} paras
        */
@@ -2986,11 +2986,11 @@
         return {
           s: {
             path: list.tail(dom.makeOffsetPath(list.head(paras), sc)),
-            offset: so
+            pageIndex: so
           },
           e: {
             path: list.tail(dom.makeOffsetPath(list.last(paras), ec)),
-            offset: eo
+            pageIndex: eo
           }
         };
       };
@@ -3022,9 +3022,9 @@
        * create Range Object From arguments or Browser Selection
        *
        * @param {Node} sc - start container
-       * @param {Number} so - start offset
+       * @param {Number} so - start pageIndex
        * @param {Node} ec - end container
-       * @param {Number} eo - end offset
+       * @param {Number} eo - end pageIndex
        * @return {WrappedRange}
        */
       create: function (sc, so, ec, eo) {
@@ -3079,9 +3079,9 @@
           }
 
           sc = startPoint.cont;
-          so = startPoint.offset;
+          so = startPoint.pageIndex;
           ec = endPoint.cont;
-          eo = endPoint.offset;
+          eo = endPoint.pageIndex;
         }
 
         return new WrappedRange(sc, so, ec, eo);
@@ -3148,9 +3148,9 @@
        */
       createFromBookmark: function (editable, bookmark) {
         var sc = dom.fromOffsetPath(editable, bookmark.s.path);
-        var so = bookmark.s.offset;
+        var so = bookmark.s.pageIndex;
         var ec = dom.fromOffsetPath(editable, bookmark.e.path);
-        var eo = bookmark.e.offset;
+        var eo = bookmark.e.pageIndex;
         return new WrappedRange(sc, so, ec, eo);
       },
 
@@ -3164,8 +3164,8 @@
        * @return {WrappedRange}
        */
       createFromParaBookmark: function (bookmark, paras) {
-        var so = bookmark.s.offset;
-        var eo = bookmark.e.offset;
+        var so = bookmark.s.pageIndex;
+        var eo = bookmark.e.pageIndex;
         var sc = dom.fromOffsetPath(list.head(paras), bookmark.s.path);
         var ec = dom.fromOffsetPath(list.last(paras), bookmark.e.path);
 
@@ -3247,7 +3247,7 @@
 
     var makeSnapshot = function () {
       var rng = range.create(editable);
-      var emptyBookmark = {s: {path: [], offset: 0}, e: {path: [], offset: 0}};
+      var emptyBookmark = {s: {path: [], pageIndex: 0}, e: {path: [], pageIndex: 0}};
 
       return {
         contents: $editable.html(),
@@ -3663,14 +3663,14 @@
                                          head.parentNode;
         var lastList = headList.childNodes.length > 1 ? dom.splitTree(headList, {
           node: last.parentNode,
-          offset: dom.position(last) + 1
+          pageIndex: dom.position(last) + 1
         }, {
           isSkipPaddingBlankHTML: true
         }) : null;
 
         var middleList = dom.splitTree(headList, {
           node: head.parentNode,
-          offset: dom.position(head)
+          pageIndex: dom.position(head)
         }, {
           isSkipPaddingBlankHTML: true
         });
@@ -4975,9 +4975,9 @@
 
       range.create(
         startPoint.node,
-        startPoint.offset,
+        startPoint.pageIndex,
         endPoint.node,
-        endPoint.offset
+        endPoint.pageIndex
       ).select();
     });
 
@@ -5544,7 +5544,7 @@
         event.preventDefault();
         event.stopPropagation();
 
-        var editableTop = $editable.offset().top - $document.scrollTop();
+        var editableTop = $editable.pageIndex().top - $document.scrollTop();
         var onMouseMove = function (event) {
           var height = event.clientY - (editableTop + EDITABLE_PADDING);
 
@@ -5661,7 +5661,7 @@
           event.stopPropagation();
 
           var $target = self.$handle.find('.note-control-selection').data('target'),
-              posStart = $target.offset(),
+              posStart = $target.pageIndex(),
               scrollTop = $document.scrollTop();
 
           var onMouseMove = function (event) {
@@ -6585,17 +6585,17 @@
       var $unhighlighted = $picker.find('.note-dimension-picker-unhighlighted');
 
       var posOffset;
-      // HTML5 with jQuery - e.offsetX is undefined in Firefox
-      if (event.offsetX === undefined) {
-        var posCatcher = $(event.target).offset();
+      // HTML5 with jQuery - e.pageIndexX is undefined in Firefox
+      if (event.pageIndexX === undefined) {
+        var posCatcher = $(event.target).pageIndex();
         posOffset = {
           x: event.pageX - posCatcher.left,
           y: event.pageY - posCatcher.top
         };
       } else {
         posOffset = {
-          x: event.offsetX,
-          y: event.offsetY
+          x: event.pageIndexX,
+          y: event.pageIndexY
         };
       }
 
@@ -7556,7 +7556,7 @@
       this.$content.find('.active').removeClass('active');
       $item.addClass('active');
 
-      this.$content[0].scrollTop = $item[0].offsetTop - (this.$content.innerHeight() / 2);
+      this.$content[0].scrollTop = $item[0].pageIndexTop - (this.$content.innerHeight() / 2);
     };
 
     this.moveDown = function () {

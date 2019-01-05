@@ -1771,14 +1771,14 @@
                     height = button.outerHeight ?
                             button.outerHeight() : button.height(),
 
-                    pos = button.offset();
+                    pos = button.pageIndex();
 
                 width && height && shimContainer.css({
                     bottom: 'auto',
                     right: 'auto',
                     width: width + 'px',
                     height: height + 'px'
-                }).offset( pos );
+                }).pageIndex( pos );
             },
 
             enable: function() {

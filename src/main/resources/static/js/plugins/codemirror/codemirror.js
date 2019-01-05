@@ -337,7 +337,7 @@
   }
 
   function updateGutterSpace(cm) {
-    var width = cm.display.gutters.offsetWidth;
+    var width = cm.display.gutters.pageIndexWidth;
     cm.display.sizer.style.marginLeft = width + "px";
     cm.display.scrollbarH.style.left = cm.options.fixedGutter ? width + "px" : 0;
   }
@@ -448,7 +448,7 @@
     if (needsH && cm.options.coverGutterNextToScrollbar && cm.options.fixedGutter) {
       d.gutterFiller.style.display = "block";
       d.gutterFiller.style.height = sWidth + "px";
-      d.gutterFiller.style.width = d.gutters.offsetWidth + "px";
+      d.gutterFiller.style.width = d.gutters.pageIndexWidth + "px";
     } else d.gutterFiller.style.display = "";
 
     if (!cm.state.checkedOverlayScrollbar && measure.clientHeight > 0) {
@@ -497,7 +497,7 @@
     var display = cm.display, view = display.view;
     if (!display.alignWidgets && (!display.gutters.firstChild || !cm.options.fixedGutter)) return;
     var comp = compensateForHScroll(display) - display.scroller.scrollLeft + cm.doc.scrollLeft;
-    var gutterW = display.gutters.offsetWidth, left = comp + "px";
+    var gutterW = display.gutters.pageIndexWidth, left = comp + "px";
     for (var i = 0; i < view.length; i++) if (!view[i].hidden) {
       if (cm.options.fixedGutter && view[i].gutter)
         view[i].gutter.style.left = left;
@@ -518,9 +518,9 @@
     if (last.length != display.lineNumChars) {
       var test = display.measure.appendChild(elt("div", [elt("div", last)],
                                                  "CodeMirror-linenumber CodeMirror-gutter-elt"));
-      var innerW = test.firstChild.offsetWidth, padding = test.offsetWidth - innerW;
+      var innerW = test.firstChild.pageIndexWidth, padding = test.pageIndexWidth - innerW;
       display.lineGutter.style.width = "";
-      display.lineNumInnerWidth = Math.max(innerW, display.lineGutter.offsetWidth - padding);
+      display.lineNumInnerWidth = Math.max(innerW, display.lineGutter.pageIndexWidth - padding);
       display.lineNumWidth = display.lineNumInnerWidth + padding;
       display.lineNumChars = display.lineNumInnerWidth ? last.length : -1;
       display.lineGutter.style.width = display.lineNumWidth + "px";
@@ -534,7 +534,7 @@
     return String(options.lineNumberFormatter(i + options.firstLineNumber));
   }
 
-  // Computes display.scroller.scrollLeft + display.gutters.offsetWidth,
+  // Computes display.scroller.scrollLeft + display.gutters.pageIndexWidth,
   // but using getBoundingClientRect to get a sub-pixel-accurate
   // result.
   function compensateForHScroll(display) {
@@ -549,7 +549,7 @@
     this.viewport = viewport;
     // Store some values that we'll need later (but don't want to force a relayout for)
     this.visible = visibleLines(display, cm.doc, viewport);
-    this.editorIsHidden = !display.wrapper.offsetWidth;
+    this.editorIsHidden = !display.wrapper.pageIndexWidth;
     this.wrapperHeight = display.wrapper.clientHeight;
     this.oldViewFrom = display.viewFrom; this.oldViewTo = display.viewTo;
     this.oldScrollerWidth = display.scroller.clientWidth;
@@ -611,7 +611,7 @@
     if (toUpdate > 4) display.lineDiv.style.display = "";
     // There might have been a widget with a focused element that got
     // hidden or updated, if so re-focus it.
-    if (focused && activeElt() != focused && focused.offsetHeight) focused.focus();
+    if (focused && activeElt() != focused && focused.pageIndexHeight) focused.focus();
 
     // Prevent selection and cursors from interfering with the scroll
     // width.
@@ -678,7 +678,7 @@
   function checkForWebkitWidthBug(cm, measure) {
     // Work around Webkit bug where it sometimes reserves space for a
     // non-existing phantom scrollbar in the scroller (Issue #2420)
-    if (cm.display.sizer.offsetWidth + cm.display.gutters.offsetWidth < cm.display.scroller.clientWidth - 1) {
+    if (cm.display.sizer.pageIndexWidth + cm.display.gutters.pageIndexWidth < cm.display.scroller.clientWidth - 1) {
       cm.display.sizer.style.minHeight = cm.display.heightForcer.style.top = "0px";
       cm.display.gutters.style.height = measure.docHeight + "px";
     }
@@ -688,12 +688,12 @@
   // stored heights to match.
   function updateHeightsInViewport(cm) {
     var display = cm.display;
-    var prevBottom = display.lineDiv.offsetTop;
+    var prevBottom = display.lineDiv.pageIndexTop;
     for (var i = 0; i < display.view.length; i++) {
       var cur = display.view[i], height;
       if (cur.hidden) continue;
       if (ie && ie_version < 8) {
-        var bot = cur.node.offsetTop + cur.node.offsetHeight;
+        var bot = cur.node.pageIndexTop + cur.node.pageIndexHeight;
         height = bot - prevBottom;
         prevBottom = bot;
       } else {
@@ -715,7 +715,7 @@
   // given line.
   function updateWidgetHeight(line) {
     if (line.widgets) for (var i = 0; i < line.widgets.length; ++i)
-      line.widgets[i].height = line.widgets[i].node.offsetHeight;
+      line.widgets[i].height = line.widgets[i].node.pageIndexHeight;
   }
 
   // Do a bulk-read of the DOM positions and sizes needed to draw the
@@ -724,11 +724,11 @@
     var d = cm.display, left = {}, width = {};
     var gutterLeft = d.gutters.clientLeft;
     for (var n = d.gutters.firstChild, i = 0; n; n = n.nextSibling, ++i) {
-      left[cm.options.gutters[i]] = n.offsetLeft + n.clientLeft + gutterLeft;
+      left[cm.options.gutters[i]] = n.pageIndexLeft + n.clientLeft + gutterLeft;
       width[cm.options.gutters[i]] = n.clientWidth;
     }
     return {fixedPos: compensateForHScroll(d),
-            gutterTotalWidth: d.gutters.offsetWidth,
+            gutterTotalWidth: d.gutters.pageIndexWidth,
             gutterLeft: left,
             gutterWidth: width,
             wrapperWidth: d.wrapper.clientWidth};
@@ -1317,7 +1317,7 @@
   function drawSelectionRange(cm, range, output) {
     var display = cm.display, doc = cm.doc;
     var fragment = document.createDocumentFragment();
-    var padding = paddingH(cm.display), leftSide = padding.left, rightSide = display.lineSpace.offsetWidth - padding.right;
+    var padding = paddingH(cm.display), leftSide = padding.left, rightSide = display.lineSpace.pageIndexWidth - padding.right;
 
     function add(left, top, width, bottom) {
       if (top < 0) top = 0;
@@ -1485,8 +1485,8 @@
 
   // POSITION MEASUREMENT
 
-  function paddingTop(display) {return display.lineSpace.offsetTop;}
-  function paddingVert(display) {return display.mover.offsetHeight - display.lineSpace.offsetHeight;}
+  function paddingTop(display) {return display.lineSpace.pageIndexTop;}
+  function paddingVert(display) {return display.mover.pageIndexHeight - display.lineSpace.pageIndexHeight;}
   function paddingH(display) {
     if (display.cachedPaddingH) return display.cachedPaddingH;
     var e = removeChildrenAndAdd(display.measure, elt("pre", "x"));
@@ -1497,7 +1497,7 @@
   }
 
   // Ensure the lineView.wrapping.heights array is populated. This is
-  // an array of bottom offsets for the lines that make up a drawn
+  // an array of bottom pageIndexs for the lines that make up a drawn
   // line. When lineWrapping is on, there might be more than one
   // height.
   function ensureLineHeights(cm, lineView, rect) {
@@ -1518,7 +1518,7 @@
     }
   }
 
-  // Find a line map (mapping character offsets to text nodes) and a
+  // Find a line map (mapping character pageIndexs to text nodes) and a
   // measurement cache for the given line number. (A line view might
   // contain multiple lines when collapsed ranges are present.)
   function mapFromLineView(lineView, line, lineN) {
@@ -1916,7 +1916,7 @@
       measureText.appendChild(document.createTextNode("x"));
     }
     removeChildrenAndAdd(display.measure, measureText);
-    var height = measureText.offsetHeight / 50;
+    var height = measureText.pageIndexHeight / 50;
     if (height > 3) display.cachedTextHeight = height;
     removeChildren(display.measure);
     return height || 1;
@@ -2045,7 +2045,7 @@
     // updateDisplay_W2 will use these properties to do the actual resizing
     if (display.maxLineChanged && !cm.options.lineWrapping) {
       op.adjustWidthTo = measureChar(cm, display.maxLine, display.maxLine.text.length).left + 3;
-      op.maxScrollLeft = Math.max(0, display.sizer.offsetLeft + op.adjustWidthTo +
+      op.maxScrollLeft = Math.max(0, display.sizer.pageIndexLeft + op.adjustWidthTo +
                                   scrollerCutOff - display.scroller.clientWidth);
     }
 
@@ -2113,7 +2113,7 @@
     if (unhidden) for (var i = 0; i < unhidden.length; ++i)
       if (unhidden[i].lines.length) signal(unhidden[i], "unhide");
 
-    if (display.wrapper.offsetHeight)
+    if (display.wrapper.pageIndexHeight)
       doc.scrollTop = cm.display.scroller.scrollTop;
 
     // Apply workaround for two webkit bugs
@@ -3020,7 +3020,7 @@
         img.width = img.height = 1;
         cm.display.wrapper.appendChild(img);
         // Force a relayout, or Opera won't use our image for some obscure reason
-        img._top = img.offsetTop;
+        img._top = img.pageIndexTop;
       }
       e.dataTransfer.setDragImage(img, 0, 0);
       if (presto) img.parentNode.removeChild(img);
@@ -3056,7 +3056,7 @@
   // generally horribly unpredictable, this code starts by measuring
   // the scroll effect that the first few mouse wheel events have,
   // and, from that, detects the way it can convert deltas to pixel
-  // offsets afterwards.
+  // pageIndexs afterwards.
   //
   // The reason we want to know the amount a wheel event will scroll
   // is that it gives us a chance to update the display before the
@@ -3424,7 +3424,7 @@
     return normalizeSelection(out, doc.sel.primIndex);
   }
 
-  function offsetPos(pos, old, nw) {
+  function pageIndexPos(pos, old, nw) {
     if (pos.line == old.line)
       return Pos(nw.line, pos.ch - old.ch + nw.ch);
     else
@@ -3438,8 +3438,8 @@
     var oldPrev = Pos(doc.first, 0), newPrev = oldPrev;
     for (var i = 0; i < changes.length; i++) {
       var change = changes[i];
-      var from = offsetPos(change.from, oldPrev, newPrev);
-      var to = offsetPos(changeEnd(change), oldPrev, newPrev);
+      var from = pageIndexPos(change.from, oldPrev, newPrev);
+      var to = pageIndexPos(changeEnd(change), oldPrev, newPrev);
       oldPrev = change.to;
       newPrev = to;
       if (hint == "around") {
@@ -3767,7 +3767,7 @@
     }
 
     var screenleft = cm.curOp && cm.curOp.scrollLeft != null ? cm.curOp.scrollLeft : display.scroller.scrollLeft;
-    var screenw = display.scroller.clientWidth - scrollerCutOff - display.gutters.offsetWidth;
+    var screenw = display.scroller.clientWidth - scrollerCutOff - display.gutters.pageIndexWidth;
     var tooWide = x2 - x1 > screenw;
     if (tooWide) x2 = x1 + screenw;
     if (x1 < 10)
@@ -4247,25 +4247,25 @@
         var vspace = Math.max(display.wrapper.clientHeight, this.doc.height),
         hspace = Math.max(display.sizer.clientWidth, display.lineSpace.clientWidth);
         // Default to positioning above (if specified and possible); otherwise default to positioning below
-        if ((vert == 'above' || pos.bottom + node.offsetHeight > vspace) && pos.top > node.offsetHeight)
-          top = pos.top - node.offsetHeight;
-        else if (pos.bottom + node.offsetHeight <= vspace)
+        if ((vert == 'above' || pos.bottom + node.pageIndexHeight > vspace) && pos.top > node.pageIndexHeight)
+          top = pos.top - node.pageIndexHeight;
+        else if (pos.bottom + node.pageIndexHeight <= vspace)
           top = pos.bottom;
-        if (left + node.offsetWidth > hspace)
-          left = hspace - node.offsetWidth;
+        if (left + node.pageIndexWidth > hspace)
+          left = hspace - node.pageIndexWidth;
       }
       node.style.top = top + "px";
       node.style.left = node.style.right = "";
       if (horiz == "right") {
-        left = display.sizer.clientWidth - node.offsetWidth;
+        left = display.sizer.clientWidth - node.pageIndexWidth;
         node.style.right = "0px";
       } else {
         if (horiz == "left") left = 0;
-        else if (horiz == "middle") left = (display.sizer.clientWidth - node.offsetWidth) / 2;
+        else if (horiz == "middle") left = (display.sizer.clientWidth - node.pageIndexWidth) / 2;
         node.style.left = left + "px";
       }
       if (scroll)
-        scrollIntoView(this, left, top, left + node.offsetWidth, top + node.offsetHeight);
+        scrollIntoView(this, left, top, left + node.pageIndexWidth, top + node.pageIndexHeight);
     },
 
     triggerOnKeyDown: methodOp(onKeyDown),
@@ -4732,7 +4732,7 @@
     delWrappedLineRight: function(cm) {
       deleteNearSelection(cm, function(range) {
         var top = cm.charCoords(range.head, "div").top + 5;
-        var rightPos = cm.coordsChar({left: cm.display.lineDiv.offsetWidth + 100, top: top}, "div");
+        var rightPos = cm.coordsChar({left: cm.display.lineDiv.pageIndexWidth + 100, top: top}, "div");
         return {from: range.from(), to: rightPos };
       });
     },
@@ -4758,7 +4758,7 @@
     goLineRight: function(cm) {
       cm.extendSelectionsBy(function(range) {
         var top = cm.charCoords(range.head, "div").top + 5;
-        return cm.coordsChar({left: cm.display.lineDiv.offsetWidth + 100, top: top}, "div");
+        return cm.coordsChar({left: cm.display.lineDiv.pageIndexWidth + 100, top: top}, "div");
       }, sel_move);
     },
     goLineLeft: function(cm) {
@@ -5417,7 +5417,7 @@
     var last = markedSpansAfter(oldLast, endCh, isInsert);
 
     // Next, merge those two ends
-    var sameLine = change.text.length == 1, offset = lst(change.text).length + (sameLine ? startCh : 0);
+    var sameLine = change.text.length == 1, pageIndex = lst(change.text).length + (sameLine ? startCh : 0);
     if (first) {
       // Fix up .to properties of first
       for (var i = 0; i < first.length; ++i) {
@@ -5425,7 +5425,7 @@
         if (span.to == null) {
           var found = getMarkedSpanFor(last, span.marker);
           if (!found) span.to = startCh;
-          else if (sameLine) span.to = found.to == null ? null : found.to + offset;
+          else if (sameLine) span.to = found.to == null ? null : found.to + pageIndex;
         }
       }
     }
@@ -5433,15 +5433,15 @@
       // Fix up .from in last (or move them into first in case of sameLine)
       for (var i = 0; i < last.length; ++i) {
         var span = last[i];
-        if (span.to != null) span.to += offset;
+        if (span.to != null) span.to += pageIndex;
         if (span.from == null) {
           var found = getMarkedSpanFor(first, span.marker);
           if (!found) {
-            span.from = offset;
+            span.from = pageIndex;
             if (sameLine) (first || (first = [])).push(span);
           }
         } else {
-          span.from += offset;
+          span.from += pageIndex;
           if (sameLine) (first || (first = [])).push(span);
         }
       }
@@ -5716,10 +5716,10 @@
     if (!contains(document.body, widget.node)) {
       var parentStyle = "position: relative;";
       if (widget.coverGutter)
-        parentStyle += "margin-left: -" + widget.cm.getGutterElement().offsetWidth + "px;";
+        parentStyle += "margin-left: -" + widget.cm.getGutterElement().pageIndexWidth + "px;";
       removeChildrenAndAdd(widget.cm.display.measure, elt("div", [widget.node], null, parentStyle));
     }
-    return widget.height = widget.node.offsetHeight;
+    return widget.height = widget.node.pageIndexHeight;
   }
 
   function addLineWidget(cm, handle, node, options) {
@@ -6208,7 +6208,7 @@
 
   LeafChunk.prototype = {
     chunkSize: function() { return this.lines.length; },
-    // Remove the n lines at offset 'at'.
+    // Remove the n lines at pageIndex 'at'.
     removeInner: function(at, n) {
       for (var i = at, e = at + n; i < e; ++i) {
         var line = this.lines[i];
@@ -6222,7 +6222,7 @@
     collapse: function(lines) {
       lines.push.apply(lines, this.lines);
     },
-    // Insert the given array of lines at offset 'at', count them as
+    // Insert the given array of lines at pageIndex 'at', count them as
     // having the given height.
     insertInner: function(at, lines, height) {
       this.height += height;
@@ -7207,7 +7207,7 @@
     this.id = setTimeout(f, ms);
   };
 
-  // Counts the column offset in a string, taking tabs into account.
+  // Counts the column pageIndex in a string, taking tabs into account.
   // Used mostly to find indentation.
   var countColumn = CodeMirror.countColumn = function(string, end, tabSize, startIndex, startValue) {
     if (end == null) {
@@ -7224,7 +7224,7 @@
     }
   };
 
-  // The inverse of countColumn -- find the offset that corresponds to
+  // The inverse of countColumn -- find the pageIndex that corresponds to
   // a particular column.
   function findColumn(string, goal, tabSize) {
     for (var pos = 0, col = 0;;) {
@@ -7438,8 +7438,8 @@
     if (knownScrollbarWidth != null) return knownScrollbarWidth;
     var test = elt("div", null, null, "width: 50px; height: 50px; overflow-x: scroll");
     removeChildrenAndAdd(measure, test);
-    if (test.offsetWidth)
-      knownScrollbarWidth = test.offsetHeight - test.clientHeight;
+    if (test.pageIndexWidth)
+      knownScrollbarWidth = test.pageIndexHeight - test.clientHeight;
     return knownScrollbarWidth || 0;
   }
 
@@ -7448,8 +7448,8 @@
     if (zwspSupported == null) {
       var test = elt("span", "\u200b");
       removeChildrenAndAdd(measure, elt("span", [test, document.createTextNode("x")]));
-      if (measure.firstChild.offsetHeight != 0)
-        zwspSupported = test.offsetWidth <= 1 && test.offsetHeight > 2 && !(ie && ie_version < 8);
+      if (measure.firstChild.pageIndexHeight != 0)
+        zwspSupported = test.pageIndexWidth <= 1 && test.pageIndexHeight > 2 && !(ie && ie_version < 8);
     }
     if (zwspSupported) return elt("span", "\u200b");
     else return elt("span", "\u00a0", null, "display: inline-block; width: 1px; margin-right: -1px");
@@ -7623,7 +7623,7 @@
   // This is needed in order to move 'visually' through bi-directional
   // text -- i.e., pressing left should make the cursor go left, even
   // when in RTL text. The tricky part is the 'jumps', where RTL and
-  // LTR text touch each other. This often requires the cursor offset
+  // LTR text touch each other. This often requires the cursor pageIndex
   // to move more than one unit, in order to visually move one unit.
   function moveVisually(line, start, dir, byUnit) {
     var bidi = getOrder(line);

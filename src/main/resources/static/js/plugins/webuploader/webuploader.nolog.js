@@ -1771,14 +1771,14 @@
                     height = button.outerHeight ?
                             button.outerHeight() : button.height(),
 
-                    pos = button.offset();
+                    pos = button.pageIndex();
 
                 width && height && shimContainer.css({
                     bottom: 'auto',
                     right: 'auto',
                     width: width + 'px',
                     height: height + 'px'
-                }).offset( pos );
+                }).pageIndex( pos );
             },
 
             enable: function() {
@@ -5100,23 +5100,23 @@
                 }
 
                 var dataview = new DataView( buffer ),
-                    offset = 2,
+                    pageIndex = 2,
                     maxOffset = dataview.byteLength - 4,
-                    headLength = offset,
+                    headLength = pageIndex,
                     ret = {},
                     markerBytes, markerLength, parsers, i;
 
                 if ( dataview.getUint16( 0 ) === 0xffd8 ) {
 
-                    while ( offset < maxOffset ) {
-                        markerBytes = dataview.getUint16( offset );
+                    while ( pageIndex < maxOffset ) {
+                        markerBytes = dataview.getUint16( pageIndex );
 
                         if ( markerBytes >= 0xffe0 && markerBytes <= 0xffef ||
                                 markerBytes === 0xfffe ) {
 
-                            markerLength = dataview.getUint16( offset + 2 ) + 2;
+                            markerLength = dataview.getUint16( pageIndex + 2 ) + 2;
 
-                            if ( offset + markerLength > dataview.byteLength ) {
+                            if ( pageIndex + markerLength > dataview.byteLength ) {
                                 break;
                             }
 
@@ -5124,13 +5124,13 @@
 
                             if ( !noParse && parsers ) {
                                 for ( i = 0; i < parsers.length; i += 1 ) {
-                                    parsers[ i ].call( api, dataview, offset,
+                                    parsers[ i ].call( api, dataview, pageIndex,
                                             markerLength, ret );
                                 }
                             }
 
-                            offset += markerLength;
-                            headLength = offset;
+                            pageIndex += markerLength;
+                            headLength = pageIndex;
                         } else {
                             break;
                         }
@@ -5153,18 +5153,18 @@
 
             updateImageHead: function( buffer, head ) {
                 var data = this._parse( buffer, true ),
-                    buf1, buf2, bodyoffset;
+                    buf1, buf2, bodypageIndex;
 
 
-                bodyoffset = 2;
+                bodypageIndex = 2;
                 if ( data.imageHead ) {
-                    bodyoffset = 2 + data.imageHead.byteLength;
+                    bodypageIndex = 2 + data.imageHead.byteLength;
                 }
 
                 if ( buffer.slice ) {
-                    buf2 = buffer.slice( bodyoffset );
+                    buf2 = buffer.slice( bodypageIndex );
                 } else {
-                    buf2 = new Uint8Array( buffer ).subarray( bodyoffset );
+                    buf2 = new Uint8Array( buffer ).subarray( bodypageIndex );
                 }
 
                 buf1 = new Uint8Array( head.byteLength + 2 + buf2.byteLength );
@@ -5315,7 +5315,7 @@
         // undefined, 8-bit byte, value depending on field:
         EXIF.exifTagTypes[ 7 ] = EXIF.exifTagTypes[ 1 ];
 
-        EXIF.getExifValue = function( dataView, tiffOffset, offset, type, length,
+        EXIF.getExifValue = function( dataView, tiffOffset, pageIndex, type, length,
                 littleEndian ) {
 
             var tagType = EXIF.exifTagTypes[ type ],
@@ -5330,11 +5330,11 @@
 
             // Determine if the value is contained in the dataOffset bytes,
             // or if the value at the dataOffset is a pointer to the actual data:
-            dataOffset = tagSize > 4 ? tiffOffset + dataView.getUint32( offset + 8,
-                    littleEndian ) : (offset + 8);
+            dataOffset = tagSize > 4 ? tiffOffset + dataView.getUint32( pageIndex + 8,
+                    littleEndian ) : (pageIndex + 8);
 
             if ( dataOffset + tagSize > dataView.byteLength ) {
-                Base.log('Invalid Exif data: Invalid data offset.');
+                Base.log('Invalid Exif data: Invalid data pageIndex.');
                 return;
             }
 
@@ -5368,13 +5368,13 @@
             return values;
         };
 
-        EXIF.parseExifTag = function( dataView, tiffOffset, offset, littleEndian,
+        EXIF.parseExifTag = function( dataView, tiffOffset, pageIndex, littleEndian,
                 data ) {
 
-            var tag = dataView.getUint16( offset, littleEndian );
-            data.exif[ tag ] = EXIF.getExifValue( dataView, tiffOffset, offset,
-                    dataView.getUint16( offset + 2, littleEndian ),    // tag type
-                    dataView.getUint32( offset + 4, littleEndian ),    // tag length
+            var tag = dataView.getUint16( pageIndex, littleEndian );
+            data.exif[ tag ] = EXIF.getExifValue( dataView, tiffOffset, pageIndex,
+                    dataView.getUint16( pageIndex + 2, littleEndian ),    // tag type
+                    dataView.getUint32( pageIndex + 4, littleEndian ),    // tag length
                     littleEndian );
         };
 
@@ -5384,7 +5384,7 @@
             var tagsNumber, dirEndOffset, i;
 
             if ( dirOffset + 6 > dataView.byteLength ) {
-                Base.log('Invalid Exif data: Invalid directory offset.');
+                Base.log('Invalid Exif data: Invalid directory pageIndex.');
                 return;
             }
 
@@ -5398,37 +5398,37 @@
 
             for ( i = 0; i < tagsNumber; i += 1 ) {
                 this.parseExifTag( dataView, tiffOffset,
-                        dirOffset + 2 + 12 * i,    // tag offset
+                        dirOffset + 2 + 12 * i,    // tag pageIndex
                         littleEndian, data );
             }
 
-            // Return the offset to the next directory:
+            // Return the pageIndex to the next directory:
             return dataView.getUint32( dirEndOffset, littleEndian );
         };
 
-        // EXIF.getExifThumbnail = function(dataView, offset, length) {
+        // EXIF.getExifThumbnail = function(dataView, pageIndex, length) {
         //     var hexData,
         //         i,
         //         b;
-        //     if (!length || offset + length > dataView.byteLength) {
+        //     if (!length || pageIndex + length > dataView.byteLength) {
         //         Base.log('Invalid Exif data: Invalid thumbnail data.');
         //         return;
         //     }
         //     hexData = [];
         //     for (i = 0; i < length; i += 1) {
-        //         b = dataView.getUint8(offset + i);
+        //         b = dataView.getUint8(pageIndex + i);
         //         hexData.push((b < 16 ? '0' : '') + b.toString(16));
         //     }
         //     return 'data:image/jpeg,%' + hexData.join('%');
         // };
 
-        EXIF.parseExifData = function( dataView, offset, length, data ) {
+        EXIF.parseExifData = function( dataView, pageIndex, length, data ) {
 
-            var tiffOffset = offset + 10,
+            var tiffOffset = pageIndex + 10,
                 littleEndian, dirOffset;
 
             // Check for the ASCII code for "Exif" (0x45786966):
-            if ( dataView.getUint32( offset + 4 ) !== 0x45786966 ) {
+            if ( dataView.getUint32( pageIndex + 4 ) !== 0x45786966 ) {
                 // No Exif data, might be XMP data instead
                 return;
             }
@@ -5438,8 +5438,8 @@
             }
 
             // Check for the two null bytes:
-            if ( dataView.getUint16( offset + 8 ) !== 0x0000 ) {
-                Base.log('Invalid Exif data: Missing byte alignment offset.');
+            if ( dataView.getUint16( pageIndex + 8 ) !== 0x0000 ) {
+                Base.log('Invalid Exif data: Missing byte alignment pageIndex.');
                 return;
             }
 
@@ -5464,12 +5464,12 @@
                 return;
             }
 
-            // Retrieve the directory offset bytes, usually 0x00000008 or 8 decimal:
+            // Retrieve the directory pageIndex bytes, usually 0x00000008 or 8 decimal:
             dirOffset = dataView.getUint32( tiffOffset + 4, littleEndian );
             // Create the exif object to store the tags:
             data.exif = new EXIF.ExifMap();
             // Parse the tags of the main image directory and retrieve the
-            // offset to the next directory, usually the thumbnail directory:
+            // pageIndex to the next directory, usually the thumbnail directory:
             dirOffset = EXIF.parseExifTags( dataView, tiffOffset,
                     tiffOffset + dirOffset, littleEndian, data );
 
@@ -5484,7 +5484,7 @@
             //         thumbnailData
             //     );
 
-            //     // Check for JPEG Thumbnail offset:
+            //     // Check for JPEG Thumbnail pageIndex:
             //     if (thumbnailData.exif[0x0201]) {
             //         data.exif.Thumbnail = EXIF.getExifThumbnail(
             //             dataView,

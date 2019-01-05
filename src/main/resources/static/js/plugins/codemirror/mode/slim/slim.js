@@ -84,12 +84,12 @@
       };
     }
 
-    function maybeBackup(stream, state, pat, offset, style) {
+    function maybeBackup(stream, state, pat, pageIndex, style) {
       var cur = stream.current();
       var idx = cur.search(pat);
       if (idx > -1) {
         state.tokenize = backup(stream.pos, state.tokenize, style);
-        stream.backUp(cur.length - idx - offset);
+        stream.backUp(cur.length - idx - pageIndex);
       }
       return style;
     }
@@ -197,11 +197,11 @@
       };
     }
 
-    function startHtmlMode(stream, state, offset) {
+    function startHtmlMode(stream, state, pageIndex) {
       state.stack = {
         parent: state.stack,
         style: "html",
-        indented: stream.column() + offset, // pipe + space
+        indented: stream.column() + pageIndex, // pipe + space
         tokenize: state.line
       };
       state.line = state.tokenize = html;

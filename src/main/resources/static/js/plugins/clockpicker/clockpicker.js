@@ -241,10 +241,10 @@
 
 		// Mousedown or touchstart
 		function mousedown(e, space) {
-			var offset = plate.offset(),
+			var pageIndex = plate.pageIndex(),
 				isTouch = /^touch/.test(e.type),
-				x0 = offset.left + dialRadius,
-				y0 = offset.top + dialRadius,
+				x0 = pageIndex.left + dialRadius,
+				y0 = pageIndex.top + dialRadius,
 				dx = (isTouch ? e.originalEvent.touches[0] : e).pageX - x0,
 				dy = (isTouch ? e.originalEvent.touches[0] : e).pageY - y0,
 				z = Math.sqrt(dx * dx + dy * dy),
@@ -382,7 +382,7 @@
 	ClockPicker.prototype.locate = function(){
 		var element = this.element,
 			popover = this.popover,
-			offset = element.offset(),
+			pageIndex = element.pageIndex(),
 			width = element.outerWidth(),
 			height = element.outerHeight(),
 			placement = this.options.placement,
@@ -395,32 +395,32 @@
 		// Place the popover
 		switch (placement) {
 			case 'bottom':
-				styles.top = offset.top + height;
+				styles.top = pageIndex.top + height;
 				break;
 			case 'right':
-				styles.left = offset.left + width;
+				styles.left = pageIndex.left + width;
 				break;
 			case 'top':
-				styles.top = offset.top - popover.outerHeight();
+				styles.top = pageIndex.top - popover.outerHeight();
 				break;
 			case 'left':
-				styles.left = offset.left - popover.outerWidth();
+				styles.left = pageIndex.left - popover.outerWidth();
 				break;
 		}
 
 		// Align the popover arrow
 		switch (align) {
 			case 'left':
-				styles.left = offset.left;
+				styles.left = pageIndex.left;
 				break;
 			case 'right':
-				styles.left = offset.left + width - popover.outerWidth();
+				styles.left = pageIndex.left + width - popover.outerWidth();
 				break;
 			case 'top':
-				styles.top = offset.top;
+				styles.top = pageIndex.top;
 				break;
 			case 'bottom':
-				styles.top = offset.top + height - popover.outerHeight();
+				styles.top = pageIndex.top + height - popover.outerHeight();
 				break;
 		}
 

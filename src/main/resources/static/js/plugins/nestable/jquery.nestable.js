@@ -169,8 +169,8 @@
         reset: function()
         {
             this.mouse = {
-                offsetX   : 0,
-                offsetY   : 0,
+                pageIndexX   : 0,
+                pageIndexY   : 0,
                 startX    : 0,
                 startY    : 0,
                 lastX     : 0,
@@ -255,8 +255,8 @@
 
             this.placeEl.css('height', dragItem.height());
 
-            mouse.offsetX = e.offsetX !== undefined ? e.offsetX : e.pageX - target.offset().left;
-            mouse.offsetY = e.offsetY !== undefined ? e.offsetY : e.pageY - target.offset().top;
+            mouse.pageIndexX = e.pageIndexX !== undefined ? e.pageIndexX : e.pageX - target.pageIndex().left;
+            mouse.pageIndexY = e.pageIndexY !== undefined ? e.pageIndexY : e.pageY - target.pageIndex().top;
             mouse.startX = mouse.lastX = e.pageX;
             mouse.startY = mouse.lastY = e.pageY;
 
@@ -271,8 +271,8 @@
 
             $(document.body).append(this.dragEl);
             this.dragEl.css({
-                'left' : e.pageX - mouse.offsetX,
-                'top'  : e.pageY - mouse.offsetY
+                'left' : e.pageX - mouse.pageIndexX,
+                'top'  : e.pageY - mouse.pageIndexY
             });
             // total depth of dragging item
             var i, depth,
@@ -306,8 +306,8 @@
                 mouse = this.mouse;
 
             this.dragEl.css({
-                'left' : e.pageX - mouse.offsetX,
-                'top'  : e.pageY - mouse.offsetY
+                'left' : e.pageX - mouse.pageIndexX,
+                'top'  : e.pageY - mouse.pageIndexY
             });
 
             // mouse position last events
@@ -429,7 +429,7 @@
                 if (depth > opt.maxDepth) {
                     return;
                 }
-                var before = e.pageY < (this.pointEl.offset().top + this.pointEl.height() / 2);
+                var before = e.pageY < (this.pointEl.pageIndex().top + this.pointEl.height() / 2);
                 parent = this.placeEl.parent();
                 // if empty create new list to replace empty placeholder
                 if (isEmpty) {

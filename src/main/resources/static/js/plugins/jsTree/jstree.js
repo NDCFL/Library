@@ -1026,7 +1026,7 @@
 			obj = this.get_node(obj, true);
 			if(obj[0] === this.element[0]) {
 				tmp = this._firstChild(this.get_container_ul()[0]);
-				while (tmp && tmp.offsetHeight === 0) {
+				while (tmp && tmp.pageIndexHeight === 0) {
 					tmp = this._nextSibling(tmp);
 				}
 				return tmp ? $(tmp) : false;
@@ -1038,12 +1038,12 @@
 				tmp = obj[0];
 				do {
 					tmp = this._nextSibling(tmp);
-				} while (tmp && tmp.offsetHeight === 0);
+				} while (tmp && tmp.pageIndexHeight === 0);
 				return tmp ? $(tmp) : false;
 			}
 			if(obj.hasClass("jstree-open")) {
 				tmp = this._firstChild(obj.children('.jstree-children')[0]);
-				while (tmp && tmp.offsetHeight === 0) {
+				while (tmp && tmp.pageIndexHeight === 0) {
 					tmp = this._nextSibling(tmp);
 				}
 				if(tmp !== null) {
@@ -1053,7 +1053,7 @@
 			tmp = obj[0];
 			do {
 				tmp = this._nextSibling(tmp);
-			} while (tmp && tmp.offsetHeight === 0);
+			} while (tmp && tmp.pageIndexHeight === 0);
 			if(tmp !== null) {
 				return $(tmp);
 			}
@@ -1071,7 +1071,7 @@
 			obj = this.get_node(obj, true);
 			if(obj[0] === this.element[0]) {
 				tmp = this.get_container_ul()[0].lastChild;
-				while (tmp && tmp.offsetHeight === 0) {
+				while (tmp && tmp.pageIndexHeight === 0) {
 					tmp = this._previousSibling(tmp);
 				}
 				return tmp ? $(tmp) : false;
@@ -1083,13 +1083,13 @@
 				tmp = obj[0];
 				do {
 					tmp = this._previousSibling(tmp);
-				} while (tmp && tmp.offsetHeight === 0);
+				} while (tmp && tmp.pageIndexHeight === 0);
 				return tmp ? $(tmp) : false;
 			}
 			tmp = obj[0];
 			do {
 				tmp = this._previousSibling(tmp);
-			} while (tmp && tmp.offsetHeight === 0);
+			} while (tmp && tmp.pageIndexHeight === 0);
 			if(tmp !== null) {
 				obj = $(tmp);
 				while(obj.hasClass("jstree-open")) {

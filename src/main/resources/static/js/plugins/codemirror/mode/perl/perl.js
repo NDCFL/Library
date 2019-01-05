@@ -374,7 +374,7 @@ CodeMirror.defineMode("perl",function(){
                 'package'                       :1,     // - declare a separate global namespace
                 pipe                            :1,     // - open a pair of connected filehandles
                 pop                             :1,     // - remove the last element from an array and return it
-                pos                             :1,     // - find or set the offset for the last/next m//g search
+                pos                             :1,     // - find or set the pageIndex for the last/next m//g search
                 print                           :1,     // - output a list to a filehandle
                 printf                          :1,     // - output a formatted list to a filehandle
                 prototype                       :1,     // - get the prototype (if any) of a subroutine

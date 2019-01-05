@@ -51,7 +51,7 @@ CodeMirror.defineMode("coffeescript", function(conf, parserConf) {
     // Handle scope changes
     if (stream.sol()) {
       if (state.scope.align === null) state.scope.align = false;
-      var scopeOffset = state.scope.offset;
+      var scopeOffset = state.scope.pageIndex;
       if (stream.eatSpace()) {
         var lineOffset = stream.indentation();
         if (lineOffset > scopeOffset && state.scope.type == "coffee") {
@@ -215,10 +215,10 @@ CodeMirror.defineMode("coffeescript", function(conf, parserConf) {
 
   function indent(stream, state, type) {
     type = type || "coffee";
-    var offset = 0, align = false, alignOffset = null;
+    var pageIndex = 0, align = false, alignOffset = null;
     for (var scope = state.scope; scope; scope = scope.prev) {
       if (scope.type === "coffee" || scope.type == "}") {
-        offset = scope.offset + conf.indentUnit;
+        pageIndex = scope.pageIndex + conf.indentUnit;
         break;
       }
     }
@@ -229,7 +229,7 @@ CodeMirror.defineMode("coffeescript", function(conf, parserConf) {
       state.scope.align = false;
     }
     state.scope = {
-      offset: offset,
+      pageIndex: pageIndex,
       type: type,
       prev: state.scope,
       align: align,
@@ -243,7 +243,7 @@ CodeMirror.defineMode("coffeescript", function(conf, parserConf) {
       var _indent = stream.indentation();
       var matched = false;
       for (var scope = state.scope; scope; scope = scope.prev) {
-        if (_indent === scope.offset) {
+        if (_indent === scope.pageIndex) {
           matched = true;
           break;
         }
@@ -251,7 +251,7 @@ CodeMirror.defineMode("coffeescript", function(conf, parserConf) {
       if (!matched) {
         return true;
       }
-      while (state.scope.prev && state.scope.offset !== _indent) {
+      while (state.scope.prev && state.scope.pageIndex !== _indent) {
         state.scope = state.scope.prev;
       }
       return false;
@@ -323,7 +323,7 @@ CodeMirror.defineMode("coffeescript", function(conf, parserConf) {
     startState: function(basecolumn) {
       return {
         tokenize: tokenBase,
-        scope: {offset:basecolumn || 0, type:"coffee", prev: null, align: false},
+        scope: {pageIndex:basecolumn || 0, type:"coffee", prev: null, align: false},
         lastToken: null,
         lambda: false,
         dedent: 0
@@ -355,7 +355,7 @@ CodeMirror.defineMode("coffeescript", function(conf, parserConf) {
       if (scope.align)
         return scope.alignOffset - (closes ? 1 : 0);
       else
-        return (closes ? scope.prev : scope).offset;
+        return (closes ? scope.prev : scope).pageIndex;
     },
 
     lineComment: "#",

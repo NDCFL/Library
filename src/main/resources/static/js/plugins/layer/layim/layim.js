@@ -44,7 +44,7 @@ var config = {
     hosts: (function(){
         var dk = location.href.match(/\:\d+/);
         dk = dk ? dk[0] : '';
-        return 'http://' + document.domain + dk + '/';
+        return 'http://' + document.vo + dk + '/';
     })(),
     json: function(url, data, callback, error){
         return $.ajax({
@@ -269,7 +269,7 @@ xxim.popchat = function(param){
             move: '.layim_chatbox .layim_move',
             moveType: 1,
             closeBtn: false,
-            offset: [(($(window).height() - 493)/2)+'px', ''],
+            pageIndex: [(($(window).height() - 493)/2)+'px', ''],
             page: {
                 html: log.html
             }, success: function(layero){

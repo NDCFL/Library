@@ -86,7 +86,7 @@
          * Draw the scale of the chart
          */
         var drawScale = function() {
-            var offset;
+            var pageIndex;
             var length;
 
             ctx.lineWidth = 1;
@@ -96,12 +96,12 @@
             for (var i = 24; i > 0; --i) {
                 if (i % 6 === 0) {
                     length = options.scaleLength;
-                    offset = 0;
+                    pageIndex = 0;
                 } else {
                     length = options.scaleLength * 0.6;
-                    offset = options.scaleLength - length;
+                    pageIndex = options.scaleLength - length;
                 }
-                ctx.fillRect(-options.size/2 + offset, 0, length, 1);
+                ctx.fillRect(-options.size/2 + pageIndex, 0, length, 1);
                 ctx.rotate(Math.PI / 12);
             }
             ctx.restore();

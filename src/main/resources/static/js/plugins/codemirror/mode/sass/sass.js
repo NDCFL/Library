@@ -105,9 +105,9 @@ CodeMirror.defineMode("sass", function(config) {
   function indent(state) {
     if (state.indentCount == 0) {
       state.indentCount++;
-      var lastScopeOffset = state.scopes[0].offset;
+      var lastScopeOffset = state.scopes[0].pageIndex;
       var currentOffset = lastScopeOffset + config.indentUnit;
-      state.scopes.unshift({ offset:currentOffset });
+      state.scopes.unshift({ pageIndex:currentOffset });
     }
   }
 
@@ -372,7 +372,7 @@ CodeMirror.defineMode("sass", function(config) {
       for (var i = 0; i < state.scopes.length; i++) {
         var scope = state.scopes[i];
 
-        if (scope.offset <= withCurrentIndent)
+        if (scope.pageIndex <= withCurrentIndent)
           newScopes.push(scope);
       }
 
@@ -387,7 +387,7 @@ CodeMirror.defineMode("sass", function(config) {
     startState: function() {
       return {
         tokenizer: tokenBase,
-        scopes: [{offset: 0, type: "sass"}],
+        scopes: [{pageIndex: 0, type: "sass"}],
         indentCount: 0,
         cursorHalf: 0,  // cursor half tells us if cursor lies after (1)
                         // or before (0) colon (well... more or less)
@@ -404,7 +404,7 @@ CodeMirror.defineMode("sass", function(config) {
     },
 
     indent: function(state) {
-      return state.scopes[0].offset;
+      return state.scopes[0].pageIndex;
     }
   };
 });

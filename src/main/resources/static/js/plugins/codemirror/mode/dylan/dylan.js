@@ -46,7 +46,7 @@ CodeMirror.defineMode("dylan", function(_config) {
 
     // Other words that introduce simple definitions
     // (without implicit bodies).
-    otherSimpleDefinition: ["generic", "domain",
+    otherSimpleDefinition: ["generic", "vo",
                             "C-pointer-type",
                             "table"
                            ],
