@@ -1523,7 +1523,7 @@
 			}
 
 			if (isQuery(orig)) {
-				pos = orig.offset();
+				pos = orig.pageIndex();
 
 				if (orig.is('img')) {
 					width  = orig.outerWidth();
@@ -1781,16 +1781,16 @@
 		// Private, callbacks
 
 		update : function () {
-			var width = '100%', offsetWidth;
+			var width = '100%', pageIndexWidth;
 
 			// Reset width/height so it will not mess
 			this.overlay.width(width).height('100%');
 
 			// jQuery does not return reliable result for IE
 			if (IE) {
-				offsetWidth = Math.max(document.documentElement.offsetWidth, document.body.offsetWidth);
+				pageIndexWidth = Math.max(document.documentElement.pageIndexWidth, document.body.pageIndexWidth);
 
-				if (D.width() > offsetWidth) {
+				if (D.width() > pageIndexWidth) {
 					width = D.width();
 				}
 
@@ -1991,7 +1991,7 @@
 		if ( $.support.fixedPosition === undefined ) {
 			$.support.fixedPosition = (function() {
 				var elem  = $('<div style="position:fixed;top:20px;"></div>').appendTo('body'),
-					fixed = ( elem[0].offsetTop === 20 || elem[0].offsetTop === 15 );
+					fixed = ( elem[0].pageIndexTop === 20 || elem[0].pageIndexTop === 15 );
 
 				elem.remove();
 

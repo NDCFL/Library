@@ -25,7 +25,7 @@ series: {
 		innerRadius: 0-1 for percentage of fullsize or a specified pixel length, for creating a donut effect
 		startAngle: 0-2 factor of PI used for starting angle (in radians) i.e 3/2 starts at the top, 0 and 2 have the same result
 		tilt: 0-1 for percentage to tilt the pie, where 1 is no tilt, and 0 is completely flat (nothing will show)
-		offset: {
+		pageIndex: {
 			top: integer value to move the pie up or down
 			left: integer value to move the pie left or right, or 'auto'
 		},
@@ -190,16 +190,16 @@ More detail and specific examples can be found in the included HTML file.
 
 			// calculate maximum radius and center point
 			maxRadius =  Math.min(canvas.width,(canvas.height/options.series.pie.tilt))/2;
-			centerTop = (canvas.height/2)+options.series.pie.offset.top;
+			centerTop = (canvas.height/2)+options.series.pie.pageIndex.top;
 			centerLeft = (canvas.width/2);
 
-			if (options.series.pie.offset.left=='auto')
+			if (options.series.pie.pageIndex.left=='auto')
 				if (options.legend.position.match('w'))
 					centerLeft += legendWidth/2;
 				else
 					centerLeft -= legendWidth/2;
 			else
-				centerLeft += options.series.pie.offset.left;
+				centerLeft += options.series.pie.pageIndex.left;
 
 			if (centerLeft<maxRadius)
 				centerLeft = maxRadius;
@@ -591,9 +591,9 @@ More detail and specific examples can be found in the included HTML file.
 		// trigger click or hover event (they send the same parameters so we share their code)
 		function triggerClickHoverEvent(eventname, e)
 		{
-			var offset = plot.offset(),
-				canvasX = parseInt(e.pageX - offset.left),
-				canvasY =  parseInt(e.pageY - offset.top),
+			var pageIndex = plot.pageIndex(),
+				canvasX = parseInt(e.pageX - pageIndex.left),
+				canvasY =  parseInt(e.pageY - pageIndex.top),
 				item = findNearbySlice(canvasX, canvasY);
 
 			if (options.grid.autoHighlight)
@@ -708,7 +708,7 @@ More detail and specific examples can be found in the included HTML file.
 				innerRadius:0, /* for donut */
 				startAngle: 3/2,
 				tilt: 1,
-				offset: {
+				pageIndex: {
 					top: 0,
 					left: 'auto'
 				},

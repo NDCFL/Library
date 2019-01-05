@@ -165,8 +165,8 @@
         plot.getPlotOffset = function() { return plotOffset; };
         plot.width = function () { return plotWidth; };
         plot.height = function () { return plotHeight; };
-        plot.offset = function () {
-            var o = eventHolder.offset();
+        plot.pageIndex = function () {
+            var o = eventHolder.pageIndex();
             o.left += plotOffset.left;
             o.top += plotOffset.top;
             return o;
@@ -1715,7 +1715,7 @@
         }
 
         function drawSeriesLines(series) {
-            function plotLine(datapoints, xoffset, yoffset, axisx, axisy) {
+            function plotLine(datapoints, xpageIndex, ypageIndex, axisx, axisy) {
                 var points = datapoints.points,
                     ps = datapoints.pointsize,
                     prevx = null, prevy = null;
@@ -1786,11 +1786,11 @@
                     }
 
                     if (x1 != prevx || y1 != prevy)
-                        ctx.moveTo(axisx.p2c(x1) + xoffset, axisy.p2c(y1) + yoffset);
+                        ctx.moveTo(axisx.p2c(x1) + xpageIndex, axisy.p2c(y1) + ypageIndex);
 
                     prevx = x2;
                     prevy = y2;
-                    ctx.lineTo(axisx.p2c(x2) + xoffset, axisy.p2c(y2) + yoffset);
+                    ctx.lineTo(axisx.p2c(x2) + xpageIndex, axisy.p2c(y2) + ypageIndex);
                 }
                 ctx.stroke();
             }
@@ -1969,7 +1969,7 @@
         }
 
         function drawSeriesPoints(series) {
-            function plotPoints(datapoints, radius, fillStyle, offset, shadow, axisx, axisy, symbol) {
+            function plotPoints(datapoints, radius, fillStyle, pageIndex, shadow, axisx, axisy, symbol) {
                 var points = datapoints.points, ps = datapoints.pointsize;
 
                 for (var i = 0; i < points.length; i += ps) {
@@ -1979,7 +1979,7 @@
 
                     ctx.beginPath();
                     x = axisx.p2c(x);
-                    y = axisy.p2c(y) + offset;
+                    y = axisy.p2c(y) + pageIndex;
                     if (symbol == "circle")
                         ctx.arc(x, y, radius, 0, shadow ? Math.PI : Math.PI * 2, false);
                     else
@@ -2022,7 +2022,7 @@
             ctx.restore();
         }
 
-        function drawBar(x, y, b, barLeft, barRight, offset, fillStyleCallback, axisx, axisy, c, horizontal, lineWidth) {
+        function drawBar(x, y, b, barLeft, barRight, pageIndex, fillStyleCallback, axisx, axisy, c, horizontal, lineWidth) {
             var left, right, bottom, top,
                 drawLeft, drawRight, drawTop, drawBottom,
                 tmp;
@@ -2111,35 +2111,35 @@
                 c.beginPath();
 
                 // FIXME: inline moveTo is buggy with excanvas
-                c.moveTo(left, bottom + offset);
+                c.moveTo(left, bottom + pageIndex);
                 if (drawLeft)
-                    c.lineTo(left, top + offset);
+                    c.lineTo(left, top + pageIndex);
                 else
-                    c.moveTo(left, top + offset);
+                    c.moveTo(left, top + pageIndex);
                 if (drawTop)
-                    c.lineTo(right, top + offset);
+                    c.lineTo(right, top + pageIndex);
                 else
-                    c.moveTo(right, top + offset);
+                    c.moveTo(right, top + pageIndex);
                 if (drawRight)
-                    c.lineTo(right, bottom + offset);
+                    c.lineTo(right, bottom + pageIndex);
                 else
-                    c.moveTo(right, bottom + offset);
+                    c.moveTo(right, bottom + pageIndex);
                 if (drawBottom)
-                    c.lineTo(left, bottom + offset);
+                    c.lineTo(left, bottom + pageIndex);
                 else
-                    c.moveTo(left, bottom + offset);
+                    c.moveTo(left, bottom + pageIndex);
                 c.stroke();
             }
         }
 
         function drawSeriesBars(series) {
-            function plotBars(datapoints, barLeft, barRight, offset, fillStyleCallback, axisx, axisy) {
+            function plotBars(datapoints, barLeft, barRight, pageIndex, fillStyleCallback, axisx, axisy) {
                 var points = datapoints.points, ps = datapoints.pointsize;
 
                 for (var i = 0; i < points.length; i += ps) {
                     if (points[i] == null)
                         continue;
-                    drawBar(points[i], points[i + 1], points[i + 2], barLeft, barRight, offset, fillStyleCallback, axisx, axisy, ctx, series.bars.horizontal, series.bars.lineWidth);
+                    drawBar(points[i], points[i + 1], points[i + 2], barLeft, barRight, pageIndex, fillStyleCallback, axisx, axisy, ctx, series.bars.horizontal, series.bars.lineWidth);
                 }
             }
 
@@ -2355,9 +2355,9 @@
         // trigger click or hover event (they send the same parameters
         // so we share their code)
         function triggerClickHoverEvent(eventname, event, seriesFilter) {
-            var offset = eventHolder.offset(),
-                canvasX = event.pageX - offset.left - plotOffset.left,
-                canvasY = event.pageY - offset.top - plotOffset.top,
+            var pageIndex = eventHolder.pageIndex(),
+                canvasX = event.pageX - pageIndex.left - plotOffset.left,
+                canvasY = event.pageY - pageIndex.top - plotOffset.top,
             pos = canvasToAxisCoords({ left: canvasX, top: canvasY });
 
             pos.pageX = event.pageX;
@@ -2367,8 +2367,8 @@
 
             if (item) {
                 // fill in mouse pos for any listeners out there
-                item.pageX = parseInt(item.series.xaxis.p2c(item.datapoint[0]) + offset.left + plotOffset.left);
-                item.pageY = parseInt(item.series.yaxis.p2c(item.datapoint[1]) + offset.top + plotOffset.top);
+                item.pageX = parseInt(item.series.xaxis.p2c(item.datapoint[0]) + pageIndex.left + plotOffset.left);
+                item.pageY = parseInt(item.series.yaxis.p2c(item.datapoint[1]) + pageIndex.top + plotOffset.top);
             }
 
             if (options.grid.autoHighlight) {
