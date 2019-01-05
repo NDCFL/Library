@@ -375,7 +375,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
 
     if ($.support.transition && this.$element.hasClass('slide')) {
       $next.addClass(type)
-      $next[0].offsetWidth // force reflow
+      $next[0].pageIndexWidth // force reflow
       $active.addClass(direction)
       $next.addClass(direction)
       $active
@@ -546,7 +546,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
 
     this.$element
       [dimension](this.$element[dimension]())
-      [0].offsetHeight
+      [0].pageIndexHeight
 
     this.$element
       .addClass('collapsing')
@@ -843,7 +843,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
         .scrollTop(0)
 
       if (transition) {
-        that.$element[0].offsetWidth // force reflow
+        that.$element[0].pageIndexWidth // force reflow
       }
 
       that.$element
@@ -941,7 +941,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
           : this.hide.call(this)
       }, this))
 
-      if (doAnimate) this.$backdrop[0].offsetWidth // force reflow
+      if (doAnimate) this.$backdrop[0].pageIndexWidth // force reflow
 
       this.$backdrop.addClass('in')
 
@@ -1176,8 +1176,8 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
       this.options.container ? $tip.appendTo(this.options.container) : $tip.insertAfter(this.$element)
 
       var pos          = this.getPosition()
-      var actualWidth  = $tip[0].offsetWidth
-      var actualHeight = $tip[0].offsetHeight
+      var actualWidth  = $tip[0].pageIndexWidth
+      var actualHeight = $tip[0].pageIndexHeight
 
       if (autoPlace) {
         var $parent = this.$element.parent()
@@ -1186,7 +1186,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
         var docScroll    = document.documentElement.scrollTop || document.body.scrollTop
         var parentWidth  = this.options.container == 'body' ? window.innerWidth  : $parent.outerWidth()
         var parentHeight = this.options.container == 'body' ? window.innerHeight : $parent.outerHeight()
-        var parentLeft   = this.options.container == 'body' ? 0 : $parent.offset().left
+        var parentLeft   = this.options.container == 'body' ? 0 : $parent.pageIndex().left
 
         placement = placement == 'bottom' && pos.top   + pos.height  + actualHeight - docScroll > parentHeight  ? 'top'    :
                     placement == 'top'    && pos.top   - docScroll   - actualHeight < 0                         ? 'bottom' :
@@ -1216,11 +1216,11 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
     }
   }
 
-  Tooltip.prototype.applyPlacement = function (offset, placement) {
+  Tooltip.prototype.applyPlacement = function (pageIndex, placement) {
     var replace
     var $tip   = this.tip()
-    var width  = $tip[0].offsetWidth
-    var height = $tip[0].offsetHeight
+    var width  = $tip[0].pageIndexWidth
+    var height = $tip[0].pageIndexHeight
 
     // manually read margins because getBoundingClientRect includes difference
     var marginTop = parseInt($tip.css('margin-top'), 10)
@@ -1230,42 +1230,42 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
     if (isNaN(marginTop))  marginTop  = 0
     if (isNaN(marginLeft)) marginLeft = 0
 
-    offset.top  = offset.top  + marginTop
-    offset.left = offset.left + marginLeft
+    pageIndex.top  = pageIndex.top  + marginTop
+    pageIndex.left = pageIndex.left + marginLeft
 
-    // $.fn.offset doesn't round pixel values
+    // $.fn.pageIndex doesn't round pixel values
     // so we use setOffset directly with our own function B-0
-    $.offset.setOffset($tip[0], $.extend({
+    $.pageIndex.setOffset($tip[0], $.extend({
       using: function (props) {
         $tip.css({
           top: Math.round(props.top),
           left: Math.round(props.left)
         })
       }
-    }, offset), 0)
+    }, pageIndex), 0)
 
     $tip.addClass('in')
 
-    // check to see if placing tip in new offset caused the tip to resize itself
-    var actualWidth  = $tip[0].offsetWidth
-    var actualHeight = $tip[0].offsetHeight
+    // check to see if placing tip in new pageIndex caused the tip to resize itself
+    var actualWidth  = $tip[0].pageIndexWidth
+    var actualHeight = $tip[0].pageIndexHeight
 
     if (placement == 'top' && actualHeight != height) {
       replace = true
-      offset.top = offset.top + height - actualHeight
+      pageIndex.top = pageIndex.top + height - actualHeight
     }
 
     if (/bottom|top/.test(placement)) {
       var delta = 0
 
-      if (offset.left < 0) {
-        delta       = offset.left * -2
-        offset.left = 0
+      if (pageIndex.left < 0) {
+        delta       = pageIndex.left * -2
+        pageIndex.left = 0
 
-        $tip.offset(offset)
+        $tip.pageIndex(pageIndex)
 
-        actualWidth  = $tip[0].offsetWidth
-        actualHeight = $tip[0].offsetHeight
+        actualWidth  = $tip[0].pageIndexWidth
+        actualHeight = $tip[0].pageIndexHeight
       }
 
       this.replaceArrow(delta - width + actualWidth, actualWidth, 'left')
@@ -1273,7 +1273,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
       this.replaceArrow(actualHeight - height, actualHeight, 'top')
     }
 
-    if (replace) $tip.offset(offset)
+    if (replace) $tip.pageIndex(pageIndex)
   }
 
   Tooltip.prototype.replaceArrow = function (delta, dimension, position) {
@@ -1329,9 +1329,9 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
   Tooltip.prototype.getPosition = function () {
     var el = this.$element[0]
     return $.extend({}, (typeof el.getBoundingClientRect == 'function') ? el.getBoundingClientRect() : {
-      width: el.offsetWidth,
-      height: el.offsetHeight
-    }, this.$element.offset())
+      width: el.pageIndexWidth,
+      height: el.pageIndexHeight
+    }, this.$element.pageIndex())
   }
 
   Tooltip.prototype.getCalculatedOffset = function (placement, pos, actualWidth, actualHeight) {
@@ -1558,7 +1558,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
     this.selector       = (this.options.target
       || ((href = $(element).attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
       || '') + ' .nav li > a'
-    this.offsets        = $([])
+    this.pageIndexs        = $([])
     this.targets        = $([])
     this.activeTarget   = null
 
@@ -1567,13 +1567,13 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
   }
 
   ScrollSpy.DEFAULTS = {
-    offset: 10
+    pageIndex: 10
   }
 
   ScrollSpy.prototype.refresh = function () {
-    var offsetMethod = this.$element[0] == window ? 'offset' : 'position'
+    var pageIndexMethod = this.$element[0] == window ? 'pageIndex' : 'position'
 
-    this.offsets = $([])
+    this.pageIndexs = $([])
     this.targets = $([])
 
     var self     = this
@@ -1587,20 +1587,20 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
         return ($href
           && $href.length
           && $href.is(':visible')
-          && [[ $href[offsetMethod]().top + (!$.isWindow(self.$scrollElement.get(0)) && self.$scrollElement.scrollTop()), href ]]) || null
+          && [[ $href[pageIndexMethod]().top + (!$.isWindow(self.$scrollElement.get(0)) && self.$scrollElement.scrollTop()), href ]]) || null
       })
       .sort(function (a, b) { return a[0] - b[0] })
       .each(function () {
-        self.offsets.push(this[0])
+        self.pageIndexs.push(this[0])
         self.targets.push(this[1])
       })
   }
 
   ScrollSpy.prototype.process = function () {
-    var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+    var scrollTop    = this.$scrollElement.scrollTop() + this.options.pageIndex
     var scrollHeight = this.$scrollElement[0].scrollHeight || this.$body[0].scrollHeight
     var maxScroll    = scrollHeight - this.$scrollElement.height()
-    var offsets      = this.offsets
+    var pageIndexs      = this.pageIndexs
     var targets      = this.targets
     var activeTarget = this.activeTarget
     var i
@@ -1609,14 +1609,14 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
       return activeTarget != (i = targets.last()[0]) && this.activate(i)
     }
 
-    if (activeTarget && scrollTop <= offsets[0]) {
+    if (activeTarget && scrollTop <= pageIndexs[0]) {
       return activeTarget != (i = targets[0]) && this.activate(i)
     }
 
-    for (i = offsets.length; i--;) {
+    for (i = pageIndexs.length; i--;) {
       activeTarget != targets[i]
-        && scrollTop >= offsets[i]
-        && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+        && scrollTop >= pageIndexs[i]
+        && (!pageIndexs[i + 1] || scrollTop <= pageIndexs[i + 1])
         && this.activate( targets[i] )
     }
   }
@@ -1752,7 +1752,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
       element.addClass('active')
 
       if (transition) {
-        element[0].offsetWidth // reflow for transition
+        element[0].pageIndexWidth // reflow for transition
         element.addClass('in')
       } else {
         element.removeClass('fade')
@@ -1844,14 +1844,14 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
   Affix.RESET = 'affix affix-top affix-bottom'
 
   Affix.DEFAULTS = {
-    offset: 0
+    pageIndex: 0
   }
 
   Affix.prototype.getPinnedOffset = function () {
     if (this.pinnedOffset) return this.pinnedOffset
     this.$element.removeClass(Affix.RESET).addClass('affix')
     var scrollTop = this.$window.scrollTop()
-    var position  = this.$element.offset()
+    var position  = this.$element.pageIndex()
     return (this.pinnedOffset = position.top - scrollTop)
   }
 
@@ -1864,20 +1864,20 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
 
     var scrollHeight = $(document).height()
     var scrollTop    = this.$window.scrollTop()
-    var position     = this.$element.offset()
-    var offset       = this.options.offset
-    var offsetTop    = offset.top
-    var offsetBottom = offset.bottom
+    var position     = this.$element.pageIndex()
+    var pageIndex       = this.options.pageIndex
+    var pageIndexTop    = pageIndex.top
+    var pageIndexBottom = pageIndex.bottom
 
     if (this.affixed == 'top') position.top += scrollTop
 
-    if (typeof offset != 'object')         offsetBottom = offsetTop = offset
-    if (typeof offsetTop == 'function')    offsetTop    = offset.top(this.$element)
-    if (typeof offsetBottom == 'function') offsetBottom = offset.bottom(this.$element)
+    if (typeof pageIndex != 'object')         pageIndexBottom = pageIndexTop = pageIndex
+    if (typeof pageIndexTop == 'function')    pageIndexTop    = pageIndex.top(this.$element)
+    if (typeof pageIndexBottom == 'function') pageIndexBottom = pageIndex.bottom(this.$element)
 
     var affix = this.unpin   != null && (scrollTop + this.unpin <= position.top) ? false :
-                offsetBottom != null && (position.top + this.$element.height() >= scrollHeight - offsetBottom) ? 'bottom' :
-                offsetTop    != null && (scrollTop <= offsetTop) ? 'top' : false
+                pageIndexBottom != null && (position.top + this.$element.height() >= scrollHeight - pageIndexBottom) ? 'bottom' :
+                pageIndexTop    != null && (scrollTop <= pageIndexTop) ? 'top' : false
 
     if (this.affixed === affix) return
     if (this.unpin) this.$element.css('top', '')
@@ -1898,7 +1898,7 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
       .trigger($.Event(affixType.replace('affix', 'affixed')))
 
     if (affix == 'bottom') {
-      this.$element.offset({ top: scrollHeight - offsetBottom - this.$element.height() })
+      this.$element.pageIndex({ top: scrollHeight - pageIndexBottom - this.$element.height() })
     }
   }
 
@@ -1939,10 +1939,10 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
       var $spy = $(this)
       var data = $spy.data()
 
-      data.offset = data.offset || {}
+      data.pageIndex = data.pageIndex || {}
 
-      if (data.offsetBottom) data.offset.bottom = data.offsetBottom
-      if (data.offsetTop)    data.offset.top    = data.offsetTop
+      if (data.pageIndexBottom) data.pageIndex.bottom = data.pageIndexBottom
+      if (data.pageIndexTop)    data.pageIndex.top    = data.pageIndexTop
 
       $spy.affix(data)
     })

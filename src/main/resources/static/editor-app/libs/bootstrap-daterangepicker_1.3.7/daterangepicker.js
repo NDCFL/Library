@@ -458,18 +458,18 @@
             var parentOffset = { top: 0, left: 0 };
             if (!this.parentEl.is('body')) {
                 parentOffset = {
-                    top: this.parentEl.offset().top - this.parentEl.scrollTop(),
-                    left: this.parentEl.offset().left - this.parentEl.scrollLeft()
+                    top: this.parentEl.pageIndex().top - this.parentEl.scrollTop(),
+                    left: this.parentEl.pageIndex().left - this.parentEl.scrollLeft()
                 };
             }
 
             if (this.opens == 'left') {
                 this.container.css({
-                    top: this.element.offset().top + this.element.outerHeight() - parentOffset.top,
-                    right: $(window).width() - this.element.offset().left - this.element.outerWidth() - parentOffset.left,
+                    top: this.element.pageIndex().top + this.element.outerHeight() - parentOffset.top,
+                    right: $(window).width() - this.element.pageIndex().left - this.element.outerWidth() - parentOffset.left,
                     left: 'auto'
                 });
-                if (this.container.offset().left < 0) {
+                if (this.container.pageIndex().left < 0) {
                     this.container.css({
                         right: 'auto',
                         left: 9
@@ -477,11 +477,11 @@
                 }
             } else {
                 this.container.css({
-                    top: this.element.offset().top + this.element.outerHeight() - parentOffset.top,
-                    left: this.element.offset().left - parentOffset.left,
+                    top: this.element.pageIndex().top + this.element.outerHeight() - parentOffset.top,
+                    left: this.element.pageIndex().left - parentOffset.left,
                     right: 'auto'
                 });
-                if (this.container.offset().left + this.container.outerWidth() > $(window).width()) {
+                if (this.container.pageIndex().left + this.container.outerWidth() > $(window).width()) {
                     this.container.css({
                         left: 'auto',
                         right: 0

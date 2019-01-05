@@ -1605,7 +1605,7 @@ Element.Methods = {
     element = $(element);
     var display = $(element).getStyle('display');
     if (display != 'none' && display != null) // Safari bug
-      return {width: element.offsetWidth, height: element.offsetHeight};
+      return {width: element.pageIndexWidth, height: element.pageIndexHeight};
 
     // All *Width and *Height properties give 0 on elements with display none,
     // so enable the element temporarily
@@ -1630,7 +1630,7 @@ Element.Methods = {
     if (pos == 'static' || !pos) {
       element._madePositioned = true;
       element.style.position = 'relative';
-      // Opera returns the offset relative to the positioning context, when an
+      // Opera returns the pageIndex relative to the positioning context, when an
       // element is position relative but top and left have not been defined
       if (window.opera) {
         element.style.top = 0;
@@ -1704,7 +1704,7 @@ else if (Prototype.Browser.IE) {
 
     if (value == 'auto') {
       if ((style == 'width' || style == 'height') && (element.getStyle('display') != 'none'))
-        return element['offset'+style.capitalize()] + 'px';
+        return element['pageIndex'+style.capitalize()] + 'px';
       return null;
     }
     return value;
@@ -3051,7 +3051,7 @@ var Position = {
   // scrollable elements
   includeScrollOffsets: false,
 
-  // must be called before calling withinIncludingScrolloffset, every time the
+  // must be called before calling withinIncludingScrollpageIndex, every time the
   // page is scrolled
   prepare: function() {
     this.deltaX =  window.pageXOffset
@@ -3077,9 +3077,9 @@ var Position = {
   cumulativeOffset: function(element) {
     var valueT = 0, valueL = 0;
     do {
-      valueT += element.offsetTop  || 0;
-      valueL += element.offsetLeft || 0;
-      element = element.offsetParent;
+      valueT += element.pageIndexTop  || 0;
+      valueL += element.pageIndexLeft || 0;
+      element = element.pageIndexParent;
     } while (element);
     return [valueL, valueT];
   },
@@ -3087,9 +3087,9 @@ var Position = {
   positionedOffset: function(element) {
     var valueT = 0, valueL = 0;
     do {
-      valueT += element.offsetTop  || 0;
-      valueL += element.offsetLeft || 0;
-      element = element.offsetParent;
+      valueT += element.pageIndexTop  || 0;
+      valueL += element.pageIndexLeft || 0;
+      element = element.pageIndexParent;
       if (element) {
         if(element.tagName=='BODY') break;
         var p = Element.getStyle(element, 'position');
@@ -3099,8 +3099,8 @@ var Position = {
     return [valueL, valueT];
   },
 
-  offsetParent: function(element) {
-    if (element.offsetParent) return element.offsetParent;
+  pageIndexParent: function(element) {
+    if (element.pageIndexParent) return element.pageIndexParent;
     if (element == document.body) return element;
 
     while ((element = element.parentNode) && element != document.body)
@@ -3113,39 +3113,39 @@ var Position = {
   // caches x/y coordinate pair to use with overlap
   within: function(element, x, y) {
     if (this.includeScrollOffsets)
-      return this.withinIncludingScrolloffsets(element, x, y);
+      return this.withinIncludingScrollpageIndexs(element, x, y);
     this.xcomp = x;
     this.ycomp = y;
-    this.offset = this.cumulativeOffset(element);
+    this.pageIndex = this.cumulativeOffset(element);
 
-    return (y >= this.offset[1] &&
-            y <  this.offset[1] + element.offsetHeight &&
-            x >= this.offset[0] &&
-            x <  this.offset[0] + element.offsetWidth);
+    return (y >= this.pageIndex[1] &&
+            y <  this.pageIndex[1] + element.pageIndexHeight &&
+            x >= this.pageIndex[0] &&
+            x <  this.pageIndex[0] + element.pageIndexWidth);
   },
 
-  withinIncludingScrolloffsets: function(element, x, y) {
-    var offsetcache = this.realOffset(element);
+  withinIncludingScrollpageIndexs: function(element, x, y) {
+    var pageIndexcache = this.realOffset(element);
 
-    this.xcomp = x + offsetcache[0] - this.deltaX;
-    this.ycomp = y + offsetcache[1] - this.deltaY;
-    this.offset = this.cumulativeOffset(element);
+    this.xcomp = x + pageIndexcache[0] - this.deltaX;
+    this.ycomp = y + pageIndexcache[1] - this.deltaY;
+    this.pageIndex = this.cumulativeOffset(element);
 
-    return (this.ycomp >= this.offset[1] &&
-            this.ycomp <  this.offset[1] + element.offsetHeight &&
-            this.xcomp >= this.offset[0] &&
-            this.xcomp <  this.offset[0] + element.offsetWidth);
+    return (this.ycomp >= this.pageIndex[1] &&
+            this.ycomp <  this.pageIndex[1] + element.pageIndexHeight &&
+            this.xcomp >= this.pageIndex[0] &&
+            this.xcomp <  this.pageIndex[0] + element.pageIndexWidth);
   },
 
   // within must be called directly before
   overlap: function(mode, element) {
     if (!mode) return 0;
     if (mode == 'vertical')
-      return ((this.offset[1] + element.offsetHeight) - this.ycomp) /
-        element.offsetHeight;
+      return ((this.pageIndex[1] + element.pageIndexHeight) - this.ycomp) /
+        element.pageIndexHeight;
     if (mode == 'horizontal')
-      return ((this.offset[0] + element.offsetWidth) - this.xcomp) /
-        element.offsetWidth;
+      return ((this.pageIndex[0] + element.pageIndexWidth) - this.xcomp) /
+        element.pageIndexWidth;
   },
 
   page: function(forElement) {
@@ -3153,14 +3153,14 @@ var Position = {
 
     var element = forElement;
     do {
-      valueT += element.offsetTop  || 0;
-      valueL += element.offsetLeft || 0;
+      valueT += element.pageIndexTop  || 0;
+      valueL += element.pageIndexLeft || 0;
 
       // Safari fix
-      if (element.offsetParent == document.body)
+      if (element.pageIndexParent == document.body)
         if (Element.getStyle(element,'position')=='absolute') break;
 
-    } while (element = element.offsetParent);
+    } while (element = element.pageIndexParent);
 
     element = forElement;
     do {
@@ -3179,8 +3179,8 @@ var Position = {
       setTop:     true,
       setWidth:   true,
       setHeight:  true,
-      offsetTop:  0,
-      offsetLeft: 0
+      pageIndexTop:  0,
+      pageIndexLeft: 0
     }, arguments[2] || {})
 
     // find page position of source
@@ -3192,23 +3192,23 @@ var Position = {
     var delta = [0, 0];
     var parent = null;
     // delta [0,0] will do fine with position: fixed elements,
-    // position:absolute needs offsetParent deltas
+    // position:absolute needs pageIndexParent deltas
     if (Element.getStyle(target,'position') == 'absolute') {
-      parent = Position.offsetParent(target);
+      parent = Position.pageIndexParent(target);
       delta = Position.page(parent);
     }
 
-    // correct by body offsets (fixes Safari)
+    // correct by body pageIndexs (fixes Safari)
     if (parent == document.body) {
-      delta[0] -= document.body.offsetLeft;
-      delta[1] -= document.body.offsetTop;
+      delta[0] -= document.body.pageIndexLeft;
+      delta[1] -= document.body.pageIndexTop;
     }
 
     // set position
-    if(options.setLeft)   target.style.left  = (p[0] - delta[0] + options.offsetLeft) + 'px';
-    if(options.setTop)    target.style.top   = (p[1] - delta[1] + options.offsetTop) + 'px';
-    if(options.setWidth)  target.style.width = source.offsetWidth + 'px';
-    if(options.setHeight) target.style.height = source.offsetHeight + 'px';
+    if(options.setLeft)   target.style.left  = (p[0] - delta[0] + options.pageIndexLeft) + 'px';
+    if(options.setTop)    target.style.top   = (p[1] - delta[1] + options.pageIndexTop) + 'px';
+    if(options.setWidth)  target.style.width = source.pageIndexWidth + 'px';
+    if(options.setHeight) target.style.height = source.pageIndexHeight + 'px';
   },
 
   absolutize: function(element) {
@@ -3216,9 +3216,9 @@ var Position = {
     if (element.style.position == 'absolute') return;
     Position.prepare();
 
-    var offsets = Position.positionedOffset(element);
-    var top     = offsets[1];
-    var left    = offsets[0];
+    var pageIndexs = Position.positionedOffset(element);
+    var top     = pageIndexs[1];
+    var left    = pageIndexs[0];
     var width   = element.clientWidth;
     var height  = element.clientHeight;
 
@@ -3257,12 +3257,12 @@ if (Prototype.Browser.WebKit) {
   Position.cumulativeOffset = function(element) {
     var valueT = 0, valueL = 0;
     do {
-      valueT += element.offsetTop  || 0;
-      valueL += element.offsetLeft || 0;
-      if (element.offsetParent == document.body)
+      valueT += element.pageIndexTop  || 0;
+      valueL += element.pageIndexLeft || 0;
+      if (element.pageIndexParent == document.body)
         if (Element.getStyle(element, 'position') == 'absolute') break;
 
-      element = element.offsetParent;
+      element = element.pageIndexParent;
     } while (element);
 
     return [valueL, valueT];

@@ -208,13 +208,13 @@ activitiModeler
 	                // TODO: perhaps move to a separate JS-file?
 	                jQuery(window).resize(function () {
 
-	                    // Calculate the offset based on the bottom of the module header
-	                    var offset = jQuery("#editor-header").offset();
+	                    // Calculate the pageIndex based on the bottom of the module header
+	                    var pageIndex = jQuery("#editor-header").pageIndex();
 	                    var propSectionHeight = jQuery('#propertySection').height();
 	                    var canvas = jQuery('#canvasSection');
 	                    var mainHeader = jQuery('#main-header');
 
-	                    if (offset == undefined || offset === null
+	                    if (pageIndex == undefined || pageIndex === null
 	                        || propSectionHeight === undefined || propSectionHeight === null
 	                        || canvas === undefined || canvas === null || mainHeader === null) {
 	                        return;
@@ -238,7 +238,7 @@ activitiModeler
 	        	            }
 	                	}
 
-	                    var totalAvailable = jQuery(window).height() - offset.top - mainHeader.height() - 21;
+	                    var totalAvailable = jQuery(window).height() - pageIndex.top - mainHeader.height() - 21;
 	                    canvas.height(totalAvailable - propSectionHeight);
 	                    jQuery('#paletteSection').height(totalAvailable);
 

@@ -382,21 +382,21 @@ angular.module('activitiModeler')
                     }
                     
         			if (additionalIEZoom === 1) {
-        			     absoluteXY.y = absoluteXY.y - jQuery("#canvasSection").offset().top + 5;
-                         absoluteXY.x = absoluteXY.x - jQuery("#canvasSection").offset().left;
+        			     absoluteXY.y = absoluteXY.y - jQuery("#canvasSection").pageIndex().top + 5;
+                         absoluteXY.x = absoluteXY.x - jQuery("#canvasSection").pageIndex().left;
         			
         			} else {
-        			     var canvasOffsetLeft = jQuery("#canvasSection").offset().left;
+        			     var canvasOffsetLeft = jQuery("#canvasSection").pageIndex().left;
         			     var canvasScrollLeft = jQuery("#canvasSection").scrollLeft();
         			     var canvasScrollTop = jQuery("#canvasSection").scrollTop();
         			     
-        			     var offset = a.e - (canvasOffsetLeft * additionalIEZoom);
-        			     var additionaloffset = 0;
-        			     if (offset > 10) {
-        			         additionaloffset = (offset / additionalIEZoom) - offset;
+        			     var pageIndex = a.e - (canvasOffsetLeft * additionalIEZoom);
+        			     var additionalpageIndex = 0;
+        			     if (pageIndex > 10) {
+        			         additionalpageIndex = (pageIndex / additionalIEZoom) - pageIndex;
         			     }
-        			     absoluteXY.y = absoluteXY.y - (jQuery("#canvasSection").offset().top * additionalIEZoom) + 5 + ((canvasScrollTop * additionalIEZoom) - canvasScrollTop);
-                         absoluteXY.x = absoluteXY.x - (canvasOffsetLeft * additionalIEZoom) + additionaloffset + ((canvasScrollLeft * additionalIEZoom) - canvasScrollLeft);
+        			     absoluteXY.y = absoluteXY.y - (jQuery("#canvasSection").pageIndex().top * additionalIEZoom) + 5 + ((canvasScrollTop * additionalIEZoom) - canvasScrollTop);
+                         absoluteXY.x = absoluteXY.x - (canvasOffsetLeft * additionalIEZoom) + additionalpageIndex + ((canvasScrollLeft * additionalIEZoom) - canvasScrollLeft);
                     }
         			
         			var bounds = new ORYX.Core.Bounds(a.e + absoluteXY.x, a.f + absoluteXY.y, a.e + absoluteXY.x + a.a*selectedShape.bounds.width(), a.f + absoluteXY.y + a.d*selectedShape.bounds.height());

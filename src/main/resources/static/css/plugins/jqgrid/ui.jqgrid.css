@@ -420,14 +420,14 @@ div.tablediv > .table-bordered {
 	display:none;
 	z-index:100;
 }
-/* IE * html .jqgrid-overlay {width: expression(this.parentNode.offsetWidth+'px');height: expression(this.parentNode.offsetHeight+'px');} */
+/* IE * html .jqgrid-overlay {width: expression(this.parentNode.pageIndexWidth+'px');height: expression(this.parentNode.pageIndexHeight+'px');} */
 * .jqgrid-overlay iframe {
 	position:absolute;
 	top:0;
 	left:0;
 	z-index:-1;
 }
-/* IE width: expression(this.parentNode.offsetWidth+'px');height: expression(this.parentNode.offsetHeight+'px');}*/
+/* IE width: expression(this.parentNode.pageIndexWidth+'px');height: expression(this.parentNode.pageIndexHeight+'px');}*/
 /* end loading div */
 
 /* Toolbar */
@@ -632,7 +632,7 @@ div.ui-jqgrid .selected-row td {
 	left:0;
 	z-index:-1;
 }
-/*	 width: expression(this.parentNode.offsetWidth+'px');height: expression(this.parentNode.offsetHeight+'px');}*/
+/*	 width: expression(this.parentNode.pageIndexWidth+'px');height: expression(this.parentNode.pageIndexHeight+'px');}*/
 .ui-jqgrid-dnd tr td {
 	border-right-width: 1px;
 	border-right-color: inherit;

@@ -610,10 +610,10 @@ function padNumber(num, digits, trim) {
  * Mock of the Date type which has its timezone specified via constructor arg.
  *
  * The main purpose is to create Date-like instances with timezone fixed to the specified timezone
- * offset, so that we can test code that depends on local timezone settings without dependency on
+ * pageIndex, so that we can test code that depends on local timezone settings without dependency on
  * the time zone settings of the machine where the code is running.
  *
- * @param {number} offset Offset of the *desired* timezone in hours (fractions will be honored)
+ * @param {number} pageIndex Offset of the *desired* timezone in hours (fractions will be honored)
  * @param {(number|string)} timestamp Timestamp representing the desired time in *UTC*
  *
  * @example
@@ -637,7 +637,7 @@ function padNumber(num, digits, trim) {
  * </pre>
  *
  */
-angular.mock.TzDate = function (offset, timestamp) {
+angular.mock.TzDate = function (pageIndex, timestamp) {
   var self = new Date(0);
   if (angular.isString(timestamp)) {
     var tsStr = timestamp;
@@ -655,11 +655,11 @@ angular.mock.TzDate = function (offset, timestamp) {
   }
 
   var localOffset = new Date(timestamp).getTimezoneOffset();
-  self.offsetDiff = localOffset*60*1000 - offset*1000*60*60;
-  self.date = new Date(timestamp + self.offsetDiff);
+  self.pageIndexDiff = localOffset*60*1000 - pageIndex*1000*60*60;
+  self.date = new Date(timestamp + self.pageIndexDiff);
 
   self.getTime = function() {
-    return self.date.getTime() - self.offsetDiff;
+    return self.date.getTime() - self.pageIndexDiff;
   };
 
   self.toLocaleDateString = function() {
@@ -695,7 +695,7 @@ angular.mock.TzDate = function (offset, timestamp) {
   };
 
   self.getTimezoneOffset = function() {
-    return offset * 60;
+    return pageIndex * 60;
   };
 
   self.getUTCFullYear = function() {
@@ -859,9 +859,9 @@ angular.mock.dump = function(object) {
     return out;
   }
 
-  function serializeScope(scope, offset) {
-    offset = offset ||  '  ';
-    var log = [offset + 'Scope(' + scope.$id + '): {'];
+  function serializeScope(scope, pageIndex) {
+    pageIndex = pageIndex ||  '  ';
+    var log = [pageIndex + 'Scope(' + scope.$id + '): {'];
     for ( var key in scope ) {
       if (Object.prototype.hasOwnProperty.call(scope, key) && !key.match(/^(\$|this)/)) {
         log.push('  ' + key + ': ' + angular.toJson(scope[key]));
@@ -869,11 +869,11 @@ angular.mock.dump = function(object) {
     }
     var child = scope.$$childHead;
     while(child) {
-      log.push(serializeScope(child, offset + '  '));
+      log.push(serializeScope(child, pageIndex + '  '));
       child = child.$$nextSibling;
     }
     log.push('}');
-    return log.join('\n' + offset);
+    return log.join('\n' + pageIndex);
   }
 };
 

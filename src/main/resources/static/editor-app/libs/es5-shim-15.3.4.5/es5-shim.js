@@ -828,12 +828,12 @@ if (!Date.parse || "Date.parse is buggy") {
                     ":(\\d{2})" + // seconds capture
                     "(?:(\\.\\d{1,}))?" + // milliseconds capture
                 ")?" +
-            "(" + // capture UTC offset component
+            "(" + // capture UTC pageIndex component
                 "Z|" + // UTC capture
-                "(?:" + // offset specifier +/-hours:minutes
+                "(?:" + // pageIndex specifier +/-hours:minutes
                     "([-+])" + // sign capture
-                    "(\\d{2})" + // hours offset capture
-                    ":(\\d{2})" + // minutes offset capture
+                    "(\\d{2})" + // hours pageIndex capture
+                    ":(\\d{2})" + // minutes pageIndex capture
                 ")" +
             ")?)?)?)?" +
         "$");
@@ -870,7 +870,7 @@ if (!Date.parse || "Date.parse is buggy") {
             if (match) {
                 // parse months, days, hours, minutes, seconds, and milliseconds
                 // provide default values if necessary
-                // parse the UTC offset component
+                // parse the UTC pageIndex component
                 var year = Number(match[1]),
                     month = Number(match[2] || 1) - 1,
                     day = Number(match[3] || 1) - 1,
@@ -878,10 +878,10 @@ if (!Date.parse || "Date.parse is buggy") {
                     minute = Number(match[5] || 0),
                     second = Number(match[6] || 0),
                     millisecond = Math.floor(Number(match[7] || 0) * 1000),
-                    // When time zone is missed, local offset should be used
+                    // When time zone is missed, local pageIndex should be used
                     // (ES 5.1 bug)
                     // see https://bugs.ecmascript.org/show_bug.cgi?id=112
-                    offset = !match[4] || match[8] ?
+                    pageIndex = !match[4] || match[8] ?
                         0 : Number(new NativeDate(1970, 0)),
                     signOffset = match[9] === "-" ? 1 : -1,
                     hourOffset = Number(match[10] || 0),
@@ -894,7 +894,7 @@ if (!Date.parse || "Date.parse is buggy") {
                     ) &&
                     minute < 60 && second < 60 && millisecond < 1000 &&
                     month > -1 && month < 12 && hourOffset < 24 &&
-                    minuteOffset < 60 && // detect invalid offsets
+                    minuteOffset < 60 && // detect invalid pageIndexs
                     day > -1 &&
                     day < (
                         dayFromMonth(year, month + 1) -
@@ -909,7 +909,7 @@ if (!Date.parse || "Date.parse is buggy") {
                     result = (
                         (result + minute + minuteOffset * signOffset) * 60 +
                         second
-                    ) * 1000 + millisecond + offset;
+                    ) * 1000 + millisecond + pageIndex;
                     if (-8.64e15 <= result && result <= 8.64e15) {
                         return result;
                     }

@@ -1720,7 +1720,7 @@ jasmine.Queue = function(env) {
   this.blocks = [];
   this.running = false;
   this.index = 0;
-  this.offset = 0;
+  this.pageIndex = 0;
   this.abort = false;
 };
 
@@ -1733,8 +1733,8 @@ jasmine.Queue.prototype.add = function(block) {
 };
 
 jasmine.Queue.prototype.insertNext = function(block) {
-  this.blocks.splice((this.index + this.offset + 1), 0, block);
-  this.offset++;
+  this.blocks.splice((this.index + this.pageIndex + 1), 0, block);
+  this.pageIndex++;
 };
 
 jasmine.Queue.prototype.start = function(onComplete) {
@@ -1770,7 +1770,7 @@ jasmine.Queue.prototype.next_ = function() {
           self.abort = true;
         }
 
-        self.offset = 0;
+        self.pageIndex = 0;
         self.index++;
 
         var now = new Date().getTime();

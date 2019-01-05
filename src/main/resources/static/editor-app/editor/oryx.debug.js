@@ -1841,7 +1841,7 @@ ORYX.CONFIG.WEB_URL = 					".";
 
 ORYX.CONFIG.BLANK_IMAGE = ORYX.CONFIG.LIBS_PATH + '/ext-2.0.2/resources/images/default/s.gif';
 
-/* Specify offset of header */
+/* Specify pageIndex of header */
 ORYX.CONFIG.OFFSET_HEADER = 61;
 
 /* Show grid line while dragging */
@@ -4231,16 +4231,16 @@ ORYX.Core.SVG.Label = Clazz.extend({
 		}
 		
 		
-		//get offset top
-		this.offsetTop = this.node.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, 'offsetTop') || ORYX.CONFIG.OFFSET_EDGE_LABEL_TOP;
-		if(this.offsetTop) {
-			this.offsetTop = parseInt(this.offsetTop);
+		//get pageIndex top
+		this.pageIndexTop = this.node.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, 'pageIndexTop') || ORYX.CONFIG.OFFSET_EDGE_LABEL_TOP;
+		if(this.pageIndexTop) {
+			this.pageIndexTop = parseInt(this.pageIndexTop);
 		}
 		
-		//get offset top
-		this.offsetBottom = this.node.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, 'offsetBottom') || ORYX.CONFIG.OFFSET_EDGE_LABEL_BOTTOM;
-		if(this.offsetBottom) {
-			this.offsetBottom = parseInt(this.offsetBottom);
+		//get pageIndex top
+		this.pageIndexBottom = this.node.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, 'pageIndexBottom') || ORYX.CONFIG.OFFSET_EDGE_LABEL_BOTTOM;
+		if(this.pageIndexBottom) {
+			this.pageIndexBottom = parseInt(this.pageIndexBottom);
 		}
 		
 				
@@ -5098,24 +5098,24 @@ ORYX.Core.SVG.Label = Clazz.extend({
 	},
 	
 	/**
-	 * Returns the offset from
+	 * Returns the pageIndex from
 	 * edge to the label which is 
 	 * positioned under the edge
 	 * @return {int}
 	 */
 	getOffsetBottom: function(){
-		return this.offsetBottom;
+		return this.pageIndexBottom;
 	},
 	
 		
 	/**
-	 * Returns the offset from
+	 * Returns the pageIndex from
 	 * edge to the label which is 
 	 * positioned over the edge
 	 * @return {int}
 	 */
 	getOffsetTop: function(){
-		return this.offsetTop;
+		return this.pageIndexTop;
 	},
 	
 	/**
@@ -5259,20 +5259,20 @@ ORYX.Core.Math.midPoint = function(point1, point2) {
  * @param {int} lPoint1Y - Line first Point Y
  * @param {int} lPoint2X - Line second Point X
  * @param {int} lPoint2Y - Line second Point y
- * @param {int} offset {optional} - maximal distance to line
+ * @param {int} pageIndex {optional} - maximal distance to line
  * @class ORYX.Core.Math.prototype
  */
-ORYX.Core.Math.isPointInLine = function (pointX, pointY, lPoint1X, lPoint1Y, lPoint2X, lPoint2Y, offset) {
+ORYX.Core.Math.isPointInLine = function (pointX, pointY, lPoint1X, lPoint1Y, lPoint2X, lPoint2Y, pageIndex) {
 
-	offset = offset ? Math.abs(offset) : 1;
+	pageIndex = pageIndex ? Math.abs(pageIndex) : 1;
 	
 	// Check if the edge is vertical
-	if(Math.abs(lPoint1X-lPoint2X)<=offset && Math.abs(pointX-lPoint1X)<=offset && pointY-Math.max(lPoint1Y, lPoint2Y)<=offset && Math.min(lPoint1Y, lPoint2Y)-pointY<=offset) {
+	if(Math.abs(lPoint1X-lPoint2X)<=pageIndex && Math.abs(pointX-lPoint1X)<=pageIndex && pointY-Math.max(lPoint1Y, lPoint2Y)<=pageIndex && Math.min(lPoint1Y, lPoint2Y)-pointY<=pageIndex) {
 		return true
 	}
 
 	// Check if the edge is horizontal
-	if(Math.abs(lPoint1Y-lPoint2Y)<=offset && Math.abs(pointY-lPoint1Y)<=offset && pointX-Math.max(lPoint1X, lPoint2X)<=offset && Math.min(lPoint1X, lPoint2X)-pointX<=offset) {
+	if(Math.abs(lPoint1Y-lPoint2Y)<=pageIndex && Math.abs(pointY-lPoint1Y)<=pageIndex && pointX-Math.max(lPoint1X, lPoint2X)<=pageIndex && Math.min(lPoint1X, lPoint2X)-pointX<=pageIndex) {
 		return true
 	}
 
@@ -5286,7 +5286,7 @@ ORYX.Core.Math.isPointInLine = function (pointX, pointY, lPoint1X, lPoint1Y, lPo
 			
 	var s = (lPoint1Y - lPoint2Y) / (lPoint1X - lPoint2X);
 	
-	return 	Math.abs(pointY - ((s * pointX) + lPoint1Y - s * lPoint1X)) < offset
+	return 	Math.abs(pointY - ((s * pointX) + lPoint1Y - s * lPoint1X)) < pageIndex
 }
 
 /**
@@ -6480,7 +6480,7 @@ ORYX.Core.StencilSet.Property = Clazz.extend({
      *	  s      01         Seconds, with leading zeros
      *	  O      -0600      Difference to Greenwich time (GMT) in hours
      *	  T      CST        Timezone setting of the machine running the code
-     *	  Z      -21600     Timezone offset in seconds (negative if west of UTC, positive if east)
+     *	  Z      -21600     Timezone pageIndex in seconds (negative if west of UTC, positive if east)
      *
      * Example:
      *  F j, Y, g:i a  ->  January 10, 2007, 3:05 pm
@@ -9137,33 +9137,33 @@ ORYX.Core.Bounds = {
 		}
 	},
 	
-	isIncluded: function(point, offset) {
+	isIncluded: function(point, pageIndex) {
 		
-		var pointX, pointY, offset;
+		var pointX, pointY, pageIndex;
 
 		// Get the the two Points	
 		switch(arguments.length) {
 			case 1:
 				pointX = arguments[0].x;
 				pointY = arguments[0].y;
-				offset = 0;
+				pageIndex = 0;
 				
 				break;
 			case 2:
 				if(arguments[0].x && arguments[0].y) {
 					pointX = arguments[0].x;
 					pointY = arguments[0].y;
-					offset = Math.abs(arguments[1]);
+					pageIndex = Math.abs(arguments[1]);
 				} else {
 					pointX = arguments[0];
 					pointY = arguments[1];
-					offset = 0;
+					pageIndex = 0;
 				}
 				break;
 			case 3:
 				pointX = arguments[0];
 				pointY = arguments[1];
-				offset = Math.abs(arguments[2]);
+				pageIndex = Math.abs(arguments[2]);
 				break;
 			default:
 				throw "isIncluded needs one, two or three arguments";
@@ -9172,9 +9172,9 @@ ORYX.Core.Bounds = {
 		var ul = this.upperLeft();
 		var lr = this.lowerRight();
 		
-		if(pointX >= ul.x - offset 
-			&& pointX <= lr.x + offset && pointY >= ul.y - offset 
-			&& pointY <= lr.y + offset)
+		if(pointX >= ul.x - pageIndex 
+			&& pointX <= lr.x + pageIndex && pointY >= ul.y - pageIndex 
+			&& pointY <= lr.y + pageIndex)
 			return true;
 		else 
 			return false;
@@ -10576,11 +10576,11 @@ ORYX.Core.Canvas = ORYX.Core.AbstractShape.extend({
         // Check the size for the canvas
         var maxWidth    = 0;
         var maxHeight   = 0;
-        var offset      = 100;
+        var pageIndex      = 100;
         this.getChildShapes(true, function(shape){
             var b = shape.bounds;
-            maxWidth    = Math.max( maxWidth, b.lowerRight().x + offset)
-            maxHeight   = Math.max( maxHeight, b.lowerRight().y + offset)
+            maxWidth    = Math.max( maxWidth, b.lowerRight().x + pageIndex)
+            maxHeight   = Math.max( maxHeight, b.lowerRight().y + pageIndex)
         }); 
         
         if( this.bounds.width() < maxWidth || this.bounds.height() < maxHeight ){
@@ -12631,7 +12631,7 @@ new function(){
 			x: Event.pointerX(event) - (upL.x * this.faktorXY.x),
 			y: Event.pointerY(event) - (upL.y * this.faktorXY.y)};
 	
-		this.offsetScroll	= {x:this.scrollNode.scrollLeft,y:this.scrollNode.scrollTop};
+		this.pageIndexScroll	= {x:this.scrollNode.scrollLeft,y:this.scrollNode.scrollTop};
 			
 		this.dragCallback = ORYX.Core.UIDragCallback.bind(this);
 		this.disableCallback = ORYX.Core.UIDisableDrag.bind(this);
@@ -12650,8 +12650,8 @@ new function(){
 			x: Event.pointerX(event) - this.offSetPosition.x,
 			y: Event.pointerY(event) - this.offSetPosition.y}
 	
-		position.x 	-= this.offsetScroll.x - this.scrollNode.scrollLeft; 
-		position.y 	-= this.offsetScroll.y - this.scrollNode.scrollTop;
+		position.x 	-= this.pageIndexScroll.x - this.scrollNode.scrollLeft; 
+		position.y 	-= this.pageIndexScroll.y - this.scrollNode.scrollTop;
 	
 		position.x /= this.faktorXY.x;
 		position.y /= this.faktorXY.y;
@@ -12683,10 +12683,10 @@ new function(){
 
 	
 	/**
-	 * Implements a command to move docker by an offset.
+	 * Implements a command to move docker by an pageIndex.
 	 * 
 	 * @class ORYX.Core.MoveDockersCommand
-	 * @param {Object} object An object with the docker id as key and docker and offset as object value
+	 * @param {Object} object An object with the docker id as key and docker and pageIndex as object value
 	 * 
 	 */	
 	ORYX.Core.MoveDockersCommand = ORYX.Core.Command.extend({
@@ -12712,7 +12712,7 @@ new function(){
 						oldDockerPositions	: edge.dockers.map(function(r){ return r.bounds.center() })
 					}
 				}
-				docker.docker.bounds.moveBy(docker.offset);
+				docker.docker.bounds.moveBy(docker.pageIndex);
 				this.edges[edge.getId()] = edge;
 				docker.docker.update();
 			}.bind(this));
@@ -13537,7 +13537,7 @@ ORYX.Core.Shape = {
 	},
     
     /**
-     * Calculate if the point is over an special offset area
+     * Calculate if the point is over an special pageIndex area
      * @param {Point}
      */
     isPointOverOffset: function(){
@@ -14571,7 +14571,7 @@ ORYX.Core.Node = {
  
     
     /**
-     * Calculate if the point is over an special offset area
+     * Calculate if the point is over an special pageIndex area
      * @param {Point}
      */
     isPointOverOffset: function( pointX, pointY ){       
@@ -14828,12 +14828,12 @@ ORYX.Core.Node = {
         });
         
         //set bounds of shape
-        //the offsets are also needed for positioning the magnets and the docker
-        var offsetX = upperLeft.x;
-        var offsetY = upperLeft.y;
+        //the pageIndexs are also needed for positioning the magnets and the docker
+        var pageIndexX = upperLeft.x;
+        var pageIndexY = upperLeft.y;
         
-        lowerRight.x -= offsetX;
-        lowerRight.y -= offsetY;
+        lowerRight.x -= pageIndexX;
+        lowerRight.y -= pageIndexY;
         upperLeft.x = 0;
         upperLeft.y = 0;
         
@@ -14864,8 +14864,8 @@ ORYX.Core.Node = {
                 var cx = parseFloat(magnetElem.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, "cx"));
                 var cy = parseFloat(magnetElem.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, "cy"));
                 magnet.bounds.centerMoveTo({
-                    x: cx - offsetX,
-                    y: cy - offsetY
+                    x: cx - pageIndexX,
+                    y: cy - pageIndexY
                 });
                 
                 //get anchors
@@ -14918,8 +14918,8 @@ ORYX.Core.Node = {
             var cx = parseFloat(dockerElem.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, "cx"));
             var cy = parseFloat(dockerElem.getAttributeNS(ORYX.CONFIG.NAMESPACE_ORYX, "cy"));
             docker.bounds.centerMoveTo({
-                x: cx - offsetX,
-                y: cy - offsetY
+                x: cx - pageIndexX,
+                y: cy - pageIndexY
             });
             
             //get anchors
@@ -14954,8 +14954,8 @@ ORYX.Core.Node = {
                 textElement: textElem,
 				shapeId: this.id
             });
-            label.x -= offsetX;
-            label.y -= offsetY;
+            label.x -= pageIndexX;
+            label.y -= pageIndexY;
             this._labels[label.id] = label;
 			
 			label.registerOnChange(this.layout.bind(this));
@@ -15799,7 +15799,7 @@ ORYX.Core.Edge = {
   
     
     /**
-     * Calculate if the point is over an special offset area
+     * Calculate if the point is over an special pageIndex area
      * @param {Point}
      */
     isPointOverOffset: function(){
@@ -17207,20 +17207,20 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
 	 * @param {ORYX.Core.Node} node
 	 * @param {Array} edges
 	 */
-	layoutEdges : function(node, allEdges, offset){		
+	layoutEdges : function(node, allEdges, pageIndex){		
 
 		if (!this.facade.isExecutingCommands()){ return }		
 
 		var Command = ORYX.Core.Command.extend({
-			construct: function(edges, node, offset, plugin){
+			construct: function(edges, node, pageIndex, plugin){
 				this.edges = edges;
 				this.node = node;
 				this.plugin = plugin;
-				this.offset = offset;
+				this.pageIndex = pageIndex;
 				
 				// Get the new absolute center
 				var center = node.absoluteXY();
-				this.ulo = {x: center.x - offset.x, y:center.y - offset.y};
+				this.ulo = {x: center.x - pageIndex.x, y:center.y - pageIndex.y};
 				
 				
 			},
@@ -17274,7 +17274,7 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
 							var p1 = edge.dockers.first().getAbsoluteReferencePoint() || edge.dockers.first().bounds.center();
 							var p2 = edge.dockers.last().getAbsoluteReferencePoint() || edge.dockers.first().bounds.center();
 							// Find all horizontal/vertical edges
-							if (Math.abs(-Math.abs(p1.x - p2.x) + Math.abs(this.offset.x)) < 2 || Math.abs(-Math.abs(p1.y - p2.y) + Math.abs(this.offset.y)) < 2){
+							if (Math.abs(-Math.abs(p1.x - p2.x) + Math.abs(this.pageIndex.x)) < 2 || Math.abs(-Math.abs(p1.y - p2.y) + Math.abs(this.pageIndex.y)) < 2){
 								this.plugin.doLayout(edge);
 							}
 						}
@@ -17297,23 +17297,23 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
 				
 				var xdif = bounds.center().x-abRef.x;
 				var ydif = bounds.center().y-abRef.y;
-				if (Math.abs(-Math.abs(xdif) + Math.abs(this.offset.x)) < 3 && this.offset.xs === undefined){
+				if (Math.abs(-Math.abs(xdif) + Math.abs(this.pageIndex.x)) < 3 && this.pageIndex.xs === undefined){
 					bounds.moveBy({x:-xdif, y:0})
 				}
-				if (Math.abs(-Math.abs(ydif) + Math.abs(this.offset.y)) < 3 && this.offset.ys === undefined){
+				if (Math.abs(-Math.abs(ydif) + Math.abs(this.pageIndex.y)) < 3 && this.pageIndex.ys === undefined){
 					bounds.moveBy({y:-ydif, x:0})
 				}
 				
-				if (this.offset.xs !== undefined || this.offset.ys !== undefined){
+				if (this.pageIndex.xs !== undefined || this.pageIndex.ys !== undefined){
 					var absPXY = refDocker.getDockedShape().absoluteXY();
-					xdif = bounds.center().x-(absPXY.x+((abRef.x-absPXY.x)/this.offset.xs));
-					ydif = bounds.center().y-(absPXY.y+((abRef.y-absPXY.y)/this.offset.ys));
+					xdif = bounds.center().x-(absPXY.x+((abRef.x-absPXY.x)/this.pageIndex.xs));
+					ydif = bounds.center().y-(absPXY.y+((abRef.y-absPXY.y)/this.pageIndex.ys));
 					
-					if (Math.abs(-Math.abs(xdif) + Math.abs(this.offset.x)) < 3){
+					if (Math.abs(-Math.abs(xdif) + Math.abs(this.pageIndex.x)) < 3){
 						bounds.moveBy({x:-(bounds.center().x-abRef.x), y:0})
 					}
 					
-					if (Math.abs(-Math.abs(ydif) + Math.abs(this.offset.y)) < 3){
+					if (Math.abs(-Math.abs(ydif) + Math.abs(this.pageIndex.y)) < 3){
 						bounds.moveBy({y:-(bounds.center().y-abRef.y), x:0})
 					}
 				}
@@ -17380,7 +17380,7 @@ ORYX.Plugins.AbstractPlugin = Clazz.extend({
 			}
 		});
 		
-		this.facade.executeCommands([new Command(allEdges, node, offset, this)]);
+		this.facade.executeCommands([new Command(allEdges, node, pageIndex, this)]);
 
 	}
 });/*
@@ -17788,7 +17788,7 @@ ORYX.Plugins.Edit = Clazz.extend({
 		
         // Iterate over top-level shapes
         canvas.eachChild(function(shape, parent){
-            // All top-level shapes should get an offset in their bounds
+            // All top-level shapes should get an pageIndex in their bounds
             // Move the shape occording to COPY_MOVE_OFFSET
         	if (this.clipboard.useOffset) {
 	            shape.bounds = {
@@ -17802,7 +17802,7 @@ ORYX.Plugins.Edit = Clazz.extend({
 	                }
 	            };
         	}
-            // Only apply offset to shapes with a target
+            // Only apply pageIndex to shapes with a target
             if (shape.dockers){
                 shape.dockers = shape.dockers.map(function(docker, i){
                     // If shape had a target but the copied does not have anyone anymore,
@@ -18092,12 +18092,12 @@ ORYX.Plugins.View = {
 		var newWidth 	= canvas.bounds.width()  * this.zoomLevel;
 		var newHeight 	= canvas.bounds.height() * this.zoomLevel;
 		
-		/* Set new top offset */
-		var offsetTop = (canvas.node.parentNode.parentNode.parentNode.offsetHeight - newHeight) / 2.0;	
-		offsetTop = offsetTop > 20 ? offsetTop - 20 : 0;
-		canvas.node.parentNode.parentNode.style.marginTop = offsetTop + "px";
-		offsetTop += 5;
-		canvas.getHTMLContainer().style.top = offsetTop + "px";
+		/* Set new top pageIndex */
+		var pageIndexTop = (canvas.node.parentNode.parentNode.parentNode.pageIndexHeight - newHeight) / 2.0;	
+		pageIndexTop = pageIndexTop > 20 ? pageIndexTop - 20 : 0;
+		canvas.node.parentNode.parentNode.style.marginTop = pageIndexTop + "px";
+		pageIndexTop += 5;
+		canvas.getHTMLContainer().style.top = pageIndexTop + "px";
 		
 		/*readjust scrollbar*/
 		var newScrollTop=	scrollNode.scrollTop - Math.round((canvas.getHTMLContainer().parentNode.getHeight()-newHeight) / 2)+this.diff;
@@ -18309,8 +18309,8 @@ ORYX.Plugins.Loading = {
 		
 		var pos = this.facade.getCanvas().rootNode.parentNode.parentNode.parentNode.parentNode;
 
-		this.node.style.top 		= pos.offsetTop + 'px';
-		this.node.style.left 		= pos.offsetLeft +'px';
+		this.node.style.top 		= pos.pageIndexTop + 'px';
+		this.node.style.left 		= pos.pageIndexLeft +'px';
 					
     },
     
@@ -18327,8 +18327,8 @@ ORYX.Plugins.Loading = {
 
 			var pos = this.facade.getCanvas().rootNode.parentNode.parentNode.parentNode.parentNode;
 
-			this.node.style.top 	= pos.offsetTop + 'px';
-			this.node.style.left 	= pos.offsetLeft +'px';
+			this.node.style.top 	= pos.pageIndexTop + 'px';
+			this.node.style.left 	= pos.pageIndexLeft +'px';
 												
 			var tout = options.timeout ? options.timeout : 2000;
 			
@@ -18500,8 +18500,8 @@ ORYX.Plugins.CanvasResizeButton = Clazz.extend({
 			
 			//if(inCanvas){offSetWidth=30}else{offSetWidth=30*2}
 			//Safari work around
-			var X=event.offsetX !== undefined ? event.offsetX : event.layerX;
-			var Y=event.offsetY !== undefined ? event.offsetY : event.layerY;
+			var X=event.pageIndexX !== undefined ? event.pageIndexX : event.layerX;
+			var Y=event.pageIndexY !== undefined ? event.pageIndexY : event.layerY;
 			
 			var canvasOffset = 0;
 			if(canvasNode.clientWidth < actualScrollNode.clientWidth) {
@@ -18799,21 +18799,21 @@ ORYX.Plugins.RenameShapes = Clazz.extend({
         }
         
         if (additionalIEZoom === 1) {
-             center.y = center.y - jQuery("#canvasSection").offset().top + 5;
-             center.x -= jQuery("#canvasSection").offset().left;
+             center.y = center.y - jQuery("#canvasSection").pageIndex().top + 5;
+             center.x -= jQuery("#canvasSection").pageIndex().left;
         
         } else {
-             var canvasOffsetLeft = jQuery("#canvasSection").offset().left;
+             var canvasOffsetLeft = jQuery("#canvasSection").pageIndex().left;
              var canvasScrollLeft = jQuery("#canvasSection").scrollLeft();
              var canvasScrollTop = jQuery("#canvasSection").scrollTop();
              
-             var offset = scale.e - (canvasOffsetLeft * additionalIEZoom);
-             var additionaloffset = 0;
-             if (offset > 10) {
-                 additionaloffset = (offset / additionalIEZoom) - offset;
+             var pageIndex = scale.e - (canvasOffsetLeft * additionalIEZoom);
+             var additionalpageIndex = 0;
+             if (pageIndex > 10) {
+                 additionalpageIndex = (pageIndex / additionalIEZoom) - pageIndex;
              }
-             center.y = center.y - (jQuery("#canvasSection").offset().top * additionalIEZoom) + 5 + ((canvasScrollTop * additionalIEZoom) - canvasScrollTop);
-             center.x = center.x - (canvasOffsetLeft * additionalIEZoom) + additionaloffset + ((canvasScrollLeft * additionalIEZoom) - canvasScrollLeft);
+             center.y = center.y - (jQuery("#canvasSection").pageIndex().top * additionalIEZoom) + 5 + ((canvasScrollTop * additionalIEZoom) - canvasScrollTop);
+             center.x = center.x - (canvasOffsetLeft * additionalIEZoom) + additionalpageIndex + ((canvasScrollLeft * additionalIEZoom) - canvasScrollLeft);
         }
 		
 	
@@ -19405,13 +19405,13 @@ ORYX.Plugins.Arrangement = ORYX.Plugins.AbstractPlugin.extend({
 					}
 					
 					if (newCoordinates){
-						var offset =  {
+						var pageIndex =  {
 							x: shape.bounds.upperLeft().x - newCoordinates.x,
 							y: shape.bounds.upperLeft().y - newCoordinates.y
 						}
 						// Set the new position
 						shape.bounds.moveTo(newCoordinates);
-						this.plugin.layoutEdges(shape, shape.getAllDockedShapes(),offset);
+						this.plugin.layoutEdges(shape, shape.getAllDockedShapes(),pageIndex);
 						//shape.update()
 					}			
 				}.bind(this));
@@ -19602,13 +19602,13 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 		var eventX = Event.pointerX(event);
 		var eventY = Event.pointerY(event);
 
-		// Set the offset position of dragging
+		// Set the pageIndex position of dragging
 		var upL = this.dragBounds.upperLeft();
 		this.offSetPosition =  {
 			x: eventX - (upL.x * this.faktorXY.x),
 			y: eventY - (upL.y * this.faktorXY.y)};
 		
-		this.offsetScroll	= {x:this.scrollNode.scrollLeft,y:this.scrollNode.scrollTop};
+		this.pageIndexScroll	= {x:this.scrollNode.scrollLeft,y:this.scrollNode.scrollTop};
 			
 		// Register on Global Mouse-MOVE Event
 		document.documentElement.addEventListener(ORYX.CONFIG.EVENT_MOUSEMOVE, this.callbackMouseMove, false);	
@@ -19773,8 +19773,8 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 			x: Event.pointerX(event) - this.offSetPosition.x,
 			y: Event.pointerY(event) - this.offSetPosition.y}
 
-		position.x 	-= this.offsetScroll.x - this.scrollNode.scrollLeft; 
-		position.y 	-= this.offsetScroll.y - this.scrollNode.scrollTop;
+		position.x 	-= this.pageIndexScroll.x - this.scrollNode.scrollLeft; 
+		position.y 	-= this.pageIndexScroll.y - this.scrollNode.scrollTop;
 		
 		// If not the Control-Key are pressed
 		var modifierKeyPressed = event.shiftKey || event.ctrlKey;
@@ -19995,15 +19995,15 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 		// If the selection bounds not initialized, return
 		if(!this.dragBounds) {return}
 
-		// Calculate the offset between the bounds and the old bounds
+		// Calculate the pageIndex between the bounds and the old bounds
 		var upL = this.dragBounds.upperLeft();
 		var oldUpL = this.oldDragBounds.upperLeft();
-		var offset = {
+		var pageIndex = {
 			x: upL.x - oldUpL.x,
 			y: upL.y - oldUpL.y };
 
 		// Instanciate the dragCommand
-		var commands = [new ORYX.Core.Command.Move(this.toMoveShapes, offset, this.containmentParentNode, this.currentShapes, this)];
+		var commands = [new ORYX.Core.Command.Move(this.toMoveShapes, pageIndex, this.containmentParentNode, this.currentShapes, this)];
 		// If the undocked edges command is setted, add this command
 		if( this._undockedEdgesCommand instanceof ORYX.Core.Command ){
 			commands.unshift( this._undockedEdgesCommand );
@@ -20070,7 +20070,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 						ys: b2.height()/b1.height()
 					}
 				},
-				update:function(offset){
+				update:function(pageIndex){
 					this.shape.getLabels().each(function(label) {
 						label.changed();
 					});
@@ -20080,7 +20080,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 						// Remove all edges which are included in the selection from the list
 						.findAll(function(r){ return r instanceof ORYX.Core.Edge }.bind(this))
 												
-					this.plugin.layoutEdges(this.shape, allEdges, offset);
+					this.plugin.layoutEdges(this.shape, allEdges, pageIndex);
 
 					this.plugin.facade.setSelection([this.shape]);
 					this.plugin.facade.getCanvas().update();
@@ -20400,7 +20400,7 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 		var c = { x: (position.x/scale) + (bounds.width()/2), y: (position.y/scale) + (bounds.height()/2)};
 		var lr = { x: (position.x/scale) + (bounds.width()), y: (position.y/scale) + (bounds.height())};
 
-		var offsetX, offsetY;
+		var pageIndexX, pageIndexY;
 		var gridX, gridY;
 		
 		// For each distant point
@@ -20431,21 +20431,21 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 			} */
 
 			if (x !== undefined) {
-				offsetX = offsetX === undefined ? x : (Math.abs(x) < Math.abs(offsetX) ? x : offsetX);
-				if (offsetX === x)
+				pageIndexX = pageIndexX === undefined ? x : (Math.abs(x) < Math.abs(pageIndexX) ? x : pageIndexX);
+				if (pageIndexX === x)
 					gridX = gx;
 			}
 
 			if (y !== undefined) {
-				offsetY = offsetY === undefined ? y : (Math.abs(y) < Math.abs(offsetY) ? y : offsetY);
-				if (offsetY === y)
+				pageIndexY = pageIndexY === undefined ? y : (Math.abs(y) < Math.abs(pageIndexY) ? y : pageIndexY);
+				if (pageIndexY === y)
 					gridY = gy;
 			}
 		});
 		
 		
-		if (offsetX !== undefined) {
-			ul.x += offsetX;	
+		if (pageIndexX !== undefined) {
+			ul.x += pageIndexX;	
 			ul.x *= scale;
 			if (this.vLine&&gridX)
 				this.vLine.update(gridX);
@@ -20455,8 +20455,8 @@ ORYX.Plugins.DragDropResize = ORYX.Plugins.AbstractPlugin.extend({
 				this.vLine.hide()
 		}
 		
-		if (offsetY !== undefined) {	
-			ul.y += offsetY;
+		if (pageIndexY !== undefined) {	
+			ul.y += pageIndexY;
 			ul.y *= scale;
 			if (this.hLine&&gridY)
 				this.hLine.update(gridY);
@@ -20628,7 +20628,7 @@ ORYX.Plugins.Resizer = Clazz.extend({
 	handleMouseDown: function(event) {
 		this.dragEnable = true;
 
-		this.offsetScroll	= {x:this.scrollNode.scrollLeft,y:this.scrollNode.scrollTop};
+		this.pageIndexScroll	= {x:this.scrollNode.scrollLeft,y:this.scrollNode.scrollTop};
 			
 		this.offSetPosition =  {
 			x: Event.pointerX(event) - this.position.x,
@@ -20663,79 +20663,79 @@ ORYX.Plugins.Resizer = Clazz.extend({
 			y: Event.pointerY(event) - this.offSetPosition.y};
 
 
-		position.x 	-= this.offsetScroll.x - this.scrollNode.scrollLeft; 
-		position.y 	-= this.offsetScroll.y - this.scrollNode.scrollTop;
+		position.x 	-= this.pageIndexScroll.x - this.scrollNode.scrollLeft; 
+		position.y 	-= this.pageIndexScroll.y - this.scrollNode.scrollTop;
 		
 		position.x  = Math.min( position.x, this.facade.getCanvas().bounds.width());
 		position.y  = Math.min( position.y, this.facade.getCanvas().bounds.height());
 		
-		var offset = {
+		var pageIndex = {
 			x: position.x - this.position.x,
 			y: position.y - this.position.y
 		};
 		
 		if(this.aspectRatio) {
 			// fixed aspect ratio
-			newAspectRatio = (this.bounds.width()+offset.x) / (this.bounds.height()+offset.y);
+			newAspectRatio = (this.bounds.width()+pageIndex.x) / (this.bounds.height()+pageIndex.y);
 			if(newAspectRatio>this.aspectRatio) {
-				offset.x = this.aspectRatio * (this.bounds.height()+offset.y) - this.bounds.width();
+				pageIndex.x = this.aspectRatio * (this.bounds.height()+pageIndex.y) - this.bounds.width();
 			} else if(newAspectRatio<this.aspectRatio) {
-				offset.y = (this.bounds.width()+offset.x) / this.aspectRatio - this.bounds.height();
+				pageIndex.y = (this.bounds.width()+pageIndex.x) / this.aspectRatio - this.bounds.height();
 			}
 		}
 		
 		// respect minimum and maximum sizes of stencil
 		if(this.orientation==="northwest") {
 			
-			if(this.bounds.width()-offset.x > this.maxSize.width) {
-				offset.x = -(this.maxSize.width - this.bounds.width());
+			if(this.bounds.width()-pageIndex.x > this.maxSize.width) {
+				pageIndex.x = -(this.maxSize.width - this.bounds.width());
 				if(this.aspectRatio)
-					offset.y = this.aspectRatio * offset.x;
+					pageIndex.y = this.aspectRatio * pageIndex.x;
 			}
-			if(this.bounds.width()-offset.x < this.minSize.width) {
-				offset.x = -(this.minSize.width - this.bounds.width());
+			if(this.bounds.width()-pageIndex.x < this.minSize.width) {
+				pageIndex.x = -(this.minSize.width - this.bounds.width());
 				if(this.aspectRatio)
-					offset.y = this.aspectRatio * offset.x;
+					pageIndex.y = this.aspectRatio * pageIndex.x;
 			}
-			if(this.bounds.height()-offset.y > this.maxSize.height) {
-				offset.y = -(this.maxSize.height - this.bounds.height());
+			if(this.bounds.height()-pageIndex.y > this.maxSize.height) {
+				pageIndex.y = -(this.maxSize.height - this.bounds.height());
 				if(this.aspectRatio)
-					offset.x = offset.y / this.aspectRatio;
+					pageIndex.x = pageIndex.y / this.aspectRatio;
 			}
-			if(this.bounds.height()-offset.y < this.minSize.height) {
-				offset.y = -(this.minSize.height - this.bounds.height());
+			if(this.bounds.height()-pageIndex.y < this.minSize.height) {
+				pageIndex.y = -(this.minSize.height - this.bounds.height());
 				if(this.aspectRatio)
-					offset.x = offset.y / this.aspectRatio;
+					pageIndex.x = pageIndex.y / this.aspectRatio;
 			}
 			
 		} else { // defaults to southeast
-			if(this.bounds.width()+offset.x > this.maxSize.width) {
-				offset.x = this.maxSize.width - this.bounds.width();
+			if(this.bounds.width()+pageIndex.x > this.maxSize.width) {
+				pageIndex.x = this.maxSize.width - this.bounds.width();
 				if(this.aspectRatio)
-					offset.y = this.aspectRatio * offset.x;
+					pageIndex.y = this.aspectRatio * pageIndex.x;
 			}
-			if(this.bounds.width()+offset.x < this.minSize.width) {
-				offset.x = this.minSize.width - this.bounds.width();
+			if(this.bounds.width()+pageIndex.x < this.minSize.width) {
+				pageIndex.x = this.minSize.width - this.bounds.width();
 				if(this.aspectRatio)
-					offset.y = this.aspectRatio * offset.x;
+					pageIndex.y = this.aspectRatio * pageIndex.x;
 			}
-			if(this.bounds.height()+offset.y > this.maxSize.height) {
-				offset.y = this.maxSize.height - this.bounds.height();
+			if(this.bounds.height()+pageIndex.y > this.maxSize.height) {
+				pageIndex.y = this.maxSize.height - this.bounds.height();
 				if(this.aspectRatio)
-					offset.x = offset.y / this.aspectRatio;
+					pageIndex.x = pageIndex.y / this.aspectRatio;
 			}
-			if(this.bounds.height()+offset.y < this.minSize.height) {
-				offset.y = this.minSize.height - this.bounds.height();
+			if(this.bounds.height()+pageIndex.y < this.minSize.height) {
+				pageIndex.y = this.minSize.height - this.bounds.height();
 				if(this.aspectRatio)
-					offset.x = offset.y / this.aspectRatio;
+					pageIndex.x = pageIndex.y / this.aspectRatio;
 			}
 		}
 
 		if(this.orientation==="northwest") {
-			this.bounds.extend({x:-offset.x, y:-offset.y});
-			this.bounds.moveBy(offset);
+			this.bounds.extend({x:-pageIndex.x, y:-pageIndex.y});
+			this.bounds.moveBy(pageIndex);
 		} else { // defaults to southeast
-			this.bounds.extend(offset);
+			this.bounds.extend(pageIndex);
 		}
 
 		this.update();
@@ -20838,21 +20838,21 @@ ORYX.Plugins.Resizer = Clazz.extend({
         }
         
         if (additionalIEZoom === 1) {
-             upL.y = upL.y - jQuery("#canvasSection").offset().top + a.f;
-             upL.x = upL.x - jQuery("#canvasSection").offset().left + a.e;
+             upL.y = upL.y - jQuery("#canvasSection").pageIndex().top + a.f;
+             upL.x = upL.x - jQuery("#canvasSection").pageIndex().left + a.e;
         
         } else {
-             var canvasOffsetLeft = jQuery("#canvasSection").offset().left;
+             var canvasOffsetLeft = jQuery("#canvasSection").pageIndex().left;
              var canvasScrollLeft = jQuery("#canvasSection").scrollLeft();
              var canvasScrollTop = jQuery("#canvasSection").scrollTop();
              
-             var offset = a.e - (canvasOffsetLeft * additionalIEZoom);
-             var additionaloffset = 0;
-             if (offset > 10) {
-                 additionaloffset = (offset / additionalIEZoom) - offset;
+             var pageIndex = a.e - (canvasOffsetLeft * additionalIEZoom);
+             var additionalpageIndex = 0;
+             if (pageIndex > 10) {
+                 additionalpageIndex = (pageIndex / additionalIEZoom) - pageIndex;
              }
-             upL.y = upL.y - (jQuery("#canvasSection").offset().top * additionalIEZoom) + ((canvasScrollTop * additionalIEZoom) - canvasScrollTop) + a.f;
-             upL.x = upL.x - (canvasOffsetLeft * additionalIEZoom) + additionaloffset + ((canvasScrollLeft * additionalIEZoom) - canvasScrollLeft) + a.e;
+             upL.y = upL.y - (jQuery("#canvasSection").pageIndex().top * additionalIEZoom) + ((canvasScrollTop * additionalIEZoom) - canvasScrollTop) + a.f;
+             upL.x = upL.x - (canvasOffsetLeft * additionalIEZoom) + additionalpageIndex + ((canvasScrollLeft * additionalIEZoom) - canvasScrollLeft) + a.e;
         }
 		
 		if(this.orientation==="northwest") {
@@ -20877,10 +20877,10 @@ ORYX.Plugins.Resizer = Clazz.extend({
  * 
  */ 
 ORYX.Core.Command.Move = ORYX.Core.Command.extend({
-	construct: function(moveShapes, offset, parent, selectedShapes, plugin){
+	construct: function(moveShapes, pageIndex, parent, selectedShapes, plugin){
 		this.moveShapes = moveShapes;
 		this.selectedShapes = selectedShapes;
-		this.offset 	= offset;
+		this.pageIndex 	= pageIndex;
 		this.plugin		= plugin;
 		// Defines the old/new parents for the particular shape
 		this.newParents	= moveShapes.collect(function(t){ return parent || t.parent });
@@ -20889,8 +20889,8 @@ ORYX.Core.Command.Move = ORYX.Core.Command.extend({
 	},			
 	execute: function(){
 		this.dockAllShapes()				
-		// Moves by the offset
-		this.move( this.offset);
+		// Moves by the pageIndex
+		this.move( this.pageIndex);
 		// Addes to the new parents
 		this.addShapeToParent( this.newParents ); 
 		// Set the selection to the current selection
@@ -20899,9 +20899,9 @@ ORYX.Core.Command.Move = ORYX.Core.Command.extend({
 		this.plugin.facade.updateSelection();
 	},
 	rollback: function(){
-		// Moves by the inverted offset
-		var offset = { x:-this.offset.x, y:-this.offset.y };
-		this.move( offset );
+		// Moves by the inverted pageIndex
+		var pageIndex = { x:-this.pageIndex.x, y:-this.pageIndex.y };
+		this.move( pageIndex );
 		// Addes to the old parents
 		this.addShapeToParent( this.oldParents ); 
 		this.dockAllShapes(true)	
@@ -20912,17 +20912,17 @@ ORYX.Core.Command.Move = ORYX.Core.Command.extend({
 		this.plugin.facade.updateSelection();
 		
 	},
-	move:function(offset, doLayout){
+	move:function(pageIndex, doLayout){
 		
-		// Move all Shapes by these offset
+		// Move all Shapes by these pageIndex
 		for(var i=0; i<this.moveShapes.length ;i++){
 			var value = this.moveShapes[i];					
-			value.bounds.moveBy(offset);
+			value.bounds.moveBy(pageIndex);
 			
 			if (value instanceof ORYX.Core.Node) {
 				
 				(value.dockers||[]).each(function(d){
-					d.bounds.moveBy(offset);
+					d.bounds.moveBy(pageIndex);
 				})
 				
 				// Update all Dockers of Child shapes
@@ -20935,7 +20935,7 @@ ORYX.Core.Command.Move = ORYX.Core.Command.extend({
 				for (var j = 0; j < childDockedDockers.length; j++) {
 					var docker = childDockedDockers[j];
 					if (!docker.getDockedShape() && !this.moveShapes.include(docker)) {
-						//docker.bounds.moveBy(offset);
+						//docker.bounds.moveBy(pageIndex);
 						//docker.update();
 					}
 				}*/
@@ -20950,7 +20950,7 @@ ORYX.Core.Command.Move = ORYX.Core.Command.extend({
 													(r.dockers.last().getDockedShape() == value || !this.moveShapes.include(r.dockers.last().getDockedShape()))}.bind(this))
 													
 				// Layout all outgoing/incoming edges
-				this.plugin.layoutEdges(value, allEdges, offset);
+				this.plugin.layoutEdges(value, allEdges, pageIndex);
 				
 				
 				var allSameEdges = [].concat(value.getIncomingShapes())
@@ -20964,7 +20964,7 @@ ORYX.Core.Command.Move = ORYX.Core.Command.extend({
 					for (var k = 1; k < allSameEdges[j].dockers.length-1; k++) {
 						var docker = allSameEdges[j].dockers[k];
 						if (!docker.getDockedShape() && !this.moveShapes.include(docker)) {
-							docker.bounds.moveBy(offset);
+							docker.bounds.moveBy(pageIndex);
 						}
 					}
 				}	
@@ -20979,7 +20979,7 @@ ORYX.Core.Command.Move = ORYX.Core.Command.extend({
 						.findAll(function(r){ return r instanceof ORYX.Core.Edge && !allEdges.include(r) && r.dockers.any(function(d){ return !value.bounds.isIncluded(d.bounds.center)})})
 					allEdges = allEdges.concat(edges);
 					if (edges.length <= 0){ continue }
-					//this.plugin.layoutEdges(nodes[i], edges, offset);
+					//this.plugin.layoutEdges(nodes[i], edges, pageIndex);
 				}*/
 			}
 		}
@@ -21752,11 +21752,11 @@ if(!ORYX.Plugins)
 		// Some initiale variables
 		this.position 		= {x:0, y:0};
 		this.size 			= {width:0, height:0};
-		this.offsetPosition = {x: 0, y: 0};
+		this.pageIndexPosition = {x: 0, y: 0};
 
 		// (Un)Register Mouse-Move Event
 		this.moveCallback 	= undefined;
-		this.offsetScroll	= {x:0,y:0};
+		this.pageIndexScroll	= {x:0,y:0};
 		// HTML-Node of Selection-Frame
 		this.node = ORYX.Editor.graft("http://www.w3.org/1999/xhtml", $('canvasSection'),
 			['div', {'class':'Oryx_SelectionFrame'}]);
@@ -21771,15 +21771,15 @@ if(!ORYX.Plugins)
 			var scrollNode = uiObj.rootNode.parentNode.parentNode;
 						
 			var a = this.facade.getCanvas().node.getScreenCTM();
-			this.offsetPosition = {
+			this.pageIndexPosition = {
 				x: a.e,
 				y: a.f
 			};
 
 			// Set the new Position
 			this.setPos({
-			    x: Event.pointerX(event) - jQuery("#canvasSection").offset().left, 
-				y: Event.pointerY(event) - jQuery("#canvasSection").offset().top + 5
+			    x: Event.pointerX(event) - jQuery("#canvasSection").pageIndex().left, 
+				y: Event.pointerY(event) - jQuery("#canvasSection").pageIndex().top + 5
 			});
 			
 			// Reset the size
@@ -21789,7 +21789,7 @@ if(!ORYX.Plugins)
 			// Register Mouse-Move Event
 			document.documentElement.addEventListener(ORYX.CONFIG.EVENT_MOUSEMOVE, this.moveCallback, false);
 
-			this.offsetScroll		= {x:scrollNode.scrollLeft,y:scrollNode.scrollTop};
+			this.pageIndexScroll		= {x:scrollNode.scrollLeft,y:scrollNode.scrollTop};
 			
 			// Show the Frame
 			this.show();
@@ -21835,26 +21835,26 @@ if(!ORYX.Plugins)
             }
             
             if (additionalIEZoom === 1) {
-                a.x = a.x - (corrSVG.e - jQuery("#canvasSection").offset().left);
-                a.y = a.y - (corrSVG.f - jQuery("#canvasSection").offset().top);
-                b.x = b.x - (corrSVG.e - jQuery("#canvasSection").offset().left);
-                b.y = b.y - (corrSVG.f - jQuery("#canvasSection").offset().top);
+                a.x = a.x - (corrSVG.e - jQuery("#canvasSection").pageIndex().left);
+                a.y = a.y - (corrSVG.f - jQuery("#canvasSection").pageIndex().top);
+                b.x = b.x - (corrSVG.e - jQuery("#canvasSection").pageIndex().left);
+                b.y = b.y - (corrSVG.f - jQuery("#canvasSection").pageIndex().top);
             
             } else {
-                 var canvasOffsetLeft = jQuery("#canvasSection").offset().left;
+                 var canvasOffsetLeft = jQuery("#canvasSection").pageIndex().left;
                  var canvasScrollLeft = jQuery("#canvasSection").scrollLeft();
                  var canvasScrollTop = jQuery("#canvasSection").scrollTop();
                  
-                 var offset = a.e - (canvasOffsetLeft * additionalIEZoom);
-                 var additionaloffset = 0;
-                 if (offset > 10) {
-                     additionaloffset = (offset / additionalIEZoom) - offset;
+                 var pageIndex = a.e - (canvasOffsetLeft * additionalIEZoom);
+                 var additionalpageIndex = 0;
+                 if (pageIndex > 10) {
+                     additionalpageIndex = (pageIndex / additionalIEZoom) - pageIndex;
                  }
                  
-                 a.x = a.x - (corrSVG.e - (canvasOffsetLeft * additionalIEZoom) + additionaloffset + ((canvasScrollLeft * additionalIEZoom) - canvasScrollLeft));
-                 a.y = a.y - (corrSVG.f - (jQuery("#canvasSection").offset().top * additionalIEZoom) + ((canvasScrollTop * additionalIEZoom) - canvasScrollTop));
-                 b.x = b.x - (corrSVG.e - (canvasOffsetLeft * additionalIEZoom) + additionaloffset + ((canvasScrollLeft * additionalIEZoom) - canvasScrollLeft));
-                 b.y = b.y - (corrSVG.f - (jQuery("#canvasSection").offset().top * additionalIEZoom) + ((canvasScrollTop * additionalIEZoom) - canvasScrollTop));
+                 a.x = a.x - (corrSVG.e - (canvasOffsetLeft * additionalIEZoom) + additionalpageIndex + ((canvasScrollLeft * additionalIEZoom) - canvasScrollLeft));
+                 a.y = a.y - (corrSVG.f - (jQuery("#canvasSection").pageIndex().top * additionalIEZoom) + ((canvasScrollTop * additionalIEZoom) - canvasScrollTop));
+                 b.x = b.x - (corrSVG.e - (canvasOffsetLeft * additionalIEZoom) + additionalpageIndex + ((canvasScrollLeft * additionalIEZoom) - canvasScrollLeft));
+                 b.y = b.y - (corrSVG.f - (jQuery("#canvasSection").pageIndex().top * additionalIEZoom) + ((canvasScrollTop * additionalIEZoom) - canvasScrollTop));
             }
 			
 			
@@ -21883,13 +21883,13 @@ if(!ORYX.Plugins)
 	handleMouseMove: function(event) {
 		// Calculate the size
 		var size = {
-			width	: Event.pointerX(event) - this.position.x - jQuery("#canvasSection").offset().left,
-			height	: Event.pointerY(event) - this.position.y - jQuery("#canvasSection").offset().top + 5
+			width	: Event.pointerX(event) - this.position.x - jQuery("#canvasSection").pageIndex().left,
+			height	: Event.pointerY(event) - this.position.y - jQuery("#canvasSection").pageIndex().top + 5
 		};
 
 		var scrollNode 	= this.facade.getCanvas().rootNode.parentNode.parentNode;
-		size.width 		-= this.offsetScroll.x - scrollNode.scrollLeft; 
-		size.height 	-= this.offsetScroll.y - scrollNode.scrollTop;
+		size.width 		-= this.pageIndexScroll.x - scrollNode.scrollLeft; 
+		size.height 	-= this.pageIndexScroll.y - scrollNode.scrollTop;
 						
 		// Set the size
 		this.resize(size);
@@ -21914,7 +21914,7 @@ if(!ORYX.Plugins)
 
 	resize: function(size) {
 
-		// Calculate the negative offset
+		// Calculate the negative pageIndex
 		this.setPos(this.position);
 		this.size = Object.clone(size);
 		
@@ -22103,14 +22103,14 @@ ORYX.Plugins.ShapeHighlighting = Clazz.extend({
 		var size = ORYX.CONFIG.SELECTION_HIGHLIGHT_SIZE;
 
 		var path 	= ""
-		var offset 	= strokeWidth / 2.0;
+		var pageIndex 	= strokeWidth / 2.0;
 		 
 		// Set: Upper left 
-		path = path + "M" + (a.x + offset) + " " + (a.y);
-		path = path + " L" + (a.x + offset) + " " + (b.y - offset);
-		path = path + " L" + (b.x - offset) + " " + (b.y - offset);
-		path = path + " L" + (b.x - offset) + " " + (a.y + offset);
-		path = path + " L" + (a.x + offset) + " " + (a.y + offset);
+		path = path + "M" + (a.x + pageIndex) + " " + (a.y);
+		path = path + " L" + (a.x + pageIndex) + " " + (b.y - pageIndex);
+		path = path + " L" + (b.x - pageIndex) + " " + (b.y - pageIndex);
+		path = path + " L" + (b.x - pageIndex) + " " + (a.y + pageIndex);
+		path = path + " L" + (a.x + pageIndex) + " " + (a.y + pageIndex);
 
 		return path;
 	},
@@ -22971,7 +22971,7 @@ new function(){
 		},
 		
 		/**
-		 * Returns a offset for the pos to the center of the bounds
+		 * Returns a pageIndex for the pos to the center of the bounds
 		 * 
 		 * @param {Object} val
 		 * @param {Object} pos2
@@ -23289,9 +23289,9 @@ new function(){
 				return;
 			}
 			
-			var offset = sh.absoluteXY();
-			offset.x -= this.hashedSubProcesses[sh.id].x;
-			offset.y -= this.hashedSubProcesses[sh.id].y;
+			var pageIndex = sh.absoluteXY();
+			pageIndex.x -= this.hashedSubProcesses[sh.id].x;
+			pageIndex.y -= this.hashedSubProcesses[sh.id].y;
 			
 			var resized = this.hashedSubProcesses[sh.id].width !== sh.bounds.width() || this.hashedSubProcesses[sh.id].height !== sh.bounds.height();
 			
@@ -23303,13 +23303,13 @@ new function(){
 			
 			// Move dockers only if currently is not resizing
 			if (this.facade.isExecutingCommands()&&!resized) {
-				this.moveChildDockers(sh, offset);
+				this.moveChildDockers(sh, pageIndex);
 			}
 		},
 		
-		moveChildDockers: function(shape, offset){
+		moveChildDockers: function(shape, pageIndex){
 			
-			if (!offset.x && !offset.y) {
+			if (!pageIndex.x && !pageIndex.y) {
 				return;
 			} 
 			
@@ -23336,7 +23336,7 @@ new function(){
 				.flatten();
 	
 			var abs = shape.absoluteBounds();
-			abs.moveBy(-offset.x, -offset.y)
+			abs.moveBy(-pageIndex.x, -pageIndex.y)
 			var obj = {};
 			dockers.each(function(docker){
 				
@@ -23344,7 +23344,7 @@ new function(){
 					return;
 				}
 				
-				var off = Object.clone(offset);
+				var off = Object.clone(pageIndex);
 				
 				if (!abs.isIncluded(docker.bounds.center())){
 					var index 	= docker.parent.dockers.indexOf(docker);
@@ -23374,7 +23374,7 @@ new function(){
 				
 				obj[docker.getId()] = {
 					docker:docker,
-					offset:off
+					pageIndex:off
 				}
 			})
 			
@@ -23770,7 +23770,7 @@ new function(){
                
                 scale = scale || 0;
 
-                // For every lane, adjust the child nodes with the offset
+                // For every lane, adjust the child nodes with the pageIndex
                 lanes.each(function(l){
                         l.getChildNodes().each(function(child){
                                 if (!child.getStencil().id().endsWith("Lane")){
@@ -23935,7 +23935,7 @@ new function(){
        
         getOffset: function(lane, includePool, pool){
                
-                var offset = {x:0,y:0};
+                var pageIndex = {x:0,y:0};
                
                
                 /*var parent = lane;
@@ -23946,8 +23946,8 @@ new function(){
                         if (offParent){
                                 var ul = parent.bounds.upperLeft();
                                 var ulo = offParent.upperLeft();
-                                offset.x += ul.x-ulo.x;
-                                offset.y += ul.y-ulo.y;
+                                pageIndex.x += ul.x-ulo.x;
+                                pageIndex.y += ul.y-ulo.y;
                         }
                        
                         if (parent.getStencil().id().endsWith("Pool")) {
@@ -23957,16 +23957,16 @@ new function(){
                         parent = parent.parent;
                 }       */
                
-                var offset = lane.absoluteXY();
+                var pageIndex = lane.absoluteXY();
                
                 var hashed = this.hashedBounds[pool.id][lane.id] ||(includePool === true ? this.hashedPoolPositions[lane.id] : undefined);
                 if (hashed) {
-                        offset.x -= hashed.upperLeft().x;      
-                        offset.y -= hashed.upperLeft().y;              
+                        pageIndex.x -= hashed.upperLeft().x;      
+                        pageIndex.y -= hashed.upperLeft().y;              
                 } else {
                         return {x:0,y:0}
                 }              
-                return offset;
+                return pageIndex;
         },
        
         getNextLane: function(shape){
@@ -24009,13 +24009,13 @@ new function(){
                         var absBounds = lanes[i].absoluteBounds();
                         var oldBounds = (this.hashedBounds[pool.id][lanes[i].id]||absBounds);
                         //oldBounds.moveBy((absBounds.upperLeft().x-lanes[i].bounds.upperLeft().x), (absBounds.upperLeft().y-lanes[i].bounds.upperLeft().y));
-                        var offset = this.getOffset(lanes[i], true, pool);
+                        var pageIndex = this.getOffset(lanes[i], true, pool);
                         var xOffsetDepth = 0;
 
                         var depth = this.getDepth(lanes[i], pool);
                         if ( this.hashedLaneDepth[lanes[i].id] !== undefined &&  this.hashedLaneDepth[lanes[i].id] !== depth) {
                                 xOffsetDepth = (this.hashedLaneDepth[lanes[i].id] - depth) * 30;
-                                offset.x += xOffsetDepth;
+                                pageIndex.x += xOffsetDepth;
                         }
                        
                         j=-1;
@@ -24028,7 +24028,7 @@ new function(){
                                 }
                                
                                 if (children[j].getStencil().id().endsWith("Subprocess")) {
-                                        this.moveChildDockers(children[j], offset);
+                                        this.moveChildDockers(children[j], pageIndex);
                                 }
                                
                                 var edges = [].concat(children[j].getIncomingShapes())
@@ -24040,7 +24040,7 @@ new function(){
                                 while (++k < edges.length) {                    
                                        
                                         if (edges[k].getStencil().id().endsWith("MessageFlow")) {
-                                                this.layoutEdges(children[j], [edges[k]], offset);
+                                                this.layoutEdges(children[j], [edges[k]], pageIndex);
                                                 continue;
                                         }
                                        
@@ -24062,7 +24062,7 @@ new function(){
                                                 var isOutSidePool = !oldPool.isIncluded(pos);
                                                 var previousIsOverLane = l == 0 ? isOverLane : oldBounds.isIncluded(edges[k].dockers[l-1].bounds.center());
                                                 var nextIsOverLane = l == edges[k].dockers.length-1 ? isOverLane : oldBounds.isIncluded(edges[k].dockers[l+1].bounds.center());
-                                                var off = Object.clone(offset);
+                                                var off = Object.clone(pageIndex);
                                                
                                                 // If the
                                                 if (isScaled && isOverLane && this.isResized(lanes[i], this.hashedBounds[pool.id][lanes[i].id])){
@@ -24074,24 +24074,24 @@ new function(){
                                                 // Otherwise, check if the docker is over the lane OR is outside the lane
                                                 // but the previous/next was over this lane
                                                 if (isOverLane){
-                                                        dockers[docker.id] = {docker: docker, offset:off};
+                                                        dockers[docker.id] = {docker: docker, pageIndex:off};
                                                 }
                                                 /*else if (l == 1 && edges[k].dockers.length>2 && edges[k].dockers[l-1].isDocked()){
                                                         var dockedLane = this.getNextLane(edges[k].dockers[l-1].getDockedShape());
                                                         if (dockedLane != lanes[i])
                                                                 continue;
-                                                        dockers[docker.id] = {docker: docker, offset:offset};
+                                                        dockers[docker.id] = {docker: docker, pageIndex:pageIndex};
                                                 }
                                                 // Check if the next dockers docked shape is from this lane
                                                 else if (l == edges[k].dockers.length-2 && edges[k].dockers.length>2 && edges[k].dockers[l+1].isDocked()){
                                                         var dockedLane = this.getNextLane(edges[k].dockers[l+1].getDockedShape());
                                                         if (dockedLane != lanes[i])
                                                                 continue;
-                                                        dockers[docker.id] = {docker: docker, offset:offset};
+                                                        dockers[docker.id] = {docker: docker, pageIndex:pageIndex};
                                                 }
                                                                                                
                                                 else if (isOutSidePool) {
-                                                        dockers[docker.id] = {docker: docker, offset:this.getOffset(lanes[i], true, pool)};
+                                                        dockers[docker.id] = {docker: docker, pageIndex:this.getOffset(lanes[i], true, pool)};
                                                 }*/
                                                
                                        
@@ -24127,9 +24127,9 @@ new function(){
 
         },
        
-        moveBy: function(pos, offset){
-                pos.x += offset.x;
-                pos.y += offset.y;
+        moveBy: function(pos, pageIndex){
+                pos.x += pageIndex.x;
+                pos.y += pageIndex.y;
                 return pos;
         },
        
