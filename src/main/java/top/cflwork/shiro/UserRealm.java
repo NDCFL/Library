@@ -2,7 +2,7 @@ package top.cflwork.shiro;
 
 import top.cflwork.config.ApplicationContextRegister;
 import top.cflwork.dao.UserDao;
-import top.cflwork.domain.UserVo;
+import top.cflwork.vo.UserVo;
 import top.cflwork.service.MenuService;
 import top.cflwork.util.ShiroUtils;
 import org.apache.shiro.authc.*;

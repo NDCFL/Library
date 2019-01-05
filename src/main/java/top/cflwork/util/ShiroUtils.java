@@ -1,6 +1,6 @@
 package top.cflwork.util;
 
-import top.cflwork.domain.UserVo;
+import top.cflwork.vo.UserVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.SessionDAO;

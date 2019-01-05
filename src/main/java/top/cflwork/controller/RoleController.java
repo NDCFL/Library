@@ -4,7 +4,7 @@ import top.cflwork.common.annotation.Log;
 import top.cflwork.config.Constant;
 import top.cflwork.controller.BaseController;
 import top.cflwork.util.R;
-import top.cflwork.domain.RoleVo;
+import top.cflwork.vo.RoleVo;
 import top.cflwork.service.RoleService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,20 +17,20 @@ import java.util.List;
 @RequestMapping("/role")
 @Controller
 public class RoleController extends BaseController {
-	String prefix = "system/role";
+	String prefix = "role";
 	@Autowired
-	RoleService roleService;
+	public RoleService roleService;
 
 	@RequiresPermissions("role:role")
 	@GetMapping("rolePage")
-	String role() {
+	public String role() {
 		return prefix + "/role";
 	}
 
 	@RequiresPermissions("role:role")
 	@GetMapping("/list")
 	@ResponseBody()
-	List<RoleVo> list() {
+	public List<RoleVo> list() {
 		List<RoleVo> roles = roleService.list();
 		return roles;
 	}
@@ -38,14 +38,14 @@ public class RoleController extends BaseController {
 	@Log("添加角色")
 	@RequiresPermissions("role:add")
 	@GetMapping("/add")
-	String add() {
+	public String add() {
 		return prefix + "/add";
 	}
 
 	@Log("编辑角色")
 	@RequiresPermissions("role:edit")
 	@GetMapping("/edit/{id}")
-	String edit(@PathVariable("id") Long id, Model model) {
+	public String edit(@PathVariable("id") Long id, Model model) {
 		RoleVo roleDO = roleService.get(id);
 		model.addAttribute("role", roleDO);
 		return prefix + "/edit";
@@ -55,7 +55,7 @@ public class RoleController extends BaseController {
 	@RequiresPermissions("role:add")
 	@PostMapping("/save")
 	@ResponseBody()
-	R save(RoleVo role) {
+	public R save(RoleVo role) {
 		if (roleService.save(role) > 0) {
 			return R.ok();
 		} else {
@@ -67,7 +67,7 @@ public class RoleController extends BaseController {
 	@RequiresPermissions("role:edit")
 	@PostMapping("/update")
 	@ResponseBody()
-	R update(RoleVo role) {
+	public R update(RoleVo role) {
 		if (roleService.update(role) > 0) {
 			return R.ok();
 		} else {
@@ -79,7 +79,7 @@ public class RoleController extends BaseController {
 	@RequiresPermissions("role:remove")
 	@PostMapping("/remove")
 	@ResponseBody()
-	R save(Long id) {
+	public R save(Long id) {
 		if (roleService.remove(id) > 0) {
 			return R.ok();
 		} else {
@@ -91,7 +91,7 @@ public class RoleController extends BaseController {
 	@Log("批量删除角色")
 	@PostMapping("/batchRemove")
 	@ResponseBody
-	R batchRemove(@RequestParam("ids[]") Long[] ids) {
+	public R batchRemove(@RequestParam("ids[]") Long[] ids) {
 		int r = roleService.batchremove(ids);
 		if (r > 0) {
 			return R.ok();

@@ -8,10 +8,10 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class WebSocketController {
 	@Autowired
-	SimpMessagingTemplate template;
+	public SimpMessagingTemplate template;
 
 	@Autowired
-    SessionService sessionService;
+	public SessionService sessionService;
 
 	/*@Autowired
 	WelcomeTask welcomeTask;

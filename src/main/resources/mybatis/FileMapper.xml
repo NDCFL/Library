@@ -23,8 +23,8 @@
                 order by id desc
 			</otherwise>
         </choose>
-		<if test="offset != null and limit != null">
-			limit #{offset}, #{limit}
+		<if test="pageIndex != null and pageSize != null">
+			limit #{pageIndex}, #{pageSize}
 		</if>
 	</select>
 	

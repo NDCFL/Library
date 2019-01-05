@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import top.cflwork.domain.RoleVo;
+import top.cflwork.vo.RoleVo;
 
 @Service
 public interface RoleService {

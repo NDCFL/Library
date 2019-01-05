@@ -1,6 +1,6 @@
 package top.cflwork.dao;
 
-import top.cflwork.domain.RoleVo;
+import top.cflwork.vo.RoleVo;
 
 import java.util.List;
 import java.util.Map;

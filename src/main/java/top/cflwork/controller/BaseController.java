@@ -1,7 +1,7 @@
 package top.cflwork.controller;
 
 import top.cflwork.util.ShiroUtils;
-import top.cflwork.domain.UserVo;
+import top.cflwork.vo.UserVo;
 import org.springframework.stereotype.Controller;
 
 @Controller

@@ -1,8 +1,8 @@
 package top.cflwork.service.impl;
 
-import top.cflwork.domain.UserVo;
-import top.cflwork.domain.UserOnline;
-import top.cflwork.domain.UserToken;
+import top.cflwork.vo.UserVo;
+import top.cflwork.vo.UserOnline;
+import top.cflwork.vo.UserToken;
 import top.cflwork.service.SessionService;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
@@ -41,8 +41,8 @@ public class SessionServiceImpl implements SessionService {
             } else {
                 SimplePrincipalCollection principalCollection = (SimplePrincipalCollection) session
                         .getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
-                UserVo userDO = (UserVo) principalCollection.getPrimaryPrincipal();
-                userOnline.setUsername(userDO.getUsername());
+                UserVo userVo = (UserVo) principalCollection.getPrimaryPrincipal();
+                userOnline.setUsername(userVo.getUsername());
             }
             userOnline.setId((String) session.getId());
             userOnline.setHost(session.getHost());
@@ -57,7 +57,7 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public List<UserVo> listOnlineUser() {
         List<UserVo> list = new ArrayList<>();
-        UserVo userDO;
+        UserVo userVo;
         Collection<Session> sessions = sessionDAO.getActiveSessions();
         for (Session session : sessions) {
             SimplePrincipalCollection principalCollection = new SimplePrincipalCollection();
@@ -66,8 +66,8 @@ public class SessionServiceImpl implements SessionService {
             } else {
                 principalCollection = (SimplePrincipalCollection) session
                         .getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
-                userDO = (UserVo) principalCollection.getPrimaryPrincipal();
-                list.add(userDO);
+                userVo = (UserVo) principalCollection.getPrimaryPrincipal();
+                list.add(userVo);
             }
         }
         return list;

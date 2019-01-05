@@ -1,11 +1,11 @@
 package top.cflwork.service;
 
-import top.cflwork.domain.DeptVo;
-import top.cflwork.domain.UserVo;
+import top.cflwork.vo.DeptVo;
+import top.cflwork.vo.UserVo;
 import top.cflwork.vo.Tree;
-import top.cflwork.vo.UserVO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import top.cflwork.vo.UserPwdVo;
 
 import java.util.List;
 import java.util.Map;
@@ -31,16 +31,16 @@ public interface UserService {
 
 	Set<String> listRoles(Long userId);
 
-	int resetPwd(UserVO userVO,UserVo userDO) throws Exception;
-	int adminResetPwd(UserVO userVO) throws Exception;
+	int resetPwd(UserPwdVo userPwdVo, UserVo userVo) throws Exception;
+	int adminResetPwd(UserPwdVo userPwdVo) throws Exception;
 	Tree<DeptVo> getTree();
 
 	/**
 	 * 更新个人信息
-	 * @param userDO
+	 * @param userVo
 	 * @return
 	 */
-	int updatePersonal(UserVo userDO);
+	int updatePersonal(UserVo userVo);
 
 	/**
 	 * 更新个人图片

@@ -20,21 +20,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RequestMapping("/common/generator")
+@RequestMapping("/generator")
 @Controller
 public class GeneratorController {
-	String prefix = "common/generator";
+	public String prefix = "/generator";
 	@Autowired
-	GeneratorService generatorService;
+	public GeneratorService generatorService;
 
-	@GetMapping()
-	String generator() {
+	@GetMapping("/generatorPage")
+	public String generator() {
 		return prefix + "/list";
 	}
 
 	@ResponseBody
 	@GetMapping("/list")
-	List<Map<String, Object>> list() {
+	public List<Map<String, Object>> list() {
 		List<Map<String, Object>> list = generatorService.list();
 		return list;
 	};
@@ -80,7 +80,7 @@ public class GeneratorController {
 
 	@ResponseBody
 	@PostMapping("/update")
-	R update(@RequestParam Map<String, Object> map) {
+	public R update(@RequestParam Map<String, Object> map) {
 		try {
 			PropertiesConfiguration conf = new PropertiesConfiguration("generator.properties");
 			conf.setProperty("author", map.get("author"));

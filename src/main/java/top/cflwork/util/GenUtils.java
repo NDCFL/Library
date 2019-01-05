@@ -29,15 +29,26 @@ public class GenUtils {
 
     public static List<String> getTemplates() {
         List<String> templates = new ArrayList<String>();
-        templates.add("templates/common/generator/vo.java.vm");
-        templates.add("templates/common/generator/Dao.java.vm");
-        templates.add("templates/common/generator/Mapper.xml.vm");
-        templates.add("templates/common/generator/Service.java.vm");
-        templates.add("templates/common/generator/ServiceImpl.java.vm");
-        templates.add("templates/common/generator/Controller.java.vm");
-        templates.add("templates/common/generator/page.html.vm");
-        templates.add("templates/common/generator/menu.sql.vm");
-        templates.add("templates/common/generator/js.js.vm");
+        //后端
+        templates.add("templates/generator/vo.java.vm");
+        templates.add("templates/generator/Dao.java.vm");
+        templates.add("templates/generator/Mapper.xml.vm");
+        templates.add("templates/generator/Service.java.vm");
+        templates.add("templates/generator/ServiceImpl.java.vm");
+        templates.add("templates/generator/Controller.java.vm");
+        //bootstrap格式
+        templates.add("templates/generator/page.html.vm");
+        templates.add("templates/generator/js.js.vm");
+        //layui 格式
+        templates.add("templates/generator/list.html.vm");
+        templates.add("templates/generator/add.html.vm");
+        templates.add("templates/generator/edit.html.vm");
+        templates.add("templates/generator/list.js.vm");
+        templates.add("templates/generator/add.js.vm");
+        templates.add("templates/generator/edit.js.vm");
+        //sql 脚本
+        templates.add("templates/generator/menu.sql.vm");
+
         return templates;
     }
     /**
@@ -155,46 +166,65 @@ public class GenUtils {
      * 获取文件名
      */
     public static String getFileName(String template, String classname, String className, String packageName) {
-        String packagePath = "java";
+        String packagePath = File.separator;
         if (StringUtils.isNotBlank(packageName)) {
             packagePath += packageName.replace(".", File.separator) + File.separator;
         }
 
         if (template.contains("vo.java.vm")) {
-            return packagePath + File.separator + className + "Vo.java";
+            return packagePath +"后端"+ File.separator + className + "Vo.java";
         }
 
         if (template.contains("Dao.java.vm")) {
-            return packagePath + File.separator + className + "Dao.java";
+            return packagePath +"后端"+ File.separator + className + "Dao.java";
         }
 
         if (template.contains("Service.java.vm")) {
-            return packagePath + File.separator + className + "Service.java";
+            return packagePath +"后端"+ File.separator + className + "Service.java";
         }
 
         if (template.contains("ServiceImpl.java.vm")) {
-            return packagePath + File.separator + className + "ServiceImpl.java";
+            return packagePath +"后端"+ File.separator + className + "ServiceImpl.java";
         }
 
         if (template.contains("Controller.java.vm")) {
-            return packagePath + File.separator + className + "Controller.java";
+            return packagePath +"后端"+ File.separator + className + "Controller.java";
         }
 
         if (template.contains("Mapper.xml.vm")) {
-            return "main" + className + "Mapper.xml";
+            return packagePath +"后端"+ File.separator + className + "Mapper.xml";
         }
 
         if (template.contains("page.html.vm")) {
-            return "main" +  classname + ".html";
+            return packagePath +"前端"+ File.separator +"bootstrap"+ File.separator +classname+ File.separator + classname + ".html";
         }
         if (template.contains("js.js.vm")) {
-            return "main" + classname + ".js";
+            return packagePath +"前端"+ File.separator +"bootstrap"+ File.separator  +"js"+File.separator + classname + ".js";
         }
 
 		if(template.contains("menu.sql.vm")){
-			return "main" + classname+ "_menu.sql";
+			return packagePath +"sql"+ File.separator + classname+ "_menu.sql";
 		}
 
+        if (template.contains("list.html.vm")) {
+            return packagePath +"前端"+ File.separator +"layui"+ File.separator +"html" +File.separator+ classname + ".html";
+        }
+        if (template.contains("add.html.vm")) {
+            return packagePath +"前端"+ File.separator +"layui"+ File.separator +"html" +File.separator+ "add.html";
+        }
+        if (template.contains("edit.html.vm")) {
+            return packagePath +"前端"+ File.separator +"layui"+ File.separator +"html" +File.separator + "edit.html";
+        }
+
+        if (template.contains("list.js.vm")) {
+            return packagePath +"前端"+ File.separator +"layui"+ File.separator +"js" +File.separator+ classname + ".js";
+        }
+        if (template.contains("add.js.vm")) {
+            return packagePath +"前端"+ File.separator +"layui"+ File.separator +"js" +File.separator+  classname +"add.js";
+        }
+        if (template.contains("edit.js.vm")) {
+            return packagePath +"前端"+ File.separator +"layui"+ File.separator +"js" +File.separator + "edit.js";
+        }
         return null;
     }
 }

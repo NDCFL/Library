@@ -1,18 +1,18 @@
 package top.cflwork.vo;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
 
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 图书表
  * 
  * @author cfl
  * @email 275300091@qq.com
- * @date 2019-01-04 20:10:23
+ * @date 2019-01-05 12:32:55
  */
 @Data
 public class BookVo implements Serializable {

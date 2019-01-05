@@ -1,20 +1,20 @@
 package top.cflwork.controller;
 
-import top.cflwork.config.Constant;
-import top.cflwork.util.PageUtils;
-import top.cflwork.util.Query;
-import top.cflwork.util.R;
-import top.cflwork.domain.NotifyVo;
-import top.cflwork.domain.NotifyRecordVo;
-import top.cflwork.service.DictService;
-import top.cflwork.service.NotifyRecordService;
-import top.cflwork.service.NotifyService;
-import top.cflwork.vo.DictVo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import top.cflwork.config.Constant;
+import top.cflwork.vo.NotifyVo;
+import top.cflwork.vo.NotifyRecordDO;
+import top.cflwork.service.DictService;
+import top.cflwork.service.NotifyRecordService;
+import top.cflwork.service.NotifyService;
+import top.cflwork.util.PageUtils;
+import top.cflwork.util.Query;
+import top.cflwork.util.R;
+import top.cflwork.vo.DictVo;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -41,7 +41,7 @@ public class NotifyController extends BaseController {
 
 	@GetMapping()
 	@RequiresPermissions("oa:notify:notify")
-	String oaNotify() {
+	public String oaNotify() {
 		return "oa/notify/notify";
 	}
 
@@ -59,13 +59,13 @@ public class NotifyController extends BaseController {
 
 	@GetMapping("/add")
 	@RequiresPermissions("oa:notify:add")
-	String add() {
+	public String add() {
 		return "oa/notify/add";
 	}
 
 	@GetMapping("/edit/{id}")
 	@RequiresPermissions("oa:notify:edit")
-	String edit(@PathVariable("id") Long id, Model model) {
+	public String edit(@PathVariable("id") Long id, Model model) {
 		NotifyVo notify = notifyService.get(id);
 		List<DictVo> dictDOS = dictService.listByType("oa_notify_type");
 		String type = notify.getType();
@@ -130,24 +130,24 @@ public class NotifyController extends BaseController {
 
 	@ResponseBody
 	@GetMapping("/message")
-	PageUtils message() {
+	public PageUtils message() {
 		Map<String, Object> params = new HashMap<>(16);
-		params.put("offset", 0);
-		params.put("limit", 3);
+		params.put("pageIndex", 0);
+		params.put("pageSize", 3);
 		Query query = new Query(params);
         query.put("userId", getUserId());
-        query.put("isRead",Constant.OA_NOTIFY_READ_NO);
+        query.put("isRead", Constant.OA_NOTIFY_READ_NO);
 		return notifyService.selfList(query);
 	}
 
 	@GetMapping("/selfNotify")
-	String selefNotify() {
+	public String selefNotify() {
 		return "oa/notify/selfNotify";
 	}
 
 	@ResponseBody
 	@GetMapping("/selfList")
-	PageUtils selfList(@RequestParam Map<String, Object> params) {
+	public PageUtils selfList(@RequestParam Map<String, Object> params) {
 		Query query = new Query(params);
 		query.put("userId", getUserId());
 
@@ -156,10 +156,10 @@ public class NotifyController extends BaseController {
 
 	@GetMapping("/read/{id}")
 	@RequiresPermissions("oa:notify:edit")
-	String read(@PathVariable("id") Long id, Model model) {
+	public String read(@PathVariable("id") Long id, Model model) {
 		NotifyVo notify = notifyService.get(id);
 		//更改阅读状态
-		NotifyRecordVo notifyRecordDO = new NotifyRecordVo();
+		NotifyRecordDO notifyRecordDO = new NotifyRecordDO();
 		notifyRecordDO.setNotifyId(id);
 		notifyRecordDO.setUserId(getUserId());
 		notifyRecordDO.setReadDate(new Date());

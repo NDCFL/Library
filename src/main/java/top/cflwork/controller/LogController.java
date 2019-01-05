@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@RequestMapping("/common/log")
+@RequestMapping("/log")
 @Controller
 public class LogController {
 	@Autowired
-	LogService logService;
-	String prefix = "common/log";
+	public LogService logService;
+	public String prefix = "/log";
 
-	@GetMapping()
-	String log() {
+	@GetMapping("/logPage")
+	public String log() {
 		return prefix + "/log";
 	}
 
 	@ResponseBody
 	@GetMapping("/list")
-	PageVo<LogVo> list(@RequestParam Map<String, Object> params) {
+	public PageVo<LogVo> list(@RequestParam Map<String, Object> params) {
 		Query query = new Query(params);
 		PageVo<LogVo> page = logService.queryList(query);
 		return page;
@@ -33,7 +33,7 @@ public class LogController {
 	
 	@ResponseBody
 	@PostMapping("/remove")
-	R remove(Long id) {
+	public R remove(Long id) {
 		if (logService.remove(id)>0) {
 			return R.ok();
 		}
@@ -42,7 +42,7 @@ public class LogController {
 
 	@ResponseBody
 	@PostMapping("/batchRemove")
-	R batchRemove(@RequestParam("ids[]") Long[] ids) {
+	public R batchRemove(@RequestParam("ids[]") Long[] ids) {
 		int r = logService.batchRemove(ids);
 		if (r > 0) {
 			return R.ok();

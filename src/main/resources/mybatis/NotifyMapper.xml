@@ -3,13 +3,13 @@
 
 <mapper namespace="top.cflwork.dao.NotifyDao">
 
-	<select id="get" resultType="top.cflwork.domain.NotifyVo">
+	<select id="get" resultType="top.cflwork.vo.NotifyVo">
 		select
 		`id`,`type`,`title`,`content`,`files`,`status`,`create_by`,`create_date`,`update_by`,`update_date`,`remarks`,`del_flag`
 		from oa_notify where id = #{value}
 	</select>
 
-	<select id="list" resultType="top.cflwork.domain.NotifyVo">
+	<select id="list" resultType="top.cflwork.vo.NotifyVo">
 		select
 		`id`,`type`,`title`,`content`,`files`,`status`,`create_by`,`create_date`,`update_by`,`update_date`,`remarks`,`del_flag`
 		from oa_notify
@@ -58,7 +58,7 @@
 		</where>
 	</select>
 
-	<insert id="save" parameterType="top.cflwork.domain.NotifyVo"
+	<insert id="save" parameterType="top.cflwork.vo.NotifyVo"
 		useGeneratedKeys="true" keyProperty="id">
 		insert into oa_notify
 		(
@@ -90,7 +90,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="top.cflwork.domain.NotifyVo">
+	<update id="update" parameterType="top.cflwork.vo.NotifyVo">
 		update oa_notify
 		<set>
 			<if test="type != null">`type` = #{type}, </if>
@@ -120,7 +120,7 @@
 		</foreach>
 	</delete>
 
-	<select id="listByIds" resultType="top.cflwork.domain.NotifyVo">
+	<select id="listByIds" resultType="top.cflwork.vo.NotifyVo">
 		select
 		`id`,`type`,`title`,`content`,`files`,`status`,`create_by`,`create_date`,`update_by`,`update_date`,`remarks`,`del_flag`
 		from oa_notify where id in
@@ -140,7 +140,7 @@
 		r.is_read = #{isRead}
 	</select>
 
-	<select id="listDTO" resultType="top.cflwork.domain.NotifyDTO">
+	<select id="listDTO" resultType="top.cflwork.vo.NotifyDTO">
 		select DISTINCT
 		n.id ,`type`,`title`,`content`,`files`,r.is_read,`status`,`create_by`,`create_date`,`update_by`,`update_date`,`remarks`,`del_flag`
 		from oa_notify_record r right JOIN oa_notify n on r.notify_id = n.id

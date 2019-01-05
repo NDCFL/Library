@@ -1,6 +1,6 @@
 package top.cflwork.dao;
 
-import top.cflwork.domain.MenuVo;
+import top.cflwork.vo.MenuVo;
 
 import java.util.List;
 import java.util.Map;

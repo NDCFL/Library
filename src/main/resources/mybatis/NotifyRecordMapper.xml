@@ -3,13 +3,13 @@
 
 <mapper namespace="top.cflwork.dao.NotifyRecordDao">
 
-	<select id="get" resultType="top.cflwork.domain.NotifyRecordVo">
+	<select id="get" resultType="top.cflwork.vo.NotifyRecordDO">
 		select
 		`id`,`notify_id`,`user_id`,`is_read`,`read_date` from oa_notify_record
 		where id = #{value}
 	</select>
 
-	<select id="list" resultType="top.cflwork.domain.NotifyRecordVo">
+	<select id="list" resultType="top.cflwork.vo.NotifyRecordDO">
 		select `id`,`notify_id`,`user_id`,`is_read`,`read_date` from
 		oa_notify_record
 		<where>
@@ -43,7 +43,7 @@
 		</where>
 	</select>
 
-	<insert id="save" parameterType="top.cflwork.domain.NotifyRecordVo"
+	<insert id="save" parameterType="top.cflwork.vo.NotifyRecordDO"
 		useGeneratedKeys="true" keyProperty="id">
 		insert into oa_notify_record
 		(
@@ -61,7 +61,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="top.cflwork.domain.NotifyRecordVo">
+	<update id="update" parameterType="top.cflwork.vo.NotifyRecordDO">
 		update oa_notify_record
 		<set>
 			<if test="notifyId != null">`notify_id` = #{notifyId}, </if>
@@ -85,7 +85,7 @@
 	</delete>
 
 
-	<insert id="batchSave" parameterType="top.cflwork.domain.NotifyRecordVo"
+	<insert id="batchSave" parameterType="top.cflwork.vo.NotifyRecordDO"
 		useGeneratedKeys="true" keyProperty="id">
 		insert into oa_notify_record
 		(
@@ -130,7 +130,7 @@
 		</foreach>
 	</delete>
 
-	<update id="changeRead" parameterType="top.cflwork.domain.NotifyRecordVo">
+	<update id="changeRead" parameterType="top.cflwork.vo.NotifyRecordDO">
 		update oa_notify_record
 		<set>
 			<if test="isRead != null">`is_read` = #{isRead}, </if>

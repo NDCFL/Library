@@ -4,7 +4,7 @@ import top.cflwork.config.Constant;
 import top.cflwork.util.HttpServletUtils;
 import top.cflwork.util.R;
 import top.cflwork.util.ShiroUtils;
-import top.cflwork.domain.UserVo;
+import top.cflwork.vo.UserVo;
 import top.cflwork.service.LogService;
 import top.cflwork.vo.LogVo;
 import org.apache.shiro.authz.AuthorizationException;

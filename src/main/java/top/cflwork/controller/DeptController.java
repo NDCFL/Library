@@ -3,7 +3,7 @@ package top.cflwork.controller;
 import top.cflwork.config.Constant;
 import top.cflwork.controller.BaseController;
 import top.cflwork.util.R;
-import top.cflwork.domain.DeptVo;
+import top.cflwork.vo.DeptVo;
 import top.cflwork.service.DeptService;
 import top.cflwork.vo.Tree;
 import io.swagger.annotations.ApiOperation;
@@ -28,13 +28,13 @@ import java.util.Map;
 @Controller
 @RequestMapping("/sysDept")
 public class DeptController extends BaseController {
-	private String prefix = "system/dept";
+	private String prefix = "dept";
 	@Autowired
 	private DeptService sysDeptService;
 
 	@GetMapping("/sysDeptPage")
 	@RequiresPermissions("sysDept:sysDeptPage")
-	String dept() {
+	public String dept() {
 		return prefix + "/dept";
 	}
 
@@ -50,7 +50,7 @@ public class DeptController extends BaseController {
 
 	@GetMapping("/add/{pId}")
 	@RequiresPermissions("sysDept:add")
-	String add(@PathVariable("pId") Long pId, Model model) {
+	public String add(@PathVariable("pId") Long pId, Model model) {
 		model.addAttribute("pId", pId);
 		if (pId == 0) {
 			model.addAttribute("pName", "总部门");
@@ -62,7 +62,7 @@ public class DeptController extends BaseController {
 
 	@GetMapping("/edit/{deptId}")
 	@RequiresPermissions("sysDept:edit")
-	String edit(@PathVariable("deptId") Long deptId, Model model) {
+	public String edit(@PathVariable("deptId") Long deptId, Model model) {
 		DeptVo sysDept = sysDeptService.get(deptId);
 		model.addAttribute("sysDept", sysDept);
 		if(Constant.DEPT_ROOT_ID.equals(sysDept.getParentId())) {
@@ -142,7 +142,7 @@ public class DeptController extends BaseController {
 	}
 
 	@GetMapping("/treeView")
-	String treeView() {
+	public String treeView() {
 		return  prefix + "/deptTree";
 	}
 

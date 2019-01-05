@@ -1,15 +1,14 @@
 package top.cflwork.dao;
 
+import top.cflwork.vo.BookVo;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
-import top.cflwork.vo.BookVo;
-
 /**
  * 图书表
  * @author cfl
  * @email 275300091@qq.com
- * @date 2019-01-04 20:10:23
+ * @date 2019-01-05 12:32:55
  */
 @Mapper
 public interface BookDao {

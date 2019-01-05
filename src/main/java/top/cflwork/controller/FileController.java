@@ -25,7 +25,7 @@ import java.util.Map;
  * @date 2017-09-19 16:02:20
  */
 @Controller
-@RequestMapping("/common/sysFile")
+@RequestMapping("/sysFile")
 public class FileController extends BaseController {
 
 	@Autowired
@@ -34,16 +34,16 @@ public class FileController extends BaseController {
 	@Autowired
 	private CflworksConfig cflworksConfig;
 
-	@GetMapping()
-	@RequiresPermissions("common:sysFile:sysFile")
-	String sysFile(Model model) {
+	@GetMapping("sysFilePage")
+	@RequiresPermissions("sysFile:list")
+    public String sysFile(Model model) {
 		Map<String, Object> params = new HashMap<>(16);
-		return "common/file/file";
+		return "/file/file";
 	}
 
 	@ResponseBody
 	@GetMapping("/list")
-	@RequiresPermissions("common:sysFile:sysFile")
+	@RequiresPermissions("sysFile:list")
 	public PageUtils list(@RequestParam Map<String, Object> params) {
 		// 查询列表数据
 		Query query = new Query(params);
@@ -54,24 +54,24 @@ public class FileController extends BaseController {
 	}
 
 	@GetMapping("/add")
-	// @RequiresPermissions("common:bComments")
-	String add() {
-		return "common/sysFile/add";
+	// @RequiresPermissions("bComments")
+    public String add() {
+		return "/sysFile/add";
 	}
 
 	@GetMapping("/edit")
-	// @RequiresPermissions("common:bComments")
-	String edit(Long id, Model model) {
+	// @RequiresPermissions("bComments")
+    public String edit(Long id, Model model) {
 		FileListVo sysFile = sysFileService.get(id);
 		model.addAttribute("sysFile", sysFile);
-		return "common/sysFile/edit";
+		return "/sysFile/edit";
 	}
 
 	/**
 	 * 信息
 	 */
 	@RequestMapping("/info/{id}")
-	@RequiresPermissions("common:info")
+	@RequiresPermissions("info")
 	public R info(@PathVariable("id") Long id) {
 		FileListVo sysFile = sysFileService.get(id);
 		return R.ok().put("sysFile", sysFile);
@@ -82,7 +82,7 @@ public class FileController extends BaseController {
 	 */
 	@ResponseBody
 	@PostMapping("/save")
-	@RequiresPermissions("common:save")
+	@RequiresPermissions("save")
 	public R save(FileListVo sysFile) {
 		if (sysFileService.save(sysFile) > 0) {
 			return R.ok();
@@ -94,7 +94,7 @@ public class FileController extends BaseController {
 	 * 修改
 	 */
 	@RequestMapping("/update")
-	@RequiresPermissions("common:update")
+	@RequiresPermissions("update")
 	public R update(@RequestBody FileListVo sysFile) {
 		sysFileService.update(sysFile);
 
@@ -106,7 +106,7 @@ public class FileController extends BaseController {
 	 */
 	@PostMapping("/remove")
 	@ResponseBody
-	// @RequiresPermissions("common:remove")
+	// @RequiresPermissions("remove")
 	public R remove(Long id, HttpServletRequest request) {
 		String fileName = cflworksConfig.getUploadPath() + sysFileService.get(id).getUrl().replace("/files/", "");
 		if (sysFileService.remove(id) > 0) {
@@ -125,7 +125,7 @@ public class FileController extends BaseController {
 	 */
 	@PostMapping("/batchRemove")
 	@ResponseBody
-	@RequiresPermissions("common:remove")
+	@RequiresPermissions("remove")
 	public R remove(@RequestParam("ids[]") Long[] ids) {
 		sysFileService.batchRemove(ids);
 		return R.ok();
@@ -133,7 +133,7 @@ public class FileController extends BaseController {
 
 	@ResponseBody
 	@PostMapping("/upload")
-	R upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+    public R upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
 		String fileName = file.getOriginalFilename();
 		fileName = FileUtil.renameToUUID(fileName);
 		FileListVo sysFile = new FileListVo(FileType.fileType(fileName), "/files/" + fileName, new Date());

@@ -7,7 +7,7 @@ import java.util.Set;
 import top.cflwork.vo.Tree;
 import org.springframework.stereotype.Service;
 
-import top.cflwork.domain.MenuVo;
+import top.cflwork.vo.MenuVo;
 
 @Service
 public interface MenuService {

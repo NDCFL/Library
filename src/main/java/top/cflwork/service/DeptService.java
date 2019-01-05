@@ -1,6 +1,6 @@
 package top.cflwork.service;
 
-import top.cflwork.domain.DeptVo;
+import top.cflwork.vo.DeptVo;
 import top.cflwork.vo.Tree;
 
 import java.util.List;

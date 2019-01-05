@@ -1,7 +1,7 @@
 package top.cflwork.service.impl;
 
 import top.cflwork.dao.DeptDao;
-import top.cflwork.domain.DeptVo;
+import top.cflwork.vo.DeptVo;
 import top.cflwork.service.DeptService;
 import top.cflwork.vo.Tree;
 import top.cflwork.util.BuildTree;

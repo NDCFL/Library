@@ -1,8 +1,8 @@
 package top.cflwork.dao;
 
-import top.cflwork.domain.NotifyVo;
-import top.cflwork.domain.NotifyDTO;
 import org.apache.ibatis.annotations.Mapper;
+import top.cflwork.vo.NotifyVo;
+import top.cflwork.vo.NotifyDTO;
 
 import java.util.List;
 import java.util.Map;

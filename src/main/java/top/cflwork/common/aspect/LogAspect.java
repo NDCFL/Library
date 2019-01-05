@@ -5,7 +5,7 @@ import top.cflwork.util.HttpContextUtils;
 import top.cflwork.util.IPUtils;
 import top.cflwork.util.JSONUtils;
 import top.cflwork.util.ShiroUtils;
-import top.cflwork.domain.UserVo;
+import top.cflwork.vo.UserVo;
 import top.cflwork.service.LogService;
 import top.cflwork.vo.LogVo;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -63,10 +63,11 @@ public class LogAspect {
         // 请求的参数
         Object[] args = joinPoint.getArgs();
         try {
-            String params = JSONUtils.beanToJson(args[0]).substring(0, 4999);
+            String params = JSONUtils.beanToJson(args);
+
             sysLog.setParams(params);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         // 获取request
         HttpServletRequest request = HttpContextUtils.getHttpServletRequest();

@@ -3,7 +3,7 @@ package top.cflwork.service.impl;
 import top.cflwork.util.BuildTree;
 import top.cflwork.dao.MenuDao;
 import top.cflwork.dao.RoleMenuDao;
-import top.cflwork.domain.MenuVo;
+import top.cflwork.vo.MenuVo;
 import top.cflwork.service.MenuService;
 import top.cflwork.vo.Tree;
 import org.apache.commons.lang3.StringUtils;

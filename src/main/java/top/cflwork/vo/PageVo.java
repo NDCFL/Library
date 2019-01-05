@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class PageVo<T> {
 
-	private int offset;
-	private int limit;
+	private int pageIndex;
+	private int pageSize;
 	private int total;
 	private Map<String, Object> params;
 	private String param;
@@ -16,8 +16,8 @@ public class PageVo<T> {
 
 	public PageVo() {
 		super();
-		this.offset = 0;
-		this.limit = 10;
+		this.pageIndex = 0;
+		this.pageSize = 10;
 		this.total = 1;
 		this.params = new HashMap<>();
 		this.param = "";
@@ -25,19 +25,19 @@ public class PageVo<T> {
 	}
 
 	public int getOffset() {
-		return offset;
+		return pageIndex;
 	}
 
-	public void setOffset(int offset) {
-		this.offset = offset;
+	public void setOffset(int pageIndex) {
+		this.pageIndex = pageIndex;
 	}
 
-	public int getLimit() {
-		return limit;
+	public int getPageSize() {
+		return pageSize;
 	}
 
-	public void setLimit(int limit) {
-		this.limit = limit;
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
 	}
 
 	public int getTotal() {
@@ -75,8 +75,8 @@ public class PageVo<T> {
 	@Override
 	public String toString() {
 		return "PageVo{" +
-				"offset=" + offset +
-				", limit=" + limit +
+				"pageIndex=" + pageIndex +
+				", pageSize=" + pageSize +
 				", total=" + total +
 				", params=" + params +
 				", param='" + param + '\'' +

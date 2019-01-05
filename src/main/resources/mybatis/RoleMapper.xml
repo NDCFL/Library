@@ -3,13 +3,13 @@
 
 <mapper namespace="top.cflwork.dao.RoleDao">
 
-	<select id="get" resultType="top.cflwork.domain.RoleVo">
+	<select id="get" resultType="top.cflwork.vo.RoleVo">
 		select
 		`role_id`,`role_name`,`role_sign`,`remark`,`user_id_create`,`gmt_create`,`gmt_modified`
 		from sys_role where role_id = #{value}
 	</select>
 
-	<select id="list" resultType="top.cflwork.domain.RoleVo">
+	<select id="list" resultType="top.cflwork.vo.RoleVo">
 		select
 		`role_id`,`role_name`,`role_sign`,`remark`,`user_id_create`,`gmt_create`,`gmt_modified`
 		from sys_role
@@ -30,8 +30,8 @@
 				order by role_id desc
 			</otherwise>
 		</choose>
-		<if test="offset != null and limit != null">
-			limit #{offset}, #{limit}
+		<if test="pageIndex != null and pageSize != null">
+			limit #{pageIndex}, #{pageSize}
 		</if>
 	</select>
 
@@ -48,7 +48,7 @@
 		</where>
 	</select>
 
-	<insert id="save" parameterType="top.cflwork.domain.RoleVo"
+	<insert id="save" parameterType="top.cflwork.vo.RoleVo"
 		useGeneratedKeys="true" keyProperty="roleId">
 		insert into sys_role
 		(
@@ -70,7 +70,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="top.cflwork.domain.RoleVo">
+	<update id="update" parameterType="top.cflwork.vo.RoleVo">
 		update sys_role
 		<set>
 			<if test="roleName != null">`role_name` = #{roleName}, </if>

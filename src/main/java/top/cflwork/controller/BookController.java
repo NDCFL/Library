@@ -15,19 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import top.cflwork.vo.BookVo;
+import top.cflwork.service.BookService;
 import top.cflwork.util.PageUtils;
 import top.cflwork.util.Query;
 import top.cflwork.util.R;
-import top.cflwork.vo.BookVo;
-import top.cflwork.service.BookService;
-
 
 /**
  * 图书表
  * 
  * @author cfl
  * @email 275300091@qq.com
- * @date 2019-01-04 20:10:23
+ * @date 2019-01-05 12:32:55
  */
  
 @Controller
@@ -37,14 +36,14 @@ public class BookController {
 	private BookService bookService;
 	
 	@GetMapping("bookPage")
-	@RequiresPermissions("book:book")
+	@RequiresPermissions("book:bookPage")
 	public String Book(){
 	    return "/book/book";
 	}
 
 	@ResponseBody
 	@PostMapping("/list")
-	@RequiresPermissions("book:book")
+	@RequiresPermissions("book:list")
 	public PageUtils list(@RequestParam Map<String, Object> params){
 		//查询列表数据
         Query query = new Query(params);
@@ -74,7 +73,7 @@ public class BookController {
 	@ResponseBody
 	@PostMapping("/save")
 	@RequiresPermissions("book:add")
-	public R save(BookVo book){
+	public R save( BookVo book){
 		if(bookService.save(book)>0){
 			return R.ok();
 		}

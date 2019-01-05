@@ -1,10 +1,10 @@
 package top.cflwork.service.impl;
 
-import top.cflwork.dao.NotifyRecordDao;
-import top.cflwork.domain.NotifyRecordVo;
-import top.cflwork.service.NotifyRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import top.cflwork.dao.NotifyRecordDao;
+import top.cflwork.vo.NotifyRecordDO;
+import top.cflwork.service.NotifyRecordService;
 
 import java.util.List;
 import java.util.Map;
@@ -16,12 +16,12 @@ public class NotifyRecordServiceImpl implements NotifyRecordService {
 	private NotifyRecordDao notifyRecordDao;
 	
 	@Override
-	public NotifyRecordVo get(Long id){
+	public NotifyRecordDO get(Long id){
 		return notifyRecordDao.get(id);
 	}
 	
 	@Override
-	public List<NotifyRecordVo> list(Map<String, Object> map){
+	public List<NotifyRecordDO> list(Map<String, Object> map){
 		return notifyRecordDao.list(map);
 	}
 	
@@ -31,12 +31,12 @@ public class NotifyRecordServiceImpl implements NotifyRecordService {
 	}
 	
 	@Override
-	public int save(NotifyRecordVo notifyRecord){
+	public int save(NotifyRecordDO notifyRecord){
 		return notifyRecordDao.save(notifyRecord);
 	}
 	
 	@Override
-	public int update(NotifyRecordVo notifyRecord){
+	public int update(NotifyRecordDO notifyRecord){
 		return notifyRecordDao.update(notifyRecord);
 	}
 	
@@ -51,7 +51,7 @@ public class NotifyRecordServiceImpl implements NotifyRecordService {
 	}
 
 	@Override
-	public int changeRead(NotifyRecordVo notifyRecord) {
+	public int changeRead(NotifyRecordDO notifyRecord) {
 		return notifyRecordDao.changeRead(notifyRecord);
 	}
 

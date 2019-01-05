@@ -15,8 +15,8 @@ import top.cflwork.dao.RoleDao;
 import top.cflwork.dao.RoleMenuDao;
 import top.cflwork.dao.UserDao;
 import top.cflwork.dao.UserRoleDao;
-import top.cflwork.domain.RoleVo;
-import top.cflwork.domain.RoleMenuVo;
+import top.cflwork.vo.RoleVo;
+import top.cflwork.vo.RoleMenuVo;
 import top.cflwork.service.RoleService;
 
 

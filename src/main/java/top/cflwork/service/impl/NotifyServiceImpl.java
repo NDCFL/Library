@@ -1,21 +1,21 @@
 package top.cflwork.service.impl;
 
-import top.cflwork.service.DictService;
-import top.cflwork.util.DateUtils;
-import top.cflwork.dao.NotifyDao;
-import top.cflwork.dao.NotifyRecordDao;
-import top.cflwork.dao.UserDao;
-import top.cflwork.domain.NotifyVo;
-import top.cflwork.domain.NotifyDTO;
-import top.cflwork.domain.NotifyRecordVo;
-import top.cflwork.domain.UserVo;
-import top.cflwork.service.NotifyService;
-import top.cflwork.service.SessionService;
-import top.cflwork.util.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import top.cflwork.dao.NotifyDao;
+import top.cflwork.dao.NotifyRecordDao;
+import top.cflwork.dao.UserDao;
+import top.cflwork.vo.NotifyVo;
+import top.cflwork.vo.NotifyDTO;
+import top.cflwork.vo.NotifyRecordDO;
+import top.cflwork.vo.UserVo;
+import top.cflwork.service.DictService;
+import top.cflwork.service.NotifyService;
+import top.cflwork.service.SessionService;
+import top.cflwork.util.DateUtils;
+import top.cflwork.util.PageUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,9 +69,9 @@ public class NotifyServiceImpl implements NotifyService {
         // 保存到接受者列表中
         Long[] userIds = notify.getUserIds();
         Long notifyId = notify.getId();
-        List<NotifyRecordVo> records = new ArrayList<>();
+        List<NotifyRecordDO> records = new ArrayList<>();
         for (Long userId : userIds) {
-            NotifyRecordVo record = new NotifyRecordVo();
+            NotifyRecordDO record = new NotifyRecordDO();
             record.setNotifyId(notifyId);
             record.setUserId(userId);
             record.setIsRead(0);

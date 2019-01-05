@@ -1782,16 +1782,16 @@
                     return null;
                 }
                 dot.color = dot.color.hex;
-                par[2] && (dot.offset = par[2] + "%");
+                par[2] && (dot.pageIndex = par[2] + "%");
                 dots.push(dot);
             }
             for (i = 1, ii = dots.length - 1; i < ii; i++) {
-                if (!dots[i].offset) {
-                    var start = toFloat(dots[i - 1].offset || 0),
+                if (!dots[i].pageIndex) {
+                    var start = toFloat(dots[i - 1].pageIndex || 0),
                         end = 0;
                     for (var j = i + 1; j < ii; j++) {
-                        if (dots[j].offset) {
-                            end = dots[j].offset;
+                        if (dots[j].pageIndex) {
+                            end = dots[j].pageIndex;
                             break;
                         }
                     }
@@ -1803,7 +1803,7 @@
                     var d = (end - start) / (j - i + 1);
                     for (; i < j; i++) {
                         start += d;
-                        dots[i].offset = start + "%";
+                        dots[i].pageIndex = start + "%";
                     }
                 }
             }
@@ -2020,8 +2020,8 @@
             if (y == null) {
                 return {
                     container: container,
-                    width: container.style.pixelWidth || container.offsetWidth,
-                    height: container.style.pixelHeight || container.offsetHeight
+                    width: container.style.pixelWidth || container.pageIndexWidth,
+                    height: container.style.pixelHeight || container.pageIndexHeight
                 };
             } else {
                 return {
@@ -2145,7 +2145,7 @@
                 ", M12=" + this.get(2) + ", M21=" + this.get(1) + ", M22=" + this.get(3) +
                 ", Dx=" + this.get(4) + ", Dy=" + this.get(5) + ", sizingmethod='auto expand')";
         };
-        matrixproto.offset = function () {
+        matrixproto.pageIndex = function () {
             return [this.e.toFixed(4), this.f.toFixed(4)];
         };
         function norm(a) {
@@ -2656,8 +2656,8 @@
             width: (glow.width || 10) + (+this.attr("stroke-width") || 1),
             fill: glow.fill || false,
             opacity: glow.opacity || .5,
-            offsetx: glow.offsetx || 0,
-            offsety: glow.offsety || 0,
+            pageIndexx: glow.pageIndexx || 0,
+            pageIndexy: glow.pageIndexy || 0,
             color: glow.color || "#000"
         },
             c = s.width / 2,
@@ -2675,7 +2675,7 @@
                 opacity: +(s.opacity / c).toFixed(3)
             }));
         }
-        return out.insertBefore(this).translate(s.offsetx, s.offsety);
+        return out.insertBefore(this).translate(s.pageIndexx, s.pageIndexy);
     };
     var curveslengths = {},
     getPointAtSegmentLength = function (p1x, p1y, c1x, c1y, c2x, c2y, p2x, p2y, length) {
@@ -3864,7 +3864,7 @@ window.Raphael.svg && function (R) {
                 SVG.defs.appendChild(el);
                 for (var i = 0, ii = dots.length; i < ii; i++) {
                     el.appendChild($("stop", {
-                        offset: dots[i].offset ? dots[i].offset : i ? "100%" : "0%",
+                        pageIndex: dots[i].pageIndex ? dots[i].pageIndex : i ? "100%" : "0%",
                         "stop-color": dots[i].color || "#fff"
                     }));
                 }
@@ -4220,8 +4220,8 @@ window.Raphael.svg && function (R) {
 
                             (function (el) {
                                 R._preload(isURL[1], function () {
-                                    var w = this.offsetWidth,
-                                        h = this.offsetHeight;
+                                    var w = this.pageIndexWidth,
+                                        h = this.pageIndexHeight;
                                     $(el, {width: w, height: h});
                                     $(ig, {width: w, height: h});
                                     o.paper.safari();
@@ -5098,7 +5098,7 @@ window.Raphael.vml && function (R) {
                     o._.fillpos = [bbox.x, bbox.y];
 
                     R._preload(isURL[1], function () {
-                        o._.fillsize = [this.offsetWidth, this.offsetHeight];
+                        o._.fillsize = [this.pageIndexWidth, this.pageIndexHeight];
                     });
                 } else {
                     fill.color = R.getRGB(params.fill).hex;
@@ -5249,7 +5249,7 @@ window.Raphael.vml && function (R) {
             fill.color2 = dots[dots.length - 1].color;
             var clrs = [];
             for (var i = 0, ii = dots.length; i < ii; i++) {
-                dots[i].offset && clrs.push(dots[i].offset + S + dots[i].color);
+                dots[i].pageIndex && clrs.push(dots[i].pageIndex + S + dots[i].color);
             }
             fill.colors = clrs.length ? clrs.join() : "0% " + fill.color;
             if (type == "radial") {
@@ -5317,7 +5317,7 @@ window.Raphael.vml && function (R) {
         matrix.translate(-.5, -.5);
         if (isPatt || isGrad || this.type == "image") {
             skew.matrix = "1 0 0 1";
-            skew.offset = "0 0";
+            skew.pageIndex = "0 0";
             split = matrix.split();
             if ((isGrad && split.noRotation) || !split.isSimple) {
                 o.style.filter = matrix.toFilter();
@@ -5334,7 +5334,7 @@ window.Raphael.vml && function (R) {
         } else {
             o.style.filter = E;
             skew.matrix = Str(matrix);
-            skew.offset = matrix.offset();
+            skew.pageIndex = matrix.pageIndex();
         }
         oldt && (this._.transform = oldt);
         return this;

@@ -3,12 +3,12 @@
 
 <mapper namespace="top.cflwork.dao.UserRoleDao">
 
-	<select id="get" resultType="top.cflwork.domain.UserRoleVo">
+	<select id="get" resultType="top.cflwork.vo.UserRoleVo">
 		select `id`,`user_id`,`role_id` from
 		sys_user_role where id = #{value}
 	</select>
 
-	<select id="list" resultType="top.cflwork.domain.UserRoleVo">
+	<select id="list" resultType="top.cflwork.vo.UserRoleVo">
 		select `id`,`user_id`,`role_id` from sys_user_role
 		<where>
 			<if test="id != null and id != ''"> and id = #{id} </if>
@@ -23,8 +23,8 @@
 				order by id desc
 			</otherwise>
 		</choose>
-		<if test="offset != null and limit != null">
-			limit #{offset}, #{limit}
+		<if test="pageIndex != null and pageSize != null">
+			limit #{pageIndex}, #{pageSize}
 		</if>
 	</select>
 
@@ -37,7 +37,7 @@
 		</where>
 	</select>
 
-	<insert id="save" parameterType="top.cflwork.domain.UserRoleVo"
+	<insert id="save" parameterType="top.cflwork.vo.UserRoleVo"
 		useGeneratedKeys="true" keyProperty="id">
 		insert into sys_user_role
 		(
@@ -51,7 +51,7 @@
 		)
 	</insert>
 
-	<update id="update" parameterType="top.cflwork.domain.UserRoleVo">
+	<update id="update" parameterType="top.cflwork.vo.UserRoleVo">
 		update sys_user_role
 		<set>
 			<if test="userId != null">`user_id` = #{userId}, </if>

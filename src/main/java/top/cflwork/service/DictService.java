@@ -1,6 +1,6 @@
 package top.cflwork.service;
 
-import top.cflwork.domain.UserVo;
+import top.cflwork.vo.UserVo;
 import top.cflwork.vo.DictVo;
 
 import java.util.List;
@@ -36,9 +36,9 @@ public interface DictService {
 	/**
 	 * 获取爱好列表
 	 * @return
-     * @param userDO
+     * @param userVo
 	 */
-	List<DictVo> getHobbyList(UserVo userDO);
+	List<DictVo> getHobbyList(UserVo userVo);
 
 	/**
 	 * 获取性别列表

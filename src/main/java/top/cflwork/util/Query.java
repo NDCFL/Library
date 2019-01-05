@@ -9,9 +9,9 @@ import java.util.Map;
 public class Query extends LinkedHashMap<String, Object> {
 	private static final long serialVersionUID = 1L;
 	// 
-	private int offset;
+	private int pageIndex;
 	// 每页条数
-	private int limit;
+	private int pageSize;
 	//排序字段
 	private String sort;
 	//排序方式
@@ -19,28 +19,28 @@ public class Query extends LinkedHashMap<String, Object> {
 	public Query(Map<String, Object> params) {
 		this.putAll(params);
 		// 分页参数
-		this.offset = Integer.parseInt(params.get("offset").toString());
-		this.limit = Integer.parseInt(params.get("limit").toString());
-		this.put("offset", offset);
-		this.put("page", offset / limit + 1);
-		this.put("limit", limit);
+		this.pageIndex = Integer.parseInt(params.get("pageIndex").toString());
+		this.pageSize = Integer.parseInt(params.get("pageSize").toString());
+		this.put("pageIndex", pageIndex);
+		this.put("page", pageIndex / pageSize + 1);
+		this.put("pageSize", pageSize);
 		this.put("sort",sort);
 		this.put("order",order);
 	}
 
-	public int getOffset() {
-		return offset;
+	public int getPageIndex() {
+		return pageIndex;
 	}
 
-	public void setOffset(int offset) {
-		this.put("offset", offset);
+	public void setPageIndex(int pageIndex) {
+		this.put("pageIndex", pageIndex);
 	}
 
-	public int getLimit() {
-		return limit;
+	public int getPageSize() {
+		return pageSize;
 	}
 
-	public void setLimit(int limit) {
-		this.limit = limit;
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
 	}
 }

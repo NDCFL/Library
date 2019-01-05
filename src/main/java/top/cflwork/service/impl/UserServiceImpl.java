@@ -5,14 +5,13 @@ import top.cflwork.util.*;
 import top.cflwork.dao.DeptDao;
 import top.cflwork.dao.UserDao;
 import top.cflwork.dao.UserRoleDao;
-import top.cflwork.domain.DeptVo;
-import top.cflwork.domain.UserVo;
-import top.cflwork.domain.UserRoleVo;
+import top.cflwork.vo.DeptVo;
+import top.cflwork.vo.UserVo;
+import top.cflwork.vo.UserRoleVo;
 import top.cflwork.service.FileService;
 import top.cflwork.service.UserService;
 import top.cflwork.vo.FileListVo;
 import top.cflwork.vo.Tree;
-import top.cflwork.vo.UserVO;
 import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import top.cflwork.vo.UserPwdVo;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -120,11 +120,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int resetPwd(UserVO userVO, UserVo userDO) throws Exception {
-        if (Objects.equals(userVO.getUserVo().getUserId(), userDO.getUserId())) {
-            if (Objects.equals(MD5Utils.encrypt(userDO.getUsername(), userVO.getPwdOld()), userDO.getPassword())) {
-                userDO.setPassword(MD5Utils.encrypt(userDO.getUsername(), userVO.getPwdNew()));
-                return userMapper.update(userDO);
+    public int resetPwd(UserPwdVo userPwdVo, UserVo userVo) throws Exception {
+        if (Objects.equals(userPwdVo.getUserVo().getUserId(), userVo.getUserId())) {
+            if (Objects.equals(MD5Utils.encrypt(userVo.getUsername(), userPwdVo.getPwdOld()), userVo.getPassword())) {
+                userVo.setPassword(MD5Utils.encrypt(userVo.getUsername(), userPwdVo.getPwdNew()));
+                return userMapper.update(userVo);
             } else {
                 throw new Exception("输入的旧密码有误！");
             }
@@ -134,13 +134,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int adminResetPwd(UserVO userVO) throws Exception {
-        UserVo userDO = get(userVO.getUserVo().getUserId());
-        if ("admin".equals(userDO.getUsername())) {
+    public int adminResetPwd(UserPwdVo userPwdVo) throws Exception {
+        UserVo userVo = get(userPwdVo.getUserVo().getUserId());
+        if ("admin".equals(userVo.getUsername())) {
             throw new Exception("超级管理员的账号不允许直接重置！");
         }
-        userDO.setPassword(MD5Utils.encrypt(userDO.getUsername(), userVO.getPwdNew()));
-        return userMapper.update(userDO);
+        userVo.setPassword(MD5Utils.encrypt(userVo.getUsername(), userPwdVo.getPwdNew()));
+        return userMapper.update(userVo);
 
 
     }
@@ -192,8 +192,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updatePersonal(UserVo userDO) {
-        return userMapper.update(userDO);
+    public int updatePersonal(UserVo userVo) {
+        return userMapper.update(userVo);
     }
 
     @Override
@@ -226,10 +226,10 @@ public class UserServiceImpl implements UserService {
             throw new Exception("图片裁剪错误！！");
         }
         Map<String, Object> result = new HashMap<>();
-        UserVo userDO = new UserVo();
-        userDO.setUserId(userId);
-        userDO.setHeadIcon(sysFile.getUrl());
-        if (userMapper.update(userDO) > 0) {
+        UserVo userVo = new UserVo();
+        userVo.setUserId(userId);
+        userVo.setHeadIcon(sysFile.getUrl());
+        if (userMapper.update(userVo) > 0) {
             result.put("url", sysFile.getUrl());
         }
         return result;

@@ -5,11 +5,11 @@ import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
 
-import top.cflwork.domain.UserVo;
+import top.cflwork.vo.UserVo;
 import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Service;
 
-import top.cflwork.domain.UserOnline;
+import top.cflwork.vo.UserOnline;
 
 @Service
 public interface SessionService {

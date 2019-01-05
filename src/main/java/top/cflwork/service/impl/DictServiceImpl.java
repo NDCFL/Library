@@ -3,7 +3,7 @@ package top.cflwork.service.impl;
 import top.cflwork.service.DictService;
 import top.cflwork.util.StringUtils;
 import top.cflwork.dao.DictDao;
-import top.cflwork.domain.UserVo;
+import top.cflwork.vo.UserVo;
 import top.cflwork.vo.DictVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,13 +70,13 @@ public class DictServiceImpl implements DictService {
     }
 
     @Override
-    public List<DictVo> getHobbyList(UserVo userDO) {
+    public List<DictVo> getHobbyList(UserVo userVo) {
         Map<String, Object> param = new HashMap<>(16);
         param.put("type", "hobby");
         List<DictVo> hobbyList = dictDao.list(param);
 
-        if (StringUtils.isNotEmpty(userDO.getHobby())) {
-            String userHobbys[] = userDO.getHobby().split(";");
+        if (StringUtils.isNotEmpty(userVo.getHobby())) {
+            String userHobbys[] = userVo.getHobby().split(";");
             for (String userHobby : userHobbys) {
                 for (DictVo hobby : hobbyList) {
                     if (!Objects.equals(userHobby, hobby.getId().toString())) {

@@ -14,18 +14,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import top.cflwork.util.R;
-import top.cflwork.domain.UserOnline;
+import top.cflwork.vo.UserOnline;
 import top.cflwork.service.SessionService;
 
-@RequestMapping("/sys/online")
+@RequestMapping("/online")
 @Controller
 public class SessionController {
 	@Autowired
-	SessionService sessionService;
+	public SessionService sessionService;
 
-	@GetMapping()
+	@GetMapping("onlinePage")
 	public String online() {
-		return "system/online/online";
+		return "online/online";
 	}
 
 	@ResponseBody

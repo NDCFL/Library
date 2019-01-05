@@ -24,20 +24,20 @@ import java.util.Map;
  */
 
 @Controller
-@RequestMapping("/common/dict")
+@RequestMapping("/dict")
 public class DictController extends BaseController {
 	@Autowired
 	private DictService dictService;
 
-	@GetMapping()
-	@RequiresPermissions("common:dict:dict")
-	String dict() {
-		return "common/dict/dict";
+	@GetMapping("dictPage")
+	@RequiresPermissions("dict:dictPage")
+	public String dict() {
+		return "/dict/dict";
 	}
 
 	@ResponseBody
 	@GetMapping("/list")
-	@RequiresPermissions("common:dict:dict")
+	@RequiresPermissions("dict:list")
 	public PageUtils list(@RequestParam Map<String, Object> params) {
 		// 查询列表数据
 		Query query = new Query(params);
@@ -48,17 +48,17 @@ public class DictController extends BaseController {
 	}
 
 	@GetMapping("/add")
-	@RequiresPermissions("common:dict:add")
-	String add() {
-		return "common/dict/add";
+	@RequiresPermissions("dict:add")
+	public String add() {
+		return "/dict/add";
 	}
 
 	@GetMapping("/edit/{id}")
-	@RequiresPermissions("common:dict:edit")
-	String edit(@PathVariable("id") Long id, Model model) {
+	@RequiresPermissions("dict:edit")
+	public String edit(@PathVariable("id") Long id, Model model) {
 		DictVo dict = dictService.get(id);
 		model.addAttribute("dict", dict);
-		return "common/dict/edit";
+		return "/dict/edit";
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class DictController extends BaseController {
 	 */
 	@ResponseBody
 	@PostMapping("/save")
-	@RequiresPermissions("common:dict:add")
+	@RequiresPermissions("dict:add")
 	public R save(DictVo dict) {
 		if (dictService.save(dict) > 0) {
 			return R.ok();
@@ -79,7 +79,7 @@ public class DictController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("/update")
-	@RequiresPermissions("common:dict:edit")
+	@RequiresPermissions("dict:edit")
 	public R update(DictVo dict) {
 		dictService.update(dict);
 		return R.ok();
@@ -90,7 +90,7 @@ public class DictController extends BaseController {
 	 */
 	@PostMapping("/remove")
 	@ResponseBody
-	@RequiresPermissions("common:dict:remove")
+	@RequiresPermissions("dict:remove")
 	public R remove(Long id) {
 		if (dictService.remove(id) > 0) {
 			return R.ok();
@@ -103,7 +103,7 @@ public class DictController extends BaseController {
 	 */
 	@PostMapping("/batchRemove")
 	@ResponseBody
-	@RequiresPermissions("common:dict:batchRemove")
+	@RequiresPermissions("dict:batchRemove")
 	public R remove(@RequestParam("ids[]") Long[] ids) {
 		dictService.batchRemove(ids);
 		return R.ok();
@@ -117,11 +117,11 @@ public class DictController extends BaseController {
 
 	// 类别已经指定增加
 	@GetMapping("/add/{type}/{description}")
-	@RequiresPermissions("common:dict:add")
-	String addD(Model model, @PathVariable("type") String type, @PathVariable("description") String description) {
+	@RequiresPermissions("dict:add")
+	public String addD(Model model, @PathVariable("type") String type, @PathVariable("description") String description) {
 		model.addAttribute("type", type);
 		model.addAttribute("description", description);
-		return "common/dict/add";
+		return "/dict/add";
 	}
 
 	@ResponseBody

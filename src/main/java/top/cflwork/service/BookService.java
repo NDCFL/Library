@@ -1,6 +1,5 @@
 package top.cflwork.service;
 
-
 import top.cflwork.vo.BookVo;
 
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.Map;
  * 
  * @author cfl
  * @email 275300091@qq.com
- * @date 2019-01-04 20:10:23
+ * @date 2019-01-05 12:32:55
  */
 public interface BookService {
 	

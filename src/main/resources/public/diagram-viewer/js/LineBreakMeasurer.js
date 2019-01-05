@@ -143,12 +143,12 @@
 				this.svgTextObject = this.rafaelTextObject[0];
 			};
 			LineBreakMeasurer.prototype = {
-				nextOffset: function(wrappingWidth, offsetLimit, requireNextWord) {
+				nextOffset: function(wrappingWidth, pageIndexLimit, requireNextWord) {
 					//console.group("[nextOffset]");
 					var nextOffset = this.pos;
 					if (this.pos < this.limit) {
-						if (offsetLimit <= this.pos) {
-							throw {message: "offsetLimit must be after current position", code: "IllegalArgumentException"};
+						if (pageIndexLimit <= this.pos) {
+							throw {message: "pageIndexLimit must be after current position", code: "IllegalArgumentException"};
 						}
 						
 						var charAtMaxAdvance = this.getLineBreakIndex(this.pos, wrappingWidth);
@@ -182,8 +182,8 @@
 							}
 						}
 					}
-					if (nextOffset > offsetLimit) {
-						nextOffset = offsetLimit;
+					if (nextOffset > pageIndexLimit) {
+						nextOffset = pageIndexLimit;
 					}
 					//console.log("nextOffset: " + nextOffset);
 					//console.groupEnd();

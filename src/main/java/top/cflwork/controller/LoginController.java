@@ -6,7 +6,7 @@ import top.cflwork.config.Constant;
 import top.cflwork.util.MD5Utils;
 import top.cflwork.util.R;
 import top.cflwork.util.ShiroUtils;
-import top.cflwork.domain.MenuVo;
+import top.cflwork.vo.MenuVo;
 import top.cflwork.service.FileService;
 import top.cflwork.service.MenuService;
 import top.cflwork.vo.FileListVo;
@@ -31,18 +31,18 @@ public class LoginController extends BaseController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	MenuService menuService;
+	public MenuService menuService;
 	@Autowired
-	FileService fileService;
+    public FileService fileService;
 	@GetMapping({ "/", "" })
-	String welcome(Model model) {
+    public String welcome(Model model) {
 
-		return "redirect:/blog";
+		return "redirect:/login";
 	}
 
 	@Log("请求访问主页")
 	@GetMapping({ "/index" })
-	ModelAndView index(Model model) {
+    public ModelAndView index(Model model) {
 		ModelAndView modelAndView = new ModelAndView();
 		List<Tree<MenuVo>> menus = menuService.listMenuTree(getUserId());
 		modelAndView.addObject("menus", menus);
@@ -52,19 +52,19 @@ public class LoginController extends BaseController {
 		}else {
 			model.addAttribute("headIcon","/img/photo_s.jpg");
 		}
-		modelAndView.setViewName("index_v1");
+		modelAndView.setViewName("index");
 		return modelAndView;
 	}
 
 	@GetMapping("/login")
-	String login() {
+    public String login() {
 		return "login";
 	}
 
 	@Log("登录")
 	@PostMapping("/login")
 	@ResponseBody
-	R ajaxLogin(String username, String password) {
+    public R ajaxLogin(String username, String password) {
 
 		password = MD5Utils.encrypt(username, password);
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
@@ -78,13 +78,13 @@ public class LoginController extends BaseController {
 	}
 
 	@GetMapping("/logout")
-	String logout() {
+    public String logout() {
 		ShiroUtils.logout();
 		return "redirect:/login";
 	}
 
 	@GetMapping("/main")
-	String main() {
+    public String main() {
 		return "main";
 	}
 

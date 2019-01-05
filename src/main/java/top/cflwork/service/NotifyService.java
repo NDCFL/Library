@@ -1,6 +1,6 @@
 package top.cflwork.service;
 
-import top.cflwork.domain.NotifyVo;
+import top.cflwork.vo.NotifyVo;
 import top.cflwork.util.PageUtils;
 
 import java.util.List;
