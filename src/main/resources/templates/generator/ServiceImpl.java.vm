@@ -10,14 +10,15 @@ import java.util.Map;
 import ${package}.dao.${className}Dao;
 import ${package}.vo.${className}Vo;
 import ${package}.service.${className}Service;
-
+import top.cflwork.common.SequenceId;
 
 
 @Service
 public class ${className}ServiceImpl implements ${className}Service {
 	@Autowired
 	private ${className}Dao ${classname}Dao;
-	
+    @Autowired
+    private SequenceId sequenceId;
 	@Override
     @Transactional
 	public ${className}Vo get(${pk.attrType} ${pk.attrname}){
@@ -39,7 +40,8 @@ public class ${className}ServiceImpl implements ${className}Service {
 	@Override
     @Transactional
 	public int save(${className}Vo ${classname}){
-		return ${classname}Dao.save(${classname});
+	    ${classname}.set${pk.attrname}(sequenceId.nextId());
+	    return ${classname}Dao.save(${classname});
 	}
 	
 	@Override
@@ -63,6 +65,7 @@ public class ${className}ServiceImpl implements ${className}Service {
     @Override
     @Transactional
     public int batchSave(List<${className}Vo> ${classname}List){
+			${classname}List.forEach(${classname}List -> ${classname}List.set${pk.attrname}(sequenceId.nextId()));
         return ${classname}Dao.batchSave(${classname}List);
     }
 }

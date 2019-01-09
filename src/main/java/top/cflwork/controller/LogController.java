@@ -1,5 +1,6 @@
 package top.cflwork.controller;
 
+
 import top.cflwork.util.Query;
 import top.cflwork.util.R;
 import top.cflwork.service.LogService;
@@ -17,7 +18,6 @@ public class LogController {
 	@Autowired
 	public LogService logService;
 	public String prefix = "/log";
-
 	@GetMapping("/logPage")
 	public String log() {
 		return prefix + "/log";
