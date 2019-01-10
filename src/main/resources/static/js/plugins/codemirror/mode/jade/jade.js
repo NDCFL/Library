@@ -14,7 +14,7 @@
 CodeMirror.defineMode('jade', function (config) {
   // token types
   var KEYWORD = 'keyword';
-  var DOCTYPE = 'meta';
+  var VoCTYPE = 'meta';
   var ID = 'builtin';
   var CLASS = 'qualifier';
 
@@ -148,7 +148,7 @@ CodeMirror.defineMode('jade', function (config) {
 
   function doctype(stream) {
     if (stream.match(/^(?:doctype) *([^\n]+)?/)) {
-        return DOCTYPE;
+        return VoCTYPE;
     }
   }
 

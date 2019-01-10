@@ -1175,8 +1175,8 @@ var utils = UE.utils = {
                         doReady(doc)
                     });
                 } else {
-                    doc.addEventListener("DOMContentLoaded", function () {
-                        doc.removeEventListener("DOMContentLoaded", arguments.callee, false);
+                    doc.addEventListener("VoMContentLoaded", function () {
+                        doc.removeEventListener("VoMContentLoaded", arguments.callee, false);
                         doReady(doc);
                     }, false);
                     win.addEventListener('load', function () {
@@ -1908,10 +1908,10 @@ var attrFix = ie && browser.version < 9 ? {
 var domUtils = dom.domUtils = {
     //节点常量
     NODE_ELEMENT:1,
-    NODE_DOCUMENT:9,
+    NODE_VoCUMENT:9,
     NODE_TEXT:3,
     NODE_COMMENT:8,
-    NODE_DOCUMENT_FRAGMENT:11,
+    NODE_VoCUMENT_FRAGMENT:11,
 
     //位置关系
     POSITION_IDENTICAL:0,
@@ -2555,7 +2555,7 @@ var domUtils = dom.domUtils = {
         return { 'x':x, 'y':y};
     },
     /**
-     * 为元素element绑定原生DOM事件，type为事件类型，handler为处理函数
+     * 为元素element绑定原生VoM事件，type为事件类型，handler为处理函数
      * @method on
      * @param { Node } element 需要绑定事件的节点对象
      * @param { String } type 绑定的事件类型
@@ -2569,7 +2569,7 @@ var domUtils = dom.domUtils = {
      */
 
     /**
-     * 为元素element绑定原生DOM事件，type为事件类型，handler为处理函数
+     * 为元素element绑定原生VoM事件，type为事件类型，handler为处理函数
      * @method on
      * @param { Node } element 需要绑定事件的节点对象
      * @param { Array } type 绑定的事件类型数组
@@ -2614,7 +2614,7 @@ var domUtils = dom.domUtils = {
         element = null;
     },
     /**
-     * 解除DOM事件绑定
+     * 解除VoM事件绑定
      * @method un
      * @param { Node } element 需要解除事件绑定的节点对象
      * @param { String } type 需要接触绑定的事件类型
@@ -2628,7 +2628,7 @@ var domUtils = dom.domUtils = {
      */
 
     /**
-     * 解除DOM事件绑定
+     * 解除VoM事件绑定
      * @method un
      * @param { Node } element 需要解除事件绑定的节点对象
      * @param { Array } type 需要接触绑定的事件类型数组
@@ -6871,7 +6871,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
         },
 
         /**
-         * 渲染编辑器的DOM到指定容器
+         * 渲染编辑器的VoM到指定容器
          * @method render
          * @param { String } containerId 指定一个容器ID
          * @remind 执行该方法,会触发ready事件
@@ -6879,7 +6879,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
          */
 
         /**
-         * 渲染编辑器的DOM到指定容器
+         * 渲染编辑器的VoM到指定容器
          * @method render
          * @param { Element } containerDom 直接指定容器对象
          * @remind 执行该方法,会触发ready事件
@@ -6936,7 +6936,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
                     frameborder: "0",
                     //先注释掉了，加的原因忘记了，但开启会直接导致全屏模式下内容多时不会出现滚动条
 //                    scrolling :'no',
-                    src: 'javascript:void(function(){document.open();' + (options.customDomain && document.domain != location.hostname ?  'document.domain="' + document.domain + '";' : '') +
+                    src: 'javascript:void(function(){document.open();' + (options.customDomain && document.vo != location.hostname ?  'document.vo="' + document.vo + '";' : '') +
                         'document.write("' + html + '");document.close();}())'
                 }));
                 container.style.overflow = 'hidden';
@@ -17151,7 +17151,7 @@ UE.plugins['fiximgclick'] = (function () {
                                 me.selection.getRange().selectNode(target).select();
                             }
                         });
-                        //TODO 有iframe的情况，mousedown不能往下传。。
+                        //TOVo 有iframe的情况，mousedown不能往下传。。
                         domUtils.on(imageScale.resizer, 'mousedown', function (e) {
                             me.selection.getNative().removeAllRanges();
                             var ele = e.target || e.srcElement;
@@ -19801,7 +19801,7 @@ UE.plugins['video'] = function (){
             if (!table) return -1;
             var interlaced = table.getAttribute("interlaced");
             if (cmd == "interlacetable") {
-                //TODO 待定
+                //TOVo 待定
                 //是否需要待定，如果设置，则命令只能单次执行成功，但反射具备toggle效果；否则可以覆盖前次命令，但反射将不存在toggle效果
                 return (interlaced === "enabled") ? -1 : 0;
             } else {
@@ -25353,7 +25353,7 @@ UE.ui = baidu.editor.ui = {};
     var ANCHOR_CLASSES = ['edui-anchor-topleft','edui-anchor-topright',
         'edui-anchor-bottomleft','edui-anchor-bottomright'];
     Popup.prototype = {
-        SHADOW_RADIUS: 5,
+        SHAVoW_RADIUS: 5,
         content: null,
         _hidden: false,
         autoRender: true,
@@ -25417,7 +25417,7 @@ UE.ui = baidu.editor.ui = {};
                 //阻止在combox上的鼠标滚轮事件, 防止用户的正常操作被误解
                 if( window.XMLHttpRequest ) {
 
-                    domUtils.on( content, ( 'onmousewheel' in document.body ) ? 'mousewheel' :'DOMMouseScroll' , function(e){
+                    domUtils.on( content, ( 'onmousewheel' in document.body ) ? 'mousewheel' :'VoMMouseScroll' , function(e){
 
                         if(e.preventDefault) {
                             e.preventDefault();
@@ -25994,8 +25994,8 @@ UE.ui = baidu.editor.ui = {};
         showPopup: function (){
             // 当popup往上弹出的时候，做特殊处理
             var rect = uiUtils.getClientRect(this.getDom());
-            rect.top -= this.popup.SHADOW_RADIUS;
-            rect.height += this.popup.SHADOW_RADIUS;
+            rect.top -= this.popup.SHAVoW_RADIUS;
+            rect.height += this.popup.SHAVoW_RADIUS;
             this.popup.showAnchorRect(rect);
         },
         _onArrowClick: function (event, el){
@@ -27196,7 +27196,7 @@ UE.ui = baidu.editor.ui = {};
 //            if( this.holdScroll ) {
 //
 //                if( !me.iframeUrl ) {
-//                    domUtils.on( document.getElementById( me.id + "_iframe"), !browser.gecko ? "mousewheel" : "DOMMouseScroll", function(e){
+//                    domUtils.on( document.getElementById( me.id + "_iframe"), !browser.gecko ? "mousewheel" : "VoMMouseScroll", function(e){
 //                        domUtils.preventDefault(e);
 //                    } );
 //                } else {
@@ -27211,7 +27211,7 @@ UE.ui = baidu.editor.ui = {};
 //                                    if( iframeWindow.document && iframeWindow.document.body ) {
 //                                        window.clearInterval( timer );
 //                                        timer = null;
-//                                        domUtils.on( iframeWindow.document.body, !browser.gecko ? "mousewheel" : "DOMMouseScroll", function(e){
+//                                        domUtils.on( iframeWindow.document.body, !browser.gecko ? "mousewheel" : "VoMMouseScroll", function(e){
 //                                            domUtils.preventDefault(e);
 //                                        } );
 //                                    }
@@ -27219,7 +27219,7 @@ UE.ui = baidu.editor.ui = {};
 //                                }, 100);
 //
 //                            } else {
-//                                domUtils.on( iframeWindow, !browser.gecko ? "mousewheel" : "DOMMouseScroll", function(e){
+//                                domUtils.on( iframeWindow, !browser.gecko ? "mousewheel" : "VoMMouseScroll", function(e){
 //                                    domUtils.preventDefault(e);
 //                                } );
 //                            }

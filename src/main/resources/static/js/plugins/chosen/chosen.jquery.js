@@ -622,7 +622,7 @@
             this.search_results.bind('mouseout.chosen', function(evt) {
                 _this.search_results_mouseout(evt);
             });
-            this.search_results.bind('mousewheel.chosen DOMMouseScroll.chosen', function(evt) {
+            this.search_results.bind('mousewheel.chosen VoMMouseScroll.chosen', function(evt) {
                 _this.search_results_mousewheel(evt);
             });
             this.search_results.bind('touchstart.chosen', function(evt) {
@@ -737,7 +737,7 @@
             }
             if (delta != null) {
                 evt.preventDefault();
-                if (evt.type === 'DOMMouseScroll') {
+                if (evt.type === 'VoMMouseScroll') {
                     delta = delta * 40;
                 }
                 return this.search_results.scrollTop(delta + this.search_results.scrollTop());

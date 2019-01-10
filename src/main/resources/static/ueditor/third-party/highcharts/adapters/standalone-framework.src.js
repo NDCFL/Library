@@ -48,7 +48,7 @@ function augment(obj) {
 		} else if (el.attachEvent) {
 			remove = IERemoveOneEvent;
 		} else {
-			return; // break on non-DOM events
+			return; // break on non-VoM events
 		}
 
 
@@ -80,7 +80,7 @@ function augment(obj) {
 					events = this.HCEvents,
 					wrappedFn;
 
-				// handle DOM events in modern browsers
+				// handle VoM events in modern browsers
 				if (el.addEventListener) {
 					el.addEventListener(name, fn, false);
 

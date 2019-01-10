@@ -9,7 +9,7 @@ Report bugs/issues here: https://github.com/codemirror/CodeMirror/issues
 // Following Objs from Brackets implementation: https://github.com/tregusti/brackets-gherkin/blob/master/main.js
 //var Quotes = {
 //  SINGLE: 1,
-//  DOUBLE: 2
+//  VoUBLE: 2
 //};
 
 //var regex = {

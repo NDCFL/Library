@@ -1765,7 +1765,7 @@
              * contentloaded.js
              *
              * Author: Diego Perini (diego.perini at gmail.com)
-             * Summary: cross-browser wrapper for DOMContentLoaded
+             * Summary: cross-browser wrapper for VoMContentLoaded
              * Updated: 20101020
              * License: MIT
              * Version: 1.2
@@ -1813,7 +1813,7 @@
                             poll();
                         }
                     }
-                    doc[add](pre + "DOMContentLoaded", init, false);
+                    doc[add](pre + "VoMContentLoaded", init, false);
                     doc[add](pre + "readystatechange", init, false);
                     return win[add](pre + "load", init, false);
                 }

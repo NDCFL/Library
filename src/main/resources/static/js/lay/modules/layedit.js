@@ -189,12 +189,12 @@ layui.define(['layer', 'form'], function(exports){
   
   //快捷键处理
   ,hotkey = function(iframeWin, iframe, textArea, set){
-    var iframeDOM = iframeWin.document, body = $(iframeDOM.body);
+    var iframeVoM = iframeWin.document, body = $(iframeVoM.body);
     body.on('keydown', function(e){
       var keycode = e.keyCode;
       //处理回车
       if(keycode === 13){
-        var range = Range(iframeDOM);
+        var range = Range(iframeVoM);
         var container = getContainer(range)
         ,parentNode = container.parentNode;
         
@@ -203,7 +203,7 @@ layui.define(['layer', 'form'], function(exports){
           layer.msg('请暂时用shift+enter');
           return false;
         }
-        iframeDOM.execCommand('formatBlock', false, '<p>');
+        iframeVoM.execCommand('formatBlock', false, '<p>');
       }
     });
     
@@ -221,7 +221,7 @@ layui.define(['layer', 'form'], function(exports){
     
     //处理粘贴
     body.on('paste', function(e){
-      iframeDOM.execCommand('formatBlock', false, '<p>');
+      iframeVoM.execCommand('formatBlock', false, '<p>');
       setTimeout(function(){
         filter.call(iframeWin, body);
         textArea.value = body.html();
@@ -232,7 +232,7 @@ layui.define(['layer', 'form'], function(exports){
   //标签过滤
   ,filter = function(body){
     var iframeWin = this
-    ,iframeDOM = iframeWin.document;
+    ,iframeVoM = iframeWin.document;
     
     //清除影响版面的css属性
     body.find('*[style]').each(function(){
@@ -251,10 +251,10 @@ layui.define(['layer', 'form'], function(exports){
   }
   
   //Range对象兼容性处理
-  ,Range = function(iframeDOM){
-    return iframeDOM.selection 
-      ? iframeDOM.selection.createRange()
-    : iframeDOM.getSelection().getRangeAt(0);
+  ,Range = function(iframeVoM){
+    return iframeVoM.selection 
+      ? iframeVoM.selection.createRange()
+    : iframeVoM.getSelection().getRangeAt(0);
   }
   
   //当前Range对象的endContainer兼容性处理
@@ -264,14 +264,14 @@ layui.define(['layer', 'form'], function(exports){
   
   //在选区插入内联元素
   ,insertInline = function(tagName, attr, range){
-    var iframeDOM = this.document
+    var iframeVoM = this.document
     ,elem = document.createElement(tagName)
     for(var key in attr){
       elem.setAttribute(key, attr[key]);
     }
     elem.removeAttribute('text');
 
-    if(iframeDOM.selection){ //IE
+    if(iframeVoM.selection){ //IE
       var text = range.text || attr.text;
       if(tagName === 'a' && !text) return;
       if(text){
@@ -292,9 +292,9 @@ layui.define(['layer', 'form'], function(exports){
   
   //工具选中
   ,toolCheck = function(tools, othis){
-    var iframeDOM = this.document
+    var iframeVoM = this.document
     ,CHECK = 'layedit-tool-active'
-    ,container = getContainer(Range(iframeDOM))
+    ,container = getContainer(Range(iframeVoM))
     ,item = function(type){
       return tools.find('.layedit-tool-'+type)
     }
@@ -345,8 +345,8 @@ layui.define(['layer', 'form'], function(exports){
 
   //触发工具
   ,toolActive = function(iframeWin, editor, set){
-    var iframeDOM = iframeWin.document
-    ,body = $(iframeDOM.body)
+    var iframeVoM = iframeWin.document
+    ,body = $(iframeVoM.body)
     ,toolEvent = {
       //超链接
       link: function(range){
@@ -371,7 +371,7 @@ layui.define(['layer', 'form'], function(exports){
       }
       //清除超链接
       ,unlink: function(range){
-        iframeDOM.execCommand('unlink');
+        iframeVoM.execCommand('unlink');
       }
       //表情
       ,face: function(range){
@@ -438,13 +438,13 @@ layui.define(['layer', 'form'], function(exports){
 
       body.focus();
       
-      var range = Range(iframeDOM)
+      var range = Range(iframeVoM)
       ,container = range.commonAncestorContainer
       
       if(command){
-        iframeDOM.execCommand(command);
+        iframeVoM.execCommand(command);
         if(/justifyLeft|justifyCenter|justifyRight/.test(command)){
-          iframeDOM.execCommand('formatBlock', false, '<p>');
+          iframeVoM.execCommand('formatBlock', false, '<p>');
         }
         setTimeout(function(){
           body.focus();

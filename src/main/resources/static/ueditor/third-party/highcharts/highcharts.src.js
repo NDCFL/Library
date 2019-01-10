@@ -158,7 +158,7 @@ function merge() {
 				if (original.hasOwnProperty(key)) {
 					value = original[key];
 
-					// Copy the contents of objects, but not arrays or DOM nodes
+					// Copy the contents of objects, but not arrays or VoM nodes
 					if (value && typeof value === 'object' && Object.prototype.toString.call(value) !== '[object Array]'
 							&& typeof value.nodeType !== 'number') {
 						copy[key] = doCopy(copy[key] || {}, value);
@@ -272,7 +272,7 @@ function defined(obj) {
  * Set or get an attribute or an object of attributes. Can't use jQuery attr because
  * it attempts to set expando properties on the SVG element, which is not allowed.
  *
- * @param {Object} elem The DOM element to receive the attribute(s)
+ * @param {Object} elem The VoM element to receive the attribute(s)
  * @param {String|Object} prop The property or an abject of key-value pairs
  * @param {String} value The value if a single property is set
  */
@@ -456,7 +456,7 @@ dateFormat = function (format, timestamp, capitalize) {
 
 			// Day
 			'a': langWeekdays[day].substr(0, 3), // Short weekday, like 'Mon'
-			'A': langWeekdays[day], // Long weekday, like 'Monday'
+			'A': langWeekdays[day], // String weekday, like 'Monday'
 			'd': pad(dayOfMonth), // Two digit day of the month, 01 to 31
 			'e': dayOfMonth, // Day of the month, 1 through 31
 
@@ -465,7 +465,7 @@ dateFormat = function (format, timestamp, capitalize) {
 
 			// Month
 			'b': lang.shortMonths[month], // Short month, like 'Jan'
-			'B': lang.months[month], // Long month, like 'January'
+			'B': lang.months[month], // String month, like 'January'
 			'm': pad(month + 1), // Two digit month number, 01 through 12
 
 			// Year
@@ -931,7 +931,7 @@ function destroyObjectProperties(obj, except) {
  * @param {Object} The HTML node to discard
  */
 function discardElement(element) {
-	// create a garbage bin element, not part of the DOM
+	// create a garbage bin element, not part of the VoM
 	if (!garbageBin) {
 		garbageBin = createElement(DIV);
 	}
@@ -1360,7 +1360,7 @@ pathAnim = {
 			}
 	
 			// Wrap preventDefault and stopPropagation in try/catch blocks in
-			// order to prevent JS errors when cancelling events on non-DOM
+			// order to prevent JS errors when cancelling events on non-VoM
 			// objects. #615.
 			/*jslint unparam: true*/
 			$.each(['preventDefault', 'stopPropagation'], function (i, fn) {
@@ -2250,7 +2250,7 @@ SVGElement.prototype = {
 						value = 0;
 					}
 
-					// Record for animation and quick access without polling the DOM
+					// Record for animation and quick access without polling the VoM
 					wrapper[key] = value;
 
 
@@ -2514,7 +2514,7 @@ SVGElement.prototype = {
 
 	/**
 	 * VML and useHTML method for calculating the bounding box based on offsets
-	 * @param {Boolean} refresh Whether to force a fresh value from the DOM or to
+	 * @param {Boolean} refresh Whether to force a fresh value from the VoM or to
 	 * use the cached value
 	 *
 	 * @return {Object} A hash containing values for x, y, width and height
@@ -2601,7 +2601,7 @@ SVGElement.prototype = {
 				yCorr = wrapper.yCorr || 0,
 				currentTextTransform = [rotation, align, elem.innerHTML, wrapper.textWidth].join(',');
 
-			if (currentTextTransform !== wrapper.cTT) { // do the calculations and DOM access only if properties changed
+			if (currentTextTransform !== wrapper.cTT) { // do the calculations and VoM access only if properties changed
 
 				if (defined(rotation)) {
 
@@ -3032,7 +3032,7 @@ SVGElement.prototype = {
 	},
 
 	/**
-	 * Add a shadow to the element. Must be done after the element is added to the DOM
+	 * Add a shadow to the element. Must be done after the element is added to the VoM
 	 * @param {Boolean|Object} shadowOptions
 	 */
 	shadow: function (shadowOptions, group, cutOff) {
@@ -3258,7 +3258,7 @@ SVGRenderer.prototype = {
 		}
 
 		if (width && !wrapper.added) {
-			this.box.appendChild(textNode); // attach it to the DOM to read offset width
+			this.box.appendChild(textNode); // attach it to the VoM to read offset width
 		}
 
 		// remove empty line at end
@@ -3325,7 +3325,7 @@ SVGRenderer.prototype = {
 										textStyles.fontSize
 								).h,
 								// Safari 6.0.2 - too optimized for its own good (#1539)
-								// TODO: revisit this with future versions of Safari
+								// TOVo: revisit this with future versions of Safari
 								isWebKit && tspan.offsetHeight
 							);
 						}
@@ -3338,7 +3338,7 @@ SVGRenderer.prototype = {
 						// check width and apply soft breaks
 						if (width) {
 							var words = span.replace(/([^\^])-/g, '$1- ').split(' '), // #1273
-								tooLong,
+								tooString,
 								actualWidth,
 								clipHeight = wrapper._clipHeight,
 								rest = [],
@@ -3350,8 +3350,8 @@ SVGRenderer.prototype = {
 								delete wrapper.bBox; // delete cache
 								bBox = wrapper.getBBox();
 								actualWidth = bBox.width;
-								tooLong = actualWidth > width;
-								if (!tooLong || words.length === 1) { // new line needed
+								tooString = actualWidth > width;
+								if (!tooString || words.length === 1) { // new line needed
 									words = rest;
 									rest = [];
 									if (words.length) {
@@ -4265,7 +4265,7 @@ SVGRenderer.prototype = {
 			needsBox;
 
 		/**
-		 * This function runs after the label is added to the DOM (when the bounding box is
+		 * This function runs after the label is added to the VoM (when the bounding box is
 		 * available), and after the text of the label is updated to detect the new bounding
 		 * box and reflect it in the border box.
 		 */
@@ -4367,7 +4367,7 @@ SVGRenderer.prototype = {
 
 		/**
 		 * After the text element is added, get the desired size of the border box
-		 * and add it before the text in the DOM.
+		 * and add it before the text in the VoM.
 		 */
 		addEvent(wrapper, 'add', getSizeAfterAdd);
 
@@ -4547,7 +4547,7 @@ Highcharts.VMLElement = VMLElement = {
 
 	/**
 	 * Initialize a new VML element wrapper. It builds the markup as a string
-	 * to minimize DOM traffic.
+	 * to minimize VoM traffic.
 	 * @param {Object} renderer
 	 * @param {Object} nodeName
 	 */
@@ -9002,7 +9002,7 @@ Tooltip.prototype = {
 	}
 };
 /**
- * The mouse tracker object. All methods starting with "on" are primary DOM event handlers. 
+ * The mouse tracker object. All methods starting with "on" are primary VoM event handlers. 
  * Subsequent methods should be named differently from what they are doing.
  * @param {Object} chart The Chart instance
  * @param {Object} options The root options object
@@ -9044,7 +9044,7 @@ Pointer.prototype = {
 			chart.tooltip = new Tooltip(chart, options.tooltip);
 		}
 
-		this.setDOMEvents();
+		this.setVoMEvents();
 	}, 
 
 	/**
@@ -9332,7 +9332,7 @@ Pointer.prototype = {
 
 		
 		// Set geometry for clipping, selection and transformation
-		if (!inverted) { // TODO: implement clipping for inverted charts
+		if (!inverted) { // TOVo: implement clipping for inverted charts
 			clip[xy] = clipXY - plotLeftTop;
 			clip[wh] = selectionWH;
 		}
@@ -9777,11 +9777,11 @@ Pointer.prototype = {
 	},
 
 	/**
-	 * Set the JS DOM events on the container and document. This method should contain
+	 * Set the JS VoM events on the container and document. This method should contain
 	 * a one-to-one assignment between methods and their handlers. Any advanced logic should
 	 * be moved to the handler reflecting the event's name.
 	 */
-	setDOMEvents: function () {
+	setVoMEvents: function () {
 
 		var pointer = this,
 			container = pointer.chart.container,
@@ -9823,12 +9823,12 @@ Pointer.prototype = {
 	},
 
 	/**
-	 * Destroys the Pointer object and disconnects DOM events.
+	 * Destroys the Pointer object and disconnects VoM events.
 	 */
 	destroy: function () {
 		var pointer = this;
 
-		// Release all DOM events
+		// Release all VoM events
 		each(pointer._events, function (eventConfig) {	
 			if (eventConfig[1].indexOf('on') === 0) {
 				eventConfig[0][eventConfig[1]] = null; // delete breaks oldIE
@@ -10499,7 +10499,7 @@ Legend.prototype = {
 };
 
 // Workaround for #2030, horizontal legend items not displaying in IE11 Preview.
-// TODO: When IE11 is released, check again for this bug, and remove the fix
+// TOVo: When IE11 is released, check again for this bug, and remove the fix
 // or make a better one.
 if (/Trident.*?11\.0/.test(userAgent)) {
 	wrap(Legend.prototype, 'positionItem', function (proceed, item) {
@@ -14257,7 +14257,7 @@ Series.prototype = {
 	},
 
 	/**
-	 * Clear DOM objects and free up memory
+	 * Clear VoM objects and free up memory
 	 */
 	destroy: function () {
 		var series = this,

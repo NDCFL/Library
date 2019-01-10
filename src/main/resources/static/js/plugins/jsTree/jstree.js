@@ -79,7 +79,7 @@
 	/**
 	 * creates a jstree instance
 	 * @name $.jstree.create(el [, options])
-	 * @param {DOMElement|jQuery|String} el the element to create the instance on, can be jQuery extended or a selector
+	 * @param {VoMElement|jQuery|String} el the element to create the instance on, can be jQuery extended or a selector
 	 * @param {Object} options options for this instance (extends `$.jstree.defaults`)
 	 * @return {jsTree} the new instance
 	 */
@@ -100,7 +100,7 @@
 		return tmp;
 	};
 	/**
-	 * remove all traces of jstree from the DOM and destroy all instances
+	 * remove all traces of jstree from the VoM and destroy all instances
 	 * @name $.jstree.destroy()
 	 */
 	$.jstree.destroy = function () {
@@ -150,7 +150,7 @@
 	 *	$.jstree.reference(document.getElementByID('branch'));
 	 *
 	 * @name $.jstree.reference(needle)
-	 * @param {DOMElement|jQuery|String} needle
+	 * @param {VoMElement|jQuery|String} needle
 	 * @return {jsTree|null} the instance or `null` if not found
 	 */
 	$.jstree.reference = function (needle) {
@@ -457,7 +457,7 @@
 		 * initialize the instance. Used internally.
 		 * @private
 		 * @name init(el, optons)
-		 * @param {DOMElement|jQuery|String} el the element we are transforming
+		 * @param {VoMElement|jQuery|String} el the element we are transforming
 		 * @param {Object} options options for this instance
 		 * @trigger init.jstree, loading.jstree, loaded.jstree, ready.jstree, changed.jstree
 		 */
@@ -528,7 +528,7 @@
 		/**
 		 * destroy an instance
 		 * @name destroy()
-		 * @param  {Boolean} keep_html if not set to `true` the container will be emptied, otherwise the current DOM elements will be kept intact
+		 * @param  {Boolean} keep_html if not set to `true` the container will be emptied, otherwise the current VoM elements will be kept intact
 		 */
 		destroy : function (keep_html) {
 			/**
@@ -914,11 +914,11 @@
 			return key;
 		},
 		/**
-		 * gets the first child of a DOM node. Used internally.
+		 * gets the first child of a VoM node. Used internally.
 		 * @private
 		 * @name _firstChild(dom)
-		 * @param  {DOMElement} dom
-		 * @return {DOMElement}
+		 * @param  {VoMElement} dom
+		 * @return {VoMElement}
 		 */
 		_firstChild : function (dom) {
 			dom = dom ? dom.firstChild : null;
@@ -928,11 +928,11 @@
 			return dom;
 		},
 		/**
-		 * gets the next sibling of a DOM node. Used internally.
+		 * gets the next sibling of a VoM node. Used internally.
 		 * @private
 		 * @name _nextSibling(dom)
-		 * @param  {DOMElement} dom
-		 * @return {DOMElement}
+		 * @param  {VoMElement} dom
+		 * @return {VoMElement}
 		 */
 		_nextSibling : function (dom) {
 			dom = dom ? dom.nextSibling : null;
@@ -942,11 +942,11 @@
 			return dom;
 		},
 		/**
-		 * gets the previous sibling of a DOM node. Used internally.
+		 * gets the previous sibling of a VoM node. Used internally.
 		 * @private
 		 * @name _previousSibling(dom)
-		 * @param  {DOMElement} dom
-		 * @return {DOMElement}
+		 * @param  {VoMElement} dom
+		 * @return {VoMElement}
 		 */
 		_previousSibling : function (dom) {
 			dom = dom ? dom.previousSibling : null;
@@ -956,7 +956,7 @@
 			return dom;
 		},
 		/**
-		 * get the JSON representation of a node (or the actual jQuery extended DOM node) by using any input (child DOM element, ID string, selector, etc)
+		 * get the JSON representation of a node (or the actual jQuery extended VoM node) by using any input (child VoM element, ID string, selector, etc)
 		 * @name get_node(obj [, as_dom])
 		 * @param  {mixed} obj
 		 * @param  {Boolean} as_dom
@@ -2308,7 +2308,7 @@
 			if(!obj) { return false; }
 			if(obj.id === $.jstree.root) { return this.redraw(true); }
 			node = this.get_node(node, true);
-			if(!node || !node.length) { return false; } // TODO: quick toggle
+			if(!node || !node.length) { return false; } // TOVo: quick toggle
 
 			node.children('.jstree-children').remove();
 			node = node[0];
@@ -2386,7 +2386,7 @@
 				//node = node[0];
 			}
 			node = this._data.core.node.cloneNode(true);
-			// node is DOM, deep is boolean
+			// node is VoM, deep is boolean
 
 			c = 'jstree-node ';
 			for(i in obj.li_attr) {
@@ -2612,7 +2612,7 @@
 				}
 				if(!d.length) {
 					/**
-					 * triggered when a node is about to be opened (if the node is supposed to be in the DOM, it will be, but it won't be visible yet)
+					 * triggered when a node is about to be opened (if the node is supposed to be in the VoM, it will be, but it won't be visible yet)
 					 * @event
 					 * @name before_open.jstree
 					 * @param {Object} node the opened node
@@ -3032,7 +3032,7 @@
 				e = {};
 			}
 
-			// ensure last_clicked is still in the DOM, make it fresh (maybe it was moved?) and make sure it is still selected, if not - make last_clicked the last selected node
+			// ensure last_clicked is still in the VoM, make it fresh (maybe it was moved?) and make sure it is still selected, if not - make last_clicked the last selected node
 			this._data.core.last_clicked = this._data.core.last_clicked && this._data.core.last_clicked.id !== undefined ? this.get_node(this._data.core.last_clicked.id) : null;
 			if(this._data.core.last_clicked && !this._data.core.last_clicked.state.selected) { this._data.core.last_clicked = null; }
 			if(!this._data.core.last_clicked && this._data.core.selected.length) { this._data.core.last_clicked = this.get_node(this._data.core.selected[this._data.core.selected.length - 1]); }

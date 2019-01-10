@@ -28,7 +28,7 @@
  *
  *  ##### Intermediate Representation
  *
- *  *TODO* Talk about this :) Its JsonML, but document the node names we use.
+ *  *TOVo* Talk about this :) Its JsonML, but document the node names we use.
  *
  *  [JsonML]: http://jsonml.org/ "JSON Markup Language"
  **/
@@ -421,7 +421,7 @@ Markdown.dialects.Gruber = {
           is_list_re = new RegExp( "^( {0,3})(" + any_list + ")[ \t]+" ),
           indent_re = "(?: {0,3}\\t| {4})";
 
-      // TODO: Cache this regexp for certain depths.
+      // TOVo: Cache this regexp for certain depths.
       // Create a regexp suitable for matching an li for a given stack depth
       function regex_for_depth( depth ) {
 
@@ -541,7 +541,7 @@ Markdown.dialects.Gruber = {
             var nl = "",
                 l = lines[line_no].replace(/^\n/, function(n) { nl = n; return ""; });
 
-            // TODO: really should cache this
+            // TOVo: really should cache this
             var line_re = regex_for_depth( stack.length );
 
             m = l.match( line_re );
@@ -962,7 +962,7 @@ Markdown.dialects.Gruber.inline = {
       if ( m && m[2] )
         return [ m[1].length + m[2].length, [ "inlinecode", m[3] ] ];
       else {
-        // TODO: No matching end code found - warn!
+        // TOVo: No matching end code found - warn!
         return [ 1, "`" ];
       }
     },

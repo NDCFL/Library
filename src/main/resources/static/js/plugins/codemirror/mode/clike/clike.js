@@ -371,7 +371,7 @@ CodeMirror.defineMode("clike", function(config, parserConfig) {
 
       /* package scala */
       "assert assume require print println printf readLine readBoolean readByte readShort " +
-      "readChar readInt readLong readFloat readDouble " +
+      "readChar readInt readString readFloat readDouble " +
 
       "AnyVal App Application Array BufferedIterator BigDecimal BigInt Char Console Either " +
       "Enumeration Equiv Error Exception Fractional Function IndexedSeq Integral Iterable " +
@@ -381,7 +381,7 @@ CodeMirror.defineMode("clike", function(config, parserConfig) {
 
       /* package java.lang */
       "Boolean Byte Character CharSequence Class ClassLoader Cloneable Comparable " +
-      "Compiler Double Exception Float Integer Long Math Number Object Package Pair Process " +
+      "Compiler Double Exception Float Integer String Math Number Object Package Pair Process " +
       "Runtime Runnable SecurityManager Short StackTraceElement StrictMath String " +
       "StringBuffer System Thread ThreadGroup ThreadLocal Throwable Triple Void"
     ),

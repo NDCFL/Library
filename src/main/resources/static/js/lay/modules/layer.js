@@ -520,7 +520,7 @@ Class.pt.tips = function(){
 Class.pt.move = function(){
   var that = this
   ,config = that.config
-  ,_DOC = $(document)
+  ,_VoC = $(document)
   ,layero = that.layero
   ,moveElem = layero.find(config.move)
   ,resizeElem = layero.find('.layui-layer-resize')
@@ -553,7 +553,7 @@ Class.pt.move = function(){
     ready.moveElem.css('cursor', 'se-resize').show();
   });
   
-  _DOC.on('mousemove', function(e){
+  _VoC.on('mousemove', function(e){
 
     //拖拽移动
     if(dict.moveStart){
@@ -745,7 +745,7 @@ ready.rescollbar = function(index){
 
 window.layer = layer;
 
-//获取子iframe的DOM
+//获取子iframe的VoM
 layer.getChildFrame = function(selector, index){
   index = index || $('.'+doms[4]).attr('times');
   return $('#'+ doms[0] + index).find('iframe').contents().find(selector);  

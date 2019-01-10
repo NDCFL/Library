@@ -163,7 +163,7 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
   ,'</div>'].join('')
   
   ,_WIN = $(window)
-  ,_DOC = $(document)
+  ,_VoC = $(document)
   
   //构造器
   ,Class = function(options){
@@ -703,7 +703,7 @@ layui.define(['laytpl', 'laypage', 'layer', 'form'], function(exports){
       }
     });
     //拖拽中
-    _DOC.on('mousemove', function(e){
+    _VoC.on('mousemove', function(e){
       if(dict.resizeStart){
         e.preventDefault();
         if(dict.rule){

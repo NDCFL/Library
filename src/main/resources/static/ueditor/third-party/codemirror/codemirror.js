@@ -19,7 +19,7 @@ var CodeMirror = (function() {
         // The element in which the editor lives.
         var wrapper = targetDocument.createElement("div");
         wrapper.className = "CodeMirror" + (options.lineWrapping ? " CodeMirror-wrap" : "");
-        // This mess creates the base DOM structure for the editor.
+        // This mess creates the base VoM structure for the editor.
         wrapper.innerHTML =
             '<div style="overflow: hidden; position: relative; width: 3px; height: 0px;">' + // Wraps and hides input textarea
                 '<textarea style="position: absolute; padding: 0; width: 1px;" wrap="off" ' +
@@ -799,7 +799,7 @@ var CodeMirror = (function() {
                 to: lineAtHeight(doc, to_height)};
         }
         // Uses a set of changes plus the current scroll position to
-        // determine which DOM updates have to be made, and makes the
+        // determine which VoM updates have to be made, and makes the
         // updates.
         function updateDisplay(changes, suppressCallback) {
             if (!scroller.clientWidth) {
@@ -904,7 +904,7 @@ var CodeMirror = (function() {
         }
 
         function patchDisplay(from, to, intact) {
-            // The first pass removes the DOM nodes that aren't intact.
+            // The first pass removes the VoM nodes that aren't intact.
             if (!intact.length) lineDiv.innerHTML = "";
             else {
                 function killNode(node) {
@@ -2786,7 +2786,7 @@ CodeMirror.defineMode("xml", function(config, parserConfig) {
                     else return null;
                 }
                 else if (stream.match("--")) return chain(inBlock("comment", "-->"));
-                else if (stream.match("DOCTYPE", true, true)) {
+                else if (stream.match("VoCTYPE", true, true)) {
                     stream.eatWhile(/[\w\._\-]/);
                     return chain(doctype(1));
                 }

@@ -256,7 +256,7 @@ jQuery.extend( {
 	noop: function() {},
 
 	// See test/unit/core.js for details concerning isFunction.
-	// Since version 1.3, DOM methods and functions like alert
+	// Since version 1.3, VoM methods and functions like alert
 	// aren't supported. They return false on IE (#2968).
 	isFunction: function( obj ) {
 		return jQuery.type( obj ) === "function";
@@ -294,7 +294,7 @@ jQuery.extend( {
 
 		// Must be an Object.
 		// Because of IE, we also have to check the presence of the constructor property.
-		// Make sure that DOM nodes and window objects don't pass through, as well
+		// Make sure that VoM nodes and window objects don't pass through, as well
 		if ( !obj || jQuery.type( obj ) !== "object" || obj.nodeType || jQuery.isWindow( obj ) ) {
 			return false;
 		}
@@ -694,7 +694,7 @@ var i,
 		"CLASS": new RegExp( "^\\.(" + identifier + ")" ),
 		"TAG": new RegExp( "^(" + identifier + "|[*])" ),
 		"ATTR": new RegExp( "^" + attributes ),
-		"PSEUDO": new RegExp( "^" + pseudos ),
+		"PSEUVo": new RegExp( "^" + pseudos ),
 		"CHILD": new RegExp( "^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\(" + whitespace +
 			"*(even|odd|(([+-]|)(\\d*)n|)" + whitespace + "*(?:([+-]|)" + whitespace +
 			"*(\\d+)|))" + whitespace + "*\\)|)", "i" ),
@@ -795,7 +795,7 @@ function Sizzle( selector, context, results, seed ) {
 
 		if ( documentIsHTML ) {
 
-			// If the selector is sufficiently simple, try using a "get*By*" DOM method
+			// If the selector is sufficiently simple, try using a "get*By*" VoM method
 			// (excepting DocumentFragment context, where the methods don't exist)
 			if ( nodeType !== 11 && (match = rquickExpr.exec( selector )) ) {
 
@@ -807,7 +807,7 @@ function Sizzle( selector, context, results, seed ) {
 						if ( (elem = context.getElementById( m )) ) {
 
 							// Support: IE, Opera, Webkit
-							// TODO: identify versions
+							// TOVo: identify versions
 							// getElementById can match elements by name instead of ID
 							if ( elem.id === m ) {
 								results.push( elem );
@@ -821,7 +821,7 @@ function Sizzle( selector, context, results, seed ) {
 					} else {
 
 						// Support: IE, Opera, Webkit
-						// TODO: identify versions
+						// TOVo: identify versions
 						// getElementById can match elements by name instead of ID
 						if ( newContext && (elem = newContext.getElementById( m )) &&
 							contains( context, elem ) &&
@@ -1536,7 +1536,7 @@ Sizzle.uniqueSort = function( results ) {
 };
 
 /**
- * Utility function for retrieving the text value of an array of DOM nodes
+ * Utility function for retrieving the text value of an array of VoM nodes
  * @param {Array|Element} elem
  */
 getText = Sizzle.getText = function( elem ) {
@@ -1636,7 +1636,7 @@ Expr = Sizzle.selectors = {
 			return match;
 		},
 
-		"PSEUDO": function( match ) {
+		"PSEUVo": function( match ) {
 			var excess,
 				unquoted = !match[6] && match[2];
 
@@ -1839,7 +1839,7 @@ Expr = Sizzle.selectors = {
 				};
 		},
 
-		"PSEUDO": function( pseudo, argument ) {
+		"PSEUVo": function( pseudo, argument ) {
 			// pseudo-class names are case-insensitive
 			// http://www.w3.org/TR/selectors/#pseudo-classes
 			// Prioritize by case sensitivity in case custom pseudos are added with uppercase letters
@@ -2954,7 +2954,7 @@ var rootjQuery,
 				return this.constructor( context ).find( selector );
 			}
 
-		// HANDLE: $(DOMElement)
+		// HANDLE: $(VoMElement)
 		} else if ( selector.nodeType ) {
 			this.context = this[ 0 ] = selector;
 			this.length = 1;
@@ -3533,7 +3533,7 @@ jQuery.extend( {
 } );
 
 
-// The deferred used on DOM ready
+// The deferred used on VoM ready
 var readyList;
 
 jQuery.fn.ready = function( fn ) {
@@ -3546,7 +3546,7 @@ jQuery.fn.ready = function( fn ) {
 
 jQuery.extend( {
 
-	// Is the DOM ready to be used? Set to true once it occurs.
+	// Is the VoM ready to be used? Set to true once it occurs.
 	isReady: false,
 
 	// A counter to track how many items to wait for before
@@ -3562,7 +3562,7 @@ jQuery.extend( {
 		}
 	},
 
-	// Handle when the DOM is ready
+	// Handle when the VoM is ready
 	ready: function( wait ) {
 
 		// Abort if there are pending holds or we're already ready
@@ -3570,10 +3570,10 @@ jQuery.extend( {
 			return;
 		}
 
-		// Remember that the DOM is ready
+		// Remember that the VoM is ready
 		jQuery.isReady = true;
 
-		// If a normal DOM Ready event fired, decrement, and wait if need be
+		// If a normal VoM Ready event fired, decrement, and wait if need be
 		if ( wait !== true && --jQuery.readyWait > 0 ) {
 			return;
 		}
@@ -3594,7 +3594,7 @@ jQuery.extend( {
  */
 function detach() {
 	if ( document.addEventListener ) {
-		document.removeEventListener( "DOMContentLoaded", completed );
+		document.removeEventListener( "VoMContentLoaded", completed );
 		window.removeEventListener( "load", completed );
 
 	} else {
@@ -3633,11 +3633,11 @@ jQuery.ready.promise = function( obj ) {
 			// Handle it asynchronously to allow scripts the opportunity to delay ready
 			window.setTimeout( jQuery.ready );
 
-		// Standards-based browsers support DOMContentLoaded
+		// Standards-based browsers support VoMContentLoaded
 		} else if ( document.addEventListener ) {
 
 			// Use the handy event callback
-			document.addEventListener( "DOMContentLoaded", completed );
+			document.addEventListener( "VoMContentLoaded", completed );
 
 			// A fallback to window.onload, that will always work
 			window.addEventListener( "load", completed );
@@ -3685,7 +3685,7 @@ jQuery.ready.promise = function( obj ) {
 	return readyList.promise( obj );
 };
 
-// Kick off the DOM ready check even if the user does not
+// Kick off the VoM ready check even if the user does not
 jQuery.ready.promise();
 
 
@@ -3762,7 +3762,7 @@ var acceptData = function( elem ) {
 	var noData = jQuery.noData[ ( elem.nodeName + " " ).toLowerCase() ],
 		nodeType = +elem.nodeType || 1;
 
-	// Do not set data on non-element DOM nodes because it will not be cleared (#8335).
+	// Do not set data on non-element VoM nodes because it will not be cleared (#8335).
 	return nodeType !== 1 && nodeType !== 9 ?
 		false :
 
@@ -3834,16 +3834,16 @@ function internalData( elem, name, data, pvt /* Internal Use Only */ ) {
 	var ret, thisCache,
 		internalKey = jQuery.expando,
 
-		// We have to handle DOM nodes and JS objects differently because IE6-7
-		// can't GC object references properly across the DOM-JS boundary
+		// We have to handle VoM nodes and JS objects differently because IE6-7
+		// can't GC object references properly across the VoM-JS boundary
 		isNode = elem.nodeType,
 
-		// Only DOM nodes need the global jQuery cache; JS object data is
+		// Only VoM nodes need the global jQuery cache; JS object data is
 		// attached directly to the object so GC can occur automatically
 		cache = isNode ? jQuery.cache : elem,
 
 		// Only defining an ID for JS objects if its cache already exists allows
-		// the code to shortcut on the same path as a DOM node with no cache
+		// the code to shortcut on the same path as a VoM node with no cache
 		id = isNode ? elem[ internalKey ] : elem[ internalKey ] && internalKey;
 
 	// Avoid doing any more work than we need to when trying to get data on an
@@ -3855,7 +3855,7 @@ function internalData( elem, name, data, pvt /* Internal Use Only */ ) {
 
 	if ( !id ) {
 
-		// Only DOM nodes need a new unique ID for each element since their data
+		// Only VoM nodes need a new unique ID for each element since their data
 		// ends up in the global cache
 		if ( isNode ) {
 			id = elem[ internalKey ] = deletedIds.pop() || jQuery.guid++;
@@ -4481,7 +4481,7 @@ function createSafeFragment( document ) {
 		document.createElement( "nav" ).cloneNode( true ).outerHTML !== "<:nav></:nav>";
 
 	// Check if a disconnected checkbox will retain its checked
-	// value of true after appended to the DOM (IE6/7)
+	// value of true after appended to the VoM (IE6/7)
 	input.type = "checkbox";
 	input.checked = true;
 	fragment.appendChild( input );
@@ -4620,7 +4620,7 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 			} else if ( !rhtml.test( elem ) ) {
 				nodes.push( context.createTextNode( elem ) );
 
-			// Convert html into DOM nodes
+			// Convert html into VoM nodes
 			} else {
 				tmp = tmp || safe.appendChild( context.createElement( "div" ) );
 
@@ -4685,7 +4685,7 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 	}
 
 	// Reset defaultChecked for any radios and checkboxes
-	// about to be appended to the DOM in IE 6/7 (#8060)
+	// about to be appended to the VoM in IE 6/7 (#8060)
 	if ( !support.appendChecked ) {
 		jQuery.grep( getAll( nodes, "input" ), fixDefaultChecked );
 	}
@@ -5108,7 +5108,7 @@ jQuery.event = {
 				tmp = cur;
 			}
 
-			// Only add window if we got to document (e.g., not plain obj or detached DOM)
+			// Only add window if we got to document (e.g., not plain obj or detached VoM)
 			if ( tmp === ( elem.ownerDocument || document ) ) {
 				eventPath.push( tmp.defaultView || tmp.parentWindow || window );
 			}
@@ -5150,7 +5150,7 @@ jQuery.event = {
 				) && acceptData( elem )
 			) {
 
-				// Call a native DOM method on the target with the same name name as the event.
+				// Call a native VoM method on the target with the same name name as the event.
 				// Can't use an .isFunction() check here because IE6/7 fails that test.
 				// Don't do default actions on window, that's where global variables be (#6170)
 				if ( ontype && elem[ type ] && !jQuery.isWindow( elem ) ) {
@@ -5552,8 +5552,8 @@ jQuery.Event = function( src, props ) {
 	this[ jQuery.expando ] = true;
 };
 
-// jQuery.Event is based on DOM3 Events as specified by the ECMAScript Language Binding
-// http://www.w3.org/TR/2003/WD-DOM-Level-3-Events-20030331/ecma-script-binding.html
+// jQuery.Event is based on VoM3 Events as specified by the ECMAScript Language Binding
+// http://www.w3.org/TR/2003/WD-VoM-Level-3-Events-20030331/ecma-script-binding.html
 jQuery.Event.prototype = {
 	constructor: jQuery.Event,
 	isDefaultPrevented: returnFalse,
@@ -5775,7 +5775,7 @@ if ( !support.change ) {
 //
 // Support: Chrome, Safari
 // focus(in | out) events fire after focus & blur events,
-// which is spec violation - http://www.w3.org/TR/DOM-Level-3-Events/#events-focusevent-event-order
+// which is spec violation - http://www.w3.org/TR/VoM-Level-3-Events/#events-focusevent-event-order
 // Related ticket - https://code.google.com/p/chromium/issues/detail?id=449857
 if ( !support.focusin ) {
 	jQuery.each( { focus: "focusin", blur: "focusout" }, function( orig, fix ) {
@@ -5896,7 +5896,7 @@ function manipulationTarget( elem, content ) {
 		elem;
 }
 
-// Replace/restore the type attribute of script elements for safe DOM manipulation
+// Replace/restore the type attribute of script elements for safe VoM manipulation
 function disableScript( elem ) {
 	elem.type = ( jQuery.find.attr( elem, "type" ) !== null ) + "/" + elem.type;
 	return elem;
@@ -6228,7 +6228,7 @@ jQuery.extend( {
 							elem.removeAttribute( internalKey );
 
 						// Webkit & Blink performance suffers when deleting properties
-						// from DOM nodes, so set to undefined instead
+						// from VoM nodes, so set to undefined instead
 						// https://code.google.com/p/chromium/issues/detail?id=378607
 						} else {
 							elem[ internalKey ] = undefined;
@@ -7088,7 +7088,7 @@ jQuery.extend( {
 		"float": support.cssFloat ? "cssFloat" : "styleFloat"
 	},
 
-	// Get and set the style property on a DOM Node
+	// Get and set the style property on a VoM Node
 	style: function( elem, name, value, extra ) {
 
 		// Don't set styles on text and comment nodes
@@ -7439,7 +7439,7 @@ Tween.propHooks = {
 		get: function( tween ) {
 			var result;
 
-			// Use a property on the element directly when it is not a DOM element,
+			// Use a property on the element directly when it is not a VoM element,
 			// or when there is no matching style property that exists.
 			if ( tween.elem.nodeType !== 1 ||
 				tween.elem[ tween.prop ] != null && tween.elem.style[ tween.prop ] == null ) {
@@ -9065,11 +9065,11 @@ jQuery.parseXML = function( data ) {
 		return null;
 	}
 	try {
-		if ( window.DOMParser ) { // Standard
-			tmp = new window.DOMParser();
+		if ( window.VoMParser ) { // Standard
+			tmp = new window.VoMParser();
 			xml = tmp.parseFromString( data, "text/xml" );
 		} else { // IE
-			xml = new window.ActiveXObject( "Microsoft.XMLDOM" );
+			xml = new window.ActiveXObject( "Microsoft.XMLVoM" );
 			xml.async = "false";
 			xml.loadXML( data );
 		}
@@ -9495,7 +9495,7 @@ jQuery.extend( {
 			// Callbacks context
 			callbackContext = s.context || s,
 
-			// Context for global events is callbackContext if it is a DOM node or jQuery collection
+			// Context for global events is callbackContext if it is a VoM node or jQuery collection
 			globalEventContext = s.context &&
 				( callbackContext.nodeType || callbackContext.jquery ) ?
 					jQuery( callbackContext ) :
@@ -10440,7 +10440,7 @@ jQuery.ajaxTransport( "script", function( s ) {
 				};
 
 				// Circumvent IE6 bugs with base elements (#2709 and #4378) by prepending
-				// Use native DOM manipulation to avoid our domManip AJAX trickery
+				// Use native VoM manipulation to avoid our domManip AJAX trickery
 				head.insertBefore( script, head.firstChild );
 			},
 
@@ -10765,7 +10765,7 @@ jQuery.fn.extend( {
 
 		docElem = doc.documentElement;
 
-		// Make sure it's not a disconnected DOM node
+		// Make sure it's not a disconnected VoM node
 		if ( !jQuery.contains( docElem, elem ) ) {
 			return box;
 		}

@@ -1481,7 +1481,7 @@
      * assert if a node contains a "note-styletag" class,
      * which implies that's a custom-made style tag node
      *
-     * @param {Node} an HTML DOM node
+     * @param {Node} an HTML VoM node
      */
     var isCustomStyleTag = function (node) {
       return node && !dom.isText(node) && list.contains(node.classList, 'note-styletag');
@@ -2309,7 +2309,7 @@
       'LEFT': 37,
       'UP': 38,
       'RIGHT': 39,
-      'DOWN': 40,
+      'VoWN': 40,
 
       // Number: 0-9
       'NUM0': 48,
@@ -2369,7 +2369,7 @@
           keyMap.LEFT,
           keyMap.UP,
           keyMap.RIGHT,
-          keyMap.DOWN
+          keyMap.VoWN
         ], keyCode);
       },
       /**
@@ -2639,7 +2639,7 @@
         var includeAncestor = options && options.includeAncestor;
         var fullyContains = options && options.fullyContains;
 
-        // TODO compare points and sort
+        // TOVo compare points and sort
         var startPoint = this.getStartPoint();
         var endPoint = this.getEndPoint();
 
@@ -3012,7 +3012,7 @@
    *  * BoundaryPoint: a point of dom tree
    *  * BoundaryPoints: two boundaryPoints corresponding to the start and the end of the Range
    *
-   * See to http://www.w3.org/TR/DOM-Level-2-Traversal-Range/ranges.html#Level-2-Range-Position
+   * See to http://www.w3.org/TR/VoM-Level-2-Traversal-Range/ranges.html#Level-2-Range-Position
    *
    * @singleton
    * @alternateClassName range
@@ -4424,7 +4424,7 @@
 
       // [workaround] IE doesn't have input events for contentEditable
       // - see: https://goo.gl/4bfIvA
-      var changeEventName = agent.isMSIE ? 'DOMCharacterDataModified DOMSubtreeModified DOMNodeInserted' : 'input';
+      var changeEventName = agent.isMSIE ? 'VoMCharacterDataModified VoMSubtreeModified VoMNodeInserted' : 'input';
       $editable.on(changeEventName, func.debounce(function () {
         context.triggerEvent('change', $editable.html());
       }, 100));
@@ -7648,7 +7648,7 @@
       } else if (e.keyCode === key.code.UP) {
         e.preventDefault();
         this.moveUp();
-      } else if (e.keyCode === key.code.DOWN) {
+      } else if (e.keyCode === key.code.VoWN) {
         e.preventDefault();
         this.moveDown();
       }
@@ -7678,7 +7678,7 @@
     };
 
     this.handleKeyup = function (e) {
-      if (list.contains([key.code.ENTER, key.code.UP, key.code.DOWN], e.keyCode)) {
+      if (list.contains([key.code.ENTER, key.code.UP, key.code.VoWN], e.keyCode)) {
         if (e.keyCode === key.code.ENTER) {
           if (this.$popover.is(':visible')) {
             return;

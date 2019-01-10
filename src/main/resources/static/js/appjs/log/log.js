@@ -1,118 +1,139 @@
 var prefix = "/log"
-$(function () {
-    load();
-
-});
-$('#exampleTable').on('load-success.bs.table', function (e, data) {
-    if (data.total && !data.rows.length) {
-        $('#exampleTable').bootstrapTable('selectPage').bootstrapTable('refresh');
+//生成用户数据
+$('#mytab').bootstrapTable({
+    method: 'get',
+    contentType: "application/x-www-form-urlencoded",//必须要有！！！！
+    url: "/log/list",//要请求数据的文件路径
+    toolbar: '#toolbar',//指定工具栏
+    striped: true, //是否显示行间隔色
+    dataField: "res",
+    sortable: true, //是否启用排序 sortOrder: "ID asc",
+    sortOrder: "ID asc",
+    pagination: true,//是否分页
+    queryParamsType: 'pageSize',//查询参数组织方式
+    queryParams: queryParams,//请求服务器时所传的参数
+    sidePagination: 'server',//指定服务器端分页
+    pageNumber: 1, //初始化加载第一页，默认第一页
+    pageSize: 10,//单页记录数
+    pageList: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],//分页步进值
+    showRefresh: true,//刷新按钮
+    showColumns: true,
+    clickToSelect: true,//是否启用点击选中行
+    toolbarAlign: 'right',//工具栏对齐方式
+    buttonsAlign: 'right',//按钮对齐方式
+    toolbar: '#toolbar', search: true,
+    uniqueId: "id",                     //每一行的唯一标识，一般为主键列
+    showExport: true,
+    exportDataType: 'all',
+    columns: [
+        {
+            title: '全选',
+            field: 'select',
+            //复选框
+            checkbox: true,
+            width: 25,
+            align: 'center',
+            valign: 'middle'
+        },
+        {
+            field: 'userId',
+            title: '用户Id',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'username',
+            title: '用户名',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'operation',
+            title: '操作',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'time',
+            title: '用时',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'method',
+            title: '方法',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'params',
+            title: '参数',
+            align: 'center',
+            sortable: true
+            // formatter: function (value, row, index) {
+            //         return '<a   data-toggle="modal"  title="点击查看详情" alt="点击查看详情" data-id="\'' + row.id + '\'" data-target="#remarks_modal" onclick="return remarkss(' + row + ')">'+"..."+'</a>';
+            //
+            // }
+        },
+        {
+            field: 'ip',
+            title: 'IP地址',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'gmtCreate',
+            title: '创建时间',
+            align: 'center',
+            sortable: true
+        },
+        {
+            title: '操作',
+            align: 'center',
+            field: '',
+            formatter: function (value, row, index) {
+                var d = '<a title="删除" href="javascript:void(0);" onclick="remove(\'' + row.id+'\')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
+                return d;
+            }
+        }
+    ],
+    locale: 'zh-CN',//中文支持,
+    responseHandler: function (res) {
+        if (res) {
+            return {
+                "res": res.rows,
+                "total": res.total
+            };
+        } else {
+            return {
+                "rows": [],
+                "total": 0
+            };
+        }
     }
-});
+})
 
-function load() {
-    $('#exampleTable')
-        .bootstrapTable(
-            {
-                method: 'get', // 服务器数据的请求方式 get or post
-                url: prefix + "/list", // 服务器数据的加载地址
-                // showRefresh : true,
-                // showToggle : true,
-                // showColumns : true,
-                iconSize: 'outline',
-                toolbar: '#exampleToolbar',
-                striped: true, // 设置为true会有隔行变色效果
-                dataType: "json", // 服务器返回的数据类型
-                pagination: true, // 设置为true会在底部显示分页条
-                queryParamsType : "pageSize",
-                // //设置为pageSize则会发送符合RESTFull格式的参数
-                singleSelect: false, // 设置为true将禁止多选
-                // contentType : "application/x-www-form-urlencoded",
-                // //发送到服务器的数据编码类型
-                pageSize: 10, // 如果设置了分页，每页数据条数
-                pageNumber: 1, // 如果设置了分布，首页页码
-                // search : true, // 是否显示搜索框
-                // showColumns : true, // 是否显示内容下拉框（选择显示的列）
-                sidePagination: "server", // 设置在哪里进行分页，可选值为"client" 或者
-                // "server"
-                queryParams: function (params) {
-                    return {
-                        pageSize: params.pageSize,
-                        pageIndex: params.pageNumber,
-                        name: $('#searchName').val(),
-                        sort: 'gmt_create',
-                        order: 'desc',
-                        operation: $("#searchOperation").val(),
-                        username: $("#searchUsername").val()
-                    };
-                },
-                // //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
-                // queryParamsType = 'pageSize' ,返回参数必须包含
-                // pageSize, pageIndex, search, sort, order 否则, 需要包含:
-                // pageSize, pageNumber, searchText, sortName,
-                // sortOrder.
-                // 返回false将会终止请求
-                columns: [
-                    {
-                        checkbox: true
-                    },
-                    {
-                        field: 'id', // 列字段名
-                        title: '序号' // 列标题
-                    },
-                    {
-                        field: 'userId',
-                        title: '用户Id'
-                    },
-                    {
-                        field: 'username',
-                        title: '用户名'
-                    },
-                    {
-                        field: 'operation',
-                        title: '操作'
-                    },
-                    {
-                        field: 'time',
-                        title: '用时'
-                    },
-                    {
-                        field: 'method',
-                        title: '方法'
-                    },
-                    {
-                        field: 'params',
-                        title: '参数'
-                    },
-                    {
-                        field: 'ip',
-                        title: 'IP地址'
-                    },
-                    {
-                        field: 'gmtCreate',
-                        title: '创建时间'
-                    },
-                    {
-                        title: '操作',
-                        field: 'id',
-                        align: 'center',
-                        formatter: function (value, row, index) {
-                            var e = '<a class="btn btn-primary btn-sm" href="#" mce_href="#" title="编辑" onclick="edit(\''
-                                + row.userId
-                                + '\')"><i class="fa fa-edit"></i></a> ';
-                            var d = '<a class="btn btn-warning btn-sm" href="#" title="删除"  mce_href="#" onclick="remove(\''
-                                + row.id
-                                + '\')"><i class="fa fa-remove"></i></a> ';
-                            var f = '<a class="btn btn-success btn-sm" href="#" title="重置密码"  mce_href="#" onclick="resetPwd(\''
-                                + row.userId
-                                + '\')"><i class="fa fa-key"></i></a> ';
-                            return d;
-                        }
-                    }]
-            });
+//请求服务数据时所传参数
+function queryParams(params) {
+    var title = "";
+    $(".search input").each(function () {
+        title = $(this).val();
+    });
+    return {
+        //每页多少条数据
+        'pager.pageSize': this.pageSize,
+        //请求第几页
+        'pager.pageIndex': this.pageNumber,
+        name: $('#searchName').val(),
+        'pager.sort': 'gmt_create',
+        'pager.order': 'desc',
+        operation: $("#searchOperation").val(),
+        username: $("#searchUsername").val(),
+
+    }
 }
-
 function reLoad() {
-    $('#exampleTable').bootstrapTable('refresh');
+    $('#mytab').bootstrapTable('refresh',{"url":"/log/list"});
 }
 
 function remove(id) {
@@ -142,7 +163,7 @@ function remove(id) {
 }
 
 function batchRemove() {
-    var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
+    var rows = $('#mytab').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
     if (rows.length == 0) {
         layer.msg("请选择要删除的数据");
         return;
@@ -173,4 +194,9 @@ function batchRemove() {
         });
     }, function () {
     });
+
+}
+function remarkss(val) {
+    console.log(JSON.stringify(val)+"=============");
+    $("#showParams").html(val.params);
 }

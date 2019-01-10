@@ -70,7 +70,7 @@ layui.define(function(exports){
 
   function isFunction(value) { return type(value) == "function" }
   function isWindow(obj)     { return obj != null && obj == obj.window }
-  function isDocument(obj)   { return obj != null && obj.nodeType == obj.DOCUMENT_NODE }
+  function isDocument(obj)   { return obj != null && obj.nodeType == obj.VoCUMENT_NODE }
   function isObject(obj)     { return type(obj) == "object" }
   function isPlainObject(obj) {
     return isObject(obj) && !isWindow(obj) && Object.getPrototypeOf(obj) == Object.prototype
@@ -134,10 +134,10 @@ layui.define(function(exports){
   }
 
   // `$.zepto.fragment` takes a html string and an optional tag name
-  // to generate DOM nodes from the given html string.
-  // The generated DOM nodes are returned as an array.
+  // to generate VoM nodes from the given html string.
+  // The generated VoM nodes are returned as an array.
   // This function can be overridden in plugins for example to make
-  // it compatible with browsers that don't support the DOM fully.
+  // it compatible with browsers that don't support the VoM fully.
   zepto.fragment = function(html, name, properties) {
     var dom, nodes, container
 
@@ -192,7 +192,7 @@ layui.define(function(exports){
     else if (typeof selector == 'string') {
       selector = selector.trim()
       // If it's a html fragment, create nodes from it
-      // Note: In both Chrome 21 and Firefox 15, DOM error 12
+      // Note: In both Chrome 21 and Firefox 15, VoM error 12
       // is thrown if the fragment doesn't begin with <
       if (selector[0] == '<' && fragmentRE.test(selector))
         dom = zepto.fragment(selector, RegExp.$1, context), selector = null
@@ -202,14 +202,14 @@ layui.define(function(exports){
       // If it's a CSS selector, use it to select nodes.
       else dom = zepto.qsa(document, selector)
     }
-    // If a function is given, call it when the DOM is ready
+    // If a function is given, call it when the VoM is ready
     else if (isFunction(selector)) return $(document).ready(selector)
     // If a Zepto collection is given, just return it
     else if (zepto.isZ(selector)) return selector
     else {
       // normalize array if an array of nodes is given
       if (isArray(selector)) dom = compact(selector)
-      // Wrap DOM nodes.
+      // Wrap VoM nodes.
       else if (isObject(selector))
         dom = [selector], selector = null
       // If it's a html fragment, create nodes from it
@@ -440,7 +440,7 @@ layui.define(function(exports){
       // need to check if document.body exists for IE as that browser reports
       // document ready when it hasn't yet created the body element
       if (readyRE.test(document.readyState) && document.body) callback($)
-      else document.addEventListener('DOMContentLoaded', function(){ callback($) }, false)
+      else document.addEventListener('VoMContentLoaded', function(){ callback($) }, false)
       return this
     },
     get: function(idx){
@@ -1164,7 +1164,7 @@ layui.define(function(exports){
     return this.each(function(){
       // handle focus(), blur() by calling them directly
       if (event.type in focus && typeof this[event.type] == "function") this[event.type]()
-      // items in the collection might not be DOM elements
+      // items in the collection might not be VoM elements
       else if ('dispatchEvent' in this) this.dispatchEvent(event)
       else $(this).triggerHandler(event, args)
     })

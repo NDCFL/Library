@@ -174,14 +174,14 @@
 
             (!this.o.displayInput) && this.$.hide();
 
-            // adds needed DOM elements (canvas, div)
+            // adds needed VoM elements (canvas, div)
             this.$c = $(document.createElement('canvas')).attr({
                 width: this.o.width,
                 height: this.o.height
             });
 
             // wraps all elements in a div
-            // add to DOM before Canvas init is triggered
+            // add to VoM before Canvas init is triggered
             this.$div = $('<div style="'
                 + (this.o.inline ? 'display:inline;' : '')
                 + 'width:' + this.o.width + 'px;height:' + this.o.height + 'px;'
@@ -652,8 +652,8 @@
                 }
             );
 
-            this.$c.bind("mousewheel DOMMouseScroll", mw);
-            this.$.bind("mousewheel DOMMouseScroll", mw)
+            this.$c.bind("mousewheel VoMMouseScroll", mw);
+            this.$.bind("mousewheel VoMMouseScroll", mw)
         };
 
         this.init = function () {

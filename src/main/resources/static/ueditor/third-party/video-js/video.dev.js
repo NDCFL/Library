@@ -423,7 +423,7 @@ vjs.fixEvent = function(event) {
     // IE8 Doesn't like when you mess with native event properties
     // Firefox returns false for event.hasOwnProperty('type') and other props
     //  which makes copying more difficult.
-    // TODO: Probably best to create a whitelist of event props
+    // TOVo: Probably best to create a whitelist of event props
     for (var key in old) {
       // Safari 6.0.3 warns you if you try to copy deprecated layerX/Y
       if (key !== 'layerX' && key !== 'layerY') {
@@ -530,11 +530,11 @@ vjs.trigger = function(elem, event) {
   }
 
   // Unless explicitly stopped or the event does not bubble (e.g. media events)
-    // recursively calls this function to bubble the event up the DOM.
+    // recursively calls this function to bubble the event up the VoM.
     if (parent && !event.isPropagationStopped() && event.bubbles !== false) {
     vjs.trigger(parent, event);
 
-  // If at the top of the DOM, triggers the default action unless disabled.
+  // If at the top of the VoM, triggers the default action unless disabled.
   } else if (!parent && !event.isDefaultPrevented()) {
     var targetData = vjs.getData(event.target);
 
@@ -844,7 +844,7 @@ vjs.removeData = function(el){
   // vjs.cache[id] = null;
   delete vjs.cache[id];
 
-  // Remove the expando property from the DOM node
+  // Remove the expando property from the VoM node
   try {
     delete el[vjs.expando];
   } catch(e) {
@@ -1298,7 +1298,7 @@ vjs.findPosition = function(el) {
  * Base UI Component class
  *
  * Components are embeddable UI objects that are represented by both a
- * javascript object and an element in the DOM. They can be children of other
+ * javascript object and an element in the VoM. They can be children of other
  * components, and can have many children themselves.
  *
  *     // adding a button to the player
@@ -1382,7 +1382,7 @@ vjs.Component.prototype.dispose = function(){
   // Remove all event listeners.
   this.off();
 
-  // Remove element from DOM
+  // Remove element from VoM
   if (this.el_.parentNode) {
     this.el_.parentNode.removeChild(this.el_);
   }
@@ -1464,7 +1464,7 @@ vjs.Component.prototype.options = function(obj){
 };
 
 /**
- * The DOM element for the component
+ * The VoM element for the component
  *
  * @type {Element}
  * @private
@@ -1472,7 +1472,7 @@ vjs.Component.prototype.options = function(obj){
 vjs.Component.prototype.el_;
 
 /**
- * Create the component's DOM element
+ * Create the component's VoM element
  *
  * @param  {String=} tagName  Element's node type. e.g. 'div'
  * @param  {Object=} attributes An object of element attributes that should be set on the element
@@ -1483,7 +1483,7 @@ vjs.Component.prototype.createEl = function(tagName, attributes){
 };
 
 /**
- * Get the component's DOM element
+ * Get the component's VoM element
  *
  *     var domEl = myComponent.el();
  *
@@ -1503,7 +1503,7 @@ vjs.Component.prototype.el = function(){
 vjs.Component.prototype.contentEl_;
 
 /**
- * Return the component's DOM element for embedding content.
+ * Return the component's VoM element for embedding content.
  * Will either be el_ or a new element defined in createEl.
  *
  * @return {Element}
@@ -2073,7 +2073,7 @@ vjs.Component.prototype.dimension = function(widthOrHeight, num, skipListeners){
 
   // No px so using % or no style was set, so falling back to offsetWidth/height
   // If component has display:none, offset will return 0
-  // TODO: handle display:none and no dimension style using px
+  // TOVo: handle display:none and no dimension style using px
   } else {
 
     return parseInt(this.el_['offset'+vjs.capitalize(widthOrHeight)], 10);
@@ -2125,7 +2125,7 @@ vjs.Component.prototype.emitTapEvents = function(){
   noTap = function(){
     couldBeTap = false;
   };
-  // TODO: Listen to the original target. http://youtu.be/DujfpXOKUp8?t=13m8s
+  // TOVo: Listen to the original target. http://youtu.be/DujfpXOKUp8?t=13m8s
   this.on('touchmove', noTap);
   this.on('touchleave', noTap);
   this.on('touchcancel', noTap);
@@ -2201,7 +2201,7 @@ vjs.Button.prototype.createEl = function(type, props){
 };
 
 vjs.Button.prototype.buildCSSClass = function(){
-  // TODO: Change vjs-control to vjs-button?
+  // TOVo: Change vjs-control to vjs-button?
   return 'vjs-control ' + vjs.Component.prototype.buildCSSClass.call(this);
 };
 
@@ -2740,7 +2740,7 @@ vjs.Player = vjs.Component.extend({
       this.addClass('vjs-controls-disabled');
     }
 
-    // TODO: Make this smarter. Toggle user state between touching/mousing
+    // TOVo: Make this smarter. Toggle user state between touching/mousing
     // using events, since devices can have both touch and mouse events.
     // if (vjs.TOUCH_ENABLED) {
     //   this.addClass('vjs-touch-enabled');
@@ -2799,7 +2799,7 @@ vjs.Player.prototype.options_ = vjs.options;
  *     myPlayer.dispose();
  *
  * This is especially helpful if you are dynamically adding and removing videos
- * to/from the DOM.
+ * to/from the VoM.
  */
 vjs.Player.prototype.dispose = function(){
   this.trigger('dispose');
@@ -3027,7 +3027,7 @@ vjs.Player.prototype.trackProgress = function(){
   this.progressInterval = setInterval(vjs.bind(this, function(){
     // Don't trigger unless buffered amount is greater than last time
     // log(this.cache_.bufferEnd, this.buffered().end(0), this.duration())
-    /* TODO: update for multiple buffered regions */
+    /* TOVo: update for multiple buffered regions */
     if (this.cache_.bufferEnd < this.buffered().end(0)) {
       this.trigger('progress');
     } else if (this.bufferedPercent() == 1) {
@@ -4008,7 +4008,7 @@ vjs.Player.prototype.listenForUserActivity = function(){
 // controller: function(){ return this.techCall('controller'); },
 // defaultMuted: function(){ return this.techCall('defaultMuted'); }
 
-// TODO
+// TOVo
 // currentSrcList: the array of sources including other formats and bitrates
 // playList: array of source lists in order of playback
 
@@ -4556,7 +4556,7 @@ vjs.VolumeBar = vjs.Slider.extend({
     vjs.Slider.call(this, player, options);
     player.on('volumechange', vjs.bind(this, this.updateARIAAttributes));
     player.ready(vjs.bind(this, this.updateARIAAttributes));
-    setTimeout(vjs.bind(this, this.update), 0); // update when elements is in DOM
+    setTimeout(vjs.bind(this, this.update), 0); // update when elements is in VoM
   }
 });
 
@@ -4710,7 +4710,7 @@ vjs.MuteToggle.prototype.update = function(){
       }
   }
 
-  /* TODO improve muted icon classes */
+  /* TOVo improve muted icon classes */
   for (var i = 0; i < 4; i++) {
     vjs.removeClass(this.el_, 'vjs-vol-'+i);
   }
@@ -5079,8 +5079,8 @@ vjs.Html5 = vjs.MediaTechController.extend({
     // volume cannot be changed from 1 on iOS
     this.features['volumeControl'] = vjs.Html5.canControlVolume();
 
-    // In iOS, if you move a video element in the DOM, it breaks video playback.
-    this.features['movingMediaElementInDOM'] = !vjs.IS_IOS;
+    // In iOS, if you move a video element in the VoM, it breaks video playback.
+    this.features['movingMediaElementInVoM'] = !vjs.IS_IOS;
 
     // HTML video is able to automatically resize when going to fullscreen
     this.features['fullscreenResize'] = true;
@@ -5137,7 +5137,7 @@ vjs.Html5.prototype.createEl = function(){
   // Check if this browser supports moving the element into the box.
   // On the iPhone video will break if you move the element,
   // So we have to create a brand new element.
-  if (!el || this.features['movingMediaElementInDOM'] === false) {
+  if (!el || this.features['movingMediaElementInVoM'] === false) {
 
     // If the original tag is still there, clone and remove it.
     if (el) {
@@ -5309,7 +5309,7 @@ vjs.Html5.canPlaySource = function(srcObj){
   } catch(e) {
     return '';
   }
-  // TODO: Check Type
+  // TOVo: Check Type
   // If no Type, check ext
   // Check Media Type
 };
@@ -5386,7 +5386,7 @@ vjs.Flash = vjs.MediaTechController.extend({
         objId = player.id()+'_flash_api',
 
         // Store player options in local var for optimization
-        // TODO: switch to using player methods instead of options
+        // TOVo: switch to using player methods instead of options
         // e.g. player.autoplay();
         playerOptions = player.options_,
 
@@ -5455,8 +5455,8 @@ vjs.Flash = vjs.MediaTechController.extend({
 
     // There's on particularly annoying issue with this method which is that Firefox throws a security error on an offsite Flash object loaded into a dynamically created iFrame.
     // Even though the iframe was inserted into a page on the web, Firefox + Flash considers it a local app trying to access an internet file.
-    // I tried mulitple ways of setting the iframe src attribute but couldn't find a src that worked well. Tried a real/fake source, in/out of domain.
-    // Also tried a method from stackoverflow that caused a security error in all browsers. http://stackoverflow.com/questions/2486901/how-to-set-document-domain-for-a-dynamically-generated-iframe
+    // I tried mulitple ways of setting the iframe src attribute but couldn't find a src that worked well. Tried a real/fake source, in/out of vo.
+    // Also tried a method from stackoverflow that caused a security error in all browsers. http://stackoverflow.com/questions/2486901/how-to-set-document-vo-for-a-dynamically-generated-iframe
     // In the end the solution I found to work was setting the iframe window.location.href right before doing a document.write of the Flash object.
     // The only downside of this it seems to trigger another http request to the original page (no matter what's put in the href). Not sure why that is.
 
@@ -5518,10 +5518,10 @@ vjs.Flash = vjs.MediaTechController.extend({
         // Get the iFrame's document depending on what the browser supports
         iDoc = iFrm.contentDocument ? iFrm.contentDocument : iFrm.contentWindow.document;
 
-        // Tried ensuring both document domains were the same, but they already were, so that wasn't the issue.
+        // Tried ensuring both document vos were the same, but they already were, so that wasn't the issue.
         // Even tried adding /. that was mentioned in a browser security writeup
-        // document.domain = document.domain+'/.';
-        // iDoc.domain = document.domain+'/.';
+        // document.vo = document.vo+'/.';
+        // iDoc.vo = document.vo+'/.';
 
         // Tried adding the object to the iframe doc's innerHTML. Security error in all browsers.
         // iDoc.body.innerHTML = swfObjectHTML;
@@ -5530,7 +5530,7 @@ vjs.Flash = vjs.MediaTechController.extend({
         // iDoc.body.appendChild(swfObject);
 
         // Using document.write actually got around the security error that browsers were throwing.
-        // Again, it's a dynamically generated (same domain) iframe, loading an external Flash swf.
+        // Again, it's a dynamically generated (same vo) iframe, loading an external Flash swf.
         // Not sure why that's a security issue, but apparently it is.
         iDoc.write(vjs.Flash.getEmbedCode(options['swf'], flashVars, params, attributes));
 
@@ -5986,7 +5986,7 @@ vjs.Player.prototype.addTextTrack = function(kind, label, language, options){
   tracks.push(track);
 
   // If track.dflt() is set, start showing immediately
-  // TODO: Add a process to deterime the best track to show for the specific kind
+  // TOVo: Add a process to deterime the best track to show for the specific kind
   // Incase there are mulitple defaulted tracks of the same kind
   // Or the user has a set preference of a specific language that should override the default
   // if (track.dflt()) {
@@ -6138,7 +6138,7 @@ vjs.TextTrack.prototype.title = function(){
 
 /**
  * Language - two letter string to represent track language, e.g. 'en' for English
- * Spec def: readonly attribute DOMString language;
+ * Spec def: readonly attribute VoMString language;
  * @private
  */
 vjs.TextTrack.prototype.language_;
@@ -6153,7 +6153,7 @@ vjs.TextTrack.prototype.language = function(){
 
 /**
  * Track label e.g. 'English'
- * Spec def: readonly attribute DOMString label;
+ * Spec def: readonly attribute VoMString label;
  * @private
  */
 vjs.TextTrack.prototype.label_;
@@ -6296,7 +6296,7 @@ vjs.TextTrack.prototype.hide = function(){
 
 /**
  * Disable: Mode Off/Disable (0)
- * Indicates that the text track is not active. Other than for the purposes of exposing the track in the DOM, the user agent is ignoring the text track.
+ * Indicates that the text track is not active. Other than for the purposes of exposing the track in the VoM, the user agent is ignoring the text track.
  * No cues are active, no events are fired, and the user agent will not attempt to obtain the track's cues.
  */
 vjs.TextTrack.prototype.disable = function(){
@@ -6377,7 +6377,7 @@ vjs.TextTrack.prototype.onError = function(err){
 };
 
 // Parse the WebVTT text format for cue times.
-// TODO: Separate parser into own class so alternative timed text formats can be used. (TTML, DFXP)
+// TOVo: Separate parser into own class so alternative timed text formats can be used. (TTML, DFXP)
 vjs.TextTrack.prototype.parseCues = function(srcContent) {
   var cue, time, text,
       lines = srcContent.split('\n'),
@@ -6450,7 +6450,7 @@ vjs.TextTrack.prototype.parseCueTime = function(timeText) {
   }
 
   // Break other (seconds, milliseconds, and flags) by spaces
-  // TODO: Make additional cue layout settings work with flags
+  // TOVo: Make additional cue layout settings work with flags
   other = other.split(/\s+/);
   // Remove seconds. Seconds is the first part before any spaces.
   seconds = other.splice(0,1)[0];
@@ -7068,7 +7068,7 @@ vjs.autoSetup = function(){
           }
         }
 
-      // If getAttribute isn't defined, we need to wait for the DOM.
+      // If getAttribute isn't defined, we need to wait for the VoM.
       } else {
         vjs.autoSetupTimeout(1);
         break;
@@ -7081,7 +7081,7 @@ vjs.autoSetup = function(){
   }
 };
 
-// Pause to let the DOM keep processing
+// Pause to let the VoM keep processing
 vjs.autoSetupTimeout = function(wait){
   setTimeout(vjs.autoSetup, wait);
 };
@@ -7095,7 +7095,7 @@ if (document.readyState === 'complete') {
 }
 
 // Run Auto-load players
-// You have to wait at least once in case this script is loaded after your video in the DOM (weird behavior only with minified version)
+// You have to wait at least once in case this script is loaded after your video in the VoM (weird behavior only with minified version)
 vjs.autoSetupTimeout(1);
 /**
  * the method for registering a video.js plugin

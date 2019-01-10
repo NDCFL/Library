@@ -65,7 +65,7 @@ def plural(word, count) {
 
 def change(currency, amount) {
   currency.values().inject([]){ list, coin ->
-     int count = amount / coin.value
+     long count = amount / coin.value
      amount = amount % coin.value
      list += "$count ${plural(coin.toString(), count)}"
   }

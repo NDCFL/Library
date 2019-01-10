@@ -166,7 +166,7 @@ return {
 		options.duration = (options.duration || 500) / 1000;
 		options.afterFinish = options.complete;
 
-		// animate wrappers and DOM elements
+		// animate wrappers and VoM elements
 		if (hasEffect) {
 			for (key in params) {
 				// The fx variable is seemingly thrown away here, but the Effect.setup will add itself to the _highcharts_animation object

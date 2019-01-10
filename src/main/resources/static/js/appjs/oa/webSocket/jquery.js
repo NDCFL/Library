@@ -71,11 +71,11 @@ var jQuery = function( selector, context ) {
 	// For matching the engine and version of the browser
 	browserMatch,
 
-	// The deferred used on DOM ready
+	// The deferred used on VoM ready
 	readyList,
 
 	// The ready event handler
-	DOMContentLoaded,
+	VoMContentLoaded,
 
 	// Save a reference to some core methods
 	toString = Object.prototype.toString,
@@ -98,7 +98,7 @@ jQuery.fn = jQuery.prototype = {
 			return this;
 		}
 
-		// Handle $(DOMElement)
+		// Handle $(VoMElement)
 		if ( selector.nodeType ) {
 			this.context = this[0] = selector;
 			this.length = 1;
@@ -391,7 +391,7 @@ jQuery.extend({
 		return jQuery;
 	},
 
-	// Is the DOM ready to be used? Set to true once it occurs.
+	// Is the VoM ready to be used? Set to true once it occurs.
 	isReady: false,
 
 	// A counter to track how many items to wait for before
@@ -407,19 +407,19 @@ jQuery.extend({
 		}
 	},
 
-	// Handle when the DOM is ready
+	// Handle when the VoM is ready
 	ready: function( wait ) {
-		// Either a released hold or an DOMready/load event and not yet ready
+		// Either a released hold or an VoMready/load event and not yet ready
 		if ( (wait === true && !--jQuery.readyWait) || (wait !== true && !jQuery.isReady) ) {
 			// Make sure body exists, at least, in case IE gets a little overzealous (ticket #5443).
 			if ( !document.body ) {
 				return setTimeout( jQuery.ready, 1 );
 			}
 
-			// Remember that the DOM is ready
+			// Remember that the VoM is ready
 			jQuery.isReady = true;
 
-			// If a normal DOM Ready event fired, decrement, and wait if need be
+			// If a normal VoM Ready event fired, decrement, and wait if need be
 			if ( wait !== true && --jQuery.readyWait > 0 ) {
 				return;
 			}
@@ -451,7 +451,7 @@ jQuery.extend({
 		// Mozilla, Opera and webkit nightlies currently support this event
 		if ( document.addEventListener ) {
 			// Use the handy event callback
-			document.addEventListener( "DOMContentLoaded", DOMContentLoaded, false );
+			document.addEventListener( "VoMContentLoaded", VoMContentLoaded, false );
 
 			// A fallback to window.onload, that will always work
 			window.addEventListener( "load", jQuery.ready, false );
@@ -460,7 +460,7 @@ jQuery.extend({
 		} else if ( document.attachEvent ) {
 			// ensure firing before onload,
 			// maybe late but safe also for iframes
-			document.attachEvent( "onreadystatechange", DOMContentLoaded );
+			document.attachEvent( "onreadystatechange", VoMContentLoaded );
 
 			// A fallback to window.onload, that will always work
 			window.attachEvent( "onload", jQuery.ready );
@@ -480,7 +480,7 @@ jQuery.extend({
 	},
 
 	// See test/unit/core.js for details concerning isFunction.
-	// Since version 1.3, DOM methods and functions like alert
+	// Since version 1.3, VoM methods and functions like alert
 	// aren't supported. They return false on IE (#2968).
 	isFunction: function( obj ) {
 		return jQuery.type(obj) === "function";
@@ -508,7 +508,7 @@ jQuery.extend({
 	isPlainObject: function( obj ) {
 		// Must be an Object.
 		// Because of IE, we also have to check the presence of the constructor property.
-		// Make sure that DOM nodes and window objects don't pass through, as well
+		// Make sure that VoM nodes and window objects don't pass through, as well
 		if ( !obj || jQuery.type(obj) !== "object" || obj.nodeType || jQuery.isWindow( obj ) ) {
 			return false;
 		}
@@ -569,11 +569,11 @@ jQuery.extend({
 	// (xml & tmp used internally)
 	parseXML: function( data , xml , tmp ) {
 
-		if ( window.DOMParser ) { // Standard
-			tmp = new DOMParser();
+		if ( window.VoMParser ) { // Standard
+			tmp = new VoMParser();
 			xml = tmp.parseFromString( data , "text/xml" );
 		} else { // IE
-			xml = new ActiveXObject( "Microsoft.XMLDOM" );
+			xml = new ActiveXObject( "Microsoft.XMLVoM" );
 			xml.async = "false";
 			xml.loadXML( data );
 		}
@@ -896,22 +896,22 @@ rootjQuery = jQuery(document);
 
 // Cleanup functions for the document ready method
 if ( document.addEventListener ) {
-	DOMContentLoaded = function() {
-		document.removeEventListener( "DOMContentLoaded", DOMContentLoaded, false );
+	VoMContentLoaded = function() {
+		document.removeEventListener( "VoMContentLoaded", VoMContentLoaded, false );
 		jQuery.ready();
 	};
 
 } else if ( document.attachEvent ) {
-	DOMContentLoaded = function() {
+	VoMContentLoaded = function() {
 		// Make sure body exists, at least, in case IE gets a little overzealous (ticket #5443).
 		if ( document.readyState === "complete" ) {
-			document.detachEvent( "onreadystatechange", DOMContentLoaded );
+			document.detachEvent( "onreadystatechange", VoMContentLoaded );
 			jQuery.ready();
 		}
 	};
 }
 
-// The DOM ready check for Internet Explorer
+// The VoM ready check for Internet Explorer
 function doScrollCheck() {
 	if ( jQuery.isReady ) {
 		return;
@@ -1251,7 +1251,7 @@ jQuery.support = (function() {
 	}
 
 	// Check if a radio maintains it's value
-	// after being appended to the DOM
+	// after being appended to the VoM
 	input = document.createElement("input");
 	input.value = "t";
 	input.setAttribute("type", "radio");
@@ -1288,7 +1288,7 @@ jQuery.support = (function() {
 	documentElement.insertBefore( body, documentElement.firstChild );
 
 	// Check if a disconnected checkbox will retain its checked
-	// value of true after appended to the DOM (IE6/7)
+	// value of true after appended to the VoM (IE6/7)
 	support.appendChecked = input.checked;
 
 	support.boxModel = div.offsetWidth === 2;
@@ -1413,16 +1413,16 @@ jQuery.extend({
 
 		var internalKey = jQuery.expando, getByName = typeof name === "string", thisCache,
 
-			// We have to handle DOM nodes and JS objects differently because IE6-7
-			// can't GC object references properly across the DOM-JS boundary
+			// We have to handle VoM nodes and JS objects differently because IE6-7
+			// can't GC object references properly across the VoM-JS boundary
 			isNode = elem.nodeType,
 
-			// Only DOM nodes need the global jQuery cache; JS object data is
+			// Only VoM nodes need the global jQuery cache; JS object data is
 			// attached directly to the object so GC can occur automatically
 			cache = isNode ? jQuery.cache : elem,
 
 			// Only defining an ID for JS objects if its cache already exists allows
-			// the code to shortcut on the same path as a DOM node with no cache
+			// the code to shortcut on the same path as a VoM node with no cache
 			id = isNode ? elem[ jQuery.expando ] : elem[ jQuery.expando ] && jQuery.expando;
 
 		// Avoid doing any more work than we need to when trying to get data on an
@@ -1432,7 +1432,7 @@ jQuery.extend({
 		}
 
 		if ( !id ) {
-			// Only DOM nodes need a new unique ID for each element since their data
+			// Only VoM nodes need a new unique ID for each element since their data
 			// ends up in the global cache
 			if ( isNode ) {
 				elem[ jQuery.expando ] = id = ++jQuery.uuid;
@@ -1444,7 +1444,7 @@ jQuery.extend({
 		if ( !cache[ id ] ) {
 			cache[ id ] = {};
 
-			// TODO: This is a hack for 1.5 ONLY. Avoids exposing jQuery
+			// TOVo: This is a hack for 1.5 ONLY. Avoids exposing jQuery
 			// metadata on plain JS objects when the object is serialized using
 			// JSON.stringify
 			if ( !isNode ) {
@@ -1479,7 +1479,7 @@ jQuery.extend({
 			thisCache[ jQuery.camelCase( name ) ] = data;
 		}
 
-		// TODO: This is a hack for 1.5 ONLY. It will be removed in 1.6. Users should
+		// TOVo: This is a hack for 1.5 ONLY. It will be removed in 1.6. Users should
 		// not attempt to inspect the internal events object using jQuery.data, as this
 		// internal data object is undocumented and subject to change.
 		if ( name === "events" && !thisCache[name] ) {
@@ -1549,7 +1549,7 @@ jQuery.extend({
 		// data if it existed
 		if ( internalCache ) {
 			cache[ id ] = {};
-			// TODO: This is a hack for 1.5 ONLY. Avoids exposing jQuery
+			// TOVo: This is a hack for 1.5 ONLY. Avoids exposing jQuery
 			// metadata on plain JS objects when the object is serialized using
 			// JSON.stringify
 			if ( !isNode ) {
@@ -1579,7 +1579,7 @@ jQuery.extend({
 		return jQuery.data( elem, name, data, true );
 	},
 
-	// A method for determining if a DOM node can handle the data expando
+	// A method for determining if a VoM node can handle the data expando
 	acceptData: function( elem ) {
 		if ( elem.nodeName ) {
 			var match = jQuery.noData[ elem.nodeName.toLowerCase() ];
@@ -1687,7 +1687,7 @@ function dataAttr( elem, key, data ) {
 	return data;
 }
 
-// TODO: This is a hack for 1.5 ONLY to allow objects with a single toJSON
+// TOVo: This is a hack for 1.5 ONLY to allow objects with a single toJSON
 // property to be considered empty objects; this property always exists in
 // order to make sure JSON.stringify does not expose internal metadata
 function isEmptyDataObject( obj ) {
@@ -2352,7 +2352,7 @@ boolHook = {
 			jQuery.removeAttr( elem, name );
 		} else {
 			// value is true since we know at this point it's type boolean and not false
-			// Set boolean attributes to the same name and set the DOM property
+			// Set boolean attributes to the same name and set the VoM property
 			propName = jQuery.propFix[ name ] || name;
 			if ( propName in elem ) {
 				// Only set the IDL specifically if it already exists on the element
@@ -2761,7 +2761,7 @@ jQuery.event = {
 	},
 	
 	// Events that are safe to short-circuit if no handlers are attached.
-	// Native DOM events should not be added, they may have inline handlers.
+	// Native VoM events should not be added, they may have inline handlers.
 	customEvent: {
 		"getData": true,
 		"setData": true,
@@ -2814,7 +2814,7 @@ jQuery.event = {
 
 		// Handle a global trigger
 		if ( !elem ) {
-			// TODO: Stop taunting the data cache; remove global events and always attach to document
+			// TOVo: Stop taunting the data cache; remove global events and always attach to document
 			jQuery.each( jQuery.cache, function() {
 				// internalKey variable is just used to make it easier to find
 				// and potentially change this stuff later; currently it just
@@ -2845,7 +2845,7 @@ jQuery.event = {
 			// IE doesn't like method names with a colon (#3533, #8272)
 			ontype = type.indexOf(":") < 0 ? "on" + type : "";
 
-		// Fire event on the current element, then bubble up the DOM tree
+		// Fire event on the current element, then bubble up the VoM tree
 		do {
 			var handle = jQuery._data( cur, "handle" );
 
@@ -2872,7 +2872,7 @@ jQuery.event = {
 			if ( (!special._default || special._default.call( elem.ownerDocument, event ) === false) &&
 				!(type === "click" && jQuery.nodeName( elem, "a" )) && jQuery.acceptData( elem ) ) {
 
-				// Call a native DOM method on the target with the same name name as the event.
+				// Call a native VoM method on the target with the same name name as the event.
 				// Can't use an .isFunction)() check here because IE6/7 fails that test.
 				// IE<9 dies on focus to hidden element (#1486), may want to revisit a try/catch.
 				try {
@@ -3098,8 +3098,8 @@ function returnTrue() {
 	return true;
 }
 
-// jQuery.Event is based on DOM3 Events as specified by the ECMAScript Language Binding
-// http://www.w3.org/TR/2003/WD-DOM-Level-3-Events-20030331/ecma-script-binding.html
+// jQuery.Event is based on VoM3 Events as specified by the ECMAScript Language Binding
+// http://www.w3.org/TR/2003/WD-VoM-Level-3-Events-20030331/ecma-script-binding.html
 jQuery.Event.prototype = {
 	preventDefault: function() {
 		this.isDefaultPrevented = returnTrue;
@@ -4036,7 +4036,7 @@ var Expr = Sizzle.selectors = {
 		TAG: /^((?:[\w\u00c0-\uFFFF\*\-]|\\.)+)/,
 		CHILD: /:(only|nth|last|first)-child(?:\(\s*(even|odd|(?:[+\-]?\d+|(?:[+\-]?\d*)?n\s*(?:[+\-]\s*\d+)?))\s*\))?/,
 		POS: /:(nth|eq|gt|lt|first|last|even|odd)(?:\((\d*)\))?(?=[^\-]|$)/,
-		PSEUDO: /:((?:[\w\u00c0-\uFFFF\-]|\\.)+)(?:\((['"]?)((?:\([^\)]+\)|[^\(\)]*)+)\2\))?/
+		PSEUVo: /:((?:[\w\u00c0-\uFFFF\-]|\\.)+)(?:\((['"]?)((?:\([^\)]+\)|[^\(\)]*)+)\2\))?/
 	},
 
 	leftMatch: {},
@@ -4228,7 +4228,7 @@ var Expr = Sizzle.selectors = {
 				Sizzle.error( match[0] );
 			}
 
-			// TODO: Move to normal caching system
+			// TOVo: Move to normal caching system
 			match[0] = done++;
 
 			return match;
@@ -4251,7 +4251,7 @@ var Expr = Sizzle.selectors = {
 			return match;
 		},
 
-		PSEUDO: function( match, curLoop, inplace, result, not ) {
+		PSEUVo: function( match, curLoop, inplace, result, not ) {
 			if ( match[1] === "not" ) {
 				// If we're dealing with a complex expression, or a simple one
 				if ( ( chunker.exec(match[3]) || "" ).length > 1 || /^\w/.test(match[3]) ) {
@@ -4404,7 +4404,7 @@ var Expr = Sizzle.selectors = {
 		}
 	},
 	filter: {
-		PSEUDO: function( elem, match, i, array ) {
+		PSEUVo: function( elem, match, i, array ) {
 			var name = match[1],
 				filter = Expr.filters[ name ];
 
@@ -4571,7 +4571,7 @@ var makeArray = function( array, results ) {
 
 // Perform a simple check to determine if the browser is capable of
 // converting a NodeList to an array using builtin methods.
-// Also verifies that the returned array holds DOM nodes
+// Also verifies that the returned array holds VoM nodes
 // (which is not the case in the Blackberry browser)
 try {
 	Array.prototype.slice.call( document.documentElement.childNodes, 0 )[0].nodeType;
@@ -4698,7 +4698,7 @@ if ( document.documentElement.compareDocumentPosition ) {
 	};
 }
 
-// Utility function for retreiving the text value of an array of DOM nodes
+// Utility function for retreiving the text value of an array of VoM nodes
 Sizzle.getText = function( elems ) {
 	var ret = "", elem;
 
@@ -4937,7 +4937,7 @@ if ( document.querySelectorAll ) {
 
 			if ( !Sizzle.isXML( node ) ) {
 				try { 
-					if ( pseudoWorks || !Expr.match.PSEUDO.test( expr ) && !/!=/.test( expr ) ) {
+					if ( pseudoWorks || !Expr.match.PSEUVo.test( expr ) && !/!=/.test( expr ) ) {
 						var ret = matches.call( node, expr );
 
 						// IE 9's matchesSelector returns false on disconnected nodes
@@ -5090,10 +5090,10 @@ var posProcess = function( selector, context ) {
 		root = context.nodeType ? [context] : context;
 
 	// Position selectors must be done after the filter
-	// And so must :not(positional) so we move all PSEUDOs to the end
-	while ( (match = Expr.match.PSEUDO.exec( selector )) ) {
+	// And so must :not(positional) so we move all PSEUVos to the end
+	while ( (match = Expr.match.PSEUVo.exec( selector )) ) {
 		later += match[0];
-		selector = selector.replace( Expr.match.PSEUDO, "" );
+		selector = selector.replace( Expr.match.PSEUVo, "" );
 	}
 
 	selector = Expr.relative[selector] ? selector + "*" : selector;
@@ -5689,7 +5689,7 @@ jQuery.fn.extend({
 
 	replaceWith: function( value ) {
 		if ( this[0] && this[0].parentNode ) {
-			// Make sure that the elements are removed from the DOM before they are inserted
+			// Make sure that the elements are removed from the VoM before they are inserted
 			// this can help fix replacing a parent with child elements
 			if ( jQuery.isFunction( value ) ) {
 				return this.each(function(i) {
@@ -6046,7 +6046,7 @@ jQuery.extend({
 				continue;
 			}
 
-			// Convert html string into DOM nodes
+			// Convert html string into VoM nodes
 			if ( typeof elem === "string" ) {
 				if ( !rhtml.test( elem ) ) {
 					elem = context.createTextNode( elem );
@@ -6098,7 +6098,7 @@ jQuery.extend({
 			}
 
 			// Resets defaultChecked for any radios and checkboxes
-			// about to be appended to the DOM in IE 6/7 (#8060)
+			// about to be appended to the VoM in IE 6/7 (#8060)
 			var len;
 			if ( !jQuery.support.appendChecked ) {
 				if ( elem[0] && typeof (len = elem.length) === "number" ) {
@@ -6164,7 +6164,7 @@ jQuery.extend({
 						}
 					}
 
-					// Null the DOM reference to avoid IE6/7/8 leak (#7054)
+					// Null the VoM reference to avoid IE6/7/8 leak (#7054)
 					if ( data.handle ) {
 						data.handle.elem = null;
 					}
@@ -6273,7 +6273,7 @@ jQuery.extend({
 		"float": jQuery.support.cssFloat ? "cssFloat" : "styleFloat"
 	},
 
-	// Get and set the style property on a DOM Node
+	// Get and set the style property on a VoM Node
 	style: function( elem, name, value, extra ) {
 		// Don't set styles on text and comment nodes
 		if ( !elem || elem.nodeType === 3 || elem.nodeType === 8 || !elem.style ) {
@@ -6462,8 +6462,8 @@ if ( !jQuery.support.opacity ) {
 }
 
 jQuery(function() {
-	// This hook cannot be added until DOM ready because the support test
-	// for it is not run until after DOM ready
+	// This hook cannot be added until VoM ready because the support test
+	// for it is not run until after VoM ready
 	if ( !jQuery.support.reliableMarginRight ) {
 		jQuery.cssHooks.marginRight = {
 			get: function( elem, computed ) {
@@ -6625,7 +6625,7 @@ var r20 = /%20/g,
 	ajaxLocParts;
 
 // #8138, IE may throw an exception when accessing
-// a field from window.location if document.domain has been set
+// a field from window.location if document.vo has been set
 try {
 	ajaxLocation = location.href;
 } catch( e ) {
@@ -6956,7 +6956,7 @@ jQuery.extend({
 			callbackContext = s.context || s,
 			// Context for global events
 			// It's the callbackContext if one was provided in the options
-			// and if it's a DOM node or a jQuery collection
+			// and if it's a VoM node or a jQuery collection
 			globalEventContext = callbackContext !== s &&
 				( callbackContext.nodeType || callbackContext instanceof jQuery ) ?
 						jQuery( callbackContext ) : jQuery.event,
@@ -6977,7 +6977,7 @@ jQuery.extend({
 			transport,
 			// timeout handle
 			timeoutTimer,
-			// Cross-domain detection vars
+			// Cross-vo detection vars
 			parts,
 			// The jqXHR state
 			state = 0,
@@ -7181,7 +7181,7 @@ jQuery.extend({
 		// Extract dataTypes list
 		s.dataTypes = jQuery.trim( s.dataType || "*" ).toLowerCase().split( rspacesAjax );
 
-		// Determine if a cross-domain request is in order
+		// Determine if a cross-vo request is in order
 		if ( s.crossDomain == null ) {
 			parts = rurl.exec( s.url.toLowerCase() );
 			s.crossDomain = !!( parts &&
@@ -7665,7 +7665,7 @@ jQuery.ajaxPrefilter( "script", function( s ) {
 // Bind script tag hack transport
 jQuery.ajaxTransport( "script", function(s) {
 
-	// This transport only deals with cross domain requests
+	// This transport only deals with cross vo requests
 	if ( s.crossDomain ) {
 
 		var script,
@@ -7774,7 +7774,7 @@ jQuery.ajaxSettings.xhr = window.ActiveXObject ?
 if ( jQuery.support.ajax ) {
 
 	jQuery.ajaxTransport(function( s ) {
-		// Cross domain only allowed if supported through XMLHttpRequest
+		// Cross vo only allowed if supported through XMLHttpRequest
 		if ( !s.crossDomain || jQuery.support.cors ) {
 
 			var callback;
@@ -7808,15 +7808,15 @@ if ( jQuery.support.ajax ) {
 					}
 
 					// X-Requested-With header
-					// For cross-domain requests, seeing as conditions for a preflight are
+					// For cross-vo requests, seeing as conditions for a preflight are
 					// akin to a jigsaw puzzle, we simply never set it to be sure.
 					// (it can always be set on a per-request basis or even using ajaxSetup)
-					// For same-domain requests, won't change header if already provided.
+					// For same-vo requests, won't change header if already provided.
 					if ( !s.crossDomain && !headers["X-Requested-With"] ) {
 						headers[ "X-Requested-With" ] = "XMLHttpRequest";
 					}
 
-					// Need an extra try/catch for cross domain requests in Firefox 3
+					// Need an extra try/catch for cross vo requests in Firefox 3
 					try {
 						for ( i in headers ) {
 							xhr.setRequestHeader( i, headers[ i ] );
@@ -7875,7 +7875,7 @@ if ( jQuery.support.ajax ) {
 									responses.text = xhr.responseText;
 
 									// Firefox throws an exception when accessing
-									// statusText for faulty cross-domain requests
+									// statusText for faulty cross-vo requests
 									try {
 										statusText = xhr.statusText;
 									} catch( e ) {
@@ -8587,7 +8587,7 @@ if ( "getBoundingClientRect" in document.documentElement ) {
 		var doc = elem.ownerDocument,
 			docElem = doc.documentElement;
 
-		// Make sure we're not dealing with a disconnected DOM node
+		// Make sure we're not dealing with a disconnected VoM node
 		if ( !box || !jQuery.contains( docElem, elem ) ) {
 			return box ? { top: box.top, left: box.left } : { top: 0, left: 0 };
 		}

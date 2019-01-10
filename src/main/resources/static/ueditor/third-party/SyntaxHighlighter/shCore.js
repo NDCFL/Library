@@ -905,7 +905,7 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
          * 							provided, all elements in the current document
          * 							are returned which qualify.
          *
-         * @return {Array}	Returns list of <code>{ target: DOMElement, params: Object }</code> objects.
+         * @return {Array}	Returns list of <code>{ target: VoMElement, params: Object }</code> objects.
          */
         findElements: function(globalParams, element)
         {
@@ -1028,8 +1028,8 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
     }; // end of sh
 
     /**
-     * Checks if target DOM elements has specified CSS class.
-     * @param {DOMElement} target Target DOM element to check.
+     * Checks if target VoM elements has specified CSS class.
+     * @param {VoMElement} target Target VoM element to check.
      * @param {String} className Name of the CSS class to check for.
      * @return {Boolean} Returns true if class name is present, false otherwise.
      */
@@ -1039,8 +1039,8 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
     };
 
     /**
-     * Adds CSS class name to the target DOM element.
-     * @param {DOMElement} target Target DOM element.
+     * Adds CSS class name to the target VoM element.
+     * @param {VoMElement} target Target VoM element.
      * @param {String} className New CSS class to add.
      */
     function addClass(target, className)
@@ -1050,8 +1050,8 @@ if (typeof(SyntaxHighlighter) == 'undefined') var SyntaxHighlighter = function()
     };
 
     /**
-     * Removes CSS class name from the target DOM element.
-     * @param {DOMElement} target Target DOM element.
+     * Removes CSS class name from the target VoM element.
+     * @param {VoMElement} target Target VoM element.
      * @param {String} className CSS class to remove.
      */
     function removeClass(target, className)
@@ -2934,7 +2934,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 						'collect each eachProperty eachPropertyName eachWithIndex find findAll ' +
 						'findIndexOf grep inject max min reverseEach sort ' +
 						'asImmutable asSynchronized flatten intersect join pop reverse subMap toList ' +
-						'padRight padLeft contains eachMatch toCharacter toLong toUrl tokenize ' +
+						'padRight padLeft contains eachMatch toCharacter toString toUrl tokenize ' +
 						'eachFile eachFileRecurse eachB yte eachLine readBytes readLine getText ' +
 						'splitEachLine withReader append encodeBase64 decodeBase64 filterLine ' +
 						'transformChar transformLine withOutputStream withPrintWriter withStream ' +
@@ -3017,7 +3017,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 		// Contributed by Patrick Webster
 		// http://patrickwebster.blogspot.com/2009/04/javafx-brush-for-syntaxhighlighter.html
 		var datatypes =	'Boolean Byte Character Double Duration '
-						+ 'Float Integer Long Number Short String Void'
+						+ 'Float Integer String Number Short String Void'
 						;
 
 		var keywords = 'abstract after and as assert at before bind bound break catch class '
@@ -3180,7 +3180,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 						'array_udiff_uassoc array_uintersect array_uintersect_assoc '+
 						'array_uintersect_uassoc array_unique array_unshift array_values array_walk '+
 						'array_walk_recursive atan atan2 atanh base64_decode base64_encode base_convert '+
-						'basename bcadd bccomp bcdiv bcmod bcmul bindec bindtextdomain bzclose bzcompress '+
+						'basename bcadd bccomp bcdiv bcmod bcmul bindec bindtextvo bzclose bzcompress '+
 						'bzdecompress bzerrno bzerror bzerrstr bzflush bzopen bzread bzwrite ceil chdir '+
 						'checkdate checkdnsrr chgrp chmod chop chown chr chroot chunk_split class_exists '+
 						'closedir closelog copy cos cosh count count_chars date decbin dechex decoct '+
@@ -3573,7 +3573,7 @@ typeof(exports) != 'undefined' ? exports.SyntaxHighlighter = SyntaxHighlighter :
 						'Date Decimal Declare Default Delegate Dim DirectCast Do Double Each ' +
 						'Else ElseIf End Enum Erase Error Event Exit False Finally For Friend ' +
 						'Function Get GetType GoSub GoTo Handles If Implements Imports In ' +
-						'Inherits Integer Interface Is Let Lib Like Long Loop Me Mod Module ' +
+						'Inherits Integer Interface Is Let Lib Like String Loop Me Mod Module ' +
 						'MustInherit MustOverride MyBase MyClass Namespace New Next Not Nothing ' +
 						'NotInheritable NotOverridable Object On Option Optional Or OrElse ' +
 						'Overloads Overridable Overrides ParamArray Preserve Private Property ' +

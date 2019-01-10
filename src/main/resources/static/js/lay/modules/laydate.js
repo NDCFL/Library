@@ -103,20 +103,20 @@
     });
   }
   
-  //DOM查找
+  //VoM查找
   ,lay = function(selector){   
     return new LAY(selector);
   }
   
-  //DOM构造器
+  //VoM构造器
   ,LAY = function(selector){
     var index = 0
-    ,nativeDOM = typeof selector === 'object' ? [selector] : (
+    ,nativeVoM = typeof selector === 'object' ? [selector] : (
       this.selector = selector
       ,document.querySelectorAll(selector || null)
     );
-    for(; index < nativeDOM.length; index++){
-      this.push(nativeDOM[index]);
+    for(; index < nativeVoM.length; index++){
+      this.push(nativeVoM[index]);
     }
   };
   
@@ -238,9 +238,9 @@
     ,isObject = typeof selector === 'object';
     
     this.each(function(i, item){
-      var nativeDOM = isObject ? [selector] : item.querySelectorAll(selector || null);
-      for(; index < nativeDOM.length; index++){
-        arr.push(nativeDOM[index]);
+      var nativeVoM = isObject ? [selector] : item.querySelectorAll(selector || null);
+      for(; index < nativeVoM.length; index++){
+        arr.push(nativeVoM[index]);
       }
       that.shift();
     });
@@ -256,7 +256,7 @@
     return that;
   };
   
-  //DOM遍历
+  //VoM遍历
   LAY.prototype.each = function(fn){
     return lay.each.call(this, this, fn);
   };

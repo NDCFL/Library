@@ -77,7 +77,7 @@ CodeMirror.defineMode("xml", function(config, parserConfig) {
           else return null;
         } else if (stream.match("--")) {
           return chain(inBlock("comment", "-->"));
-        } else if (stream.match("DOCTYPE", true, true)) {
+        } else if (stream.match("VoCTYPE", true, true)) {
           stream.eatWhile(/[\w\._\-]/);
           return chain(doctype(1));
         } else {

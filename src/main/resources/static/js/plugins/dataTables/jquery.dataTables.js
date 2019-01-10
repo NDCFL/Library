@@ -843,9 +843,9 @@
 	}
 
 	/**
-	 * Add a data array to the table, creating DOM node etc. This is the parallel to
+	 * Add a data array to the table, creating VoM node etc. This is the parallel to
 	 * _fnGatherData, but for adding rows from a Javascript source, rather than a
-	 * DOM source.
+	 * VoM source.
 	 *  @param {object} oSettings dataTables settings object
 	 *  @param {array} aData data array to be added
 	 *  @param {node} [nTr] TR element to add to the table - optional. If not given,
@@ -883,7 +883,7 @@
 		/* Add to the display array */
 		oSettings.aiDisplayMaster.push( iRow );
 
-		/* Create the DOM information */
+		/* Create the VoM information */
 		if ( !oSettings.oFeatures.bDeferRender )
 		{
 			_fnCreateTr( oSettings, iRow, nTr, anTds );
@@ -895,7 +895,7 @@
 
 	/**
 	 * Add one or more TR elements to the table. Generally we'd expect to
-	 * use this for reading data from a DOM sourced table, but it could be
+	 * use this for reading data from a VoM sourced table, but it could be
 	 * used for an TR element. Note that if a TR is given, it is used (i.e.
 	 * it is not cloned).
 	 *  @param {object} settings dataTables settings object
@@ -1348,13 +1348,13 @@
 		var row = settings.aoData[ rowIdx ];
 		var i, ien;
 
-		// Are we reading last data from DOM or the data object?
+		// Are we reading last data from VoM or the data object?
 		if ( src === 'dom' || ((! src || src === 'auto') && row.src === 'dom') ) {
-			// Read the data from the DOM
+			// Read the data from the VoM
 			row._aData = _fnGetRowElements( settings, row.nTr ).data;
 		}
 		else {
-			// Reading from data object, update the DOM
+			// Reading from data object, update the VoM
 			var cells = row.anCells;
 
 			for ( i=0, ien=cells.length ; i<ien ; i++ ) {
@@ -1734,7 +1734,7 @@
 						iColspan++;
 					}
 
-					/* Do the actual expansion in the DOM */
+					/* Do the actual expansion in the VoM */
 					aoLocal[i][j].cell.rowSpan = iRowspan;
 					aoLocal[i][j].cell.colSpan = iColspan;
 				}
@@ -2068,13 +2068,13 @@
 			}
 		}
 
-		/* Built our DOM structure - replace the holding div with what we want */
+		/* Built our VoM structure - replace the holding div with what we want */
 		nHolding.parentNode.replaceChild( oSettings.nTableWrapper, nHolding );
 	}
 
 
 	/**
-	 * Use the DOM source to create up an array of header cells. The idea here is to
+	 * Use the VoM source to create up an array of header cells. The idea here is to
 	 * create a layout grid (array) of rows x columns, which contains a reference
 	 * to the cell that that point in the grid (regardless of col/rowspan), such that
 	 * any column / row could be removed and the new grid constructed
@@ -2116,7 +2116,7 @@
 				if ( nCell.nodeName.toUpperCase() == "TD" ||
 				     nCell.nodeName.toUpperCase() == "TH" )
 				{
-					/* Get the col and rowspan attributes from the DOM and sanitise them */
+					/* Get the col and rowspan attributes from the VoM and sanitise them */
 					iColspan = nCell.getAttribute('colspan') * 1;
 					iRowspan = nCell.getAttribute('rowspan') * 1;
 					iColspan = (!iColspan || iColspan===0 || iColspan===1) ? 1 : iColspan;
@@ -2824,7 +2824,7 @@
 
 					// If it looks like there is an HTML entity in the string,
 					// attempt to decode it so sorting works as expected. Note that
-					// we could use a single line of jQuery to do this, but the DOM
+					// we could use a single line of jQuery to do this, but the VoM
 					// method used here is much faster http://jsperf.com/html-decode
 					if ( cellData.indexOf && cellData.indexOf('&') !== -1 ) {
 						__filter_div.innerHTML = cellData;
@@ -3286,7 +3286,7 @@
 	/**
 	 * Add any control elements for the table - specifically scrolling
 	 *  @param {object} settings dataTables settings object
-	 *  @returns {node} Node to add to the DOM
+	 *  @returns {node} Node to add to the VoM
 	 *  @memberof DataTable#oApi
 	 */
 	function _fnFeatureHtmlTable ( settings )
@@ -3430,7 +3430,7 @@
 	 * Welcome to the most horrible function DataTables. The process that this
 	 * function follows is basically:
 	 *   1. Re-create the table inside the scrolling div
-	 *   2. Take live measurements from the DOM
+	 *   2. Take live measurements from the VoM
 	 *   3. Apply the measurements to align the columns
 	 *   4. Clean up
 	 *
@@ -3500,7 +3500,7 @@
 
 
 		/*
-		 * 2. Take live measurements from the DOM - do not alter the DOM itself!
+		 * 2. Take live measurements from the VoM - do not alter the VoM itself!
 		 */
 
 		// Remove old sizing and apply the calculated column widths
@@ -3568,7 +3568,7 @@
 
 		// Recalculate the sanity width - now that we've applied the required width,
 		// before it was a temporary variable. This is required because the column
-		// width calculation is done before this table DOM is created.
+		// width calculation is done before this table VoM is created.
 		sanityWidth = table.outerWidth();
 
 		// Hidden header should have zero height, so remove padding and borders. Then
@@ -3789,7 +3789,7 @@
 			}
 		}
 
-		/* If the number of columns in the DOM equals the number that we have to
+		/* If the number of columns in the VoM equals the number that we have to
 		 * process in DataTables, then we can use the pageIndexs that are created by
 		 * the web- browser. No custom sizes can be set in order for this to happen,
 		 * nor scrolling used
@@ -3805,7 +3805,7 @@
 		else
 		{
 			// Otherwise construct a single row table with the widest node in the
-			// data, assign any user defined widths, then insert it into the DOM and
+			// data, assign any user defined widths, then insert it into the VoM and
 			// allow the browser to do all the hard work of calculating table widths
 			var tmpTable = $( table.cloneNode( false ) )
 				.css( 'visibility', 'hidden' )
@@ -3910,7 +3910,7 @@
 		// If there is a width attr, we want to attach an event listener which
 		// allows the table sizing to automatically adjust when the window is
 		// resized. Use the width attr rather than CSS, since we can't know if the
-		// CSS is a relative value or absolute - DOM read is always px.
+		// CSS is a relative value or absolute - VoM read is always px.
 		if ( tableWidthAttr ) {
 			table.style.width = _fnStringToCss( tableWidthAttr );
 
@@ -4957,7 +4957,7 @@
 		 * rows - as such, the jQuery selector used should match TR row nodes or TD/TH cell nodes
 		 * rather than any descendants, so the data can be obtained for the row/cell. If matching
 		 * rows are found, the data returned is the original data array/object that was used to
-		 * create the row (or a generated array if from a DOM source).
+		 * create the row (or a generated array if from a VoM source).
 		 *
 		 * This method is often useful in-combination with $ where both functions are given the
 		 * same parameters and the array indexes will match identically.
@@ -5082,7 +5082,7 @@
 
 		/**
 		 * This function will make DataTables recalculate the column sizes, based on the data
-		 * contained in the table and the sizes applied to the columns (in the DOM, CSS or
+		 * contained in the table and the sizes applied to the columns (in the VoM, CSS or
 		 * through the sWidth parameter). This can be useful when the width of the table's
 		 * parent element changes (for example a window resize).
 		 *  @param {boolean} [bRedraw=true] Redraw the table or not, you will typically want to
@@ -5211,9 +5211,9 @@
 
 
 		/**
-		 * Restore the table to it's original state in the DOM by removing all of DataTables
-		 * enhancements, alterations to the DOM structure of the table and event listeners.
-		 *  @param {boolean} [remove=false] Completely remove the table from the DOM
+		 * Restore the table to it's original state in the VoM by removing all of DataTables
+		 * enhancements, alterations to the VoM structure of the table and event listeners.
+		 *  @param {boolean} [remove=false] Completely remove the table from the VoM
 		 *  @dtopt API
 		 *  @deprecated Since v1.10
 		 *
@@ -5368,7 +5368,7 @@
 
 
 		/**
-		 * Get the array indexes of a particular cell from it's DOM element
+		 * Get the array indexes of a particular cell from it's VoM element
 		 * and column index including hidden columns
 		 *  @param {node} node this can either be a TR, TD or TH in the table's body
 		 *  @returns {int} If nNode is given as a TR, then a single index is returned, or
@@ -5986,7 +5986,7 @@
 
 				if ( oInit.sDom === defaults.sDom && defaults.sDom === "lfrtip" )
 				{
-					/* Set the DOM to use a layout suitable for jQuery UI's theming */
+					/* Set the VoM to use a layout suitable for jQuery UI's theming */
 					oSettings.sDom = '<"H"lfr>t<"F"ip>';
 				}
 
@@ -6241,7 +6241,7 @@
 			else if ( oSettings.bDeferLoading || _fnDataSource( oSettings ) == 'dom' )
 			{
 				/* Grab the data from the page - only do this when deferred loading or no Ajax
-				 * source since there is no point in reading the DOM data if we are then going
+				 * source since there is no point in reading the VoM data if we are then going
 				 * to replace it with Ajax data
 				 */
 				_fnAddTr( oSettings, $(oSettings.nTBody).children('tr') );
@@ -8249,7 +8249,7 @@
 	 * Attach a sort listener to an element for a given column
 	 *
 	 * @param {node|jQuery|string} node Identifier for the element(s) to attach the
-	 *   listener to. This can take the form of a single DOM node, a jQuery
+	 *   listener to. This can take the form of a single VoM node, a jQuery
 	 *   collection of nodes or a jQuery selector which will identify the node(s).
 	 * @param {integer} column the column that a click on this node will sort on
 	 * @param {function} [callback] callback function when sort is run
@@ -8685,7 +8685,7 @@
 		 * Data object from the original data source for the row. This is either
 		 * an array if using the traditional form of DataTables, or an object if
 		 * using mData options. The exact type will depend on the passed in
-		 * data from the data source, or will be an array if using DOM a data
+		 * data from the data source, or will be an array if using VoM a data
 		 * source.
 		 *  @type array|object
 		 *  @default []
@@ -8728,7 +8728,7 @@
 
 		/**
 		 * Cache of the class name that DataTables has applied to the row, so we
-		 * can quickly look at this variable rather than needing to do a DOM check
+		 * can quickly look at this variable rather than needing to do a VoM check
 		 * on className for the nTr property.
 		 *  @type string
 		 *  @default <i>Empty string</i>
@@ -8737,7 +8737,7 @@
 		"_sRowStripe": "",
 
 		/**
-		 * Denote if the original data source was from the DOM, or the data source
+		 * Denote if the original data source was from the VoM, or the data source
 		 * object. This is used for invalidating data, so DataTables can
 		 * automatically read data from the original source, unless uninstructed
 		 * otherwise.
@@ -8822,8 +8822,8 @@
 
 		/**
 		 * Developer definable function that is called whenever a cell is created (Ajax source,
-		 * etc) or processed for input (DOM source). This can be used as a compliment to mRender
-		 * allowing you to modify the DOM element (add background colour for example) when the
+		 * etc) or processed for input (VoM source). This can be used as a compliment to mRender
+		 * allowing you to modify the VoM element (add background colour for example) when the
 		 * element is available.
 		 *  @type function
 		 *  @param {element} nTd The TD node that has been created
@@ -8912,7 +8912,7 @@
 		 * temporary table and reads the widths from that. The problem with this
 		 * is that "mmm" is much wider then "iiii", but the latter is a longer
 		 * string - thus the calculation can go wrong (doing it properly and putting
-		 * it into an DOM object and measuring that is horribly(!) slow). Thus as
+		 * it into an VoM object and measuring that is horribly(!) slow). Thus as
 		 * a "work around" we provide this option. It will append its value to the
 		 * text that is found to be the longest string for the column - i.e. padding.
 		 *  @type string
@@ -9011,7 +9011,7 @@
 	DataTable.defaults = {
 		/**
 		 * An array of data to use for the table, passed in at initialisation which
-		 * will be used in preference to any data which is already in the DOM. This is
+		 * will be used in preference to any data which is already in the VoM. This is
 		 * particularly useful for constructing tables purely in Javascript, for
 		 * example with a custom Ajax call.
 		 *  @type array
@@ -9776,7 +9776,7 @@
 
 		/**
 		 * This function is called when a TR element is created (and all TD child
-		 * elements have been inserted), or registered if using a DOM source, allowing
+		 * elements have been inserted), or registered if using a VoM source, allowing
 		 * manipulation of the TR element (adding classes etc).
 		 *  @type function
 		 *  @param {node} row "TR" element for the current row
@@ -9804,7 +9804,7 @@
 
 		/**
 		 * This function is called on every 'draw' event, and allows you to
-		 * dynamically modify any aspect you want about the created DOM.
+		 * dynamically modify any aspect you want about the created VoM.
 		 *  @type function
 		 *  @param {object} settings DataTables settings object
 		 *
@@ -10930,7 +10930,7 @@
 
 		/**
 		 * This initialisation variable allows you to specify exactly where in the
-		 * DOM you want DataTables to inject the various controls it adds to the page
+		 * VoM you want DataTables to inject the various controls it adds to the page
 		 * (for example you might want the pagination controls at the top of the
 		 * table). DIV elements (with or without a custom class) can also be added to
 		 * aid styling. The follow syntax is used:
@@ -11314,8 +11314,8 @@
 
 		/**
 		 * Developer definable function that is called whenever a cell is created (Ajax source,
-		 * etc) or processed for input (DOM source). This can be used as a compliment to mRender
-		 * allowing you to modify the DOM element (add background colour for example) when the
+		 * etc) or processed for input (VoM source). This can be used as a compliment to mRender
+		 * allowing you to modify the VoM element (add background colour for example) when the
 		 * element is available.
 		 *  @type function
 		 *  @param {element} td The TD node that has been created
@@ -11711,7 +11711,7 @@
 		 * temporary table and reads the widths from that. The problem with this
 		 * is that "mmm" is much wider then "iiii", but the latter is a longer
 		 * string - thus the calculation can go wrong (doing it properly and putting
-		 * it into an DOM object and measuring that is horribly(!) slow). Thus as
+		 * it into an VoM object and measuring that is horribly(!) slow). Thus as
 		 * a "work around" we provide this option. It will append its value to the
 		 * text that is found to be the longest string for the column - i.e. padding.
 		 * Generally you shouldn't need this!
@@ -12029,7 +12029,7 @@
 			 * Delay the creation of TR and TD elements until they are actually
 			 * needed by a driven page draw. This can give a significant speed
 			 * increase for Ajax source and Javascript source data, but makes no
-			 * difference at all fro DOM and server-side processing tables.
+			 * difference at all fro VoM and server-side processing tables.
 			 * Note that this parameter will be set by the initialisation routine. To
 			 * set a default use {@link DataTable.defaults}.
 			 *  @type boolean
@@ -12111,7 +12111,7 @@
 			/**
 			 * Apply a class to the columns which are being sorted to provide a
 			 * visual highlight or not. This can slow things down when enabled since
-			 * there is a lot of DOM interaction.
+			 * there is a lot of VoM interaction.
 			 * Note that this parameter will be set by the initialisation routine. To
 			 * set a default use {@link DataTable.defaults}.
 			 *  @type boolean
@@ -12919,7 +12919,7 @@
 		 *
 		 * * {node|null} The element which contains your feature. Note that the
 		 *   return may also be void if your plug-in does not require to inject any
-		 *   DOM elements into DataTables control (`dom`) - for example this might
+		 *   VoM elements into DataTables control (`dom`) - for example this might
 		 *   be useful when developing a plug-in which allows table control via
 		 *   keyboard entry
 		 *
@@ -12952,9 +12952,9 @@
 		 *    {@link DataTable.models.oSettings}
 		 * 2. `{array|object}` Data for the row to be processed (same as the
 		 *    original format that was passed in as the data source, or an array
-		 *    from a DOM data source
+		 *    from a VoM data source
 		 * 3. `{int}` Row index ({@link DataTable.models.oSettings.aoData}), which
-		 *    can be useful to retrieve the `TR` element if you need DOM interaction.
+		 *    can be useful to retrieve the `TR` element if you need VoM interaction.
 		 *
 		 * And the following return is expected:
 		 *
@@ -13091,7 +13091,7 @@
 		 * order a column, but is necessarily therefore more complex.
 		 *
 		 * This type of ordering is useful if you want to do ordering based on data
-		 * live from the DOM (for example the contents of an 'input' element) rather
+		 * live from the VoM (for example the contents of an 'input' element) rather
 		 * than just the static string that DataTables knows of.
 		 *
 		 * The way these plug-ins work is that you create an array of the values you
@@ -13956,7 +13956,7 @@
 	 *  @param {object} json JSON returned from the server
 	 *
 	 *  @example
-	 *     // Use a custom property returned from the server in another DOM element
+	 *     // Use a custom property returned from the server in another VoM element
 	 *     $('#table').dataTable().on('xhr.dt', function (e, settings, json) {
 	 *       $('#status').html( json.status );
 	 *     } );
@@ -13974,7 +13974,7 @@
 	/**
 	 * Destroy event, fired when the DataTable is destroyed by calling fnDestroy
 	 * or passing the bDestroy:true parameter in the initialisation object. This
-	 * can be used to remove bound events, added DOM nodes, etc.
+	 * can be used to remove bound events, added VoM nodes, etc.
 	 *  @name DataTable#destroy.dt
 	 *  @event
 	 *  @param {event} e jQuery event object

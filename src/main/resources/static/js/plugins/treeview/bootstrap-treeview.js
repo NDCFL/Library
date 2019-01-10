@@ -142,7 +142,7 @@
 			}
 		},
 
-		// Looks up the DOM for the closest parent list item to retrieve the
+		// Looks up the VoM for the closest parent list item to retrieve the
 		// data attribute nodeid, which is used to lookup the node in the flattened structure.
 		_findNode: function(target) {
 

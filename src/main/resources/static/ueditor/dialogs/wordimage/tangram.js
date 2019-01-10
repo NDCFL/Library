@@ -40,11 +40,11 @@ baidu.dom = baidu.dom || {};
 
 
 /**
- * 从文档中获取指定的DOM元素
+ * 从文档中获取指定的VoM元素
  * @name baidu.dom.g
  * @function
  * @grammar baidu.dom.g(id)
- * @param {string|HTMLElement} id 元素的id或DOM元素.
+ * @param {string|HTMLElement} id 元素的id或VoM元素.
  * @shortcut g,T.G
  * @meta standard
  * @see baidu.dom.q

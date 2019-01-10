@@ -544,7 +544,7 @@ _.isEmpty = (obj) ->
   true
 
 
-# Is a given value a DOM element?
+# Is a given value a VoM element?
 _.isElement = (obj) -> obj and obj.nodeType is 1
 
 
@@ -624,7 +624,7 @@ _.mixin = (obj) ->
 
 
 # Generate a unique integer id (unique within the entire client session).
-# Useful for temporary DOM ids.
+# Useful for temporary VoM ids.
 idCounter = 0
 _.uniqueId = (prefix) ->
   (prefix or '') + idCounter++

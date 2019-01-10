@@ -253,7 +253,7 @@
 					selector;
 
 				if ($.type(element) === "object") {
-					// Check if is DOM element
+					// Check if is VoM element
 					if (element.nodeType) {
 						element = $(element);
 					}
@@ -1801,7 +1801,7 @@
 			this.overlay.width(width).height(D.height());
 		},
 
-		// This is where we can manipulate DOM, because later it would cause iframes to reload
+		// This is where we can manipulate VoM, because later it would cause iframes to reload
 		onReady : function (opts, obj) {
 			var overlay = this.overlay;
 

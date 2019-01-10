@@ -487,13 +487,13 @@
   MT("hr",
      "[hr ***]");
 
-  MT("hrLong",
+  MT("hrString",
      "[hr *****]");
 
   MT("hrSpaceDash",
      "[hr - - -]");
 
-  MT("hrDashLong",
+  MT("hrDashString",
      "[hr ---------------------------------------]");
 
   // Inline link with title

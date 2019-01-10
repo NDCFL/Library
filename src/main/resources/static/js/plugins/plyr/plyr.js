@@ -1175,9 +1175,9 @@
                         }
                     }
 
-                    // If Safari 7+, removing track from DOM [see 'turn off native caption rendering' above]
+                    // If Safari 7+, removing track from VoM [see 'turn off native caption rendering' above]
                     if (player.browser.name === 'Safari' && player.browser.version >= 7) {
-                        _log('Safari 7+ detected; removing track from DOM.');
+                        _log('Safari 7+ detected; removing track from VoM.');
 
                         // Find all <track> elements
                         tracks = player.media.getElementsByTagName('track');

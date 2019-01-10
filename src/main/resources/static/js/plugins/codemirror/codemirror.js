@@ -2,7 +2,7 @@
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 // This is CodeMirror (http://codemirror.net), a code editor
-// implemented in JavaScript on top of the browser's DOM.
+// implemented in JavaScript on top of the browser's VoM.
 //
 // You can find some technical background for some of the code below
 // at http://marijnhaverbeke.nl/blog/#cm-internals .
@@ -114,8 +114,8 @@
 
   // DISPLAY CONSTRUCTOR
 
-  // The display handles the DOM integration, both for input reading
-  // and content drawing. It holds references to DOM nodes and
+  // The display handles the VoM integration, both for input reading
+  // and content drawing. It holds references to VoM nodes and
   // display-related state.
 
   function Display(place, doc) {
@@ -396,7 +396,7 @@
     return cm.display.scroller.clientHeight - cm.display.wrapper.clientHeight < scrollerCutOff - 3;
   }
 
-  // Prepare DOM reads needed to update the scrollbars. Done in one
+  // Prepare VoM reads needed to update the scrollbars. Done in one
   // shot to minimize update/measure roundtrips.
   function measureForScrollbars(cm) {
     var scroll = cm.display.scroller;
@@ -718,8 +718,8 @@
       line.widgets[i].height = line.widgets[i].node.pageIndexHeight;
   }
 
-  // Do a bulk-read of the DOM positions and sizes needed to draw the
-  // view, so that we don't interleave reading and writing to the DOM.
+  // Do a bulk-read of the VoM positions and sizes needed to draw the
+  // view, so that we don't interleave reading and writing to the VoM.
   function getDimensions(cm) {
     var d = cm.display, left = {}, width = {};
     var gutterLeft = d.gutters.clientLeft;
@@ -734,7 +734,7 @@
             wrapperWidth: d.wrapper.clientWidth};
   }
 
-  // Sync the actual display DOM structure with display.view, removing
+  // Sync the actual display VoM structure with display.view, removing
   // nodes for lines that are no longer in view, and creating the ones
   // that are not there yet, and updating the ones that are out of
   // date.
@@ -753,7 +753,7 @@
     }
 
     var view = display.view, lineN = display.viewFrom;
-    // Loop over the elements in the view, syncing cur (the DOM nodes
+    // Loop over the elements in the view, syncing cur (the VoM nodes
     // in display.lineDiv) with the view as we go.
     for (var i = 0; i < view.length; i++) {
       var lineView = view[i];
@@ -782,7 +782,7 @@
 
   // When an aspect of a line changes, a string is added to
   // lineView.changes. This updates the relevant part of the line's
-  // DOM structure.
+  // VoM structure.
   function updateLineForChanges(cm, lineView, lineN, dims) {
     for (var j = 0; j < lineView.changes.length; j++) {
       var type = lineView.changes[j];
@@ -896,7 +896,7 @@
     insertLineWidgets(lineView, dims);
   }
 
-  // Build a line's DOM representation from scratch
+  // Build a line's VoM representation from scratch
   function buildLineElement(cm, lineView, lineN, dims) {
     var built = getLineContent(cm, lineView);
     lineView.text = lineView.node = built.pre;
@@ -1958,7 +1958,7 @@
       cursorActivityCalled: 0, // Tracks which cursorActivity handlers have been called already
       selectionChanged: false, // Whether the selection needs to be redrawn
       updateMaxLine: false,    // Set when the widest line needs to be determined anew
-      scrollLeft: null, scrollTop: null, // Intermediate scroll position, not pushed to DOM yet
+      scrollLeft: null, scrollTop: null, // Intermediate scroll position, not pushed to VoM yet
       scrollToPos: null,       // Used to scroll to a specific position
       id: ++nextOpId           // Unique ID
     };
@@ -2002,19 +2002,19 @@
     }
   }
 
-  // The DOM updates done when an operation finishes are batched so
+  // The VoM updates done when an operation finishes are batched so
   // that the minimum number of relayouts are required.
   function endOperations(group) {
     var ops = group.ops;
-    for (var i = 0; i < ops.length; i++) // Read DOM
+    for (var i = 0; i < ops.length; i++) // Read VoM
       endOperation_R1(ops[i]);
-    for (var i = 0; i < ops.length; i++) // Write DOM (maybe)
+    for (var i = 0; i < ops.length; i++) // Write VoM (maybe)
       endOperation_W1(ops[i]);
-    for (var i = 0; i < ops.length; i++) // Read DOM
+    for (var i = 0; i < ops.length; i++) // Read VoM
       endOperation_R2(ops[i]);
-    for (var i = 0; i < ops.length; i++) // Write DOM (maybe)
+    for (var i = 0; i < ops.length; i++) // Write VoM (maybe)
       endOperation_W2(ops[i]);
-    for (var i = 0; i < ops.length; i++) // Read DOM
+    for (var i = 0; i < ops.length; i++) // Read VoM
       endOperation_finish(ops[i]);
   }
 
@@ -2088,7 +2088,7 @@
     if (display.wheelStartX != null && (op.scrollTop != null || op.scrollLeft != null || op.scrollToPos))
       display.wheelStartX = display.wheelStartY = null;
 
-    // Propagate the scroll position to the actual DOM scroller
+    // Propagate the scroll position to the actual VoM scroller
     if (op.scrollTop != null && (display.scroller.scrollTop != op.scrollTop || op.forceScroll)) {
       var top = Math.max(0, Math.min(display.scroller.scrollHeight - display.scroller.clientHeight, op.scrollTop));
       display.scroller.scrollTop = display.scrollbarV.scrollTop = doc.scrollTop = top;
@@ -2343,7 +2343,7 @@
     display.viewTo = to;
   }
 
-  // Count the number of lines in the view whose DOM representation is
+  // Count the number of lines in the view whose VoM representation is
   // out of date (or nonexistent).
   function countDirtyView(cm) {
     var view = cm.display.view, dirty = 0;
@@ -2523,7 +2523,7 @@
     // Older IE's will not fire a second mousedown for a double click
     if (ie && ie_version < 11)
       on(d.scroller, "dblclick", operation(cm, function(e) {
-        if (signalDOMEvent(cm, e)) return;
+        if (signalVoMEvent(cm, e)) return;
         var pos = posFromMouse(cm, e);
         if (!pos || clickInGutter(cm, e) || eventInWidget(cm.display, e)) return;
         e_preventDefault(e);
@@ -2531,7 +2531,7 @@
         extendSelection(cm.doc, word.anchor, word.head);
       }));
     else
-      on(d.scroller, "dblclick", function(e) { signalDOMEvent(cm, e) || e_preventDefault(e); });
+      on(d.scroller, "dblclick", function(e) { signalVoMEvent(cm, e) || e_preventDefault(e); });
     // Prevent normal selection in the editor (we handle our own)
     on(d.lineSpace, "selectstart", function(e) {
       if (!eventInWidget(d, e)) e_preventDefault(e);
@@ -2559,7 +2559,7 @@
 
     // Listen to wheel events in order to try and update the viewport on time.
     on(d.scroller, "mousewheel", function(e){onScrollWheel(cm, e);});
-    on(d.scroller, "DOMMouseScroll", function(e){onScrollWheel(cm, e);});
+    on(d.scroller, "VoMMouseScroll", function(e){onScrollWheel(cm, e);});
 
     // Prevent clicks in the scrollbars from killing focus
     function reFocus() { if (cm.state.focused) setTimeout(bind(focusInput, cm), 0); }
@@ -2579,7 +2579,7 @@
     on(d.input, "blur", bind(onBlur, cm));
 
     function drag_(e) {
-      if (!signalDOMEvent(cm, e)) e_stop(e);
+      if (!signalVoMEvent(cm, e)) e_stop(e);
     }
     if (cm.options.dragDrop) {
       on(d.scroller, "dragstart", function(e){onDragStart(cm, e);});
@@ -2697,7 +2697,7 @@
   // middle-click-paste. Or it might be a click on something we should
   // not interfere with, such as a scrollbar or widget.
   function onMouseDown(e) {
-    if (signalDOMEvent(this, e)) return;
+    if (signalVoMEvent(this, e)) return;
     var cm = this, display = cm.display;
     display.shift = e.shiftKey;
 
@@ -2957,7 +2957,7 @@
 
   function onDrop(e) {
     var cm = this;
-    if (signalDOMEvent(cm, e) || eventInWidget(cm.display, e))
+    if (signalVoMEvent(cm, e) || eventInWidget(cm.display, e))
       return;
     e_preventDefault(e);
     if (ie) lastDrop = +new Date;
@@ -3007,7 +3007,7 @@
 
   function onDragStart(cm, e) {
     if (ie && (!cm.state.draggingText || +new Date - lastDrop < 100)) { e_stop(e); return; }
-    if (signalDOMEvent(cm, e) || eventInWidget(cm.display, e)) return;
+    if (signalVoMEvent(cm, e) || eventInWidget(cm.display, e)) return;
 
     e.dataTransfer.setData("Text", cm.getSelection());
 
@@ -3229,7 +3229,7 @@
   function onKeyDown(e) {
     var cm = this;
     ensureFocus(cm);
-    if (signalDOMEvent(cm, e)) return;
+    if (signalVoMEvent(cm, e)) return;
     // IE does strange things with escape.
     if (ie && ie_version < 11 && e.keyCode == 27) e.returnValue = false;
     var code = e.keyCode;
@@ -3264,12 +3264,12 @@
 
   function onKeyUp(e) {
     if (e.keyCode == 16) this.doc.sel.shift = false;
-    signalDOMEvent(this, e);
+    signalVoMEvent(this, e);
   }
 
   function onKeyPress(e) {
     var cm = this;
-    if (signalDOMEvent(cm, e) || e.ctrlKey && !e.altKey || mac && e.metaKey) return;
+    if (signalVoMEvent(cm, e) || e.ctrlKey && !e.altKey || mac && e.metaKey) return;
     var keyCode = e.keyCode, charCode = e.charCode;
     if (presto && keyCode == lastStoppedKey) {lastStoppedKey = null; e_preventDefault(e); return;}
     if (((presto && (!e.which || e.which < 10)) || khtml) && handleKeyBinding(cm, e)) return;
@@ -3314,7 +3314,7 @@
   // textarea (making it as unobtrusive as possible) to let the
   // right-click take effect on it.
   function onContextMenu(cm, e) {
-    if (signalDOMEvent(cm, e, "contextmenu")) return;
+    if (signalVoMEvent(cm, e, "contextmenu")) return;
     var display = cm.display;
     if (eventInWidget(display, e) || contextMenuInGutter(cm, e)) return;
 
@@ -5913,10 +5913,10 @@
       (cache[style] = style.replace(/\S+/g, "cm-$&"));
   }
 
-  // Render the DOM representation of the text of a line. Also builds
-  // up a 'line map', which points at the DOM nodes that represent
+  // Render the VoM representation of the text of a line. Also builds
+  // up a 'line map', which points at the VoM nodes that represent
   // specific stretches of text, and is used by the measuring code.
-  // The returned object contains the DOM node, this map, and
+  // The returned object contains the VoM node, this map, and
   // information about line-wide styles that were set by the mode.
   function buildLineContent(cm, lineView) {
     // The padding-right forces the element to have a 'border', which
@@ -5972,7 +5972,7 @@
     return token;
   }
 
-  // Build up the DOM representation for a single token, and add it to
+  // Build up the VoM representation for a single token, and add it to
   // the line map. Takes care to render special characters separately.
   function buildToken(builder, text, style, startStyle, endStyle, title) {
     if (!text) return;
@@ -6127,7 +6127,7 @@
     }
   }
 
-  // DOCUMENT DATA STRUCTURE
+  // VoCUMENT DATA STRUCTURE
 
   // By default, updates that start and end at the beginning of a line
   // are treated specially, in order to make the association of line
@@ -7094,8 +7094,8 @@
 
   // EVENT HANDLING
 
-  // Lightweight event framework. on/off also work on DOM nodes,
-  // registering native DOM handlers.
+  // Lightweight event framework. on/off also work on VoM nodes,
+  // registering native VoM handlers.
 
   var on = CodeMirror.on = function(emitter, type, f) {
     if (emitter.addEventListener)
@@ -7161,10 +7161,10 @@
     for (var i = 0; i < delayed.length; ++i) delayed[i]();
   }
 
-  // The DOM events that CodeMirror handles can be overridden by
-  // registering a (non-DOM) handler on the editor for the event name,
+  // The VoM events that CodeMirror handles can be overridden by
+  // registering a (non-VoM) handler on the editor for the event name,
   // and preventDefault-ing the event in that handler.
-  function signalDOMEvent(cm, e, override) {
+  function signalVoMEvent(cm, e, override) {
     signal(cm, override || e.type, cm, e);
     return e_defaultPrevented(e) || e.codemirrorIgnore;
   }
@@ -7318,7 +7318,7 @@
   var extendingChars = /[\u0300-\u036f\u0483-\u0489\u0591-\u05bd\u05bf\u05c1\u05c2\u05c4\u05c5\u05c7\u0610-\u061a\u064b-\u065e\u0670\u06d6-\u06dc\u06de-\u06e4\u06e7\u06e8\u06ea-\u06ed\u0711\u0730-\u074a\u07a6-\u07b0\u07eb-\u07f3\u0816-\u0819\u081b-\u0823\u0825-\u0827\u0829-\u082d\u0900-\u0902\u093c\u0941-\u0948\u094d\u0951-\u0955\u0962\u0963\u0981\u09bc\u09be\u09c1-\u09c4\u09cd\u09d7\u09e2\u09e3\u0a01\u0a02\u0a3c\u0a41\u0a42\u0a47\u0a48\u0a4b-\u0a4d\u0a51\u0a70\u0a71\u0a75\u0a81\u0a82\u0abc\u0ac1-\u0ac5\u0ac7\u0ac8\u0acd\u0ae2\u0ae3\u0b01\u0b3c\u0b3e\u0b3f\u0b41-\u0b44\u0b4d\u0b56\u0b57\u0b62\u0b63\u0b82\u0bbe\u0bc0\u0bcd\u0bd7\u0c3e-\u0c40\u0c46-\u0c48\u0c4a-\u0c4d\u0c55\u0c56\u0c62\u0c63\u0cbc\u0cbf\u0cc2\u0cc6\u0ccc\u0ccd\u0cd5\u0cd6\u0ce2\u0ce3\u0d3e\u0d41-\u0d44\u0d4d\u0d57\u0d62\u0d63\u0dca\u0dcf\u0dd2-\u0dd4\u0dd6\u0ddf\u0e31\u0e34-\u0e3a\u0e47-\u0e4e\u0eb1\u0eb4-\u0eb9\u0ebb\u0ebc\u0ec8-\u0ecd\u0f18\u0f19\u0f35\u0f37\u0f39\u0f71-\u0f7e\u0f80-\u0f84\u0f86\u0f87\u0f90-\u0f97\u0f99-\u0fbc\u0fc6\u102d-\u1030\u1032-\u1037\u1039\u103a\u103d\u103e\u1058\u1059\u105e-\u1060\u1071-\u1074\u1082\u1085\u1086\u108d\u109d\u135f\u1712-\u1714\u1732-\u1734\u1752\u1753\u1772\u1773\u17b7-\u17bd\u17c6\u17c9-\u17d3\u17dd\u180b-\u180d\u18a9\u1920-\u1922\u1927\u1928\u1932\u1939-\u193b\u1a17\u1a18\u1a56\u1a58-\u1a5e\u1a60\u1a62\u1a65-\u1a6c\u1a73-\u1a7c\u1a7f\u1b00-\u1b03\u1b34\u1b36-\u1b3a\u1b3c\u1b42\u1b6b-\u1b73\u1b80\u1b81\u1ba2-\u1ba5\u1ba8\u1ba9\u1c2c-\u1c33\u1c36\u1c37\u1cd0-\u1cd2\u1cd4-\u1ce0\u1ce2-\u1ce8\u1ced\u1dc0-\u1de6\u1dfd-\u1dff\u200c\u200d\u20d0-\u20f0\u2cef-\u2cf1\u2de0-\u2dff\u302a-\u302f\u3099\u309a\ua66f-\ua672\ua67c\ua67d\ua6f0\ua6f1\ua802\ua806\ua80b\ua825\ua826\ua8c4\ua8e0-\ua8f1\ua926-\ua92d\ua947-\ua951\ua980-\ua982\ua9b3\ua9b6-\ua9b9\ua9bc\uaa29-\uaa2e\uaa31\uaa32\uaa35\uaa36\uaa43\uaa4c\uaab0\uaab2-\uaab4\uaab7\uaab8\uaabe\uaabf\uaac1\uabe5\uabe8\uabed\udc00-\udfff\ufb1e\ufe00-\ufe0f\ufe20-\ufe26\uff9e\uff9f]/;
   function isExtendingChar(ch) { return ch.charCodeAt(0) >= 768 && extendingChars.test(ch); }
 
-  // DOM UTILITIES
+  // VoM UTILITIES
 
   function elt(tag, content, className, style) {
     var e = document.createElement(tag);
@@ -7385,7 +7385,7 @@
     return b;
   }
 
-  // WINDOW-WIDE EVENTS
+  // WINVoW-WIDE EVENTS
 
   // These must be handled carefully, because naively registering a
   // handler for each editor will cause the editors to never be

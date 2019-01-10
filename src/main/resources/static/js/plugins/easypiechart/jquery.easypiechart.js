@@ -21,7 +21,7 @@
 
     /**
      * Renderer to render the chart on a canvas object
-     * @param {DOMElement} el      DOM element to host the canvas (root of the plugin)
+     * @param {VoMElement} el      VoM element to host the canvas (root of the plugin)
      * @param {object}     options options object of the plugin
      */
     var CanvasRenderer = function(el, options) {

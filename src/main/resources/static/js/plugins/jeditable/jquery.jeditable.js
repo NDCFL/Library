@@ -289,7 +289,7 @@
                     });
                 } else {
                     input.blur(function(e) {
-                        /* TODO: maybe something here */
+                        /* TOVo: maybe something here */
                     });
                 }
 
@@ -315,7 +315,7 @@
                                 $(self).html(str);
                                 self.editing = false;
                                 callback.apply(self, [self.innerHTML, settings]);
-                                /* TODO: this is not dry */
+                                /* TOVo: this is not dry */
                                 if (!$.trim($(self).html())) {
                                     $(self).html(settings.placeholder);
                                 }

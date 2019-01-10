@@ -91,8 +91,8 @@
                             onready()
                         });
                     } else {
-                        doc.addEventListener("DOMContentLoaded", function () {
-                            doc.removeEventListener("DOMContentLoaded", arguments.callee, false);
+                        doc.addEventListener("VoMContentLoaded", function () {
+                            doc.removeEventListener("VoMContentLoaded", arguments.callee, false);
                             onready();
                         }, false);
                         window.addEventListener('load', function(){onready()}, false);

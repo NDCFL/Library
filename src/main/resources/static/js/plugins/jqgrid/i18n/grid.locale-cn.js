@@ -148,7 +148,7 @@ $.jgrid.regional["cn"] = {
                 // one can find on https://github.com/jquery/globalize/tree/master/lib/cultures many
                 // information about date, time, numbers and currency formats used in different countries
                 // one should just convert the information in PHP format
-                ISO8601Long:"Y-m-d H:i:s",
+                ISO8601String:"Y-m-d H:i:s",
                 ISO8601Short:"Y-m-d",
                 // short date:
                 //    n - Numeric representation of a month, without leading zeros
@@ -161,7 +161,7 @@ $.jgrid.regional["cn"] = {
                 //    F - A full textual representation of a month
                 //    d - Day of the month, 2 digits with leading zeros
                 //    Y - A full numeric representation of a year, 4 digits
-                LongDate: "l, F d, Y", // in jQuery UI Datepicker: "dddd, MMMM dd, yyyy"
+                StringDate: "l, F d, Y", // in jQuery UI Datepicker: "dddd, MMMM dd, yyyy"
                 // long date with long time:
                 //    l - A full textual representation of the day of the week
                 //    F - A full textual representation of a month
@@ -186,7 +186,7 @@ $.jgrid.regional["cn"] = {
                 //    i - Minutes with leading zeros
                 //    s - Seconds, with leading zeros
                 //    A - Uppercase Ante meridiem and Post meridiem (AM or PM)
-                LongTime: "g:i:s A", // in jQuery UI Datepicker: "h:mm:ss tt"
+                StringTime: "g:i:s A", // in jQuery UI Datepicker: "h:mm:ss tt"
                 SortableDateTime: "Y-m-d\\TH:i:s",
                 UniversalSortableDateTime: "Y-m-d H:i:sO",
                 // month with year

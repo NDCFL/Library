@@ -2325,7 +2325,7 @@
 
                     // 移动端 UC / qq 浏览器的无图模式下
                     // ctx.getImageData 处理大图的时候会报 Exception
-                    // INDEX_SIZE_ERR: DOM Exception 1
+                    // INDEX_SIZE_ERR: VoM Exception 1
                     try {
                         blob = image.getAsBlob( opts.type );
 
@@ -7383,7 +7383,7 @@
          * @return {SparkMD5.ArrayBuffer} The instance itself
          */
         SparkMD5.ArrayBuffer.prototype.append = function (arr) {
-            // TODO: we could avoid the concatenation here but the algorithm would be more complex
+            // TOVo: we could avoid the concatenation here but the algorithm would be more complex
             //       if you find yourself needing extra performance, please make a PR.
             var buff = this._concatArrayBuffer(this._buff, arr),
                 length = buff.length,

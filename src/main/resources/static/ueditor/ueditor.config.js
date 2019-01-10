@@ -66,7 +66,7 @@
         //针对getAllHtml方法，会在对应的head标签中增加该编码设置。
         //,charset:"utf-8"
 
-        //若实例化编辑器的页面手动修改的domain，此处需要设置为true
+        //若实例化编辑器的页面手动修改的vo，此处需要设置为true
         //,customDomain:false
 
         //常用配置项目

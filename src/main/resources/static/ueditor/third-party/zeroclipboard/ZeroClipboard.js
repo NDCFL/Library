@@ -193,7 +193,7 @@
     }
     return zoomFactor;
   };
-  var _getDOMObjectPosition = function(obj, defaultZIndex) {
+  var _getVoMObjectPosition = function(obj, defaultZIndex) {
     var info = {
       left: 0,
       top: 0,
@@ -230,26 +230,26 @@
     }
   };
   var _vars = function(options) {
-    var i, len, domain, domains, str = "", trustedOriginsExpanded = [];
+    var i, len, vo, vos, str = "", trustedOriginsExpanded = [];
     if (options.trustedDomains) {
       if (typeof options.trustedDomains === "string") {
-        domains = [ options.trustedDomains ];
+        vos = [ options.trustedDomains ];
       } else if (typeof options.trustedDomains === "object" && "length" in options.trustedDomains) {
-        domains = options.trustedDomains;
+        vos = options.trustedDomains;
       }
     }
-    if (domains && domains.length) {
-      for (i = 0, len = domains.length; i < len; i++) {
-        if (domains.hasOwnProperty(i) && domains[i] && typeof domains[i] === "string") {
-          domain = _extractDomain(domains[i]);
-          if (!domain) {
+    if (vos && vos.length) {
+      for (i = 0, len = vos.length; i < len; i++) {
+        if (vos.hasOwnProperty(i) && vos[i] && typeof vos[i] === "string") {
+          vo = _extractDomain(vos[i]);
+          if (!vo) {
             continue;
           }
-          if (domain === "*") {
-            trustedOriginsExpanded = [ domain ];
+          if (vo === "*") {
+            trustedOriginsExpanded = [ vo ];
             break;
           }
-          trustedOriginsExpanded.push.apply(trustedOriginsExpanded, [ domain, "//" + domain, window.location.protocol + "//" + domain ]);
+          trustedOriginsExpanded.push.apply(trustedOriginsExpanded, [ vo, "//" + vo, window.location.protocol + "//" + vo ]);
         }
       }
     }
@@ -867,7 +867,7 @@
   };
   var _reposition = function() {
     if (_currentElement) {
-      var pos = _getDOMObjectPosition(_currentElement, _globalConfig.zIndex);
+      var pos = _getVoMObjectPosition(_currentElement, _globalConfig.zIndex);
       var htmlBridge = _getHtmlBridge(_flashState.bridge);
       if (htmlBridge) {
         htmlBridge.style.top = pos.top + "px";

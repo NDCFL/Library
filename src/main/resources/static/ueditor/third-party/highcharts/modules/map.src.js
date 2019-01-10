@@ -201,7 +201,7 @@
 
 		// Add the mousewheel event
 		if (mapNavigation.zoomOnMouseWheel) {
-			Highcharts.addEvent(chart.container, document.onmousewheel === undefined ? 'DOMMouseScroll' : 'mousewheel', function (e) {
+			Highcharts.addEvent(chart.container, document.onmousewheel === undefined ? 'VoMMouseScroll' : 'mousewheel', function (e) {
 				chart.pointer.onContainerMouseWheel(e);
 			});
 		}
@@ -748,7 +748,7 @@
 					d: series.translatePath(point.path)
 				};
 				
-				// TODO: do point colors in drawPoints instead of point.init
+				// TOVo: do point colors in drawPoints instead of point.init
 				if (typeof point.y === 'number') {
 					if (point.y > dataMax) {
 						dataMax = point.y;
@@ -884,7 +884,7 @@
 					translateY: fromBox.y
 				};
 				
-				// TODO: Animate this.group instead
+				// TOVo: Animate this.group instead
 				each(this.points, function (point) {
 
 					point.graphic
