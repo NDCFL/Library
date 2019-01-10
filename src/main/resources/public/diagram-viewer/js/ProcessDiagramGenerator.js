@@ -255,7 +255,7 @@ var ProcessDiagramGenerator = {
 			var processDiagramCanvas = this.processDiagramCanvas;
 			processDiagramCanvas.setConextObject(activityImpl);
 			
-			// TODO: 
+			// TOVo: 
 			//console.error("task is not implemented yet");
 			/*
 			var activityImpl = this;
@@ -433,7 +433,7 @@ var ProcessDiagramGenerator = {
 		this.activityDrawInstructions["subProcess"] = function(){
 			var activityImpl = this.activity;
 			var processDiagramCanvas = this.processDiagramCanvas;
-			// TODO: 
+			// TOVo: 
 			
 			processDiagramCanvas.setConextObject(activityImpl);
 			
@@ -442,7 +442,7 @@ var ProcessDiagramGenerator = {
 			if(isTriggeredByEvent == undefined) {
 			  isTriggeredByEvent = true;
 			}
-			// TODO: check why isTriggeredByEvent = true when undefined
+			// TOVo: check why isTriggeredByEvent = true when undefined
 			isTriggeredByEvent = false;
 			
 			if (isExpanded != undefined && isExpanded == false) {
@@ -479,7 +479,7 @@ var ProcessDiagramGenerator = {
 	
 	 getActivitiLabel:function(activityImpl){
 	   /*
-	     TODO: Label object should be in activityImpl and looks like:
+	     TOVo: Label object should be in activityImpl and looks like:
 	     {
 	       x: 250,
 	       y: 250,
@@ -510,7 +510,7 @@ var ProcessDiagramGenerator = {
 		//console.log("Init canvas ", processDefinitionId);
 		
 		if (this.getProcessDiagram(processDefinitionId) != undefined) {
-			// TODO: may be reset canvas if exists.. Or just show
+			// TOVo: may be reset canvas if exists.. Or just show
 			//console.log("ProcessDiagram '" + processDefinitionId + "' is already generated. Just show it.");
 			return;
 		}
@@ -601,7 +601,7 @@ var ProcessDiagramGenerator = {
 				var isConditional = flow.isConditional;
 				var isHighLighted = flow.isHighLighted;
 				
-				// TODO: add source and destination for sequence flows in REST
+				// TOVo: add source and destination for sequence flows in REST
 				// parse for test
 					var f = flow.flow;
 					var matches = f.match(/\((.*)\)--.*-->\((.*)\)/);
@@ -767,7 +767,7 @@ var ProcessDiagramGenerator = {
               multiInstanceParallel, collapsed);
 		*/
 
-		// TODO: Draw highlighted activities if they are present
+		// TOVo: Draw highlighted activities if they are present
 		
 	},
 	
@@ -785,13 +785,13 @@ var ProcessDiagramGenerator = {
 		
 		var processDiagramCanvas = processDiagram.diagramCanvas;
 		
-		// TODO: remove highLightes from all activities before set new highLight
+		// TOVo: remove highLightes from all activities before set new highLight
 		for (var i in highLights.activities) {
 			var activityId = highLights.activities[i];
 			processDiagramCanvas.highLightActivity(activityId);
 		}
 		
-		// TODO: remove highLightes from all flows before set new highLight
+		// TOVo: remove highLightes from all flows before set new highLight
 		for (var i in highLights.flows) {
 			var flowId = highLights.flows[i];
 			var object = processDiagramCanvas.g.getById(flowId);
@@ -825,7 +825,7 @@ var ProcessDiagramGenerator = {
 			console.log('Get HighLights['+processDefinitionId+'] failure: ', textStatus, jqXHR);
 		});
 		*/
-		// ½â¾öÎÞÁ÷³ÌÊµÀýµÄÊ±ºòÅ×³öÒì³£ÎÊÌâ¡£
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½×³ï¿½ï¿½ì³£ï¿½ï¿½ï¿½â¡£
 		var url = Lang.sub(ActivitiRest.options.processInstanceUrl, {processInstanceId: processInstanceId});
 		var _drawHighLights = this._drawHighLights;
 		$.ajax({
@@ -954,7 +954,7 @@ var ProcessDiagramGenerator = {
 		var liListOld = ul.find("li");
 		//console.warn("liListOld", liListOld);
 		
-		// TODO: if there is any items after current then remove that before adding new item (m.b. it is a duplicate)
+		// TOVo: if there is any items after current then remove that before adding new item (m.b. it is a duplicate)
 		var currentBreadCrumbsItemId = this.currentBreadCrumbsItemId;
 			found = false;
 		liListOld.each(

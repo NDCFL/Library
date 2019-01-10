@@ -48,7 +48,7 @@ public class FileController extends BaseController {
 		// 查询列表数据
 		Query query = new Query(params);
 		List<FileListVo> sysFileList = sysFileService.list(query);
-		int total = sysFileService.count(query);
+		Long total = sysFileService.count(query);
 		PageUtils pageUtils = new PageUtils(sysFileList, total);
 		return pageUtils;
 	}
@@ -61,7 +61,7 @@ public class FileController extends BaseController {
 
 	@GetMapping("/edit")
 	// @RequiresPermissions("bComments")
-    public String edit(Long id, Model model) {
+    public String edit(String id, Model model) {
 		FileListVo sysFile = sysFileService.get(id);
 		model.addAttribute("sysFile", sysFile);
 		return "/sysFile/edit";
@@ -72,7 +72,7 @@ public class FileController extends BaseController {
 	 */
 	@RequestMapping("/info/{id}")
 	@RequiresPermissions("info")
-	public R info(@PathVariable("id") Long id) {
+	public R info(@PathVariable("id") String id) {
 		FileListVo sysFile = sysFileService.get(id);
 		return R.ok().put("sysFile", sysFile);
 	}
@@ -107,7 +107,7 @@ public class FileController extends BaseController {
 	@PostMapping("/remove")
 	@ResponseBody
 	// @RequiresPermissions("remove")
-	public R remove(Long id, HttpServletRequest request) {
+	public R remove(String id, HttpServletRequest request) {
 		String fileName = cflworksConfig.getUploadPath() + sysFileService.get(id).getUrl().replace("/files/", "");
 		if (sysFileService.remove(id) > 0) {
 			boolean b = FileUtil.deleteFile(fileName);
@@ -126,7 +126,7 @@ public class FileController extends BaseController {
 	@PostMapping("/batchRemove")
 	@ResponseBody
 	@RequiresPermissions("remove")
-	public R remove(@RequestParam("ids[]") Long[] ids) {
+	public R remove(@RequestParam("ids[]") String[] ids) {
 		sysFileService.batchRemove(ids);
 		return R.ok();
 	}

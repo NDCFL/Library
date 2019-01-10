@@ -22,7 +22,7 @@ public class ShiroUtils {
         Object object = getSubjct().getPrincipal();
         return (UserVo)object;
     }
-    public static Long getUserId() {
+    public static String getUserId() {
         return getUser().getUserId();
     }
     public static void logout() {

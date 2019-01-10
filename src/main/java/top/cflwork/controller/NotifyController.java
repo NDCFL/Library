@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import top.cflwork.config.Constant;
 import top.cflwork.vo.NotifyVo;
-import top.cflwork.vo.NotifyRecordDO;
+import top.cflwork.vo.NotifyRecordVo;
 import top.cflwork.service.DictService;
 import top.cflwork.service.NotifyRecordService;
 import top.cflwork.service.NotifyService;
@@ -48,13 +48,9 @@ public class NotifyController extends BaseController {
 	@ResponseBody
 	@GetMapping("/list")
 	@RequiresPermissions("oa:notify:notify")
-	public PageUtils list(@RequestParam Map<String, Object> params) {
-		// 查询列表数据
-		Query query = new Query(params);
-		List<NotifyVo> notifyList = notifyService.list(query);
-		int total = notifyService.count(query);
-		PageUtils pageUtils = new PageUtils(notifyList, total);
-		return pageUtils;
+	public List<NotifyVo> list(NotifyVo notifyVo) {
+		List<NotifyVo> notifyList = notifyService.list(notifyVo);
+		return notifyList;
 	}
 
 	@GetMapping("/add")
@@ -65,16 +61,16 @@ public class NotifyController extends BaseController {
 
 	@GetMapping("/edit/{id}")
 	@RequiresPermissions("oa:notify:edit")
-	public String edit(@PathVariable("id") Long id, Model model) {
+	public String edit(@PathVariable("id") String id, Model model) {
 		NotifyVo notify = notifyService.get(id);
-		List<DictVo> dictDOS = dictService.listByType("oa_notify_type");
+		List<DictVo> dictVoS = dictService.listByType("oa_notify_type");
 		String type = notify.getType();
-		for (DictVo dictDO:dictDOS){
-			if(type.equals(dictDO.getValue())){
-				dictDO.setRemarks("checked");
+		for (DictVo dictVo:dictVoS){
+			if(type.equals(dictVo.getValue())){
+				dictVo.setRemarks("checked");
 			}
 		}
-		model.addAttribute("oaNotifyTypes",dictDOS);
+		model.addAttribute("oaNotifyTypes",dictVoS);
 		model.addAttribute("notify", notify);
 		return "oa/notify/edit";
 	}
@@ -110,7 +106,7 @@ public class NotifyController extends BaseController {
 	@PostMapping("/remove")
 	@ResponseBody
 	@RequiresPermissions("oa:notify:remove")
-	public R remove(Long id) {
+	public R remove(String id) {
 		if (notifyService.remove(id) > 0) {
 			return R.ok();
 		}
@@ -123,7 +119,7 @@ public class NotifyController extends BaseController {
 	@PostMapping("/batchRemove")
 	@ResponseBody
 	@RequiresPermissions("oa:notify:batchRemove")
-	public R remove(@RequestParam("ids[]") Long[] ids) {
+	public R remove(@RequestParam("ids[]") String[] ids) {
 		notifyService.batchRemove(ids);
 		return R.ok();
 	}
@@ -156,15 +152,15 @@ public class NotifyController extends BaseController {
 
 	@GetMapping("/read/{id}")
 	@RequiresPermissions("oa:notify:edit")
-	public String read(@PathVariable("id") Long id, Model model) {
+	public String read(@PathVariable("id") String id, Model model) {
 		NotifyVo notify = notifyService.get(id);
 		//更改阅读状态
-		NotifyRecordDO notifyRecordDO = new NotifyRecordDO();
-		notifyRecordDO.setNotifyId(id);
-		notifyRecordDO.setUserId(getUserId());
-		notifyRecordDO.setReadDate(new Date());
-		notifyRecordDO.setIsRead(Constant.OA_NOTIFY_READ_YES);
-		notifyRecordService.changeRead(notifyRecordDO);
+		NotifyRecordVo notifyRecordVo = new NotifyRecordVo();
+		notifyRecordVo.setNotifyId(id);
+		notifyRecordVo.setUserId(getUserId());
+		notifyRecordVo.setReadDate(new Date());
+		notifyRecordVo.setIsRead(Constant.OA_NOTIFY_READ_YES);
+		notifyRecordService.changeRead(notifyRecordVo);
 		model.addAttribute("notify", notify);
 		return "oa/notify/read";
 	}

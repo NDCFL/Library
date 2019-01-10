@@ -28,10 +28,10 @@ public class MenuServiceImpl implements MenuService {
 	 */
 	@Cacheable
 	@Override
-	public Tree<MenuVo> getSysMenuTree(Long id) {
+	public Tree<MenuVo> getSysMenuTree(String id) {
 		List<Tree<MenuVo>> trees = new ArrayList<Tree<MenuVo>>();
-		List<MenuVo> menuDOs = menuMapper.listMenuByUserId(id);
-		for (MenuVo sysMenuVo : menuDOs) {
+		List<MenuVo> menuVos = menuMapper.listMenuByUserId(id);
+		for (MenuVo sysMenuVo : menuVos) {
 			Tree<MenuVo> tree = new Tree<MenuVo>();
 			tree.setId(sysMenuVo.getMenuId().toString());
 			tree.setParentId(sysMenuVo.getParentId().toString());
@@ -55,7 +55,7 @@ public class MenuServiceImpl implements MenuService {
 
 	@Transactional(readOnly = false,rollbackFor = Exception.class)
 	@Override
-	public int remove(Long id) {
+	public int remove(String id) {
 		int result = menuMapper.remove(id);
 		return result;
 	}
@@ -74,16 +74,16 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	@Override
-	public MenuVo get(Long id) {
-		MenuVo menuDO = menuMapper.get(id);
-		return menuDO;
+	public MenuVo get(String id) {
+		MenuVo menuVo = menuMapper.get(id);
+		return menuVo;
 	}
 
 	@Override
 	public Tree<MenuVo> getTree() {
 		List<Tree<MenuVo>> trees = new ArrayList<Tree<MenuVo>>();
-		List<MenuVo> menuDOs = menuMapper.list(new HashMap<>(16));
-		for (MenuVo sysMenuVo : menuDOs) {
+		List<MenuVo> menuVos = menuMapper.list(new HashMap<>(16));
+		for (MenuVo sysMenuVo : menuVos) {
 			Tree<MenuVo> tree = new Tree<MenuVo>();
 			tree.setId(sysMenuVo.getMenuId().toString());
 			tree.setParentId(sysMenuVo.getParentId().toString());
@@ -96,7 +96,7 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	@Override
-	public Tree<MenuVo> getTree(Long id) {
+	public Tree<MenuVo> getTree(String id) {
 		// 根据roleId查询权限
 		List<MenuVo> menus = menuMapper.list(new HashMap<String, Object>(16));
 		List<Long> menuIds = roleMenuMapper.listMenuIdByRoleId(id);
@@ -107,14 +107,14 @@ public class MenuServiceImpl implements MenuService {
 			}
 		}
 		List<Tree<MenuVo>> trees = new ArrayList<Tree<MenuVo>>();
-		List<MenuVo> menuDOs = menuMapper.list(new HashMap<String, Object>(16));
-		for (MenuVo sysMenuVo : menuDOs) {
+		List<MenuVo> menuVos = menuMapper.list(new HashMap<String, Object>(16));
+		for (MenuVo sysMenuVo : menuVos) {
 			Tree<MenuVo> tree = new Tree<MenuVo>();
 			tree.setId(sysMenuVo.getMenuId().toString());
 			tree.setParentId(sysMenuVo.getParentId().toString());
 			tree.setText(sysMenuVo.getName());
 			Map<String, Object> state = new HashMap<>(16);
-			Long menuId = sysMenuVo.getMenuId();
+			String menuId = sysMenuVo.getMenuId();
 			if (menuIds.contains(menuId)) {
 				state.put("selected", true);
 			} else {
@@ -129,7 +129,7 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	@Override
-	public Set<String> listPerms(Long userId) {
+	public Set<String> listPerms(String userId) {
 		List<String> perms = menuMapper.listUserPerms(userId);
 		Set<String> permsSet = new HashSet<>();
 		for (String perm : perms) {
@@ -141,10 +141,10 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	@Override
-	public List<Tree<MenuVo>> listMenuTree(Long id) {
+	public List<Tree<MenuVo>> listMenuTree(String id) {
 		List<Tree<MenuVo>> trees = new ArrayList<Tree<MenuVo>>();
-		List<MenuVo> menuDOs = menuMapper.listMenuByUserId(id);
-		for (MenuVo sysMenuVo : menuDOs) {
+		List<MenuVo> menuVos = menuMapper.listMenuByUserId(id);
+		for (MenuVo sysMenuVo : menuVos) {
 			Tree<MenuVo> tree = new Tree<MenuVo>();
 			tree.setId(sysMenuVo.getMenuId().toString());
 			tree.setParentId(sysMenuVo.getParentId().toString());

@@ -44,8 +44,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
 //    @Cacheable(key = "#id")
-    public UserVo get(Long id) {
-        List<Long> roleIds = userRoleMapper.listRoleId(id);
+    public UserVo get(String id) {
+        List<String> roleIds = userRoleMapper.listRoleId(id);
         UserVo user = userMapper.get(id);
         user.setDeptName(deptMapper.get(user.getDeptId()).getName());
         user.setRoleIds(roleIds);
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int count(Map<String, Object> map) {
+    public long count(Map<String, Object> map) {
         return userMapper.count(map);
     }
 
@@ -66,11 +66,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public int save(UserVo user) {
         int count = userMapper.save(user);
-        Long userId = user.getUserId();
-        List<Long> roles = user.getRoleIds();
+        String userId = user.getUserId();
+        List<String> roles = user.getRoleIds();
         userRoleMapper.removeByUserId(userId);
         List<UserRoleVo> list = new ArrayList<>();
-        for (Long roleId : roles) {
+        for (String roleId : roles) {
             UserRoleVo ur = new UserRoleVo();
             ur.setUserId(userId);
             ur.setRoleId(roleId);
@@ -85,11 +85,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public int update(UserVo user) {
         int r = userMapper.update(user);
-        Long userId = user.getUserId();
-        List<Long> roles = user.getRoleIds();
+        String userId = user.getUserId();
+        List<String> roles = user.getRoleIds();
         userRoleMapper.removeByUserId(userId);
         List<UserRoleVo> list = new ArrayList<>();
-        for (Long roleId : roles) {
+        for (String roleId : roles) {
             UserRoleVo ur = new UserRoleVo();
             ur.setUserId(userId);
             ur.setRoleId(roleId);
@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int remove(Long userId) {
+    public int remove(String userId) {
         userRoleMapper.removeByUserId(userId);
         return userMapper.remove(userId);
     }
@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Set<String> listRoles(Long userId) {
+    public Set<String> listRoles(String userId) {
         return null;
     }
 
@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public int batchremove(Long[] userIds) {
+    public int batchremove(String[] userIds) {
         int count = userMapper.batchRemove(userIds);
         userRoleMapper.batchRemoveByUserId(userIds);
         return count;
@@ -159,7 +159,7 @@ public class UserServiceImpl implements UserService {
         List<DeptVo> depts = deptMapper.list(new HashMap<String, Object>(16));
         Long[] pDepts = deptMapper.listParentDept();
         Long[] uDepts = userMapper.listAllDept();
-        Long[] allDepts = (Long[]) ArrayUtils.addAll(pDepts, uDepts);
+        String[] allDepts = (String[]) ArrayUtils.addAll(pDepts, uDepts);
         for (DeptVo dept : depts) {
             if (!ArrayUtils.contains(allDepts, dept.getDeptId())) {
                 continue;
@@ -197,7 +197,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> updatePersonalImg(MultipartFile file, String avatar_data, Long userId) throws Exception {
+    public Map<String, Object> updatePersonalImg(MultipartFile file, String avatar_data, String userId) throws Exception {
         String fileName = file.getOriginalFilename();
         fileName = FileUtil.renameToUUID(fileName);
         FileListVo sysFile = new FileListVo(FileType.fileType(fileName), "/files/" + fileName, new Date());

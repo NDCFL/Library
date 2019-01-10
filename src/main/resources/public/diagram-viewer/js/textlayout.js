@@ -30,7 +30,7 @@
 				this.startWordOffsets = [];
 				this.startWordOffsets.push(fullPos);
 				
-				// TODO: remove i 1000
+				// TOVo: remove i 1000
 				while (i<1000) {
 					var pos = string.search(/[ \t\n\f-\.\,]/);
 					if (pos == -1)
@@ -185,7 +185,7 @@
 							console.log("isNewLine");
 							nextOffset = charAtMaxAdvance+1;
 						} else if (this.text.isWhitespace(charAtMaxAdvance)) {
-							// TODO: find next noSpaceChar
+							// TOVo: find next noSpaceChar
 							//return nextOffset;
 							nextOffset = this.text.following(charAtMaxAdvance);
 						} else {
@@ -404,7 +404,7 @@
 			var fitTextToWidth = function(original, width) {
 				var text = original;
 
-				// TODO: move attr on parameters
+				// TOVo: move attr on parameters
 				var attr = {font: "11px Arial", opacity: 0};
 				
 				// remove length for "..."

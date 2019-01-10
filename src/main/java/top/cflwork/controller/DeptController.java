@@ -50,9 +50,9 @@ public class DeptController extends BaseController {
 
 	@GetMapping("/add/{pId}")
 	@RequiresPermissions("sysDept:add")
-	public String add(@PathVariable("pId") Long pId, Model model) {
+	public String add(@PathVariable("pId") String pId, Model model) {
 		model.addAttribute("pId", pId);
-		if (pId == 0) {
+		if (pId.equals("0")) {
 			model.addAttribute("pName", "总部门");
 		} else {
 			model.addAttribute("pName", sysDeptService.get(pId).getName());
@@ -62,7 +62,7 @@ public class DeptController extends BaseController {
 
 	@GetMapping("/edit/{deptId}")
 	@RequiresPermissions("sysDept:edit")
-	public String edit(@PathVariable("deptId") Long deptId, Model model) {
+	public String edit(@PathVariable("deptId") String deptId, Model model) {
 		DeptVo sysDept = sysDeptService.get(deptId);
 		model.addAttribute("sysDept", sysDept);
 		if(Constant.DEPT_ROOT_ID.equals(sysDept.getParentId())) {
@@ -106,7 +106,7 @@ public class DeptController extends BaseController {
 	@PostMapping("/remove")
 	@ResponseBody
 	@RequiresPermissions("sysDept:remove")
-	public R remove(Long deptId) {
+	public R remove(String deptId) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("parentId", deptId);
 		if(sysDeptService.count(map)>0) {
@@ -128,7 +128,7 @@ public class DeptController extends BaseController {
 	@PostMapping("/batchRemove")
 	@ResponseBody
 	@RequiresPermissions("sysDept:batchRemove")
-	public R remove(@RequestParam("ids[]") Long[] deptIds) {
+	public R remove(@RequestParam("ids[]") String[] deptIds) {
 		sysDeptService.batchRemove(deptIds);
 		return R.ok();
 	}

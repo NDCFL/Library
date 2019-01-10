@@ -33,7 +33,7 @@ public class ${className}ServiceImpl implements ${className}Service {
 	
 	@Override
     @Transactional
-	public int count(Map<String, Object> map){
+	public long count(Map<String, Object> map){
 		return ${classname}Dao.count(map);
 	}
 	

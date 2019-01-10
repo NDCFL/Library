@@ -48,7 +48,7 @@ public class ${className}Controller {
 		//查询列表数据
         Query query = new Query(params);
 		List<${className}Vo> ${classname}List = ${classname}Service.list(query);
-		int total = ${classname}Service.count(query);
+		Long total = ${classname}Service.count(query);
 		PageUtils pageUtils = new PageUtils(${classname}List, total);
 		return pageUtils;
 	}

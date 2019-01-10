@@ -17,27 +17,27 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserRoleDao {
 
-	UserRoleVo get(Long id);
+	UserRoleVo get(String id);
 
 	List<UserRoleVo> list(Map<String, Object> map);
 
-	int count(Map<String, Object> map);
+	long count(Map<String, Object> map);
 
 	int save(UserRoleVo userRole);
 
 	int update(UserRoleVo userRole);
 
-	int remove(Long id);
+	int remove(String id);
 
-	int batchRemove(Long[] ids);
+	int batchRemove(String[] ids);
 
-	List<Long> listRoleId(Long userId);
+	List<String> listRoleId(String userId);
 
-	int removeByUserId(Long userId);
+	int removeByUserId(String userId);
 
-	int removeByRoleId(Long roleId);
+	int removeByRoleId(String roleId);
 
 	int batchSave(List<UserRoleVo> list);
 
-	int batchRemoveByUserId(Long[] ids);
+	int batchRemoveByUserId(String[] ids);
 }

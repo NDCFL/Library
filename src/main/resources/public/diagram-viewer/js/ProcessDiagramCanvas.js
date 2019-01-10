@@ -149,7 +149,7 @@ ProcessDiagramCanvas.prototype = {
 		this.canvasWidth = width;
 		this.canvasHeight = height;
 		
-		// TODO: name it as 'canvasName'
+		// TOVo: name it as 'canvasName'
 		if (!processDefinitionId)
 			processDefinitionId = "holder";
 		
@@ -591,7 +591,7 @@ ProcessDiagramCanvas.prototype = {
 				"stroke": strokeColor,
 				"fill": Color.white});
 
-		// TODO: implement it
+		// TOVo: implement it
 		//var originalPaint = this.getPaint();
 		//this.g.setPaint(BOUNDARY_EVENT_COLOR);
 		
@@ -736,7 +736,7 @@ ProcessDiagramCanvas.prototype = {
 		set.push(outerCircle, innerCircle, shaddow);
 		this.setContextToElement(outerCircle);
 		
-		// TODO: add shapes to set
+		// TOVo: add shapes to set
 		
 		/*
 		var st = this.g.set();
@@ -902,7 +902,7 @@ ProcessDiagramCanvas.prototype = {
 			this.setStroke(SEQUENCEFLOW_HIGHLIGHT_STROKE);
 		}
 
-// TODO: generate polylineId or do something!!
+// TOVo: generate polylineId or do something!!
 		var uuid = Raphael.createUUID();
 		
 		var contextObject = this.getConextObject();
@@ -1006,7 +1006,7 @@ ProcessDiagramCanvas.prototype = {
 				ProcessDiagramGenerator.showFlowInfo(contextObject);
 			}
 		}).dblclick(function(){
-			console.log("!!! DOUBLE CLICK !!!");
+			console.log("!!! VoUBLE CLICK !!!");
 		}).hover(function (mouseEvent) {
 			var instance = this;
 			var objectId = instance.data("objectId");
@@ -1225,7 +1225,7 @@ ProcessDiagramCanvas.prototype = {
 			textElement.transform("r" + Raphael.deg(270 * Math.PI/180) + " " + newX + " " + newY);
 		}
 		
-		// TODO: add to set
+		// TOVo: add to set
 	},
 	
 	_drawTask: function(name, x, y, width, height, thickBorder) {
@@ -1281,7 +1281,7 @@ ProcessDiagramCanvas.prototype = {
 			var paddingY = 5;
 			var availableTextSpace = width - paddingX*2;
 			
-			// TODO: this.setFont
+			// TOVo: this.setFont
 			// var originalFont = this.getFont();
 			// this.setFont(TASK_FONT)
 			/*
@@ -1342,13 +1342,13 @@ ProcessDiagramCanvas.prototype = {
 		this.setFont(LABEL_FONT_SMOOTH);
 		
 		// predefined box width for labels
-		// TODO: use label width as is, but not height (for stretching)
+		// TOVo: use label width as is, but not height (for stretching)
 		if (!width || !height) {
 		  width = 100;
 		  height = 0;
 		}
 		
-		// TODO: remove it. It is debug
+		// TOVo: remove it. It is debug
 		x = x - width/2;
 	  
 		this._drawMultilineText(text, x, y, width, height, MULTILINE_VERTICAL_ALIGN_TOP, MULTILINE_HORIZONTAL_ALIGN_MIDDLE);
@@ -1387,7 +1387,7 @@ ProcessDiagramCanvas.prototype = {
 	fitTextToWidth: function(original, width) {
 		var text = original;
 
-		// TODO: move attr on parameters
+		// TOVo: move attr on parameters
 		var attr = {font: "11px Arial", opacity: 0};
 		
 		// remove length for "..."
@@ -1422,7 +1422,7 @@ ProcessDiagramCanvas.prototype = {
 		var text = original;
 		var wrappedText = "\n";
 		
-		// TODO: move attr on parameters
+		// TOVo: move attr on parameters
 		var attr = {font: "11px Arial", opacity: 0};
 		
 		var textElement = this.g.text(0, 0, wrappedText).attr(attr).hide();
@@ -1476,7 +1476,7 @@ ProcessDiagramCanvas.prototype = {
 		var text = original;
 		var wrappedText = "\n";
 		
-		// TODO: move attr on parameters
+		// TOVo: move attr on parameters
 		var attr = {font: "11px Arial", opacity: 0};
 		
 		var textElement = this.g.text(0, 0, wrappedText).attr(attr).hide();
@@ -1614,7 +1614,7 @@ ProcessDiagramCanvas.prototype = {
 		var textElement = this.g.text(x + width/2 - realWidth*0/2 + 0*paddingX, y + realHeight/2 + paddingY, truncated).attr(fontAttr);
 		
 		var set = this.g.setFinish();
-		// TODO: Expanded Sub Process may has specific handlers
+		// TOVo: Expanded Sub Process may has specific handlers
 		//this.addHandlers(set, x, y, width, height, "task");
 	},
 	
@@ -2014,7 +2014,7 @@ ProcessDiagramCanvas.prototype = {
 			//console.log("LAYOUT: " + layout + ", getPosition: " + measurer.getPosition());
 			
 			if (layout != null) {
-				// TODO: and check if measurer has next layout. If no then don't draw  dots
+				// TOVo: and check if measurer has next layout. If no then don't draw  dots
 				if (!availableLinesCount || i < availableLinesCount) {
 					layouts.push(layout);
 				} else {
@@ -2032,7 +2032,7 @@ ProcessDiagramCanvas.prototype = {
 			measurer.rafaelTextObject.attr({"text-anchor": horizontalAlign}); // end, middle, start
 			
 		var bb = measurer.rafaelTextObject.getBBox();
-		// TODO: there is somethin wrong with wertical align. May be: measurer.rafaelTextObject.attr({"y": y + height/2 - bb.height/2})
+		// TOVo: there is somethin wrong with wertical align. May be: measurer.rafaelTextObject.attr({"y": y + height/2 - bb.height/2})
 		measurer.rafaelTextObject.attr({"y": y + bb.height/2});
 		//var bb = measurer.rafaelTextObject.getBBox();
 		

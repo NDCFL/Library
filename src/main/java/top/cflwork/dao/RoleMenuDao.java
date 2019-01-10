@@ -16,25 +16,25 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface RoleMenuDao {
 
-	RoleMenuVo get(Long id);
+	RoleMenuVo get(String id);
 	
 	List<RoleMenuVo> list(Map<String,Object> map);
 	
-	int count(Map<String,Object> map);
+	long count(Map<String,Object> map);
 	
 	int save(RoleMenuVo roleMenu);
 	
 	int update(RoleMenuVo roleMenu);
 	
-	int remove(Long id);
+	int remove(String id);
 	
-	int batchRemove(Long[] ids);
+	int batchRemove(String[] ids);
 	
-	List<Long> listMenuIdByRoleId(Long roleId);
+	List<Long> listMenuIdByRoleId(String roleId);
 	
-	int removeByRoleId(Long roleId);
+	long removeByRoleId(String roleId);
 
-	int removeByMenuId(Long menuId);
+	int removeByMenuId(String menuId);
 	
 	int batchSave(List<RoleMenuVo> list);
 }

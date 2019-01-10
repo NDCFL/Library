@@ -1,5 +1,8 @@
 package top.cflwork.vo;
 
+import io.swagger.annotations.ApiModelProperty;
+import top.cflwork.common.Pager;
+
 public class NotifyDTO extends NotifyVo {
 
     private static final long serialVersionUID = 1L;
@@ -9,7 +12,8 @@ public class NotifyDTO extends NotifyVo {
     private String before;
 
     private String sender;
-
+    @ApiModelProperty("分页对象")
+    private Pager pager;
     public String getIsRead() {
         return isRead;
     }

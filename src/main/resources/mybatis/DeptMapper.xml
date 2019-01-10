@@ -32,7 +32,7 @@
 		</if>
 	</select>
 
-	<select id="count" resultType="int">
+	<select id="count" resultType="long">
 		select count(*) from sys_dept
 		<where>
 			<if test="deptId != null and deptId != ''"> and dept_id = #{deptId} </if>
@@ -47,6 +47,7 @@
 		useGeneratedKeys="true" keyProperty="deptId">
 		insert into sys_dept
 		(
+		`dept_id`,
 		`parent_id`,
 		`name`,
 		`order_num`,
@@ -54,6 +55,7 @@
 		)
 		values
 		(
+		#{deptId},
 		#{parentId},
 		#{name},
 		#{orderNum},
@@ -88,7 +90,7 @@
 		select DISTINCT parent_id from sys_dept
 	</select>
 
-    <select id="getDeptUserNumber" resultType="int">
+    <select id="getDeptUserNumber" resultType="long">
 		select count(*) from sys_user where dept_id = #{value}
 	</select>
 </mapper>

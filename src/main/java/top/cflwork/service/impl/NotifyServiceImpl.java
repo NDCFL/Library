@@ -9,7 +9,7 @@ import top.cflwork.dao.NotifyRecordDao;
 import top.cflwork.dao.UserDao;
 import top.cflwork.vo.NotifyVo;
 import top.cflwork.vo.NotifyDTO;
-import top.cflwork.vo.NotifyRecordDO;
+import top.cflwork.vo.NotifyRecordVo;
 import top.cflwork.vo.UserVo;
 import top.cflwork.service.DictService;
 import top.cflwork.service.NotifyService;
@@ -41,24 +41,24 @@ public class NotifyServiceImpl implements NotifyService {
     private SimpMessagingTemplate template;
 
     @Override
-    public NotifyVo get(Long id) {
-        NotifyVo rDO = notifyDao.get(id);
-        rDO.setType(dictService.getName("oa_notify_type", rDO.getType()));
-        return rDO;
+    public NotifyVo get(String id) {
+        NotifyVo rVo = notifyDao.get(id);
+        rVo.setType(dictService.getName("oa_notify_type", rVo.getType()));
+        return rVo;
     }
 
     @Override
-    public List<NotifyVo> list(Map<String, Object> map) {
-        List<NotifyVo> notifys = notifyDao.list(map);
-        for (NotifyVo notifyDO : notifys) {
-            notifyDO.setType(dictService.getName("oa_notify_type", notifyDO.getType()));
+    public List<NotifyVo> list(NotifyVo notifyVo) {
+        List<NotifyVo> notifys = notifyDao.list(notifyVo);
+        for (NotifyVo notifyVo1 : notifys) {
+            notifyVo1.setType(dictService.getName("oa_notify_type", notifyVo1.getType()));
         }
         return notifys;
     }
 
     @Override
-    public int count(Map<String, Object> map) {
-        return notifyDao.count(map);
+    public long count(NotifyVo notifyVo) {
+        return notifyDao.count(notifyVo);
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -67,11 +67,11 @@ public class NotifyServiceImpl implements NotifyService {
         notify.setUpdateDate(new Date());
         int r = notifyDao.save(notify);
         // 保存到接受者列表中
-        Long[] userIds = notify.getUserIds();
-        Long notifyId = notify.getId();
-        List<NotifyRecordDO> records = new ArrayList<>();
-        for (Long userId : userIds) {
-            NotifyRecordDO record = new NotifyRecordDO();
+        String[] userIds = notify.getUserIds();
+        String notifyId = notify.getId();
+        List<NotifyRecordVo> records = new ArrayList<>();
+        for (String userId : userIds) {
+            NotifyRecordVo record = new NotifyRecordVo();
             record.setNotifyId(notifyId);
             record.setUserId(userId);
             record.setIsRead(0);
@@ -83,10 +83,10 @@ public class NotifyServiceImpl implements NotifyService {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                for (UserVo userDO : sessionService.listOnlineUser()) {
-                    for (Long userId : userIds) {
-                        if (userId.equals(userDO.getUserId())) {
-                            template.convertAndSendToUser(userDO.toString(), "/queue/notifications", "新消息：" + notify.getTitle());
+                for (UserVo userVo : sessionService.listOnlineUser()) {
+                    for (String userId : userIds) {
+                        if (userId.equals(userVo.getUserId())) {
+                            template.convertAndSendToUser(userVo.toString(), "/queue/notifications", "新消息：" + notify.getTitle());
                         }
                     }
                 }
@@ -103,14 +103,14 @@ public class NotifyServiceImpl implements NotifyService {
 
     @Transactional
     @Override
-    public int remove(Long id) {
+    public int remove(String id) {
         recordDao.removeByNotifbyId(id);
         return notifyDao.remove(id);
     }
 
     @Transactional
     @Override
-    public int batchRemove(Long[] ids) {
+    public int batchRemove(String[] ids) {
         recordDao.batchRemoveByNotifbyId(ids);
         return notifyDao.batchRemove(ids);
     }

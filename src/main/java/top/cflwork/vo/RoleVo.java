@@ -1,24 +1,28 @@
 package top.cflwork.vo;
 
+import io.swagger.annotations.ApiModelProperty;
+import top.cflwork.common.Pager;
+
 import java.sql.Timestamp;
 import java.util.List;
 
 public class RoleVo {
 	
-	private Long roleId;
+	private String roleId;
 	private String roleName;
 	private String roleSign;
 	private String remark;
-	private Long userIdCreate;
+	private String userIdCreate;
 	private Timestamp gmtCreate;
 	private Timestamp gmtModified;
-	private List<Long> menuIds;
-
-	public Long getRoleId() {
+	private List<String> menuIds;
+	@ApiModelProperty("分页对象")
+	private Pager pager;
+	public String getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(Long roleId) {
+	public void setRoleId(String roleId) {
 		this.roleId = roleId;
 	}
 
@@ -46,11 +50,11 @@ public class RoleVo {
 		this.remark = remark;
 	}
 
-	public Long getUserIdCreate() {
+	public String getUserIdCreate() {
 		return userIdCreate;
 	}
 
-	public void setUserIdCreate(Long userIdCreate) {
+	public void setUserIdCreate(String userIdCreate) {
 		this.userIdCreate = userIdCreate;
 	}
 
@@ -70,11 +74,11 @@ public class RoleVo {
 		this.gmtModified = gmtModified;
 	}
 
-	public List<Long> getMenuIds() {
+	public List<String> getMenuIds() {
 		return menuIds;
 	}
 
-	public void setMenuIds(List<Long> menuIds) {
+	public void setMenuIds(List<String> menuIds) {
 		this.menuIds = menuIds;
 	}
 

@@ -168,7 +168,7 @@ public class RedisManager {
     /**
      * keys
      *
-     * @param regex
+     * @param pattern
      * @return
      */
     public Set<byte[]> keys(String pattern) {

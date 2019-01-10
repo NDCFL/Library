@@ -1,6 +1,8 @@
 package top.cflwork.vo;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import top.cflwork.common.Pager;
 
 import java.io.Serializable;
 
@@ -17,11 +19,11 @@ public class DeptVo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//
-	private Long deptId;
+	private String deptId;
 	/**
 	 * 获取：上级部门ID，一级部门为0
 	 */
-	private Long parentId;
+	private String parentId;
 	//部门名称
 	private String name;
 	//排序
@@ -30,6 +32,8 @@ public class DeptVo implements Serializable {
 	 * 获取：是否删除  -1：已删除  0：正常
 	 */
 	private Integer delFlag;
-
+	private String ids[];
+	@ApiModelProperty("分页对象")
+	private Pager pager;
 
 }

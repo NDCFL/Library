@@ -1,11 +1,14 @@
 package top.cflwork.util;
 
+import lombok.Data;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
  * 查询参数
  */
+@Data
 public class Query extends LinkedHashMap<String, Object> {
 	private static final long serialVersionUID = 1L;
 	// 
@@ -21,26 +24,9 @@ public class Query extends LinkedHashMap<String, Object> {
 		// 分页参数
 		this.pageIndex = Integer.parseInt(params.get("pageIndex").toString());
 		this.pageSize = Integer.parseInt(params.get("pageSize").toString());
-		this.put("pageIndex", pageIndex);
-		this.put("page", pageIndex / pageSize + 1);
+		this.put("pageIndex", (pageIndex-1)*pageSize);
 		this.put("pageSize", pageSize);
 		this.put("sort",sort);
 		this.put("order",order);
-	}
-
-	public int getPageIndex() {
-		return pageIndex;
-	}
-
-	public void setPageIndex(int pageIndex) {
-		this.put("pageIndex", pageIndex);
-	}
-
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
 	}
 }

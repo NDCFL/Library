@@ -53,7 +53,7 @@ public class UserController extends BaseController {
 		// 查询列表数据
 		Query query = new Query(params);
 		List<UserVo> sysUserList = userService.list(query);
-		int total = userService.count(query);
+		Long total = userService.count(query);
 		PageUtils pageUtil = new PageUtils(sysUserList, total);
 		return pageUtil;
 	}
@@ -70,7 +70,7 @@ public class UserController extends BaseController {
 	@RequiresPermissions("user:edit")
 	@Log("编辑用户")
 	@GetMapping("/edit/{id}")
-	public String edit(Model model, @PathVariable("id") Long id) {
+	public String edit(Model model, @PathVariable("id") String id) {
 		UserVo userVo = userService.get(id);
 		model.addAttribute("user", userVo);
 		List<RoleVo> roles = roleService.list(id);
@@ -118,7 +118,7 @@ public class UserController extends BaseController {
 	@Log("删除用户")
 	@PostMapping("/remove")
 	@ResponseBody
-	public R remove(Long id) {
+	public R remove(String id) {
 		if (userService.remove(id) > 0) {
 			return R.ok();
 		}
@@ -129,7 +129,7 @@ public class UserController extends BaseController {
 	@Log("批量删除用户")
 	@PostMapping("/batchRemove")
 	@ResponseBody
-	public R batchRemove(@RequestParam("ids[]") Long[] userIds) {
+	public R batchRemove(@RequestParam("ids[]") String[] userIds) {
 		int r = userService.batchremove(userIds);
 		if (r > 0) {
 			return R.ok();
@@ -147,7 +147,7 @@ public class UserController extends BaseController {
 	@RequiresPermissions("user:resetPwd")
 	@Log("请求更改用户密码")
 	@GetMapping("/resetPwd/{id}")
-	public String resetPwd(@PathVariable("id") Long userId, Model model) {
+	public String resetPwd(@PathVariable("id") String userId, Model model) {
 
 		UserVo userVo = new UserVo();
 		userVo.setUserId(userId);

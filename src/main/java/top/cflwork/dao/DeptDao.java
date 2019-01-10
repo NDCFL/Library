@@ -16,21 +16,21 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface DeptDao {
 
-	DeptVo get(Long deptId);
+	DeptVo get(String deptId);
 	
 	List<DeptVo> list(Map<String,Object> map);
 	
-	int count(Map<String,Object> map);
+	long count(Map<String,Object> map);
 	
 	int save(DeptVo dept);
 	
 	int update(DeptVo dept);
 	
-	int remove(Long deptId);
+	int remove(String deptId);
 	
-	int batchRemove(Long[] deptIds);
+	int batchRemove(String[] deptIds);
 	
 	Long[] listParentDept();
 	
-	int getDeptUserNumber(Long deptId);
+	int getDeptUserNumber(String deptId);
 }

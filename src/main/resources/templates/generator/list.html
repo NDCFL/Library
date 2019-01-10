@@ -1,28 +1,37 @@
-<!VoCTYPE html>
+<!DOCTYPE html>
 <html>
-<meta charset="utf-8">
-<head th:include="include :: header"></head>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>列表</title>
+	<head th:include="include :: header"></head>
+</head>
 <body class="gray-bg">
-	<div class="wrapper wrapper-content ">
-		<div class="col-sm-12">
-			<div class="ibox">
-				<div class="ibox-body">
-					<div  id="exampleToolbar" role="group" >
-						<button type="button" class="btn  btn-primary"
-							onclick="batchCode()">
-							<i class="" aria-hidden="true"></i>批量生成
-						</button>
-						<button type="button" class="btn  btn-success"
-							onclick="edit()">
-							<i class="" aria-hidden="true"></i>生成策略
-						</button>
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>列表</h5>
+			</div>
+			<div class="ibox-content">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						查询条件
 					</div>
-					<table id="exampleTable" data-mobile-responsive="true">
-					</table>
+					<div class="panel-body form-group" style="margin-bottom:0px;">
+						<table id="mytab" name="mytab" class="table table-hover"></table>
+						<div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
+							<button id="btn_delete1" onclick="batchCode()"  type="button" class="btn btn-primary" style="display: block;">
+								<span class="glyphicon glyphicon-th" aria-hidden="true" ></span>批量生成
+							</button>
+							<button id="btn_delete" onclick="edit()"  type="button" class="btn btn-success" style="display: block;">
+								<span class="glyphicon glyphicon-cloud" aria-hidden="true" ></span>生成策略
+							</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<div th:include="include :: footer"></div>
 	<script type="text/javascript" src="/js/appjs/generator/list.js"></script>
 </body>

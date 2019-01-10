@@ -15,17 +15,17 @@ import java.util.Map;
 @Mapper
 public interface FileDao {
 
-	FileListVo get(Long id);
+	FileListVo get(String id);
 	
 	List<FileListVo> list(Map<String, Object> map);
 
-	int count(Map<String, Object> map);
+	long count(Map<String, Object> map);
 	
 	int save(FileListVo file);
 	
 	int update(FileListVo file);
 	
-	int remove(Long id);
+	int remove(String id);
 	
-	int batchRemove(Long[] ids);
+	int batchRemove(String[] ids);
 }

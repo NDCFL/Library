@@ -42,7 +42,7 @@ public class DictController extends BaseController {
 		// 查询列表数据
 		Query query = new Query(params);
 		List<DictVo> dictList = dictService.list(query);
-		int total = dictService.count(query);
+		Long total = dictService.count(query);
 		PageUtils pageUtils = new PageUtils(dictList, total);
 		return pageUtils;
 	}
@@ -55,7 +55,7 @@ public class DictController extends BaseController {
 
 	@GetMapping("/edit/{id}")
 	@RequiresPermissions("dict:edit")
-	public String edit(@PathVariable("id") Long id, Model model) {
+	public String edit(@PathVariable("id") String id, Model model) {
 		DictVo dict = dictService.get(id);
 		model.addAttribute("dict", dict);
 		return "/dict/edit";
@@ -91,7 +91,7 @@ public class DictController extends BaseController {
 	@PostMapping("/remove")
 	@ResponseBody
 	@RequiresPermissions("dict:remove")
-	public R remove(Long id) {
+	public R remove(String id) {
 		if (dictService.remove(id) > 0) {
 			return R.ok();
 		}
@@ -104,7 +104,7 @@ public class DictController extends BaseController {
 	@PostMapping("/batchRemove")
 	@ResponseBody
 	@RequiresPermissions("dict:batchRemove")
-	public R remove(@RequestParam("ids[]") Long[] ids) {
+	public R remove(@RequestParam("ids[]") String[] ids) {
 		dictService.batchRemove(ids);
 		return R.ok();
 	}

@@ -3,75 +3,77 @@
 
 <mapper namespace="top.cflwork.dao.FileDao">
 
-	<select id="get" resultType="top.cflwork.vo.FileListVo">
+    <select id="get" resultType="top.cflwork.vo.FileListVo">
 		select `id`,`type`,`url`,`create_date` from sys_file where id = #{value}
 	</select>
 
-	<select id="list" resultType="top.cflwork.vo.FileListVo">
-		select `id`,`type`,`url`,`create_date` from sys_file
-        <where>  
-		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="type != null and type != ''"> and type = #{type} </if>
-		  		  <if test="url != null and url != ''"> and url = #{url} </if>
-		  		  <if test="createDate != null and createDate != ''"> and create_date = #{createDate} </if>
-		  		</where>
+    <select id="list" resultType="top.cflwork.vo.FileListVo">
+        select `id`,`type`,`url`,`create_date` from sys_file
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="type != null and type != ''">and type = #{type}</if>
+            <if test="url != null and url != ''">and url = #{url}</if>
+            <if test="createDate != null and createDate != ''">and create_date = #{createDate}</if>
+        </where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
                 order by ${sort} ${order}
             </when>
-			<otherwise>
+            <otherwise>
                 order by id desc
-			</otherwise>
+            </otherwise>
         </choose>
-		<if test="pageIndex != null and pageSize != null">
-			limit #{pageIndex}, #{pageSize}
-		</if>
-	</select>
-	
- 	<select id="count" resultType="int">
-		select count(*) from sys_file
-		 <where>  
-		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="type != null and type != ''"> and type = #{type} </if>
-		  		  <if test="url != null and url != ''"> and url = #{url} </if>
-		  		  <if test="createDate != null and createDate != ''"> and create_date = #{createDate} </if>
-		  		</where>
-	</select>
-	 
-	<insert id="save" parameterType="top.cflwork.vo.FileListVo" useGeneratedKeys="true" keyProperty="id">
+        <if test="pageIndex != null and pageSize != null">
+            limit #{pageIndex}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="count" resultType="long">
+        select count(*) from sys_file
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="type != null and type != ''">and type = #{type}</if>
+            <if test="url != null and url != ''">and url = #{url}</if>
+            <if test="createDate != null and createDate != ''">and create_date = #{createDate}</if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="top.cflwork.vo.FileListVo" useGeneratedKeys="true" keyProperty="id">
 		insert into sys_file
 		(
+		    `id`,
 			`type`, 
 			`url`, 
 			`create_date`
 		)
 		values
 		(
+		    #{id},
 			#{type}, 
 			#{url}, 
 			#{createDate}
 		)
 	</insert>
-	 
-	<update id="update" parameterType="top.cflwork.vo.FileListVo">
-		update sys_file 
-		<set>
-			<if test="type != null">`type` = #{type}, </if>
-			<if test="url != null">`url` = #{url}, </if>
-			<if test="createDate != null">`create_date` = #{createDate}</if>
-		</set>
-		where id = #{id}
-	</update>
-	
-	<delete id="remove">
+
+    <update id="update" parameterType="top.cflwork.vo.FileListVo">
+        update sys_file
+        <set>
+            <if test="type != null">`type` = #{type},</if>
+            <if test="url != null">`url` = #{url},</if>
+            <if test="createDate != null">`create_date` = #{createDate}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="remove">
 		delete from sys_file where id = #{value}
 	</delete>
-	
-	<delete id="batchRemove">
-		delete from sys_file where id in 
-		<foreach item="id" collection="array" open="(" separator="," close=")">
-			#{id}
-		</foreach>
-	</delete>
+
+    <delete id="batchRemove">
+        delete from sys_file where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 
 </mapper>

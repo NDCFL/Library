@@ -1,6 +1,8 @@
 package top.cflwork.vo;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import top.cflwork.common.Pager;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,9 +11,9 @@ import java.util.Date;
 public class MenuVo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	//
-	private Long menuId;
+	private String menuId;
 	// 父菜单ID，一级菜单为0
-	private Long parentId;
+	private String parentId;
 	// 菜单名称
 	private String name;
 	// 菜单URL
@@ -28,6 +30,7 @@ public class MenuVo implements Serializable {
 	private Date gmtCreate;
 	// 修改时间
 	private Date gmtModified;
-
+	@ApiModelProperty("分页对象")
+	private Pager pager;
 
 }

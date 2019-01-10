@@ -30,7 +30,7 @@
 		</if>
 	</select>
 	
- 	<select id="count" resultType="int">
+ 	<select id="count" resultType="long">
 		select count(*) from sys_book
 		 <where>  
 		  		  <if test="id != null and id != ''"> and id = #{id} </if>
@@ -45,6 +45,7 @@
 	<insert id="save" parameterType="top.cflwork.vo.BookVo" useGeneratedKeys="true" keyProperty="id">
 		insert into sys_book
 		(
+			`id`,
 			`book_name`, 
 			`book_imei`, 
 			`author`, 
@@ -53,6 +54,7 @@
 		)
 		values
 		(
+			#{id},
 			#{bookName}, 
 			#{bookImei}, 
 			#{author}, 

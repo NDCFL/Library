@@ -43,7 +43,7 @@
 		</if>
 	</select>
 	
- 	<select id="count" resultType="int">
+ 	<select id="count" resultType="long">
 		select count(user_id) from sys_user
 		 <where>  
 		  		  <if test="userId != null and userId != ''"> and user_id = #{userId} </if>
@@ -71,6 +71,7 @@
 	<insert id="save" parameterType="top.cflwork.vo.UserVo" useGeneratedKeys="true" keyProperty="userId">
 		insert into sys_user
 		(
+			`id`,
 			`username`, 
 			`name`, 
 			`password`, 
@@ -92,6 +93,7 @@
 		)
 		values
 		(
+			#{id},
 			#{username}, 
 			#{name}, 
 			#{password}, 

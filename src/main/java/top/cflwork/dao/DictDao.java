@@ -16,19 +16,19 @@ import java.util.Map;
 @Mapper
 public interface DictDao {
 
-	DictVo get(Long id);
+	DictVo get(String id);
 
 	List<DictVo> list(Map<String, Object> map);
 
-	int count(Map<String, Object> map);
+	long count(Map<String, Object> map);
 
 	int save(DictVo dict);
 
 	int update(DictVo dict);
 
-	int remove(Long id);
+	int remove(String id);
 
-	int batchRemove(Long[] ids);
+	int batchRemove(String[] ids);
 
 	List<DictVo> listType();
 }

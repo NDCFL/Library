@@ -142,7 +142,7 @@ public class QiniuUtil {
      * @param file
      * @param suffix
      * @return
-     * 文档：DOC、DOCX、PPT、PPTX、TXT、PDF、XLS、XLSX
+     * 文档：VoC、VoCX、PPT、PPTX、TXT、PDF、XLS、XLSX
      * 图片：JPG、PNG、GIF、BMP
      * 视频：MP4
      * 音频：MP3

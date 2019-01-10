@@ -1,5 +1,8 @@
 package top.cflwork.vo;
 
+import io.swagger.annotations.ApiModelProperty;
+import top.cflwork.common.Pager;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,14 +17,16 @@ public class FileListVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     //
-    private Long id;
+    private String id;
     // 文件类型
     private Integer type;
     // URL地址
     private String url;
     // 创建时间
     private Date createDate;
-
+    @ApiModelProperty("分页对象")
+    private Pager pager;
+    private String ids[];
 
     public FileListVo() {
         super();
@@ -39,14 +44,14 @@ public class FileListVo implements Serializable {
     /**
      * 设置：
      */
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
     /**
      * 获取：
      */
-    public Long getId() {
+    public String getId() {
         return id;
     }
 

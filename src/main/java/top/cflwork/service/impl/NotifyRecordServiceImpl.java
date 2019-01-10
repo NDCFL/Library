@@ -3,7 +3,7 @@ package top.cflwork.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.cflwork.dao.NotifyRecordDao;
-import top.cflwork.vo.NotifyRecordDO;
+import top.cflwork.vo.NotifyRecordVo;
 import top.cflwork.service.NotifyRecordService;
 
 import java.util.List;
@@ -16,42 +16,42 @@ public class NotifyRecordServiceImpl implements NotifyRecordService {
 	private NotifyRecordDao notifyRecordDao;
 	
 	@Override
-	public NotifyRecordDO get(Long id){
+	public NotifyRecordVo get(String id){
 		return notifyRecordDao.get(id);
 	}
 	
 	@Override
-	public List<NotifyRecordDO> list(Map<String, Object> map){
+	public List<NotifyRecordVo> list(Map<String, Object> map){
 		return notifyRecordDao.list(map);
 	}
 	
 	@Override
-	public int count(Map<String, Object> map){
+	public long count(Map<String, Object> map){
 		return notifyRecordDao.count(map);
 	}
 	
 	@Override
-	public int save(NotifyRecordDO notifyRecord){
+	public int save(NotifyRecordVo notifyRecord){
 		return notifyRecordDao.save(notifyRecord);
 	}
 	
 	@Override
-	public int update(NotifyRecordDO notifyRecord){
+	public int update(NotifyRecordVo notifyRecord){
 		return notifyRecordDao.update(notifyRecord);
 	}
 	
 	@Override
-	public int remove(Long id){
+	public int remove(String id){
 		return notifyRecordDao.remove(id);
 	}
 	
 	@Override
-	public int batchRemove(Long[] ids){
+	public int batchRemove(String[] ids){
 		return notifyRecordDao.batchRemove(ids);
 	}
 
 	@Override
-	public int changeRead(NotifyRecordDO notifyRecord) {
+	public int changeRead(NotifyRecordVo notifyRecord) {
 		return notifyRecordDao.changeRead(notifyRecord);
 	}
 

@@ -41,7 +41,7 @@
 		</if>
 	</select>
 
-	<select id="count" resultType="int">
+	<select id="count" resultType="long">
 		select count(*) from sys_dict
 		<where>
 			<if test="id != null and id != ''"> and id = #{id} </if>
@@ -64,6 +64,7 @@
 		useGeneratedKeys="true" keyProperty="id">
 		insert into sys_dict
 		(
+		`id`,
 		`name`,
 		`value`,
 		`type`,
@@ -79,6 +80,7 @@
 		)
 		values
 		(
+		#{id},
 		#{name},
 		#{value},
 		#{type},

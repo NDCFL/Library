@@ -20,7 +20,7 @@ public class DictServiceImpl implements DictService {
     private DictDao dictDao;
 
     @Override
-    public DictVo get(Long id) {
+    public DictVo get(String id) {
         return dictDao.get(id);
     }
 
@@ -30,7 +30,7 @@ public class DictServiceImpl implements DictService {
     }
 
     @Override
-    public int count(Map<String, Object> map) {
+    public long count(Map<String, Object> map) {
         return dictDao.count(map);
     }
 
@@ -45,12 +45,12 @@ public class DictServiceImpl implements DictService {
     }
 
     @Override
-    public int remove(Long id) {
+    public int remove(String id) {
         return dictDao.remove(id);
     }
 
     @Override
-    public int batchRemove(Long[] ids) {
+    public int batchRemove(String[] ids) {
         return dictDao.batchRemove(ids);
     }
 

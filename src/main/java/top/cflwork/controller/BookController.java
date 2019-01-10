@@ -44,11 +44,10 @@ public class BookController {
 	@ResponseBody
 	@PostMapping("/list")
 	@RequiresPermissions("book:list")
-	public PageUtils list(@RequestParam Map<String, Object> params){
+	public PageUtils list(BookVo bookVo){
 		//查询列表数据
-        Query query = new Query(params);
-		List<BookVo> bookList = bookService.list(query);
-		int total = bookService.count(query);
+		List<BookVo> bookList = bookService.list(bookVo);
+		Long total = bookService.count(bookVo);
 		PageUtils pageUtils = new PageUtils(bookList, total);
 		return pageUtils;
 	}
@@ -61,7 +60,7 @@ public class BookController {
 
 	@GetMapping("/edit/{id}")
 	@RequiresPermissions("book:edit")
-	public String edit(@PathVariable("id") Long id,Model model){
+	public String edit(@PathVariable("id") String id,Model model){
 		BookVo book = bookService.get(id);
 		model.addAttribute("book", book);
 	    return "/book/edit";
@@ -96,7 +95,7 @@ public class BookController {
 	@PostMapping( "/remove")
 	@ResponseBody
 	@RequiresPermissions("book:remove")
-	public R remove( Long id){
+	public R remove( String id){
 		if(bookService.remove(id)>0){
 		return R.ok();
 		}
@@ -109,7 +108,7 @@ public class BookController {
 	@PostMapping( "/batchRemove")
 	@ResponseBody
 	@RequiresPermissions("book:batchRemove")
-	public R remove(@RequestParam("ids[]") Long[] ids){
+	public R remove(@RequestParam("ids[]") String[] ids){
 		bookService.batchRemove(ids);
 		return R.ok();
 	}

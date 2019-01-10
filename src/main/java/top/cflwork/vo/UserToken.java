@@ -1,5 +1,8 @@
 package top.cflwork.vo;
 
+import io.swagger.annotations.ApiModelProperty;
+import top.cflwork.common.Pager;
+
 import java.io.Serializable;
 
 /**
@@ -8,17 +11,18 @@ import java.io.Serializable;
  */
 public class UserToken implements Serializable {
     private static final long serialVersionUID = 1L;
-    private Long userId;
+    private String userId;
     private String username;
     private String name;
     private String password;
-    private Long deptId;
-
-    public Long getUserId() {
+    private String deptId;
+    @ApiModelProperty("分页对象")
+    private Pager pager;
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -46,11 +50,11 @@ public class UserToken implements Serializable {
         this.password = password;
     }
 
-    public Long getDeptId() {
+    public String getDeptId() {
         return deptId;
     }
 
-    public void setDeptId(Long deptId) {
+    public void setDeptId(String deptId) {
         this.deptId = deptId;
     }
 }

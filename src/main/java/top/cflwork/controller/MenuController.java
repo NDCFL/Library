@@ -42,9 +42,9 @@ public class MenuController extends BaseController {
 	@Log("添加菜单")
 	@RequiresPermissions("menu:add")
 	@GetMapping("/add/{pId}")
-	public String add(Model model, @PathVariable("pId") Long pId) {
+	public String add(Model model, @PathVariable("pId") String pId) {
 		model.addAttribute("pId", pId);
-		if (pId == 0) {
+		if (pId.equals("0")) {
 			model.addAttribute("pName", "根目录");
 		} else {
 			model.addAttribute("pName", menuService.get(pId).getName());
@@ -55,11 +55,11 @@ public class MenuController extends BaseController {
 	@Log("编辑菜单")
 	@RequiresPermissions("menu:edit")
 	@GetMapping("/edit/{id}")
-	public String edit(Model model, @PathVariable("id") Long id) {
+	public String edit(Model model, @PathVariable("id") String id) {
 		MenuVo mdo = menuService.get(id);
-		Long pId = mdo.getParentId();
+		String pId = mdo.getParentId();
 		model.addAttribute("pId", pId);
-		if (pId == 0) {
+		if (pId.equals("0")) {
 			model.addAttribute("pName", "根目录");
 		} else {
 			model.addAttribute("pName", menuService.get(pId).getName());
@@ -96,7 +96,7 @@ public class MenuController extends BaseController {
 	@RequiresPermissions("menu:remove")
 	@PostMapping("/remove")
 	@ResponseBody
-	public R remove(Long id) {
+	public R remove(String id) {
 		if (menuService.remove(id) > 0) {
 			return R.ok();
 		} else {
@@ -113,7 +113,7 @@ public class MenuController extends BaseController {
 
 	@GetMapping("/tree/{roleId}")
 	@ResponseBody
-	public Tree<MenuVo> tree(@PathVariable("roleId") Long roleId) {
+	public Tree<MenuVo> tree(@PathVariable("roleId") String roleId) {
 		Tree<MenuVo> tree = menuService.getTree(roleId);
 		return tree;
 	}

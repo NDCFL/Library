@@ -1,5 +1,8 @@
 package top.cflwork.vo;
 
+import io.swagger.annotations.ApiModelProperty;
+import top.cflwork.common.Pager;
+
 import java.io.Serializable;
 import java.util.Map;
 
@@ -7,6 +10,9 @@ public class FileVo implements Serializable{
     private int code;
     private String msg;
     private Map<String,String> data;
+    private String ids[];
+    @ApiModelProperty("分页对象")
+    private Pager pager;
     public int getCode() {
         return code;
     }

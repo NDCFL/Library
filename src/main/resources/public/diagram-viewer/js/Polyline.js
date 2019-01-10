@@ -126,7 +126,7 @@ Polyline.prototype = {
 	},
 	
 	getAnchors: function(){
-		// вернуть отсортированный массив
+		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 		// ????
 		return this.anchors;
 	},
@@ -155,7 +155,7 @@ Polyline.prototype = {
 		} else if (!index) {
 			index = this.anchors.length;
 		} else {
-			// перебрать anchors, сдвинуть позицию для каждого, начиная с index
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ anchors, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ index
 			//var anchor = this.getAnchor()
 			for(var i=0; i < this.getAnchorsCount(); i++){
 				var anchor = this.anchors[i];
@@ -216,7 +216,7 @@ Polyline.prototype = {
 			else 
 				pathType = "L";
 			
-// TODO: save previous points and calculate new path just if points are updated, and then save currents values as previous
+// TOVo: save previous points and calculate new path just if points are updated, and then save currents values as previous
 			
 			var targetX = anchor.x, targetY = anchor.y;
 			if (i>0 && i < this.getAnchorsCount()-1) {
@@ -314,7 +314,7 @@ Polyline.prototype = {
 	},
 	attr: function(attrs){
 		//console.log("attrs: " +attrs, "", this.element);
-		// TODO: foreach and set each
+		// TOVo: foreach and set each
 		this.element.attr(attrs);
 	}
 };

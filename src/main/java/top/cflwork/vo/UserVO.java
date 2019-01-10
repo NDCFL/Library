@@ -1,7 +1,9 @@
 package top.cflwork.vo;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
+import top.cflwork.common.Pager;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,7 +13,7 @@ import java.util.List;
 public class UserVo implements Serializable {
     private static final long serialVersionUID = 1L;
     //
-    private Long userId;
+    private String userId;
     // 用户名
     private String username;
     // 用户真实姓名
@@ -19,7 +21,7 @@ public class UserVo implements Serializable {
     // 密码
     private String password;
     // 部门
-    private Long deptId;
+    private String deptId;
     private String deptName;
     // 邮箱
     private String email;
@@ -28,15 +30,15 @@ public class UserVo implements Serializable {
     // 状态 0:禁用，1:正常
     private Integer status;
     // 创建用户id
-    private Long userIdCreate;
+    private String userIdCreate;
     // 创建时间
     private Date gmtCreate;
     // 修改时间
     private Date gmtModified;
     //角色
-    private List<Long> roleIds;
+    private List<String> roleIds;
     //性别
-    private Long sex;
+    private String sex;
     //出身日期
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;
@@ -52,6 +54,7 @@ public class UserVo implements Serializable {
     private String city;
     //所在地区
     private String district;
-
+    @ApiModelProperty("分页对象")
+    private Pager pager;
 
 }

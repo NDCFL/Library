@@ -1,6 +1,8 @@
 package top.cflwork.vo;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import top.cflwork.common.Pager;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -19,7 +21,7 @@ public class DictVo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//编号
-	private Long id;
+	private String id;
 	//标签名
 	private String name;
 	//数据值
@@ -31,19 +33,21 @@ public class DictVo implements Serializable {
 	//排序（升序）
 	private BigDecimal sort;
 	//父级编号
-	private Long parentId;
+	private String parentId;
 	//创建者
 	private Integer createBy;
 	//创建时间
 	private Date createDate;
 	//更新者
-	private Long updateBy;
+	private String updateBy;
 	//更新时间
 	private Date updateDate;
 	//备注信息
 	private String remarks;
 	//删除标记
 	private String delFlag;
-
+	private String ids[];
+	@ApiModelProperty("分页对象")
+	private Pager pager;
 
 }

@@ -104,7 +104,7 @@
         el: '#app',
         data: {
             pageSize: 12,
-            pageIndex: 0,
+            pageIndex: 1,
             total: 0,
             file: '',
             type: '',
@@ -176,7 +176,7 @@
             },
             changeType: function (i) {
                 this.type = i;
-                this.pageIndex = 0;
+                this.pageIndex = 1;
                 this.getData();
             }
         },

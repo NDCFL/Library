@@ -26,7 +26,7 @@
 				this.startWordOffsets = [];
 				this.startWordOffsets.push(fullPos);
 				
-				// TODO: remove i 1000
+				// TOVo: remove i 1000
 				while (i<1000) {
 					var pos = string.search(/[ \t\n\f-\.\,]/);
 					if (pos == -1)
@@ -162,7 +162,7 @@
 							//console.log("isNewLine");
 							nextOffset = charAtMaxAdvance+1;
 						} else if (this.text.isWhitespace(charAtMaxAdvance)) {
-							// TODO: find next noSpaceChar
+							// TOVo: find next noSpaceChar
 							//return nextOffset;
 							nextOffset = this.text.following(charAtMaxAdvance);
 						} else {

@@ -9,7 +9,7 @@ import top.cflwork.vo.RoleVo;
 @Service
 public interface RoleService {
 
-	RoleVo get(Long id);
+	RoleVo get(String id);
 
 	List<RoleVo> list();
 
@@ -17,9 +17,9 @@ public interface RoleService {
 
 	int update(RoleVo role);
 
-	int remove(Long id);
+	int remove(String id);
 
-	List<RoleVo> list(Long userId);
+	List<RoleVo> list(String userId);
 
-	int batchremove(Long[] ids);
+	int batchremove(String[] ids);
 }

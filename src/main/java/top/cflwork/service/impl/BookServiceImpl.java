@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Map;
 
+import top.cflwork.common.SequenceId;
 import top.cflwork.dao.BookDao;
 import top.cflwork.vo.BookVo;
 import top.cflwork.service.BookService;
@@ -17,28 +18,30 @@ import top.cflwork.service.BookService;
 public class BookServiceImpl implements BookService {
 	@Autowired
 	private BookDao bookDao;
-	
+	@Autowired
+	private SequenceId sequenceId;
 	@Override
     @Transactional
-	public BookVo get(Long id){
+	public BookVo get(String id){
 		return bookDao.get(id);
 	}
 	
 	@Override
     @Transactional
-	public List<BookVo> list(Map<String, Object> map){
-		return bookDao.list(map);
+	public List<BookVo> list(BookVo bookVo){
+		return bookDao.list(bookVo);
 	}
 	
 	@Override
     @Transactional
-	public int count(Map<String, Object> map){
-		return bookDao.count(map);
+	public long count(BookVo bookVo){
+		return bookDao.count(bookVo);
 	}
 	
 	@Override
     @Transactional
 	public int save(BookVo book){
+		book.setId(sequenceId.nextId());
 		return bookDao.save(book);
 	}
 	
@@ -50,19 +53,22 @@ public class BookServiceImpl implements BookService {
 	
 	@Override
     @Transactional
-	public int remove(Long id){
+	public int remove(String id){
 		return bookDao.remove(id);
 	}
 	
 	@Override
     @Transactional
-	public int batchRemove(Long[] ids){
+	public int batchRemove(String ids[]){
 		return bookDao.batchRemove(ids);
 	}
 
     @Override
     @Transactional
     public int batchSave(List<BookVo> bookList){
-        return bookDao.batchSave(bookList);
+        bookList.stream().forEach(e->{
+        	e.setId(sequenceId.nextId());
+		});
+		return bookDao.batchSave(bookList);
     }
 }

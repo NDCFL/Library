@@ -63,17 +63,17 @@ public class BDExceptionHandler {
 
     @ExceptionHandler({Exception.class})
     public Object handleException(Exception e, HttpServletRequest request) {
-        LogVo logDO = new LogVo();
-        logDO.setGmtCreate(new Date());
-        logDO.setOperation(Constant.LOG_ERROR);
-        logDO.setMethod(request.getRequestURL().toString());
-        logDO.setParams(e.toString());
+        LogVo logVo = new LogVo();
+        logVo.setGmtCreate(new Date());
+        logVo.setOperation(Constant.LOG_ERROR);
+        logVo.setMethod(request.getRequestURL().toString());
+        logVo.setParams(e.toString());
         UserVo current = ShiroUtils.getUser();
         if(null!=current){
-            logDO.setUserId(current.getUserId());
-            logDO.setUsername(current.getUsername());
+            logVo.setUserId(current.getUserId());
+            logVo.setUsername(current.getUsername());
         }
-        logService.save(logDO);
+        logService.save(logVo);
         logger.error(e.getMessage(), e);
         if (HttpServletUtils.jsAjax(request)) {
             return R.error(500, "服务器错误，请联系管理员");

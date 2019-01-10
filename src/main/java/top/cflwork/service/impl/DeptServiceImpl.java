@@ -21,7 +21,7 @@ public class DeptServiceImpl implements DeptService {
 	private DeptDao sysDeptMapper;
 
 	@Override
-	public DeptVo get(Long deptId){
+	public DeptVo get(String deptId){
 		return sysDeptMapper.get(deptId);
 	}
 
@@ -31,7 +31,7 @@ public class DeptServiceImpl implements DeptService {
 	}
 
 	@Override
-	public int count(Map<String, Object> map){
+	public long count(Map<String, Object> map){
 		return sysDeptMapper.count(map);
 	}
 
@@ -46,12 +46,12 @@ public class DeptServiceImpl implements DeptService {
 	}
 
 	@Override
-	public int remove(Long deptId){
+	public int remove(String deptId){
 		return sysDeptMapper.remove(deptId);
 	}
 
 	@Override
-	public int batchRemove(Long[] deptIds){
+	public int batchRemove(String[] deptIds){
 		return sysDeptMapper.batchRemove(deptIds);
 	}
 
@@ -75,8 +75,8 @@ public class DeptServiceImpl implements DeptService {
 	}
 
 	@Override
-	public boolean checkDeptHasUser(Long deptId) {
-		// TODO Auto-generated method stub
+	public boolean checkDeptHasUser(String deptId) {
+		// TOVo Auto-generated method stub
 		//查询部门以及此部门的下级部门
 		int result = sysDeptMapper.getDeptUserNumber(deptId);
 		return result==0?true:false;

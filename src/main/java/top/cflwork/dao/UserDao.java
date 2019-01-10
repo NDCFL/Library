@@ -16,19 +16,19 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserDao {
 
-	UserVo get(Long userId);
+	UserVo get(String userId);
 	
 	List<UserVo> list(Map<String,Object> map);
 	
-	int count(Map<String,Object> map);
+	long count(Map<String,Object> map);
 	
 	int save(UserVo user);
 	
 	int update(UserVo user);
 	
-	int remove(Long userId);
+	int remove(String userId);
 	
-	int batchRemove(Long[] userIds);
+	int batchRemove(String[] userIds);
 	
 	Long[] listAllDept();
 

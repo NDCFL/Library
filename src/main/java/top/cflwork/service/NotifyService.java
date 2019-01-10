@@ -15,21 +15,21 @@ import java.util.Map;
  */
 public interface NotifyService {
 
-	NotifyVo get(Long id);
+	NotifyVo get(String id);
 
-	List<NotifyVo> list(Map<String, Object> map);
+	List<NotifyVo> list(NotifyVo notifyVo);
 
-	int count(Map<String, Object> map);
+	long count(NotifyVo notifyVo);
 
 	int save(NotifyVo notify);
 
 	int update(NotifyVo notify);
 
-	int remove(Long id);
+	int remove(String id);
 
-	int batchRemove(Long[] ids);
+	int batchRemove(String[] ids);
 
-//	Map<String, Object> message(Long userId);
+//	Map<String, Object> message(String userId);
 
 	PageUtils selfList(Map<String, Object> map);
 }

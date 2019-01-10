@@ -15,21 +15,21 @@ import java.util.Map;
  */
 public interface DeptService {
 	
-	DeptVo get(Long deptId);
+	DeptVo get(String deptId);
 	
 	List<DeptVo> list(Map<String, Object> map);
 	
-	int count(Map<String, Object> map);
+	long count(Map<String, Object> map);
 	
 	int save(DeptVo sysDept);
 	
 	int update(DeptVo sysDept);
 	
-	int remove(Long deptId);
+	int remove(String deptId);
 	
-	int batchRemove(Long[] deptIds);
+	int batchRemove(String[] deptIds);
 
 	Tree<DeptVo> getTree();
 
-	boolean checkDeptHasUser(Long deptId);
+	boolean checkDeptHasUser(String deptId);
 }

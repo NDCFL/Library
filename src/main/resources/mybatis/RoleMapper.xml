@@ -35,7 +35,7 @@
 		</if>
 	</select>
 
-	<select id="count" resultType="int">
+	<select id="count" resultType="long">
 		select count(*) from sys_role
 		<where>
 			<if test="roleId != null and roleId != ''"> and role_id = #{roleId} </if>
@@ -52,6 +52,7 @@
 		useGeneratedKeys="true" keyProperty="roleId">
 		insert into sys_role
 		(
+		`id`,
 		`role_name`,
 		`role_sign`,
 		`remark`,
@@ -61,6 +62,7 @@
 		)
 		values
 		(
+		#{id},
 		#{roleName},
 		#{roleSign},
 		#{remark},

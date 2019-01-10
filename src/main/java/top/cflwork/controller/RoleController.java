@@ -45,9 +45,9 @@ public class RoleController extends BaseController {
 	@Log("编辑角色")
 	@RequiresPermissions("role:edit")
 	@GetMapping("/edit/{id}")
-	public String edit(@PathVariable("id") Long id, Model model) {
-		RoleVo roleDO = roleService.get(id);
-		model.addAttribute("role", roleDO);
+	public String edit(@PathVariable("id") String id, Model model) {
+		RoleVo roleVo = roleService.get(id);
+		model.addAttribute("role", roleVo);
 		return prefix + "/edit";
 	}
 
@@ -79,7 +79,7 @@ public class RoleController extends BaseController {
 	@RequiresPermissions("role:remove")
 	@PostMapping("/remove")
 	@ResponseBody()
-	public R save(Long id) {
+	public R save(String id) {
 		if (roleService.remove(id) > 0) {
 			return R.ok();
 		} else {
@@ -91,7 +91,7 @@ public class RoleController extends BaseController {
 	@Log("批量删除角色")
 	@PostMapping("/batchRemove")
 	@ResponseBody
-	public R batchRemove(@RequestParam("ids[]") Long[] ids) {
+	public R batchRemove(@RequestParam("ids[]") String[] ids) {
 		int r = roleService.batchremove(ids);
 		if (r > 0) {
 			return R.ok();

@@ -27,21 +27,21 @@
 			<if test="remarks != null and remarks != ''"> and remarks = #{remarks} </if>
 			<if test="delFlag != null and delFlag != ''"> and del_flag = #{delFlag} </if>
 		</where>
-		<choose>
-			<when test="sort != null and sort.trim() != ''">
-				order by ${sort} ${order}
-			</when>
-			<otherwise>
-				order by id desc
-			</otherwise>
-		</choose>
-		<if test="offset != null and limit != null">
-			limit #{offset}, #{limit}
-		</if>
+		<!--<choose>-->
+			<!--<when test="pager.sort != null and pager.order != null">-->
+				<!--order by ${pager.sort} ${pager.order}-->
+			<!--</when>-->
+			<!--<otherwise>-->
+				<!--order by id desc-->
+			<!--</otherwise>-->
+		<!--</choose>-->
+		<!--<if test="pager.pageIndex != null and pager.pageSize != null">-->
+			<!--limit #{pager.pageIndex}, #{pager.pageSize}-->
+		<!--</if>-->
 	</select>
 
-	<select id="count" resultType="int">
-		select count(*) from oa_notify
+	<select id="count" resultType="long">
+		select count(id) from oa_notify
 		<where>
 			<if test="id != null and id != ''"> and id = #{id} </if>
 			<if test="type != null and type != ''"> and type = #{type} </if>
@@ -62,6 +62,7 @@
 		useGeneratedKeys="true" keyProperty="id">
 		insert into oa_notify
 		(
+		`id`,
 		`type`,
 		`title`,
 		`content`,
@@ -76,6 +77,7 @@
 		)
 		values
 		(
+		#{id},
 		#{type},
 		#{title},
 		#{content},
@@ -131,7 +133,7 @@
 	</select>
 
 
-	<select id="countDTO" resultType="int">
+	<select id="countDTO" resultType="long">
 		select count(*)
 		from
 		oa_notify_record r right JOIN oa_notify n on r.notify_id

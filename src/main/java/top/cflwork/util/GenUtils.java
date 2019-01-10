@@ -69,23 +69,23 @@ public class GenUtils {
         //列信息
         List<ColumnVo> columsList = new ArrayList<>();
         for (Map<String, String> column : columns) {
-            ColumnVo columnDO = new ColumnVo();
-            columnDO.setColumnName(column.get("columnName"));
-            columnDO.setDataType(column.get("dataType"));
-            columnDO.setComments(column.get("columnComment"));
-            columnDO.setExtra(column.get("extra"));
+            ColumnVo columnVo = new ColumnVo();
+            columnVo.setColumnName(column.get("columnName"));
+            columnVo.setDataType(column.get("dataType"));
+            columnVo.setComments(column.get("columnComment"));
+            columnVo.setExtra(column.get("extra"));
             //列名转换成Java属性名
-            String attrName = columnToJava(columnDO.getColumnName());
-            columnDO.setAttrName(attrName);
-            columnDO.setAttrname(StringUtils.uncapitalize(attrName));
+            String attrName = columnToJava(columnVo.getColumnName());
+            columnVo.setAttrName(attrName);
+            columnVo.setAttrname(StringUtils.uncapitalize(attrName));
             //列的数据类型，转换成Java类型
-            String attrType = config.getString(columnDO.getDataType(), "unknowType");
-            columnDO.setAttrType(attrType);
+            String attrType = config.getString(columnVo.getDataType(), "unknowType");
+            columnVo.setAttrType(attrType);
             //是否主键
             if ("PRI".equalsIgnoreCase(column.get("columnKey")) && tableVo.getPk() == null) {
-                tableVo.setPk(columnDO);
+                tableVo.setPk(columnVo);
             }
-            columsList.add(columnDO);
+            columsList.add(columnVo);
         }
         tableVo.setColumns(columsList);
         //没主键，则第一个字段为主键

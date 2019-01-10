@@ -11,7 +11,7 @@ public interface GeneratorMapper {
 	List<Map<String, Object>> list();
 
 	@Select("select count(*) from information_schema.tables where table_schema = (select database())")
-	int count(Map<String, Object> map);
+	long count(Map<String, Object> map);
 
 	@Select("select table_name tableName, engine, table_comment tableComment, create_time createTime from information_schema.tables \r\n"
 			+ "	where table_schema = (select database()) and table_name = #{tableName}")

@@ -234,14 +234,14 @@
     
     function R(first) {
         if (R.is(first, "function")) {
-            return loaded ? first() : eve.on("raphael.DOMload", first);
+            return loaded ? first() : eve.on("raphael.VoMload", first);
         } else if (R.is(first, array)) {
             return R._engine.create[apply](R, first.splice(0, 3 + R.is(first[0], nu))).add(first);
         } else {
             var args = Array.prototype.slice.call(arguments, 0);
             if (R.is(args[args.length - 1], "function")) {
                 var f = args.pop();
-                return loaded ? f.call(R._engine.create[apply](R, args)) : eve.on("raphael.DOMload", function () {
+                return loaded ? f.call(R._engine.create[apply](R, args)) : eve.on("raphael.VoMload", function () {
                     f.call(R._engine.create[apply](R, args));
                 });
             } else {
@@ -3730,14 +3730,14 @@
             doc.readyState = "loading";
         }
         function isLoaded() {
-            (/in/).test(doc.readyState) ? setTimeout(isLoaded, 9) : R.eve("raphael.DOMload");
+            (/in/).test(doc.readyState) ? setTimeout(isLoaded, 9) : R.eve("raphael.VoMload");
         }
         isLoaded();
-    })(document, "DOMContentLoaded");
+    })(document, "VoMContentLoaded");
 
     oldRaphael.was ? (g.win.Raphael = R) : (Raphael = R);
     
-    eve.on("raphael.DOMload", function () {
+    eve.on("raphael.VoMload", function () {
         loaded = true;
     });
 })();

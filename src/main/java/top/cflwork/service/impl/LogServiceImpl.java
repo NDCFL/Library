@@ -1,5 +1,7 @@
 package top.cflwork.service.impl;
 
+import top.cflwork.common.SequenceId;
+import top.cflwork.util.PageUtils;
 import top.cflwork.util.Query;
 import top.cflwork.dao.LogDao;
 import top.cflwork.service.LogService;
@@ -14,32 +16,43 @@ import java.util.List;
 @Service
 public class LogServiceImpl implements LogService {
 	@Autowired
-	LogDao logMapper;
+	public LogDao logDao;
+	@Autowired
+	private SequenceId sequenceId;
 
-	@Async
 	@Override
-	public void save(LogVo logDO) {
-		 logMapper.save(logDO);
+	public LogVo get(LogVo logVo) {
+		return logDao.get(logVo);
 	}
 
 	@Override
-	public PageVo<LogVo> queryList(Query query) {
-		int total = logMapper.count(query);
-		List<LogVo> logs = logMapper.list(query);
-		PageVo<LogVo> page = new PageVo<>();
-		page.setTotal(total);
-		page.setRows(logs);
-		return page;
+	public List<LogVo> list(LogVo logVo) {
+		return logDao.list(logVo);
 	}
 
 	@Override
-	public int remove(Long id) {
-		int count = logMapper.remove(id);
-		return count;
+	public long count(LogVo logVo) {
+		return logDao.count(logVo);
 	}
 
 	@Override
-	public int batchRemove(Long[] ids){
-		return logMapper.batchRemove(ids);
+	public int save(LogVo logVo) {
+		logVo.setId(sequenceId.nextId());
+		return logDao.save(logVo);
+	}
+
+	@Override
+	public int update(LogVo logVo) {
+		return logDao.update(logVo);
+	}
+
+	@Override
+	public int remove(String id) {
+		return logDao.remove(id);
+	}
+
+	@Override
+	public int batchRemove(String ids[]) {
+		return logDao.batchRemove(ids);
 	}
 }

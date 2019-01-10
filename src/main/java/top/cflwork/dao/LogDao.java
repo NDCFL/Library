@@ -15,17 +15,17 @@ import java.util.Map;
 @Mapper
 public interface LogDao {
 
-	LogVo get(Long id);
+	LogVo get(LogVo logVo);
 	
-	List<LogVo> list(Map<String, Object> map);
+	List<LogVo> list(LogVo logVo);
 
-	int count(Map<String, Object> map);
+	long count(LogVo logVo);
 	
-	int save(LogVo log);
+	int save(LogVo logVo);
 	
-	int update(LogVo log);
+	int update(LogVo logVo);
 	
-	int remove(Long id);
+	int remove(String id);
 	
-	int batchRemove(Long[] ids);
+	int batchRemove(String ids[]);
 }

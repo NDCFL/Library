@@ -16,21 +16,21 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MenuDao {
 
-	MenuVo get(Long menuId);
+	MenuVo get(String menuId);
 	
 	List<MenuVo> list(Map<String,Object> map);
 	
-	int count(Map<String,Object> map);
+	long count(Map<String,Object> map);
 	
 	int save(MenuVo menu);
 	
 	int update(MenuVo menu);
 	
-	int remove(Long menuId);
+	int remove(String menuId);
 	
-	int batchRemove(Long[] menuIds);
+	int batchRemove(String[] menuIds);
 	
-	List<MenuVo> listMenuByUserId(Long id);
+	List<MenuVo> listMenuByUserId(String id);
 	
-	List<String> listUserPerms(Long id);
+	List<String> listUserPerms(String id);
 }

@@ -21,7 +21,7 @@ public class FileServiceImpl implements FileService {
 	@Autowired
 	private CflworksConfig cflworksConfig;
 	@Override
-	public FileListVo get(Long id){
+	public FileListVo get(String id){
 		return sysFileMapper.get(id);
 	}
 	
@@ -31,7 +31,7 @@ public class FileServiceImpl implements FileService {
 	}
 	
 	@Override
-	public int count(Map<String, Object> map){
+	public long count(Map<String, Object> map){
 		return sysFileMapper.count(map);
 	}
 	
@@ -46,12 +46,12 @@ public class FileServiceImpl implements FileService {
 	}
 	
 	@Override
-	public int remove(Long id){
+	public int remove(String id){
 		return sysFileMapper.remove(id);
 	}
 	
 	@Override
-	public int batchRemove(Long[] ids){
+	public int batchRemove(String[] ids){
 		return sysFileMapper.batchRemove(ids);
 	}
 

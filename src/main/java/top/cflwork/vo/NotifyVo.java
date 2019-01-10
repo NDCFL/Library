@@ -1,5 +1,8 @@
 package top.cflwork.vo;
 
+import io.swagger.annotations.ApiModelProperty;
+import top.cflwork.common.Pager;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
@@ -15,7 +18,7 @@ import java.util.Date;
 public class NotifyVo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	//编号
-	private Long id;
+	private String id;
 	//类型
 	private String type;
 	//标题
@@ -27,7 +30,7 @@ public class NotifyVo implements Serializable {
 	//状态
 	private String status;
 	//创建者
-	private Long createBy;
+	private String createBy;
 	//创建时间
 	private Date createDate;
 	//更新者
@@ -39,18 +42,20 @@ public class NotifyVo implements Serializable {
 	//删除标记
 	private String delFlag;
 	
-	private Long[] userIds;
-
+	private String[] userIds;
+	@ApiModelProperty("分页对象")
+	private Pager pager;
+	private String ids[];
 	/**
 	 * 设置：编号
 	 */
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	/**
 	 * 获取：编号
 	 */
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 	/**
@@ -116,13 +121,13 @@ public class NotifyVo implements Serializable {
 	/**
 	 * 设置：创建者
 	 */
-	public void setCreateBy(Long createBy) {
+	public void setCreateBy(String createBy) {
 		this.createBy = createBy;
 	}
 	/**
 	 * 获取：创建者
 	 */
-	public Long getCreateBy() {
+	public String getCreateBy() {
 		return createBy;
 	}
 	/**
@@ -185,11 +190,27 @@ public class NotifyVo implements Serializable {
 	public String getDelFlag() {
 		return delFlag;
 	}
-	public Long[] getUserIds() {
+	public String[] getUserIds() {
 		return userIds;
 	}
-	public void setUserIds(Long[] userIds) {
+	public void setUserIds(String[] userIds) {
 		this.userIds = userIds;
+	}
+
+	public Pager getPager() {
+		return pager;
+	}
+
+	public void setPager(Pager pager) {
+		this.pager = pager;
+	}
+
+	public String[] getIds() {
+		return ids;
+	}
+
+	public void setIds(String[] ids) {
+		this.ids = ids;
 	}
 
 	@Override

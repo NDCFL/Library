@@ -38,7 +38,7 @@
 		</if>
 	</select>
 
-	<select id="count" resultType="int">
+	<select id="count" resultType="long">
 		select count(*) from sys_menu
 		<where>
 			<if test="menuId != null and menuId != ''"> and menu_id = #{menuId} </if>
@@ -58,6 +58,7 @@
 		useGeneratedKeys="true" keyProperty="menuId">
 		insert into sys_menu
 		(
+		`menu_id`,
 		`parent_id`,
 		`name`,
 		`url`,
@@ -70,6 +71,7 @@
 		)
 		values
 		(
+		#{menuId},
 		#{parentId},
 		#{name},
 		#{url},

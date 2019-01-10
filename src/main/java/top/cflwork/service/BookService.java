@@ -14,19 +14,19 @@ import java.util.Map;
  */
 public interface BookService {
 	
-	BookVo get(Long id);
+	BookVo get(String id);
 	
-	List<BookVo> list(Map<String, Object> map);
+	List<BookVo> list(BookVo bookVo);
 	
-	int count(Map<String, Object> map);
+	long count(BookVo bookVo);
 	
 	int save(BookVo book);
 	
 	int update(BookVo book);
 	
-	int remove(Long id);
+	int remove(String id);
 	
-	int batchRemove(Long[] ids);
+	int batchRemove(String ids[]);
 
     int batchSave(List<BookVo> bookList);
 }

@@ -58,7 +58,7 @@
         };
 
         this.add = function(func) {
-			// TODO: add callback for queue[i] complete
+			// TOVo: add callback for queue[i] complete
 			
 			var obj = arguments[0];
 			if (obj && Object.prototype.toString.call(obj) === "[object Array]") {
@@ -80,7 +80,7 @@
         };
 		
 		this.addParallel = function(func, timeOut) {
-			// TODO: add callback for queue[i] complete
+			// TOVo: add callback for queue[i] complete
 			
             queue.push({isParallel: true, fn: func, timeOut: timeOut});
             return this;

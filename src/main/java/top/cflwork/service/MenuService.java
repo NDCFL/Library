@@ -11,23 +11,23 @@ import top.cflwork.vo.MenuVo;
 
 @Service
 public interface MenuService {
-	Tree<MenuVo> getSysMenuTree(Long id);
+	Tree<MenuVo> getSysMenuTree(String id);
 
-	List<Tree<MenuVo>> listMenuTree(Long id);
+	List<Tree<MenuVo>> listMenuTree(String id);
 
 	Tree<MenuVo> getTree();
 
-	Tree<MenuVo> getTree(Long id);
+	Tree<MenuVo> getTree(String id);
 
 	List<MenuVo> list(Map<String, Object> params);
 
-	int remove(Long id);
+	int remove(String id);
 
 	int save(MenuVo menu);
 
 	int update(MenuVo menu);
 
-	MenuVo get(Long id);
+	MenuVo get(String id);
 
-	Set<String> listPerms(Long userId);
+	Set<String> listPerms(String userId);
 }

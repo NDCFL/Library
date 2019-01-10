@@ -17,23 +17,23 @@ import java.util.Map;
 @Mapper
 public interface NotifyDao {
 
-	NotifyVo get(Long id);
+	NotifyVo get(String id);
 
-	List<NotifyVo> list(Map<String, Object> map);
+	List<NotifyVo> list(NotifyVo notifyVo);
 
-	int count(Map<String, Object> map);
+	long count(NotifyVo notifyVo);
 
 	int save(NotifyVo notify);
 
 	int update(NotifyVo notify);
 
-	int remove(Long id);
+	int remove(String id);
 
-	int batchRemove(Long[] ids);
+	int batchRemove(String[] ids);
 
-	List<NotifyVo> listByIds(Long[] ids);
+	List<NotifyVo> listByIds(String[] ids);
 
-	int countDTO(Map<String, Object> map);
+	long countDTO(Map<String, Object> map);
 
 	List<NotifyDTO> listDTO(Map<String, Object> map);
 }
