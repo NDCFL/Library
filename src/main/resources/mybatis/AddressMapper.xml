@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.cflwork.dao.AddressDao">
+
+	<select id="get" resultType="top.cflwork.vo.AddressVo">
+		select `id`,`read_user_id`,`name`,`phone`,`adress`,`is_often`,`update_time`,`create_time` from sys_address
+        where id=#{id}
+	</select>
+
+	<select id="list" resultType="top.cflwork.vo.AddressVo">
+		select `id`,`read_user_id`,`name`,`phone`,`adress`,`is_often`,`update_time`,`create_time` from sys_address
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="readUserId != null and readUserId != ''"> and read_user_id = #{readUserId} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="phone != null and phone != ''"> and phone = #{phone} </if>
+		  		  <if test="adress != null and adress != ''"> and adress = #{adress} </if>
+		  		  <if test="isOften != null and isOften != ''"> and is_often = #{isOften} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		</where>
+        <choose>
+            <when test="pager.sort != null and pager.order != null">
+                order by ${pager.sort} ${pager.order}
+            </when>
+            <otherwise>
+                order by id desc
+            </otherwise>
+        </choose>
+        <if test="pager.pageIndex != null and pager.pageSize != null">
+            limit #{pager.pageIndex}, #{pager.pageSize}
+        </if>
+	</select>
+	
+ 	<select id="count" resultType="long">
+		select count(id) from sys_address
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="readUserId != null and readUserId != ''"> and read_user_id = #{readUserId} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="phone != null and phone != ''"> and phone = #{phone} </if>
+		  		  <if test="adress != null and adress != ''"> and adress = #{adress} </if>
+		  		  <if test="isOften != null and isOften != ''"> and is_often = #{isOften} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="top.cflwork.vo.AddressVo">
+		insert into sys_address
+		(
+			`id`, 
+			`read_user_id`, 
+			`name`, 
+			`phone`, 
+			`adress`, 
+			`is_often`, 
+			`update_time`, 
+			`create_time`
+		)
+		values
+		(
+			#{id}, 
+			#{readUserId}, 
+			#{name}, 
+			#{phone}, 
+			#{adress}, 
+			#{isOften}, 
+			now(),
+			now()
+		)
+	</insert>
+
+    <insert id="batchSave" parameterType="top.cflwork.vo.AddressVo">
+        insert into sys_address
+        (
+					                `id`, 
+								                `read_user_id`, 
+								                `name`, 
+								                `phone`, 
+								                `adress`, 
+								                `is_often`, 
+								                `update_time`, 
+								                `create_time`
+					        )
+        values
+        <foreach collection="list" item="addressVo" separator=",">
+			(
+												#{addressVo.id}, 
+																#{addressVo.readUserId}, 
+																#{addressVo.name}, 
+																#{addressVo.phone}, 
+																#{addressVo.adress}, 
+																#{addressVo.isOften}, 
+																#{addressVo.updateTime}, 
+																#{addressVo.createTime}
+										)
+		</foreach>
+    </insert>
+
+	<update id="update" parameterType="top.cflwork.vo.AddressVo">
+		update sys_address 
+		<set>
+			<if test="readUserId != null">`read_user_id` = #{readUserId}, </if>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="phone != null">`phone` = #{phone}, </if>
+			<if test="adress != null">`adress` = #{adress}, </if>
+			<if test="isOften != null">`is_often` = #{isOften}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from sys_address where id=#{id}
+
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from sys_address where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

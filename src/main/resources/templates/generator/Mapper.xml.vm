@@ -5,11 +5,7 @@
 
 	<select id="get" resultType="${package}.vo.${className}Vo">
 		select #foreach($column in $columns)`$column.columnName`#if($velocityCount != $columns.size()),#end#end from ${tableName}
-        <where>
-			#foreach($column in $columns)
-                <if test="$column.attrname != null and $column.attrname.trim() != ''"> and $column.columnName = #{$column.attrname} </if>
-			#end
-        </where>
+        where id=#{id}
 	</select>
 
 	<select id="list" resultType="${package}.vo.${className}Vo">
@@ -20,16 +16,16 @@
 		  #end
 		</where>
         <choose>
-            <when test="sort != null and sort.trim() != ''">
-                order by ${sort} ${order}
+            <when test="pager.sort != null and pager.order != null">
+                order by ${pager.sort} ${pager.order}
             </when>
-			<otherwise>
+            <otherwise>
                 order by ${pk.columnName} desc
-			</otherwise>
+            </otherwise>
         </choose>
-		<if test="pageIndex != null and limit != null">
-			limit #{pageIndex}, #{limit}
-		</if>
+        <if test="pager.pageIndex != null and pager.pageSize != null">
+            limit #{pager.pageIndex}, #{pager.pageSize}
+        </if>
 	</select>
 	
  	<select id="count" resultType="long">
@@ -98,12 +94,8 @@
 	</update>
 	
 	<delete id="remove">
-		delete from ${tableName}
-		<where>
-			#foreach($column in $columns)
-				<if test="$column.attrname != null and $column.attrname.trim() != ''"> and $column.columnName = #{$column.attrname} </if>
-			#end
-		</where>
+		delete from ${tableName} where id=#{id}
+
 	</delete>
 	
 	<delete id="batchRemove">

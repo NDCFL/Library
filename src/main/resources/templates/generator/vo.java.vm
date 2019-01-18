@@ -6,6 +6,7 @@ import java.io.Serializable;
 #if(${hasBigDecimal})
 #end
 import io.swagger.annotations.ApiModelProperty;
+import top.cflwork.common.Pager;
 
 /**
  * ${comments}
@@ -21,4 +22,6 @@ public class ${className}Vo implements Serializable {
 		@ApiModelProperty("$column.comments")
 		private $column.attrType $column.attrname;
 	#end
+	@ApiModelProperty("分页对象")
+	private Pager pager;
 }

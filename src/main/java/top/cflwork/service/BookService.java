@@ -1,5 +1,6 @@
 package top.cflwork.service;
 
+import org.springframework.stereotype.Service;
 import top.cflwork.vo.BookVo;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Map;
  * @email 275300091@qq.com
  * @date 2019-01-05 12:32:55
  */
+@Service
 public interface BookService {
 	
 	BookVo get(String id);

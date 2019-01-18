@@ -174,14 +174,14 @@
 
             (!this.o.displayInput) && this.$.hide();
 
-            // adds needed VoM elements (canvas, div)
+            // adds needed DOM elements (canvas, div)
             this.$c = $(document.createElement('canvas')).attr({
                 width: this.o.width,
                 height: this.o.height
             });
 
             // wraps all elements in a div
-            // add to VoM before Canvas init is triggered
+            // add to DOM before Canvas init is triggered
             this.$div = $('<div style="'
                 + (this.o.inline ? 'display:inline;' : '')
                 + 'width:' + this.o.width + 'px;height:' + this.o.height + 'px;'
@@ -393,7 +393,7 @@
         };
 
         this._xy = function () {
-            var o = this.$c.pageIndex();
+            var o = this.$c.offset();
             this.x = o.left;
             this.y = o.top;
             return this;
@@ -504,7 +504,7 @@
             this.o = $.extend(
                 {
                     bgColor : this.$.data('bgcolor') || '#EEEEEE',
-                    angleOffset : this.$.data('anglepageIndex') || 0,
+                    angleOffset : this.$.data('angleoffset') || 0,
                     angleArc : this.$.data('anglearc') || 360,
                     inline : true
                 }, this.o
@@ -652,8 +652,8 @@
                 }
             );
 
-            this.$c.bind("mousewheel VoMMouseScroll", mw);
-            this.$.bind("mousewheel VoMMouseScroll", mw)
+            this.$c.bind("mousewheel DOMMouseScroll", mw);
+            this.$.bind("mousewheel DOMMouseScroll", mw)
         };
 
         this.init = function () {

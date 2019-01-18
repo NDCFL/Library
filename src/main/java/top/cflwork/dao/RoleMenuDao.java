@@ -30,7 +30,7 @@ public interface RoleMenuDao {
 	
 	int batchRemove(String[] ids);
 	
-	List<Long> listMenuIdByRoleId(String roleId);
+	List<String> listMenuIdByRoleId(String roleId);
 	
 	long removeByRoleId(String roleId);
 

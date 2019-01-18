@@ -1,5 +1,6 @@
 package top.cflwork.service.impl;
 
+import java.beans.Transient;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import top.cflwork.common.SequenceId;
 import top.cflwork.dao.RoleDao;
 import top.cflwork.dao.RoleMenuDao;
 import top.cflwork.dao.UserDao;
@@ -35,7 +37,8 @@ public class RoleServiceImpl implements RoleService {
     UserDao userMapper;
     @Autowired
     UserRoleDao userRoleMapper;
-
+    @Autowired
+    private SequenceId sequenceId;
     @Override
     public List<RoleVo> list() {
         List<RoleVo> roles = roleMapper.list(new HashMap<>(16));
@@ -61,6 +64,7 @@ public class RoleServiceImpl implements RoleService {
     @Transactional
     @Override
     public int save(RoleVo role) {
+        role.setRoleId(sequenceId.nextId());
         int count = roleMapper.save(role);
         List<String> menuIds = role.getMenuIds();
         String roleId = role.getRoleId();
@@ -73,6 +77,9 @@ public class RoleServiceImpl implements RoleService {
         }
         roleMenuMapper.removeByRoleId(roleId);
         if (rms.size() > 0) {
+            rms.stream().forEach(e->{
+                e.setId(sequenceId.nextId());
+            });
             roleMenuMapper.batchSave(rms);
         }
         return count;
@@ -94,6 +101,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transient
     public int update(RoleVo role) {
         int r = roleMapper.update(role);
         List<String> menuIds = role.getMenuIds();
@@ -107,6 +115,9 @@ public class RoleServiceImpl implements RoleService {
             rms.add(rmDo);
         }
         if (rms.size() > 0) {
+            rms.stream().forEach(e->{
+                e.setId(sequenceId.nextId());
+            });
             roleMenuMapper.batchSave(rms);
         }
         return r;

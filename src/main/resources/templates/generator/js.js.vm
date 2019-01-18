@@ -48,12 +48,12 @@ $('#mytab').bootstrapTable({
             field: '',
             formatter: function (value, row, index) {
                 var e = '<a title="编辑" href="javascript:void(0);" id="${classname}"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
-                var d = '<a title="删除" href="javascript:void(0);" onclick="del(' + row.id + ',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
+                var d = '<a title="删除" href="javascript:void(0);" onclick="del(\'' + row.id + '\',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
                 var f = '';
                 if (row.isActive == 1) {
-                    f = '<a title="启用" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 0 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">启用</i></a> ';
+                    f = '<a title="启用" href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 0 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">启用</i></a> ';
                 } else if (row.isActive == 0) {
-                    f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus(' + row.id + ',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
+                    f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
                 }
 
                 return e + d + f;
@@ -84,9 +84,13 @@ function queryParams(params) {
     });
     return {
         //每页多少条数据
-        pageSize: this.pageSize,
+        'pager.pageSize': this.pageSize,
         //请求第几页
-        pageIndex: this.pageNumber,
+        'pager.pageIndex': this.pageNumber,
+        //排序字段
+        'pager.sort': 'create_time',
+        //排序方式
+        'pager.order': 'desc',
         searchVal: title
     }
 }
@@ -116,22 +120,20 @@ function del(id, status) {
         return;
     }
     layer.confirm('确认要删除吗？', function (index) {
-        $.ajax({
-            type: 'POST',
-            url: '/${classname}/remove',
-            dataType: 'json',
-            success: function (data) {
-                if (data.message == '删除成功!') {
-                    layer.alert(data.message, {icon: 6});
-                } else {
-                    layer.alert(data.message, {icon: 6});
+        $.post("/${classname}/remove",
+            {
+                "id":id
+            },
+            function (data) {
+                if(data.msg=="ok"){
+                    layer.alert(data.msg, {icon:5});
+                }else{
+                    layer.alert(data.msg, {icon:6});
                 }
                 refush();
             },
-            error: function (data) {
-                console.log(data.msg);
-            },
-        });
+            "json"
+        );
     });
 }
 function edit(name) {
@@ -143,19 +145,23 @@ function edit(name) {
     );
 }
 function updatestatus(id, status) {
-    $.post("/${classname}/updateStatus/" + id + "/" + status,
+    $.post("/${classname}/update",
+        {
+          "id":id,
+          "status":status
+        },
         function (data) {
-            if(status==0){
-                if(data.message=="ok"){
-                    layer.alert("已启用", {icon:6});
-                }else{
-                    layer.alert("操作失败", {icon:6});
+            if (status == 0) {
+                if (data.code == 0) {
+                    layer.alert("已启用", {icon: 1});
+                } else {
+                    layer.alert("操作失败", {icon: 2});
                 }
-            }else{
-                if(data.message=="ok"){
-                    layer.alert("已停用", {icon:5});
-                }else{
-                    layer.alert("操作失败", {icon:5});
+            } else {
+                if (data.code == 0) {
+                    layer.alert("已停用", {icon: 1});
+                } else {
+                    layer.alert("操作失败", {icon: 2});
                 }
             }
             refush();
@@ -170,78 +176,126 @@ $('#search_btn').click(function () {
 function refush() {
     $('#mytab').bootstrapTable('refresh', {url: '/${classname}/list'});
 }
-$("#update").click(function () {
-    $.post(
-        "/${classname}/${classname}update",
-        $("#updateform").serialize(),
-        function (data) {
-            if (data.message == "修改成功!") {
-                layer.alert(data.message, {icon: 6});
-                refush();
-            } else {
-                layer.alert(data.message, {icon: 6});
-                refush();
+$('#updateform').bootstrapValidator({
+    message: 'This value is not valid',
+    feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+    },
+    fields: {
+        name: {
+            message: '用户名验证失败',
+            validators: {
+                notEmpty: {
+                    message: '用户名称不能为空'
+                },
+                stringLength: {
+                    min: 2,
+                    max: 30,
+                    message: '分类名称长度必须在2到30位之间'
+                }
             }
-        }, "json"
+        }
+    }
+});
+$("#update").click(function () {
+    $('#updateform').data('bootstrapValidator').validate();
+    if(!$('#updateform').data('bootstrapValidator').isValid()){
+        return ;
+    }
+    $.post(
+        "/${classname}/update",
+        $('#updateform').serialize(),
+        function(result) {
+            if(result.code==0){
+                layer.alert(result.msg, {icon: 1});
+                $("#myModal").modal('hide');
+            }else{
+                layer.alert(result.msg, {icon: 2});
+            }
+            refush();
+        },
+        "json"
     );
+});
+$('#formadd').bootstrapValidator({
+    message: 'This value is not valid',
+    feedbackIcons: {
+        valid: 'glyphicon glyphicon-ok',
+        invalid: 'glyphicon glyphicon-remove',
+        validating: 'glyphicon glyphicon-refresh'
+    },
+    fields: {
+        name: {
+            message: '用户名验证失败',
+            validators: {
+                notEmpty: {
+                    message: '分类名称不能为空'
+                },
+                stringLength: {
+                    min: 2,
+                    max: 30,
+                    message: '分类名称长度必须在2到30位之间'
+                }
+            }
+        }
+    }
 });
 $("#add").click(function () {
+    $('#formadd').data('bootstrapValidator').validate();
+    if(!$('#formadd').data('bootstrapValidator').isValid()){
+        return ;
+    }
     $.post(
         "/${classname}/save",
-        $("#formadd").serialize(),
-        function (data) {
-            if (data.message == "新增成功!") {
-                layer.alert(data.message, {icon: 6});
-                refush();
-            } else {
-                layer.alert(data.message, {icon: 6});
-                refush();
+        $('#formadd').serialize(),
+        function(result) {
+            if(result.code==0){
+                layer.alert(result.msg, {icon: 1});
+                $("#webAdd").modal('hide');
+            }else{
+                layer.alert(result.msg, {icon: 2});
             }
-        }, "json"
+            refush();
+        },
+        "json"
     );
 });
-function deleteMany11() {
-    var isactivity = "";
-    var row = $.map($("#mytab").bootstrapTable('getSelections'), function (row) {
-        if (row.isActive == 0) {
-            isactivity += row.isActive;
-        }
-        return row.id;
-    });
-    if (row == "") {
-        layer.msg('删除失败，请勾选数据!', {
-            icon: 2,
-            time: 2000
-        });
-        return;
-    }
-    if (isactivity != "") {
-        layer.msg('删除失败，已经启用的不允许删除!', {
-            icon: 2,
-            time: 2000
-        });
-        return;
 
+function batchRemove() {
+    var rows = $('#mytab').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
+    if (rows.length == 0) {
+        layer.msg("请选择要删除的数据");
+        return;
     }
-    $("#deleteId").val(row);
-    layer.confirm('确认要执行批量删除网站信息数据吗？', function (index) {
+    layer.confirm("确认要删除选中的'" + rows.length + "'条数据吗?", {
+        btn: ['确定', '取消']
+        // 按钮
+    }, function () {
+        var ids = new Array();
+        // 遍历所有选择的行数据，取每条数据对应的ID
+        $.each(rows, function (i, row) {
+            ids[i] = row['id'];
+        });
         $.post(
-            "/${classname}/bachRemove",
+            "/${classname}/batchRemove",
             {
-                "manyId": $("#deleteId").val()
-            },
-            function (data) {
-                if (data.message == "删除成功!") {
-                    layer.alert(data.message, {icon: 6});
-                    refush();
-                } else {
-                    layer.alert(data.message, {icon: 6});
-                    refush();
+                "ids":ids
+            },function (data) {
+                if(data.code==0){
+                    layer.alert(data.msg, {icon: 1});
+                }else{
+                    layer.alert(data.msg, {icon: 2});
                 }
-            }, "json"
+                refush();
+            },"json"
         );
+    }, function () {
+
     });
 }
+
 function deleteMany(){
     var isactivity="";
     var row=$.map($("#mytab").bootstrapTable('getSelections'),function(row){
@@ -262,7 +316,7 @@ function deleteMany(){
 
 }
 $("#updateSta").click(function () {
-    layer.confirm('确认要执行批量修改收支科目状态吗？',function(index){
+    layer.confirm('确认要执行批量修改状态吗？',function(index){
         $.post(
             "/${classname}/deleteMany${className}",
             {
@@ -270,11 +324,11 @@ $("#updateSta").click(function () {
                 "status":$("#status").val()
             },
             function(data){
-                if(data.message=="修改成功!"){
-                    layer.alert(data.message, {icon:6});
+                if(data.msg=="修改成功!"){
+                    layer.alert(data.msg, {icon:6});
                     refush();
                 }else{
-                    layer.alert(data.message, {icon:6});
+                    layer.alert(data.msg, {icon:6});
                     refush();
                 }
             },"json"

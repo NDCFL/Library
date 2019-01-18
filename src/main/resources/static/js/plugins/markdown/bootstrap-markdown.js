@@ -22,7 +22,7 @@
     "use strict"; // jshint ;_;
 
 
-    /* MARKVoWN CLASS DEFINITION
+    /* MARKDOWN CLASS DEFINITION
      * ========================== */
 
     var Markdown = function (element, options) {
@@ -900,7 +900,7 @@
 
     }
 
-    /* MARKVoWN PLUGIN DEFINITION
+    /* MARKDOWN PLUGIN DEFINITION
      * ========================== */
 
     var old = $.fn.markdown
@@ -1372,7 +1372,7 @@
     $.fn.markdown.Constructor = Markdown
 
 
-    /* MARKVoWN NO CONFLICT
+    /* MARKDOWN NO CONFLICT
      * ==================== */
 
     $.fn.markdown.noConflict = function () {
@@ -1380,7 +1380,7 @@
         return this
     }
 
-    /* MARKVoWN GLOBAL FUNCTION & DATA-API
+    /* MARKDOWN GLOBAL FUNCTION & DATA-API
      * ==================================== */
     var initMarkdown = function (el) {
         var $this = el

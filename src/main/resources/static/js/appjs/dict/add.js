@@ -1,5 +1,5 @@
 $().ready(function() {
-	validateRule();
+    validateRule();
 });
 
 $.validator.setDefaults({

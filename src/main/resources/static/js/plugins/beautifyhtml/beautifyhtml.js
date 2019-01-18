@@ -1,4 +1,4 @@
-/*jshint curly:true, eqeqeq:true, laxbreak:true, noempty:false */
+﻿/*jshint curly:true, eqeqeq:true, laxbreak:true, noempty:false */
 /*
 
   The MIT License (MIT)
@@ -183,7 +183,7 @@
               if (tag + this.tags[tag + 'count'] === temp_parent) { //if this is it use it
                 break;
               }
-              temp_parent = this.tags[temp_parent + 'parent']; //otherwise keep on climbing up the VoM Tree
+              temp_parent = this.tags[temp_parent + 'parent']; //otherwise keep on climbing up the DOM Tree
             }
             if (temp_parent) { //if we caught something
               this.indent_level = this.tags[tag + this.tags[tag + 'count']]; //set the indent_level accordingly

@@ -32,4 +32,6 @@ public interface UserDao {
 	
 	Long[] listAllDept();
 
+	int updateFaceImg(UserVo userVo);
+
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <meta charset="utf-8">
-<head th:include="include :: header"></head>
+<head th:include="includes :: header"></head>
 <body class="gray-bg">
 	<div class="wrapper wrapper-content ">
 		<div class="row">
@@ -30,8 +30,8 @@
 			</div>
 	</div>
 	</div>
-	<div th:include="include::footer"></div>
-	<script type="text/javascript" src="/js/appjs/${pathName}/${classname}/add.js">
+	<div th:include="includes::footer"></div>
+	<script type="text/javascript" src="/js/appjs/${classname}/add.js">
 	</script>
 </body>
 </html>

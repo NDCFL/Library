@@ -50,4 +50,6 @@ public interface UserService {
 	 * @throws Exception
 	 */
     Map<String, Object> updatePersonalImg(MultipartFile file, String avatar_data, String userId) throws Exception;
+
+	int updateFaceImg(UserVo userVo);
 }

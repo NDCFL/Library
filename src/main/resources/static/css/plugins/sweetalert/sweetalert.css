@@ -516,7 +516,7 @@ body.stop-scrolling {
     left: 14px;
     top: 45px; } }
 
-@-webkit-keyframes animateSuccessString {
+@-webkit-keyframes animateSuccessLong {
   0% {
     width: 0;
     right: 46px;
@@ -534,7 +534,7 @@ body.stop-scrolling {
     right: 8px;
     top: 38px; } }
 
-@keyframes animateSuccessString {
+@keyframes animateSuccessLong {
   0% {
     width: 0;
     right: 46px;
@@ -584,9 +584,9 @@ body.stop-scrolling {
   -webkit-animation: animateSuccessTip 0.75s;
   animation: animateSuccessTip 0.75s; }
 
-.animateSuccessString {
-  -webkit-animation: animateSuccessString 0.75s;
-  animation: animateSuccessString 0.75s; }
+.animateSuccessLong {
+  -webkit-animation: animateSuccessLong 0.75s;
+  animation: animateSuccessLong 0.75s; }
 
 .sa-icon.sa-success.animate::after {
   -webkit-animation: rotatePlaceholder 4.25s ease-in;

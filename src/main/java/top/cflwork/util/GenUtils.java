@@ -199,7 +199,7 @@ public class GenUtils {
             return packagePath +"前端"+ File.separator +"bootstrap"+ File.separator +classname+ File.separator + classname + ".html";
         }
         if (template.contains("js.js.vm")) {
-            return packagePath +"前端"+ File.separator +"bootstrap"+ File.separator  +"js"+File.separator + classname + ".js";
+            return packagePath +"前端"+ File.separator +"bootstrap"+ File.separator +classname+File.separator + classname + ".js";
         }
 
 		if(template.contains("menu.sql.vm")){
@@ -207,23 +207,23 @@ public class GenUtils {
 		}
 
         if (template.contains("list.html.vm")) {
-            return packagePath +"前端"+ File.separator +"layui"+ File.separator +"html" +File.separator+ classname + ".html";
+            return packagePath +"前端"+ File.separator +"layui"+ File.separator +classname +File.separator+ classname + ".html";
         }
         if (template.contains("add.html.vm")) {
-            return packagePath +"前端"+ File.separator +"layui"+ File.separator +"html" +File.separator+ "add.html";
+            return packagePath +"前端"+ File.separator +"layui"+ File.separator +classname +File.separator+ "add.html";
         }
         if (template.contains("edit.html.vm")) {
-            return packagePath +"前端"+ File.separator +"layui"+ File.separator +"html" +File.separator + "edit.html";
+            return packagePath +"前端"+ File.separator +"layui"+ File.separator +classname +File.separator + "edit.html";
         }
 
         if (template.contains("list.js.vm")) {
-            return packagePath +"前端"+ File.separator +"layui"+ File.separator +"js" +File.separator+ classname + ".js";
+            return packagePath +"前端"+ File.separator +"layui"+ File.separator +classname +File.separator+ classname + ".js";
         }
         if (template.contains("add.js.vm")) {
-            return packagePath +"前端"+ File.separator +"layui"+ File.separator +"js" +File.separator+  classname +"add.js";
+            return packagePath +"前端"+ File.separator +"layui"+ File.separator +classname +File.separator +"add.js";
         }
         if (template.contains("edit.js.vm")) {
-            return packagePath +"前端"+ File.separator +"layui"+ File.separator +"js" +File.separator + "edit.js";
+            return packagePath +"前端"+ File.separator +"layui"+ File.separator +classname +File.separator + "edit.js";
         }
         return null;
     }

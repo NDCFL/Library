@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.cflwork.dao.GenDao">
+
+    <select id="get" resultType="top.cflwork.vo.GenVo">
+		select s.id,s.read_user_id,s.title,s.content,s.gen_have,s.shape,s.status,s.reason,s.end_time,s.create_time,u.name as readUserName,u.phone as phone,u.email as email,u.work_adress as workAddress,u.adress as address from sys_gen s left join sys_read_user u on s.read_user_id=u.id
+        where s.id=#{id}
+	</select>
+
+    <select id="list" resultType="top.cflwork.vo.GenVo">
+        select s.id,s.read_user_id,s.title,s.content,s.gen_have,s.shape,s.status,s.reason,s.end_time,s.create_time,u.name as readUserName,u.phone as phone,u.email as email,u.work_adress as workAddress,u.adress as address from sys_gen s left join sys_read_user u on s.read_user_id=u.id
+        <where>
+            <if test="id != null and id != ''">and s.id = #{id}</if>
+            <if test="readUserId != null and readUserId != ''">and s.read_user_id = #{readUserId}</if>
+            <if test="title != null and title != ''">and s.title = #{title}</if>
+            <if test="content != null and content != ''">and s.content = #{content}</if>
+            <if test="genHave != null and genHave != ''">and s.gen_have = #{genHave}</if>
+            <if test="shape != null and shape != ''">and s.shape = #{shape}</if>
+            <if test="status != null and status != ''">and s.status = #{status}</if>
+            <if test="reason != null and reason != ''">and s.reason = #{reason}</if>
+            <if test="endTime != null and endTime != ''">and s.end_time = #{endTime}</if>
+            <if test="createTime != null and createTime != ''">and s.create_time = #{createTime}</if>
+        </where>
+        <choose>
+            <when test="pager.sort != null and pager.order != null">
+                order by s.${pager.sort} ${pager.order}
+            </when>
+            <otherwise>
+                order by s.id desc
+            </otherwise>
+        </choose>
+        <if test="pager.pageIndex != null and pager.pageSize != null">
+            limit #{pager.pageIndex}, #{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="count" resultType="long">
+        select count(s.id) from sys_gen s left join sys_read_user u on s.read_user_id=u.id
+        <where>
+            <if test="id != null and id != ''">and s.id = #{id}</if>
+            <if test="readUserId != null and readUserId != ''">and s.read_user_id = #{readUserId}</if>
+            <if test="title != null and title != ''">and s.title = #{title}</if>
+            <if test="content != null and content != ''">and s.content = #{content}</if>
+            <if test="genHave != null and genHave != ''">and s.gen_have = #{genHave}</if>
+            <if test="shape != null and shape != ''">and s.shape = #{shape}</if>
+            <if test="status != null and status != ''">and s.status = #{status}</if>
+            <if test="reason != null and reason != ''">and s.reason = #{reason}</if>
+            <if test="endTime != null and endTime != ''">and s.end_time = #{endTime}</if>
+            <if test="createTime != null and createTime != ''">and s.create_time = #{createTime}</if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="top.cflwork.vo.GenVo">
+		insert into sys_gen
+		(
+			id,
+			read_user_id,
+			title,
+			content,
+			gen_have,
+			shape,
+			status,
+			reason,
+			end_time,
+			create_time
+		)
+		values
+		(
+			#{id},
+			#{readUserId},
+			#{title},
+			#{content},
+			#{genHave},
+			#{shape},
+			#{status},
+			#{reason},
+			#{endTime},
+			now()
+		)
+	</insert>
+
+    <insert id="batchSave" parameterType="top.cflwork.vo.GenVo">
+        insert into sys_gen
+        (
+        id,
+        read_user_id,
+        title,
+        content,
+        gen_have,
+        shape,
+        status,
+        reason,
+        end_time,
+        create_time
+        )
+        values
+        <foreach collection="list" item="genVo" separator=",">
+            (
+            #{genVo.id},
+            #{genVo.readUserId},
+            #{genVo.title},
+            #{genVo.content},
+            #{genVo.genHave},
+            #{genVo.shape},
+            #{genVo.status},
+            #{genVo.reason},
+            #{genVo.endTime},
+            now()
+            )
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="top.cflwork.vo.GenVo">
+        update sys_gen
+        <set>
+            <if test="readUserId != null">read_user_id = #{readUserId},</if>
+            <if test="title != null">title = #{title},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="genHave != null">gen_have = #{genHave},</if>
+            <if test="shape != null">shape = #{shape},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="reason != null">reason = #{reason},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="createTime != null">create_time = #{createTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="remove">
+		delete from sys_gen where id=#{id}
+
+	</delete>
+
+    <delete id="batchRemove">
+        delete from sys_gen where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.cflwork.dao.ReadUserDao">
+
+    <select id="get" resultType="top.cflwork.vo.ReadUserVo">
+		select `id`,`name`,`sex`,`age`,`face_img`,`phone`,`password`,`card_num`,`card_pwd`,`card_rc_date`,`id_card`,`qq`,`wx`,`email`,`work_adress`,`is_active`,`remark`,`adress`,`update_time`,`create_time` from sys_read_user
+        where id=#{id}
+	</select>
+
+    <select id="list" resultType="top.cflwork.vo.ReadUserVo">
+        select
+        `id`,`name`,`sex`,`age`,`face_img`,`phone`,`password`,`card_num`,`card_pwd`,`card_rc_date`,`id_card`,`qq`,`wx`,`email`,`work_adress`,`is_active`,`remark`,`adress`,`update_time`,`create_time`
+        from sys_read_user
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="name != null and name != ''">and name = #{name}</if>
+            <if test="sex != null and sex != ''">and sex = #{sex}</if>
+            <if test="age != null and age != ''">and age = #{age}</if>
+            <if test="faceImg != null and faceImg != ''">and face_img = #{faceImg}</if>
+            <if test="phone != null and phone != ''">and phone = #{phone}</if>
+            <if test="password != null and password != ''">and password = #{password}</if>
+            <if test="cardNum != null and cardNum != ''">and card_num = #{cardNum}</if>
+            <if test="cardPwd != null and cardPwd != ''">and card_pwd = #{cardPwd}</if>
+            <if test="cardRcDate != null and cardRcDate != ''">and card_rc_date = #{cardRcDate}</if>
+            <if test="idCard != null and idCard != ''">and id_card = #{idCard}</if>
+            <if test="qq != null and qq != ''">and qq = #{qq}</if>
+            <if test="wx != null and wx != ''">and wx = #{wx}</if>
+            <if test="email != null and email != ''">and email = #{email}</if>
+            <if test="workAdress != null and workAdress != ''">and work_adress = #{workAdress}</if>
+            <if test="isActive != null and isActive != ''">and is_active = #{isActive}</if>
+            <if test="remark != null and remark != ''">and remark = #{remark}</if>
+            <if test="adress != null and adress != ''">and adress = #{adress}</if>
+            <if test="updateTime != null and updateTime != ''">and update_time = #{updateTime}</if>
+            <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+        </where>
+        <choose>
+            <when test="pager.sort != null and pager.order != null">
+                order by ${pager.sort} ${pager.order}
+            </when>
+            <otherwise>
+                order by id desc
+            </otherwise>
+        </choose>
+        <if test="pager.pageIndex != null and pager.pageSize != null">
+            limit #{pager.pageIndex}, #{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="count" resultType="long">
+        select count(id) from sys_read_user
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="name != null and name != ''">and name = #{name}</if>
+            <if test="sex != null and sex != ''">and sex = #{sex}</if>
+            <if test="age != null and age != ''">and age = #{age}</if>
+            <if test="faceImg != null and faceImg != ''">and face_img = #{faceImg}</if>
+            <if test="phone != null and phone != ''">and phone = #{phone}</if>
+            <if test="password != null and password != ''">and password = #{password}</if>
+            <if test="cardNum != null and cardNum != ''">and card_num = #{cardNum}</if>
+            <if test="cardPwd != null and cardPwd != ''">and card_pwd = #{cardPwd}</if>
+            <if test="cardRcDate != null and cardRcDate != ''">and card_rc_date = #{cardRcDate}</if>
+            <if test="idCard != null and idCard != ''">and id_card = #{idCard}</if>
+            <if test="qq != null and qq != ''">and qq = #{qq}</if>
+            <if test="wx != null and wx != ''">and wx = #{wx}</if>
+            <if test="email != null and email != ''">and email = #{email}</if>
+            <if test="workAdress != null and workAdress != ''">and work_adress = #{workAdress}</if>
+            <if test="isActive != null and isActive != ''">and is_active = #{isActive}</if>
+            <if test="remark != null and remark != ''">and remark = #{remark}</if>
+            <if test="adress != null and adress != ''">and adress = #{adress}</if>
+            <if test="updateTime != null and updateTime != ''">and update_time = #{updateTime}</if>
+            <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="top.cflwork.vo.ReadUserVo">
+		insert into sys_read_user
+		(
+			`id`, 
+			`name`, 
+			`sex`, 
+			`age`, 
+			`face_img`, 
+			`phone`, 
+			`password`, 
+			`card_num`, 
+			`card_pwd`, 
+			`card_rc_date`, 
+			`id_card`, 
+			`qq`, 
+			`wx`, 
+			`email`, 
+			`work_adress`, 
+			`is_active`, 
+			`remark`, 
+			`adress`, 
+			`update_time`, 
+			`create_time`
+		)
+		values
+		(
+			#{id}, 
+			#{name}, 
+			#{sex}, 
+			#{age}, 
+			#{faceImg}, 
+			#{phone}, 
+			#{password}, 
+			#{cardNum}, 
+			#{cardPwd}, 
+			#{cardRcDate}, 
+			#{idCard}, 
+			#{qq}, 
+			#{wx}, 
+			#{email}, 
+			#{workAdress}, 
+			#{isActive}, 
+			#{remark}, 
+			#{adress}, 
+			#{updateTime}, 
+			#{createTime}
+		)
+	</insert>
+
+    <insert id="batchSave" parameterType="top.cflwork.vo.ReadUserVo">
+        insert into sys_read_user
+        (
+        `id`,
+        `name`,
+        `sex`,
+        `age`,
+        `face_img`,
+        `phone`,
+        `password`,
+        `card_num`,
+        `card_pwd`,
+        `card_rc_date`,
+        `id_card`,
+        `qq`,
+        `wx`,
+        `email`,
+        `work_adress`,
+        `is_active`,
+        `remark`,
+        `adress`,
+        `update_time`,
+        `create_time`
+        )
+        values
+        <foreach collection="list" item="readUserVo" separator=",">
+            (
+            #{readUserVo.id},
+            #{readUserVo.name},
+            #{readUserVo.sex},
+            #{readUserVo.age},
+            #{readUserVo.faceImg},
+            #{readUserVo.phone},
+            #{readUserVo.password},
+            #{readUserVo.cardNum},
+            #{readUserVo.cardPwd},
+            #{readUserVo.cardRcDate},
+            #{readUserVo.idCard},
+            #{readUserVo.qq},
+            #{readUserVo.wx},
+            #{readUserVo.email},
+            #{readUserVo.workAdress},
+            #{readUserVo.isActive},
+            #{readUserVo.remark},
+            #{readUserVo.adress},
+            #{readUserVo.updateTime},
+            #{readUserVo.createTime}
+            )
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="top.cflwork.vo.ReadUserVo">
+        update sys_read_user
+        <set>
+            <if test="name != null">`name` = #{name},</if>
+            <if test="sex != null">`sex` = #{sex},</if>
+            <if test="age != null">`age` = #{age},</if>
+            <if test="faceImg != null">`face_img` = #{faceImg},</if>
+            <if test="phone != null">`phone` = #{phone},</if>
+            <if test="password != null">`password` = #{password},</if>
+            <if test="cardNum != null">`card_num` = #{cardNum},</if>
+            <if test="cardPwd != null">`card_pwd` = #{cardPwd},</if>
+            <if test="cardRcDate != null">`card_rc_date` = #{cardRcDate},</if>
+            <if test="idCard != null">`id_card` = #{idCard},</if>
+            <if test="qq != null">`qq` = #{qq},</if>
+            <if test="wx != null">`wx` = #{wx},</if>
+            <if test="email != null">`email` = #{email},</if>
+            <if test="workAdress != null">`work_adress` = #{workAdress},</if>
+            <if test="isActive != null">`is_active` = #{isActive},</if>
+            <if test="remark != null">`remark` = #{remark},</if>
+            <if test="adress != null">`adress` = #{adress},</if>
+            <if test="updateTime != null">`update_time` = #{updateTime},</if>
+            <if test="createTime != null">`create_time` = #{createTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="remove">
+		delete from sys_read_user where id=#{id}
+
+	</delete>
+
+    <delete id="batchRemove">
+        delete from sys_read_user where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -15,9 +15,9 @@ public interface ${className}Dao {
 
 	${className}Vo get(${pk.attrType} ${pk.attrname});
 	
-	List<${className}Vo> list(Map<String,Object> map);
+	List<${className}Vo> list(${className}Vo ${classname}Vo);
 	
-	long count(Map<String,Object> map);
+	long count(${className}Vo ${classname}Vo);
 	
 	int save(${className}Vo ${classname});
 	

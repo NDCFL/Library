@@ -2,7 +2,7 @@
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
 // This is CodeMirror (http://codemirror.net), a code editor
-// implemented in JavaScript on top of the browser's VoM.
+// implemented in JavaScript on top of the browser's DOM.
 //
 // You can find some technical background for some of the code below
 // at http://marijnhaverbeke.nl/blog/#cm-internals .
@@ -114,8 +114,8 @@
 
   // DISPLAY CONSTRUCTOR
 
-  // The display handles the VoM integration, both for input reading
-  // and content drawing. It holds references to VoM nodes and
+  // The display handles the DOM integration, both for input reading
+  // and content drawing. It holds references to DOM nodes and
   // display-related state.
 
   function Display(place, doc) {
@@ -337,7 +337,7 @@
   }
 
   function updateGutterSpace(cm) {
-    var width = cm.display.gutters.pageIndexWidth;
+    var width = cm.display.gutters.offsetWidth;
     cm.display.sizer.style.marginLeft = width + "px";
     cm.display.scrollbarH.style.left = cm.options.fixedGutter ? width + "px" : 0;
   }
@@ -396,7 +396,7 @@
     return cm.display.scroller.clientHeight - cm.display.wrapper.clientHeight < scrollerCutOff - 3;
   }
 
-  // Prepare VoM reads needed to update the scrollbars. Done in one
+  // Prepare DOM reads needed to update the scrollbars. Done in one
   // shot to minimize update/measure roundtrips.
   function measureForScrollbars(cm) {
     var scroll = cm.display.scroller;
@@ -448,7 +448,7 @@
     if (needsH && cm.options.coverGutterNextToScrollbar && cm.options.fixedGutter) {
       d.gutterFiller.style.display = "block";
       d.gutterFiller.style.height = sWidth + "px";
-      d.gutterFiller.style.width = d.gutters.pageIndexWidth + "px";
+      d.gutterFiller.style.width = d.gutters.offsetWidth + "px";
     } else d.gutterFiller.style.display = "";
 
     if (!cm.state.checkedOverlayScrollbar && measure.clientHeight > 0) {
@@ -497,7 +497,7 @@
     var display = cm.display, view = display.view;
     if (!display.alignWidgets && (!display.gutters.firstChild || !cm.options.fixedGutter)) return;
     var comp = compensateForHScroll(display) - display.scroller.scrollLeft + cm.doc.scrollLeft;
-    var gutterW = display.gutters.pageIndexWidth, left = comp + "px";
+    var gutterW = display.gutters.offsetWidth, left = comp + "px";
     for (var i = 0; i < view.length; i++) if (!view[i].hidden) {
       if (cm.options.fixedGutter && view[i].gutter)
         view[i].gutter.style.left = left;
@@ -518,9 +518,9 @@
     if (last.length != display.lineNumChars) {
       var test = display.measure.appendChild(elt("div", [elt("div", last)],
                                                  "CodeMirror-linenumber CodeMirror-gutter-elt"));
-      var innerW = test.firstChild.pageIndexWidth, padding = test.pageIndexWidth - innerW;
+      var innerW = test.firstChild.offsetWidth, padding = test.offsetWidth - innerW;
       display.lineGutter.style.width = "";
-      display.lineNumInnerWidth = Math.max(innerW, display.lineGutter.pageIndexWidth - padding);
+      display.lineNumInnerWidth = Math.max(innerW, display.lineGutter.offsetWidth - padding);
       display.lineNumWidth = display.lineNumInnerWidth + padding;
       display.lineNumChars = display.lineNumInnerWidth ? last.length : -1;
       display.lineGutter.style.width = display.lineNumWidth + "px";
@@ -534,7 +534,7 @@
     return String(options.lineNumberFormatter(i + options.firstLineNumber));
   }
 
-  // Computes display.scroller.scrollLeft + display.gutters.pageIndexWidth,
+  // Computes display.scroller.scrollLeft + display.gutters.offsetWidth,
   // but using getBoundingClientRect to get a sub-pixel-accurate
   // result.
   function compensateForHScroll(display) {
@@ -549,7 +549,7 @@
     this.viewport = viewport;
     // Store some values that we'll need later (but don't want to force a relayout for)
     this.visible = visibleLines(display, cm.doc, viewport);
-    this.editorIsHidden = !display.wrapper.pageIndexWidth;
+    this.editorIsHidden = !display.wrapper.offsetWidth;
     this.wrapperHeight = display.wrapper.clientHeight;
     this.oldViewFrom = display.viewFrom; this.oldViewTo = display.viewTo;
     this.oldScrollerWidth = display.scroller.clientWidth;
@@ -611,7 +611,7 @@
     if (toUpdate > 4) display.lineDiv.style.display = "";
     // There might have been a widget with a focused element that got
     // hidden or updated, if so re-focus it.
-    if (focused && activeElt() != focused && focused.pageIndexHeight) focused.focus();
+    if (focused && activeElt() != focused && focused.offsetHeight) focused.focus();
 
     // Prevent selection and cursors from interfering with the scroll
     // width.
@@ -678,7 +678,7 @@
   function checkForWebkitWidthBug(cm, measure) {
     // Work around Webkit bug where it sometimes reserves space for a
     // non-existing phantom scrollbar in the scroller (Issue #2420)
-    if (cm.display.sizer.pageIndexWidth + cm.display.gutters.pageIndexWidth < cm.display.scroller.clientWidth - 1) {
+    if (cm.display.sizer.offsetWidth + cm.display.gutters.offsetWidth < cm.display.scroller.clientWidth - 1) {
       cm.display.sizer.style.minHeight = cm.display.heightForcer.style.top = "0px";
       cm.display.gutters.style.height = measure.docHeight + "px";
     }
@@ -688,12 +688,12 @@
   // stored heights to match.
   function updateHeightsInViewport(cm) {
     var display = cm.display;
-    var prevBottom = display.lineDiv.pageIndexTop;
+    var prevBottom = display.lineDiv.offsetTop;
     for (var i = 0; i < display.view.length; i++) {
       var cur = display.view[i], height;
       if (cur.hidden) continue;
       if (ie && ie_version < 8) {
-        var bot = cur.node.pageIndexTop + cur.node.pageIndexHeight;
+        var bot = cur.node.offsetTop + cur.node.offsetHeight;
         height = bot - prevBottom;
         prevBottom = bot;
       } else {
@@ -715,26 +715,26 @@
   // given line.
   function updateWidgetHeight(line) {
     if (line.widgets) for (var i = 0; i < line.widgets.length; ++i)
-      line.widgets[i].height = line.widgets[i].node.pageIndexHeight;
+      line.widgets[i].height = line.widgets[i].node.offsetHeight;
   }
 
-  // Do a bulk-read of the VoM positions and sizes needed to draw the
-  // view, so that we don't interleave reading and writing to the VoM.
+  // Do a bulk-read of the DOM positions and sizes needed to draw the
+  // view, so that we don't interleave reading and writing to the DOM.
   function getDimensions(cm) {
     var d = cm.display, left = {}, width = {};
     var gutterLeft = d.gutters.clientLeft;
     for (var n = d.gutters.firstChild, i = 0; n; n = n.nextSibling, ++i) {
-      left[cm.options.gutters[i]] = n.pageIndexLeft + n.clientLeft + gutterLeft;
+      left[cm.options.gutters[i]] = n.offsetLeft + n.clientLeft + gutterLeft;
       width[cm.options.gutters[i]] = n.clientWidth;
     }
     return {fixedPos: compensateForHScroll(d),
-            gutterTotalWidth: d.gutters.pageIndexWidth,
+            gutterTotalWidth: d.gutters.offsetWidth,
             gutterLeft: left,
             gutterWidth: width,
             wrapperWidth: d.wrapper.clientWidth};
   }
 
-  // Sync the actual display VoM structure with display.view, removing
+  // Sync the actual display DOM structure with display.view, removing
   // nodes for lines that are no longer in view, and creating the ones
   // that are not there yet, and updating the ones that are out of
   // date.
@@ -753,7 +753,7 @@
     }
 
     var view = display.view, lineN = display.viewFrom;
-    // Loop over the elements in the view, syncing cur (the VoM nodes
+    // Loop over the elements in the view, syncing cur (the DOM nodes
     // in display.lineDiv) with the view as we go.
     for (var i = 0; i < view.length; i++) {
       var lineView = view[i];
@@ -782,7 +782,7 @@
 
   // When an aspect of a line changes, a string is added to
   // lineView.changes. This updates the relevant part of the line's
-  // VoM structure.
+  // DOM structure.
   function updateLineForChanges(cm, lineView, lineN, dims) {
     for (var j = 0; j < lineView.changes.length; j++) {
       var type = lineView.changes[j];
@@ -896,7 +896,7 @@
     insertLineWidgets(lineView, dims);
   }
 
-  // Build a line's VoM representation from scratch
+  // Build a line's DOM representation from scratch
   function buildLineElement(cm, lineView, lineN, dims) {
     var built = getLineContent(cm, lineView);
     lineView.text = lineView.node = built.pre;
@@ -1317,7 +1317,7 @@
   function drawSelectionRange(cm, range, output) {
     var display = cm.display, doc = cm.doc;
     var fragment = document.createDocumentFragment();
-    var padding = paddingH(cm.display), leftSide = padding.left, rightSide = display.lineSpace.pageIndexWidth - padding.right;
+    var padding = paddingH(cm.display), leftSide = padding.left, rightSide = display.lineSpace.offsetWidth - padding.right;
 
     function add(left, top, width, bottom) {
       if (top < 0) top = 0;
@@ -1485,8 +1485,8 @@
 
   // POSITION MEASUREMENT
 
-  function paddingTop(display) {return display.lineSpace.pageIndexTop;}
-  function paddingVert(display) {return display.mover.pageIndexHeight - display.lineSpace.pageIndexHeight;}
+  function paddingTop(display) {return display.lineSpace.offsetTop;}
+  function paddingVert(display) {return display.mover.offsetHeight - display.lineSpace.offsetHeight;}
   function paddingH(display) {
     if (display.cachedPaddingH) return display.cachedPaddingH;
     var e = removeChildrenAndAdd(display.measure, elt("pre", "x"));
@@ -1497,7 +1497,7 @@
   }
 
   // Ensure the lineView.wrapping.heights array is populated. This is
-  // an array of bottom pageIndexs for the lines that make up a drawn
+  // an array of bottom offsets for the lines that make up a drawn
   // line. When lineWrapping is on, there might be more than one
   // height.
   function ensureLineHeights(cm, lineView, rect) {
@@ -1518,7 +1518,7 @@
     }
   }
 
-  // Find a line map (mapping character pageIndexs to text nodes) and a
+  // Find a line map (mapping character offsets to text nodes) and a
   // measurement cache for the given line number. (A line view might
   // contain multiple lines when collapsed ranges are present.)
   function mapFromLineView(lineView, line, lineN) {
@@ -1916,7 +1916,7 @@
       measureText.appendChild(document.createTextNode("x"));
     }
     removeChildrenAndAdd(display.measure, measureText);
-    var height = measureText.pageIndexHeight / 50;
+    var height = measureText.offsetHeight / 50;
     if (height > 3) display.cachedTextHeight = height;
     removeChildren(display.measure);
     return height || 1;
@@ -1958,7 +1958,7 @@
       cursorActivityCalled: 0, // Tracks which cursorActivity handlers have been called already
       selectionChanged: false, // Whether the selection needs to be redrawn
       updateMaxLine: false,    // Set when the widest line needs to be determined anew
-      scrollLeft: null, scrollTop: null, // Intermediate scroll position, not pushed to VoM yet
+      scrollLeft: null, scrollTop: null, // Intermediate scroll position, not pushed to DOM yet
       scrollToPos: null,       // Used to scroll to a specific position
       id: ++nextOpId           // Unique ID
     };
@@ -2002,19 +2002,19 @@
     }
   }
 
-  // The VoM updates done when an operation finishes are batched so
+  // The DOM updates done when an operation finishes are batched so
   // that the minimum number of relayouts are required.
   function endOperations(group) {
     var ops = group.ops;
-    for (var i = 0; i < ops.length; i++) // Read VoM
+    for (var i = 0; i < ops.length; i++) // Read DOM
       endOperation_R1(ops[i]);
-    for (var i = 0; i < ops.length; i++) // Write VoM (maybe)
+    for (var i = 0; i < ops.length; i++) // Write DOM (maybe)
       endOperation_W1(ops[i]);
-    for (var i = 0; i < ops.length; i++) // Read VoM
+    for (var i = 0; i < ops.length; i++) // Read DOM
       endOperation_R2(ops[i]);
-    for (var i = 0; i < ops.length; i++) // Write VoM (maybe)
+    for (var i = 0; i < ops.length; i++) // Write DOM (maybe)
       endOperation_W2(ops[i]);
-    for (var i = 0; i < ops.length; i++) // Read VoM
+    for (var i = 0; i < ops.length; i++) // Read DOM
       endOperation_finish(ops[i]);
   }
 
@@ -2045,7 +2045,7 @@
     // updateDisplay_W2 will use these properties to do the actual resizing
     if (display.maxLineChanged && !cm.options.lineWrapping) {
       op.adjustWidthTo = measureChar(cm, display.maxLine, display.maxLine.text.length).left + 3;
-      op.maxScrollLeft = Math.max(0, display.sizer.pageIndexLeft + op.adjustWidthTo +
+      op.maxScrollLeft = Math.max(0, display.sizer.offsetLeft + op.adjustWidthTo +
                                   scrollerCutOff - display.scroller.clientWidth);
     }
 
@@ -2088,7 +2088,7 @@
     if (display.wheelStartX != null && (op.scrollTop != null || op.scrollLeft != null || op.scrollToPos))
       display.wheelStartX = display.wheelStartY = null;
 
-    // Propagate the scroll position to the actual VoM scroller
+    // Propagate the scroll position to the actual DOM scroller
     if (op.scrollTop != null && (display.scroller.scrollTop != op.scrollTop || op.forceScroll)) {
       var top = Math.max(0, Math.min(display.scroller.scrollHeight - display.scroller.clientHeight, op.scrollTop));
       display.scroller.scrollTop = display.scrollbarV.scrollTop = doc.scrollTop = top;
@@ -2113,7 +2113,7 @@
     if (unhidden) for (var i = 0; i < unhidden.length; ++i)
       if (unhidden[i].lines.length) signal(unhidden[i], "unhide");
 
-    if (display.wrapper.pageIndexHeight)
+    if (display.wrapper.offsetHeight)
       doc.scrollTop = cm.display.scroller.scrollTop;
 
     // Apply workaround for two webkit bugs
@@ -2343,7 +2343,7 @@
     display.viewTo = to;
   }
 
-  // Count the number of lines in the view whose VoM representation is
+  // Count the number of lines in the view whose DOM representation is
   // out of date (or nonexistent).
   function countDirtyView(cm) {
     var view = cm.display.view, dirty = 0;
@@ -2523,7 +2523,7 @@
     // Older IE's will not fire a second mousedown for a double click
     if (ie && ie_version < 11)
       on(d.scroller, "dblclick", operation(cm, function(e) {
-        if (signalVoMEvent(cm, e)) return;
+        if (signalDOMEvent(cm, e)) return;
         var pos = posFromMouse(cm, e);
         if (!pos || clickInGutter(cm, e) || eventInWidget(cm.display, e)) return;
         e_preventDefault(e);
@@ -2531,7 +2531,7 @@
         extendSelection(cm.doc, word.anchor, word.head);
       }));
     else
-      on(d.scroller, "dblclick", function(e) { signalVoMEvent(cm, e) || e_preventDefault(e); });
+      on(d.scroller, "dblclick", function(e) { signalDOMEvent(cm, e) || e_preventDefault(e); });
     // Prevent normal selection in the editor (we handle our own)
     on(d.lineSpace, "selectstart", function(e) {
       if (!eventInWidget(d, e)) e_preventDefault(e);
@@ -2559,7 +2559,7 @@
 
     // Listen to wheel events in order to try and update the viewport on time.
     on(d.scroller, "mousewheel", function(e){onScrollWheel(cm, e);});
-    on(d.scroller, "VoMMouseScroll", function(e){onScrollWheel(cm, e);});
+    on(d.scroller, "DOMMouseScroll", function(e){onScrollWheel(cm, e);});
 
     // Prevent clicks in the scrollbars from killing focus
     function reFocus() { if (cm.state.focused) setTimeout(bind(focusInput, cm), 0); }
@@ -2579,7 +2579,7 @@
     on(d.input, "blur", bind(onBlur, cm));
 
     function drag_(e) {
-      if (!signalVoMEvent(cm, e)) e_stop(e);
+      if (!signalDOMEvent(cm, e)) e_stop(e);
     }
     if (cm.options.dragDrop) {
       on(d.scroller, "dragstart", function(e){onDragStart(cm, e);});
@@ -2697,7 +2697,7 @@
   // middle-click-paste. Or it might be a click on something we should
   // not interfere with, such as a scrollbar or widget.
   function onMouseDown(e) {
-    if (signalVoMEvent(this, e)) return;
+    if (signalDOMEvent(this, e)) return;
     var cm = this, display = cm.display;
     display.shift = e.shiftKey;
 
@@ -2957,7 +2957,7 @@
 
   function onDrop(e) {
     var cm = this;
-    if (signalVoMEvent(cm, e) || eventInWidget(cm.display, e))
+    if (signalDOMEvent(cm, e) || eventInWidget(cm.display, e))
       return;
     e_preventDefault(e);
     if (ie) lastDrop = +new Date;
@@ -3007,7 +3007,7 @@
 
   function onDragStart(cm, e) {
     if (ie && (!cm.state.draggingText || +new Date - lastDrop < 100)) { e_stop(e); return; }
-    if (signalVoMEvent(cm, e) || eventInWidget(cm.display, e)) return;
+    if (signalDOMEvent(cm, e) || eventInWidget(cm.display, e)) return;
 
     e.dataTransfer.setData("Text", cm.getSelection());
 
@@ -3020,7 +3020,7 @@
         img.width = img.height = 1;
         cm.display.wrapper.appendChild(img);
         // Force a relayout, or Opera won't use our image for some obscure reason
-        img._top = img.pageIndexTop;
+        img._top = img.offsetTop;
       }
       e.dataTransfer.setDragImage(img, 0, 0);
       if (presto) img.parentNode.removeChild(img);
@@ -3056,7 +3056,7 @@
   // generally horribly unpredictable, this code starts by measuring
   // the scroll effect that the first few mouse wheel events have,
   // and, from that, detects the way it can convert deltas to pixel
-  // pageIndexs afterwards.
+  // offsets afterwards.
   //
   // The reason we want to know the amount a wheel event will scroll
   // is that it gives us a chance to update the display before the
@@ -3229,7 +3229,7 @@
   function onKeyDown(e) {
     var cm = this;
     ensureFocus(cm);
-    if (signalVoMEvent(cm, e)) return;
+    if (signalDOMEvent(cm, e)) return;
     // IE does strange things with escape.
     if (ie && ie_version < 11 && e.keyCode == 27) e.returnValue = false;
     var code = e.keyCode;
@@ -3264,12 +3264,12 @@
 
   function onKeyUp(e) {
     if (e.keyCode == 16) this.doc.sel.shift = false;
-    signalVoMEvent(this, e);
+    signalDOMEvent(this, e);
   }
 
   function onKeyPress(e) {
     var cm = this;
-    if (signalVoMEvent(cm, e) || e.ctrlKey && !e.altKey || mac && e.metaKey) return;
+    if (signalDOMEvent(cm, e) || e.ctrlKey && !e.altKey || mac && e.metaKey) return;
     var keyCode = e.keyCode, charCode = e.charCode;
     if (presto && keyCode == lastStoppedKey) {lastStoppedKey = null; e_preventDefault(e); return;}
     if (((presto && (!e.which || e.which < 10)) || khtml) && handleKeyBinding(cm, e)) return;
@@ -3314,7 +3314,7 @@
   // textarea (making it as unobtrusive as possible) to let the
   // right-click take effect on it.
   function onContextMenu(cm, e) {
-    if (signalVoMEvent(cm, e, "contextmenu")) return;
+    if (signalDOMEvent(cm, e, "contextmenu")) return;
     var display = cm.display;
     if (eventInWidget(display, e) || contextMenuInGutter(cm, e)) return;
 
@@ -3424,7 +3424,7 @@
     return normalizeSelection(out, doc.sel.primIndex);
   }
 
-  function pageIndexPos(pos, old, nw) {
+  function offsetPos(pos, old, nw) {
     if (pos.line == old.line)
       return Pos(nw.line, pos.ch - old.ch + nw.ch);
     else
@@ -3438,8 +3438,8 @@
     var oldPrev = Pos(doc.first, 0), newPrev = oldPrev;
     for (var i = 0; i < changes.length; i++) {
       var change = changes[i];
-      var from = pageIndexPos(change.from, oldPrev, newPrev);
-      var to = pageIndexPos(changeEnd(change), oldPrev, newPrev);
+      var from = offsetPos(change.from, oldPrev, newPrev);
+      var to = offsetPos(changeEnd(change), oldPrev, newPrev);
       oldPrev = change.to;
       newPrev = to;
       if (hint == "around") {
@@ -3767,7 +3767,7 @@
     }
 
     var screenleft = cm.curOp && cm.curOp.scrollLeft != null ? cm.curOp.scrollLeft : display.scroller.scrollLeft;
-    var screenw = display.scroller.clientWidth - scrollerCutOff - display.gutters.pageIndexWidth;
+    var screenw = display.scroller.clientWidth - scrollerCutOff - display.gutters.offsetWidth;
     var tooWide = x2 - x1 > screenw;
     if (tooWide) x2 = x1 + screenw;
     if (x1 < 10)
@@ -4247,25 +4247,25 @@
         var vspace = Math.max(display.wrapper.clientHeight, this.doc.height),
         hspace = Math.max(display.sizer.clientWidth, display.lineSpace.clientWidth);
         // Default to positioning above (if specified and possible); otherwise default to positioning below
-        if ((vert == 'above' || pos.bottom + node.pageIndexHeight > vspace) && pos.top > node.pageIndexHeight)
-          top = pos.top - node.pageIndexHeight;
-        else if (pos.bottom + node.pageIndexHeight <= vspace)
+        if ((vert == 'above' || pos.bottom + node.offsetHeight > vspace) && pos.top > node.offsetHeight)
+          top = pos.top - node.offsetHeight;
+        else if (pos.bottom + node.offsetHeight <= vspace)
           top = pos.bottom;
-        if (left + node.pageIndexWidth > hspace)
-          left = hspace - node.pageIndexWidth;
+        if (left + node.offsetWidth > hspace)
+          left = hspace - node.offsetWidth;
       }
       node.style.top = top + "px";
       node.style.left = node.style.right = "";
       if (horiz == "right") {
-        left = display.sizer.clientWidth - node.pageIndexWidth;
+        left = display.sizer.clientWidth - node.offsetWidth;
         node.style.right = "0px";
       } else {
         if (horiz == "left") left = 0;
-        else if (horiz == "middle") left = (display.sizer.clientWidth - node.pageIndexWidth) / 2;
+        else if (horiz == "middle") left = (display.sizer.clientWidth - node.offsetWidth) / 2;
         node.style.left = left + "px";
       }
       if (scroll)
-        scrollIntoView(this, left, top, left + node.pageIndexWidth, top + node.pageIndexHeight);
+        scrollIntoView(this, left, top, left + node.offsetWidth, top + node.offsetHeight);
     },
 
     triggerOnKeyDown: methodOp(onKeyDown),
@@ -4732,7 +4732,7 @@
     delWrappedLineRight: function(cm) {
       deleteNearSelection(cm, function(range) {
         var top = cm.charCoords(range.head, "div").top + 5;
-        var rightPos = cm.coordsChar({left: cm.display.lineDiv.pageIndexWidth + 100, top: top}, "div");
+        var rightPos = cm.coordsChar({left: cm.display.lineDiv.offsetWidth + 100, top: top}, "div");
         return {from: range.from(), to: rightPos };
       });
     },
@@ -4758,7 +4758,7 @@
     goLineRight: function(cm) {
       cm.extendSelectionsBy(function(range) {
         var top = cm.charCoords(range.head, "div").top + 5;
-        return cm.coordsChar({left: cm.display.lineDiv.pageIndexWidth + 100, top: top}, "div");
+        return cm.coordsChar({left: cm.display.lineDiv.offsetWidth + 100, top: top}, "div");
       }, sel_move);
     },
     goLineLeft: function(cm) {
@@ -5417,7 +5417,7 @@
     var last = markedSpansAfter(oldLast, endCh, isInsert);
 
     // Next, merge those two ends
-    var sameLine = change.text.length == 1, pageIndex = lst(change.text).length + (sameLine ? startCh : 0);
+    var sameLine = change.text.length == 1, offset = lst(change.text).length + (sameLine ? startCh : 0);
     if (first) {
       // Fix up .to properties of first
       for (var i = 0; i < first.length; ++i) {
@@ -5425,7 +5425,7 @@
         if (span.to == null) {
           var found = getMarkedSpanFor(last, span.marker);
           if (!found) span.to = startCh;
-          else if (sameLine) span.to = found.to == null ? null : found.to + pageIndex;
+          else if (sameLine) span.to = found.to == null ? null : found.to + offset;
         }
       }
     }
@@ -5433,15 +5433,15 @@
       // Fix up .from in last (or move them into first in case of sameLine)
       for (var i = 0; i < last.length; ++i) {
         var span = last[i];
-        if (span.to != null) span.to += pageIndex;
+        if (span.to != null) span.to += offset;
         if (span.from == null) {
           var found = getMarkedSpanFor(first, span.marker);
           if (!found) {
-            span.from = pageIndex;
+            span.from = offset;
             if (sameLine) (first || (first = [])).push(span);
           }
         } else {
-          span.from += pageIndex;
+          span.from += offset;
           if (sameLine) (first || (first = [])).push(span);
         }
       }
@@ -5716,10 +5716,10 @@
     if (!contains(document.body, widget.node)) {
       var parentStyle = "position: relative;";
       if (widget.coverGutter)
-        parentStyle += "margin-left: -" + widget.cm.getGutterElement().pageIndexWidth + "px;";
+        parentStyle += "margin-left: -" + widget.cm.getGutterElement().offsetWidth + "px;";
       removeChildrenAndAdd(widget.cm.display.measure, elt("div", [widget.node], null, parentStyle));
     }
-    return widget.height = widget.node.pageIndexHeight;
+    return widget.height = widget.node.offsetHeight;
   }
 
   function addLineWidget(cm, handle, node, options) {
@@ -5913,10 +5913,10 @@
       (cache[style] = style.replace(/\S+/g, "cm-$&"));
   }
 
-  // Render the VoM representation of the text of a line. Also builds
-  // up a 'line map', which points at the VoM nodes that represent
+  // Render the DOM representation of the text of a line. Also builds
+  // up a 'line map', which points at the DOM nodes that represent
   // specific stretches of text, and is used by the measuring code.
-  // The returned object contains the VoM node, this map, and
+  // The returned object contains the DOM node, this map, and
   // information about line-wide styles that were set by the mode.
   function buildLineContent(cm, lineView) {
     // The padding-right forces the element to have a 'border', which
@@ -5972,7 +5972,7 @@
     return token;
   }
 
-  // Build up the VoM representation for a single token, and add it to
+  // Build up the DOM representation for a single token, and add it to
   // the line map. Takes care to render special characters separately.
   function buildToken(builder, text, style, startStyle, endStyle, title) {
     if (!text) return;
@@ -6127,7 +6127,7 @@
     }
   }
 
-  // VoCUMENT DATA STRUCTURE
+  // DOCUMENT DATA STRUCTURE
 
   // By default, updates that start and end at the beginning of a line
   // are treated specially, in order to make the association of line
@@ -6208,7 +6208,7 @@
 
   LeafChunk.prototype = {
     chunkSize: function() { return this.lines.length; },
-    // Remove the n lines at pageIndex 'at'.
+    // Remove the n lines at offset 'at'.
     removeInner: function(at, n) {
       for (var i = at, e = at + n; i < e; ++i) {
         var line = this.lines[i];
@@ -6222,7 +6222,7 @@
     collapse: function(lines) {
       lines.push.apply(lines, this.lines);
     },
-    // Insert the given array of lines at pageIndex 'at', count them as
+    // Insert the given array of lines at offset 'at', count them as
     // having the given height.
     insertInner: function(at, lines, height) {
       this.height += height;
@@ -7094,8 +7094,8 @@
 
   // EVENT HANDLING
 
-  // Lightweight event framework. on/off also work on VoM nodes,
-  // registering native VoM handlers.
+  // Lightweight event framework. on/off also work on DOM nodes,
+  // registering native DOM handlers.
 
   var on = CodeMirror.on = function(emitter, type, f) {
     if (emitter.addEventListener)
@@ -7161,10 +7161,10 @@
     for (var i = 0; i < delayed.length; ++i) delayed[i]();
   }
 
-  // The VoM events that CodeMirror handles can be overridden by
-  // registering a (non-VoM) handler on the editor for the event name,
+  // The DOM events that CodeMirror handles can be overridden by
+  // registering a (non-DOM) handler on the editor for the event name,
   // and preventDefault-ing the event in that handler.
-  function signalVoMEvent(cm, e, override) {
+  function signalDOMEvent(cm, e, override) {
     signal(cm, override || e.type, cm, e);
     return e_defaultPrevented(e) || e.codemirrorIgnore;
   }
@@ -7207,7 +7207,7 @@
     this.id = setTimeout(f, ms);
   };
 
-  // Counts the column pageIndex in a string, taking tabs into account.
+  // Counts the column offset in a string, taking tabs into account.
   // Used mostly to find indentation.
   var countColumn = CodeMirror.countColumn = function(string, end, tabSize, startIndex, startValue) {
     if (end == null) {
@@ -7224,7 +7224,7 @@
     }
   };
 
-  // The inverse of countColumn -- find the pageIndex that corresponds to
+  // The inverse of countColumn -- find the offset that corresponds to
   // a particular column.
   function findColumn(string, goal, tabSize) {
     for (var pos = 0, col = 0;;) {
@@ -7318,7 +7318,7 @@
   var extendingChars = /[\u0300-\u036f\u0483-\u0489\u0591-\u05bd\u05bf\u05c1\u05c2\u05c4\u05c5\u05c7\u0610-\u061a\u064b-\u065e\u0670\u06d6-\u06dc\u06de-\u06e4\u06e7\u06e8\u06ea-\u06ed\u0711\u0730-\u074a\u07a6-\u07b0\u07eb-\u07f3\u0816-\u0819\u081b-\u0823\u0825-\u0827\u0829-\u082d\u0900-\u0902\u093c\u0941-\u0948\u094d\u0951-\u0955\u0962\u0963\u0981\u09bc\u09be\u09c1-\u09c4\u09cd\u09d7\u09e2\u09e3\u0a01\u0a02\u0a3c\u0a41\u0a42\u0a47\u0a48\u0a4b-\u0a4d\u0a51\u0a70\u0a71\u0a75\u0a81\u0a82\u0abc\u0ac1-\u0ac5\u0ac7\u0ac8\u0acd\u0ae2\u0ae3\u0b01\u0b3c\u0b3e\u0b3f\u0b41-\u0b44\u0b4d\u0b56\u0b57\u0b62\u0b63\u0b82\u0bbe\u0bc0\u0bcd\u0bd7\u0c3e-\u0c40\u0c46-\u0c48\u0c4a-\u0c4d\u0c55\u0c56\u0c62\u0c63\u0cbc\u0cbf\u0cc2\u0cc6\u0ccc\u0ccd\u0cd5\u0cd6\u0ce2\u0ce3\u0d3e\u0d41-\u0d44\u0d4d\u0d57\u0d62\u0d63\u0dca\u0dcf\u0dd2-\u0dd4\u0dd6\u0ddf\u0e31\u0e34-\u0e3a\u0e47-\u0e4e\u0eb1\u0eb4-\u0eb9\u0ebb\u0ebc\u0ec8-\u0ecd\u0f18\u0f19\u0f35\u0f37\u0f39\u0f71-\u0f7e\u0f80-\u0f84\u0f86\u0f87\u0f90-\u0f97\u0f99-\u0fbc\u0fc6\u102d-\u1030\u1032-\u1037\u1039\u103a\u103d\u103e\u1058\u1059\u105e-\u1060\u1071-\u1074\u1082\u1085\u1086\u108d\u109d\u135f\u1712-\u1714\u1732-\u1734\u1752\u1753\u1772\u1773\u17b7-\u17bd\u17c6\u17c9-\u17d3\u17dd\u180b-\u180d\u18a9\u1920-\u1922\u1927\u1928\u1932\u1939-\u193b\u1a17\u1a18\u1a56\u1a58-\u1a5e\u1a60\u1a62\u1a65-\u1a6c\u1a73-\u1a7c\u1a7f\u1b00-\u1b03\u1b34\u1b36-\u1b3a\u1b3c\u1b42\u1b6b-\u1b73\u1b80\u1b81\u1ba2-\u1ba5\u1ba8\u1ba9\u1c2c-\u1c33\u1c36\u1c37\u1cd0-\u1cd2\u1cd4-\u1ce0\u1ce2-\u1ce8\u1ced\u1dc0-\u1de6\u1dfd-\u1dff\u200c\u200d\u20d0-\u20f0\u2cef-\u2cf1\u2de0-\u2dff\u302a-\u302f\u3099\u309a\ua66f-\ua672\ua67c\ua67d\ua6f0\ua6f1\ua802\ua806\ua80b\ua825\ua826\ua8c4\ua8e0-\ua8f1\ua926-\ua92d\ua947-\ua951\ua980-\ua982\ua9b3\ua9b6-\ua9b9\ua9bc\uaa29-\uaa2e\uaa31\uaa32\uaa35\uaa36\uaa43\uaa4c\uaab0\uaab2-\uaab4\uaab7\uaab8\uaabe\uaabf\uaac1\uabe5\uabe8\uabed\udc00-\udfff\ufb1e\ufe00-\ufe0f\ufe20-\ufe26\uff9e\uff9f]/;
   function isExtendingChar(ch) { return ch.charCodeAt(0) >= 768 && extendingChars.test(ch); }
 
-  // VoM UTILITIES
+  // DOM UTILITIES
 
   function elt(tag, content, className, style) {
     var e = document.createElement(tag);
@@ -7385,7 +7385,7 @@
     return b;
   }
 
-  // WINVoW-WIDE EVENTS
+  // WINDOW-WIDE EVENTS
 
   // These must be handled carefully, because naively registering a
   // handler for each editor will cause the editors to never be
@@ -7438,8 +7438,8 @@
     if (knownScrollbarWidth != null) return knownScrollbarWidth;
     var test = elt("div", null, null, "width: 50px; height: 50px; overflow-x: scroll");
     removeChildrenAndAdd(measure, test);
-    if (test.pageIndexWidth)
-      knownScrollbarWidth = test.pageIndexHeight - test.clientHeight;
+    if (test.offsetWidth)
+      knownScrollbarWidth = test.offsetHeight - test.clientHeight;
     return knownScrollbarWidth || 0;
   }
 
@@ -7448,8 +7448,8 @@
     if (zwspSupported == null) {
       var test = elt("span", "\u200b");
       removeChildrenAndAdd(measure, elt("span", [test, document.createTextNode("x")]));
-      if (measure.firstChild.pageIndexHeight != 0)
-        zwspSupported = test.pageIndexWidth <= 1 && test.pageIndexHeight > 2 && !(ie && ie_version < 8);
+      if (measure.firstChild.offsetHeight != 0)
+        zwspSupported = test.offsetWidth <= 1 && test.offsetHeight > 2 && !(ie && ie_version < 8);
     }
     if (zwspSupported) return elt("span", "\u200b");
     else return elt("span", "\u00a0", null, "display: inline-block; width: 1px; margin-right: -1px");
@@ -7623,7 +7623,7 @@
   // This is needed in order to move 'visually' through bi-directional
   // text -- i.e., pressing left should make the cursor go left, even
   // when in RTL text. The tricky part is the 'jumps', where RTL and
-  // LTR text touch each other. This often requires the cursor pageIndex
+  // LTR text touch each other. This often requires the cursor offset
   // to move more than one unit, in order to visually move one unit.
   function moveVisually(line, start, dir, byUnit) {
     var bidi = getOrder(line);

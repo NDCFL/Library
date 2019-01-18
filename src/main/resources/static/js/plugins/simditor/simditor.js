@@ -1426,13 +1426,13 @@ UndoManager = (function(_super) {
   };
 
   UndoManager.prototype._getNodeOffset = function(node, index) {
-    var $parent, merging, pageIndex;
+    var $parent, merging, offset;
     if (index) {
       $parent = $(node);
     } else {
       $parent = $(node).parent();
     }
-    pageIndex = 0;
+    offset = 0;
     merging = false;
     $parent.contents().each((function(_this) {
       return function(i, child) {
@@ -1441,33 +1441,33 @@ UndoManager = (function(_super) {
         }
         if (child.nodeType === 3) {
           if (!merging) {
-            pageIndex += 1;
+            offset += 1;
             merging = true;
           }
         } else {
-          pageIndex += 1;
+          offset += 1;
           merging = false;
         }
         return null;
       };
     })(this));
-    return pageIndex;
+    return offset;
   };
 
-  UndoManager.prototype._getNodePosition = function(node, pageIndex) {
+  UndoManager.prototype._getNodePosition = function(node, offset) {
     var position, prevNode;
     if (node.nodeType === 3) {
       prevNode = node.previousSibling;
       while (prevNode && prevNode.nodeType === 3) {
         node = prevNode;
-        pageIndex += this.editor.util.getNodeLength(prevNode);
+        offset += this.editor.util.getNodeLength(prevNode);
         prevNode = prevNode.previousSibling;
       }
     } else {
-      pageIndex = this._getNodeOffset(node, pageIndex);
+      offset = this._getNodeOffset(node, offset);
     }
     position = [];
-    position.unshift(pageIndex);
+    position.unshift(offset);
     this.editor.util.traverseUp((function(_this) {
       return function(n) {
         return position.unshift(_this._getNodeOffset(n));
@@ -1477,13 +1477,13 @@ UndoManager = (function(_super) {
   };
 
   UndoManager.prototype._getNodeByPosition = function(position) {
-    var child, childNodes, i, node, pageIndex, _i, _len, _ref;
+    var child, childNodes, i, node, offset, _i, _len, _ref;
     node = this.editor.body[0];
     _ref = position.slice(0, position.length - 1);
     for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
-      pageIndex = _ref[i];
+      offset = _ref[i];
       childNodes = node.childNodes;
-      if (pageIndex > childNodes.length - 1) {
+      if (offset > childNodes.length - 1) {
         if (i === position.length - 2 && $(node).is('pre')) {
           child = document.createTextNode('');
           node.appendChild(child);
@@ -1493,7 +1493,7 @@ UndoManager = (function(_super) {
           break;
         }
       }
-      node = childNodes[pageIndex];
+      node = childNodes[offset];
     }
     return node;
   };
@@ -1643,7 +1643,7 @@ Util = (function(_super) {
     if (el == null) {
       el = document;
     }
-    return $(el)[0].pageIndexHeight;
+    return $(el)[0].offsetHeight;
   };
 
   Util.prototype.metaKey = function(e) {
@@ -1972,7 +1972,7 @@ Toolbar = (function(_super) {
           return function(e) {
             _this.wrapper.css('position', 'static');
             _this.editor.util.reflow(_this.wrapper);
-            _this.wrapper.css('left', _this.wrapper.pageIndex().left);
+            _this.wrapper.css('left', _this.wrapper.offset().left);
             return _this.wrapper.css('position', '');
           };
         })(this)).resize();
@@ -1980,7 +1980,7 @@ Toolbar = (function(_super) {
       $(window).on('scroll.simditor-' + this.editor.id, (function(_this) {
         return function(e) {
           var bottomEdge, scrollTop, topEdge;
-          topEdge = _this.editor.wrapper.pageIndex().top;
+          topEdge = _this.editor.wrapper.offset().top;
           bottomEdge = topEdge + _this.editor.wrapper.outerHeight() - 80;
           scrollTop = $(document).scrollTop() + _this.opts.toolbarFloatOffset;
           if (scrollTop <= topEdge || scrollTop >= bottomEdge) {
@@ -2404,7 +2404,7 @@ Button = (function(_super) {
         if (_this.menu) {
           _this.wrapper.toggleClass('menu-on').siblings('li').removeClass('menu-on');
           if (_this.wrapper.is('.menu-on')) {
-            exceed = _this.menuWrapper.pageIndex().left + _this.menuWrapper.outerWidth() + 5 - _this.editor.wrapper.pageIndex().left - _this.editor.wrapper.outerWidth();
+            exceed = _this.menuWrapper.offset().left + _this.menuWrapper.outerWidth() + 5 - _this.editor.wrapper.offset().left - _this.editor.wrapper.outerWidth();
             if (exceed > 0) {
               _this.menuWrapper.css({
                 'left': 'auto',
@@ -2560,7 +2560,7 @@ var Popover,
 Popover = (function(_super) {
   __extends(Popover, _super);
 
-  Popover.prototype.pageIndex = {
+  Popover.prototype.offset = {
     top: 4,
     left: 0
   };
@@ -2646,8 +2646,8 @@ Popover = (function(_super) {
     if (!this.active) {
       return;
     }
-    editorOffset = this.editor.el.pageIndex();
-    targetOffset = this.target.pageIndex();
+    editorOffset = this.editor.el.offset();
+    targetOffset = this.target.offset();
     targetH = this.target.outerHeight();
     if (position === 'bottom') {
       top = targetOffset.top - editorOffset.top + targetH;
@@ -2656,8 +2656,8 @@ Popover = (function(_super) {
     }
     left = Math.min(targetOffset.left - editorOffset.left, this.editor.wrapper.width() - this.el.outerWidth() - 10);
     return this.el.css({
-      top: top + this.pageIndex.top,
-      left: left + this.pageIndex.left
+      top: top + this.offset.top,
+      left: left + this.offset.left
     });
   };
 
@@ -4015,8 +4015,8 @@ ImageButton = (function(_super) {
         });
         if ($img.hasClass('uploading')) {
           _this.editor.util.reflow(_this.editor.body);
-          wrapperOffset = _this.editor.wrapper.pageIndex();
-          imgOffset = $img.pageIndex();
+          wrapperOffset = _this.editor.wrapper.offset();
+          imgOffset = $img.offset();
           $mask.css({
             top: imgOffset.top - wrapperOffset.top,
             left: imgOffset.left - wrapperOffset.left,
@@ -4092,7 +4092,7 @@ ImagePopover = (function(_super) {
     return ImagePopover.__super__.constructor.apply(this, arguments);
   }
 
-  ImagePopover.prototype.pageIndex = {
+  ImagePopover.prototype.offset = {
     top: 6,
     left: -4
   };
@@ -4515,7 +4515,7 @@ TableButton = (function(_super) {
           return;
         }
         $td = $(e.currentTarget);
-        x = e.pageX - $(e.currentTarget).pageIndex().left;
+        x = e.pageX - $(e.currentTarget).offset().left;
         if (x < 5 && $td.prev().length > 0) {
           $td = $td.prev();
         }

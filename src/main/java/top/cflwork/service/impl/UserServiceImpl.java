@@ -1,6 +1,7 @@
 package top.cflwork.service.impl;
 
 import top.cflwork.config.CflworksConfig;
+import top.cflwork.service.UserRoleService;
 import top.cflwork.util.*;
 import top.cflwork.dao.DeptDao;
 import top.cflwork.dao.UserDao;
@@ -31,11 +32,11 @@ import java.util.*;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    UserDao userMapper;
+    UserDao userDao;
     @Autowired
-    UserRoleDao userRoleMapper;
+    UserRoleService userRoleService;
     @Autowired
-    DeptDao deptMapper;
+    DeptDao deptDao;
     @Autowired
     private FileService sysFileService;
     @Autowired
@@ -45,30 +46,30 @@ public class UserServiceImpl implements UserService {
     @Override
 //    @Cacheable(key = "#id")
     public UserVo get(String id) {
-        List<String> roleIds = userRoleMapper.listRoleId(id);
-        UserVo user = userMapper.get(id);
-        user.setDeptName(deptMapper.get(user.getDeptId()).getName());
+        List<String> roleIds = userRoleService.listRoleId(id);
+        UserVo user = userDao.get(id);
+        user.setDeptName(deptDao.get(user.getDeptId()).getName());
         user.setRoleIds(roleIds);
         return user;
     }
 
     @Override
     public List<UserVo> list(Map<String, Object> map) {
-        return userMapper.list(map);
+        return userDao.list(map);
     }
 
     @Override
     public long count(Map<String, Object> map) {
-        return userMapper.count(map);
+        return userDao.count(map);
     }
 
     @Transactional
     @Override
     public int save(UserVo user) {
-        int count = userMapper.save(user);
+        int count = userDao.save(user);
         String userId = user.getUserId();
         List<String> roles = user.getRoleIds();
-        userRoleMapper.removeByUserId(userId);
+        userRoleService.removeByUserId(userId);
         List<UserRoleVo> list = new ArrayList<>();
         for (String roleId : roles) {
             UserRoleVo ur = new UserRoleVo();
@@ -77,17 +78,17 @@ public class UserServiceImpl implements UserService {
             list.add(ur);
         }
         if (list.size() > 0) {
-            userRoleMapper.batchSave(list);
+            userRoleService.batchSave(list);
         }
         return count;
     }
 
     @Override
     public int update(UserVo user) {
-        int r = userMapper.update(user);
+        int r = userDao.update(user);
         String userId = user.getUserId();
         List<String> roles = user.getRoleIds();
-        userRoleMapper.removeByUserId(userId);
+        userRoleService.removeByUserId(userId);
         List<UserRoleVo> list = new ArrayList<>();
         for (String roleId : roles) {
             UserRoleVo ur = new UserRoleVo();
@@ -96,21 +97,21 @@ public class UserServiceImpl implements UserService {
             list.add(ur);
         }
         if (list.size() > 0) {
-            userRoleMapper.batchSave(list);
+            userRoleService.batchSave(list);
         }
         return r;
     }
 
     @Override
     public int remove(String userId) {
-        userRoleMapper.removeByUserId(userId);
-        return userMapper.remove(userId);
+        userRoleService.removeByUserId(userId);
+        return userDao.remove(userId);
     }
 
     @Override
     public boolean exit(Map<String, Object> params) {
         boolean exit;
-        exit = userMapper.list(params).size() > 0;
+        exit = userDao.list(params).size() > 0;
         return exit;
     }
 
@@ -124,7 +125,7 @@ public class UserServiceImpl implements UserService {
         if (Objects.equals(userPwdVo.getUserVo().getUserId(), userVo.getUserId())) {
             if (Objects.equals(MD5Utils.encrypt(userVo.getUsername(), userPwdVo.getPwdOld()), userVo.getPassword())) {
                 userVo.setPassword(MD5Utils.encrypt(userVo.getUsername(), userPwdVo.getPwdNew()));
-                return userMapper.update(userVo);
+                return userDao.update(userVo);
             } else {
                 throw new Exception("输入的旧密码有误！");
             }
@@ -140,7 +141,7 @@ public class UserServiceImpl implements UserService {
             throw new Exception("超级管理员的账号不允许直接重置！");
         }
         userVo.setPassword(MD5Utils.encrypt(userVo.getUsername(), userPwdVo.getPwdNew()));
-        return userMapper.update(userVo);
+        return userDao.update(userVo);
 
 
     }
@@ -148,17 +149,17 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public int batchremove(String[] userIds) {
-        int count = userMapper.batchRemove(userIds);
-        userRoleMapper.batchRemoveByUserId(userIds);
+        int count = userDao.batchRemove(userIds);
+        userRoleService.batchRemoveByUserId(userIds);
         return count;
     }
 
     @Override
     public Tree<DeptVo> getTree() {
         List<Tree<DeptVo>> trees = new ArrayList<Tree<DeptVo>>();
-        List<DeptVo> depts = deptMapper.list(new HashMap<String, Object>(16));
-        Long[] pDepts = deptMapper.listParentDept();
-        Long[] uDepts = userMapper.listAllDept();
+        List<DeptVo> depts = deptDao.list(new HashMap<String, Object>(16));
+        Long[] pDepts = deptDao.listParentDept();
+        Long[] uDepts = userDao.listAllDept();
         String[] allDepts = (String[]) ArrayUtils.addAll(pDepts, uDepts);
         for (DeptVo dept : depts) {
             if (!ArrayUtils.contains(allDepts, dept.getDeptId())) {
@@ -174,7 +175,7 @@ public class UserServiceImpl implements UserService {
             tree.setState(state);
             trees.add(tree);
         }
-        List<UserVo> users = userMapper.list(new HashMap<String, Object>(16));
+        List<UserVo> users = userDao.list(new HashMap<String, Object>(16));
         for (UserVo user : users) {
             Tree<DeptVo> tree = new Tree<DeptVo>();
             tree.setId(user.getUserId().toString());
@@ -193,7 +194,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int updatePersonal(UserVo userVo) {
-        return userMapper.update(userVo);
+        return userDao.update(userVo);
     }
 
     @Override
@@ -229,10 +230,15 @@ public class UserServiceImpl implements UserService {
         UserVo userVo = new UserVo();
         userVo.setUserId(userId);
         userVo.setHeadIcon(sysFile.getUrl());
-        if (userMapper.update(userVo) > 0) {
+        if (userDao.update(userVo) > 0) {
             result.put("url", sysFile.getUrl());
         }
         return result;
+    }
+
+    @Override
+    public int updateFaceImg(UserVo userVo) {
+        return userDao.updateFaceImg(userVo);
     }
 
 }

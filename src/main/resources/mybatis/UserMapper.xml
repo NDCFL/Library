@@ -151,7 +151,7 @@
 		</foreach>
 	</delete>
 
-	<select id="listAllDept" resultType="long">
+	<select id="listAllDept" resultType="String">
 				select DISTINCT dept_id from sys_user
 	</select>
 </mapper>

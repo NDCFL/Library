@@ -54,8 +54,7 @@
 		</where>
 	</select>
 
-	<insert id="save" parameterType="top.cflwork.vo.MenuVo"
-		useGeneratedKeys="true" keyProperty="menuId">
+	<insert id="save" parameterType="top.cflwork.vo.MenuVo" useGeneratedKeys="true" keyProperty="menuId">
 		insert into sys_menu
 		(
 		`menu_id`,
@@ -79,8 +78,8 @@
 		#{type},
 		#{icon},
 		#{orderNum},
-		#{gmtCreate},
-		#{gmtModified}
+		now(),
+		now()
 		)
 	</insert>
 
@@ -134,5 +133,40 @@
 		left join sys_user_role ur
 		on rm.role_id = ur.role_id where ur.user_id
 		= #{id}
+	</select>
+
+	<insert id="batchSave" parameterType="top.cflwork.vo.MenuVo" useGeneratedKeys="true" keyProperty="id">
+		insert into sys_menu
+		(
+		`menu_id`,
+		`parent_id`,
+		`name`,
+		`url`,
+		`perms`,
+		`type`,
+		`icon`,
+		`order_num`,
+		`gmt_create`,
+		`gmt_modified`
+		)
+		VALUES
+		<foreach collection="list" item="menu" separator=",">
+			(
+			#{menu.menuId},
+			#{menu.parentId},
+			#{menu.name},
+			#{menu.url},
+			#{menu.perms},
+			#{menu.type},
+			#{menu.icon},
+			#{menu.orderNum},
+			now(),
+			now()
+			)
+		</foreach>
+
+	</insert>
+	<select id="findByParentId" resultType="string">
+		select menu_id from sys_menu where parent_id=#{id}
 	</select>
 </mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.cflwork.dao.BookTypeDao">
+
+    <select id="get" resultType="top.cflwork.vo.BookTypeVo">
+		select `id`,`parent_id`,`title`,`code`,`is_active`,`create_time` from sys_book_type
+        where id=#{id}
+	</select>
+
+    <select id="list" resultType="top.cflwork.vo.BookTypeVo">
+        select `id`,`parent_id`,`title`,`code`,`is_active`,`create_time` from sys_book_type
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="parentId != null and parentId != ''">and parent_id = #{parentId}</if>
+            <if test="title != null and title != ''">and title = #{title}</if>
+            <if test="code != null and code != ''">and code = #{code}</if>
+            <if test="isActive != null and isActive != ''">and is_active = #{isActive}</if>
+            <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+        </where>
+        <choose>
+            <when test="pager.sort != null and pager.order != null">
+                order by ${pager.sort} ${pager.order}
+            </when>
+            <otherwise>
+                order by id desc
+            </otherwise>
+        </choose>
+        <if test="pager.pageIndex != null and pager.pageSize != null">
+            limit #{pager.pageIndex}, #{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="count" resultType="long">
+        select count(id) from sys_book_type
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="parentId != null and parentId != ''">and parent_id = #{parentId}</if>
+            <if test="title != null and title != ''">and title = #{title}</if>
+            <if test="code != null and code != ''">and code = #{code}</if>
+            <if test="isActive != null and isActive != ''">and is_active = #{isActive}</if>
+            <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="top.cflwork.vo.BookTypeVo">
+		insert into sys_book_type
+		(
+			`id`, 
+			`parent_id`, 
+			`title`, 
+			`code`, 
+			`is_active`, 
+			`create_time`
+		)
+		values
+		(
+			#{id}, 
+			#{parentId}, 
+			#{title}, 
+			#{code}, 
+			#{isActive}, 
+			now()
+		)
+	</insert>
+
+    <insert id="batchSave" parameterType="top.cflwork.vo.BookTypeVo">
+        insert into sys_book_type
+        (
+        `id`,
+        `parent_id`,
+        `title`,
+        `code`,
+        `is_active`,
+        `create_time`
+        )
+        values
+        <foreach collection="list" item="bookTypeVo" separator=",">
+            (
+            #{bookTypeVo.id},
+            #{bookTypeVo.parentId},
+            #{bookTypeVo.title},
+            #{bookTypeVo.code},
+            #{bookTypeVo.isActive},
+            #{bookTypeVo.createTime}
+            )
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="top.cflwork.vo.BookTypeVo">
+        update sys_book_type
+        <set>
+            <if test="parentId != null">`parent_id` = #{parentId},</if>
+            <if test="title != null">`title` = #{title},</if>
+            <if test="code != null">`code` = #{code},</if>
+            <if test="isActive != null">`is_active` = #{isActive},</if>
+            <if test="createTime != null">`create_time` = #{createTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="remove">
+		delete from sys_book_type where id=#{id}
+
+	</delete>
+
+    <delete id="batchRemove">
+        delete from sys_book_type where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

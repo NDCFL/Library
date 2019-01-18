@@ -21,7 +21,7 @@
 
     /**
      * Renderer to render the chart on a canvas object
-     * @param {VoMElement} el      VoM element to host the canvas (root of the plugin)
+     * @param {DOMElement} el      DOM element to host the canvas (root of the plugin)
      * @param {object}     options options object of the plugin
      */
     var CanvasRenderer = function(el, options) {
@@ -86,7 +86,7 @@
          * Draw the scale of the chart
          */
         var drawScale = function() {
-            var pageIndex;
+            var offset;
             var length;
 
             ctx.lineWidth = 1;
@@ -96,12 +96,12 @@
             for (var i = 24; i > 0; --i) {
                 if (i % 6 === 0) {
                     length = options.scaleLength;
-                    pageIndex = 0;
+                    offset = 0;
                 } else {
                     length = options.scaleLength * 0.6;
-                    pageIndex = options.scaleLength - length;
+                    offset = options.scaleLength - length;
                 }
-                ctx.fillRect(-options.size/2 + pageIndex, 0, length, 1);
+                ctx.fillRect(-options.size/2 + offset, 0, length, 1);
                 ctx.rotate(Math.PI / 12);
             }
             ctx.restore();

@@ -30,4 +30,6 @@ public interface MenuService {
 	MenuVo get(String id);
 
 	Set<String> listPerms(String userId);
+
+	int batchSave(List<MenuVo> menuVoList);
 }

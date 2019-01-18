@@ -253,7 +253,7 @@
 					selector;
 
 				if ($.type(element) === "object") {
-					// Check if is VoM element
+					// Check if is DOM element
 					if (element.nodeType) {
 						element = $(element);
 					}
@@ -1523,7 +1523,7 @@
 			}
 
 			if (isQuery(orig)) {
-				pos = orig.pageIndex();
+				pos = orig.offset();
 
 				if (orig.is('img')) {
 					width  = orig.outerWidth();
@@ -1781,16 +1781,16 @@
 		// Private, callbacks
 
 		update : function () {
-			var width = '100%', pageIndexWidth;
+			var width = '100%', offsetWidth;
 
 			// Reset width/height so it will not mess
 			this.overlay.width(width).height('100%');
 
 			// jQuery does not return reliable result for IE
 			if (IE) {
-				pageIndexWidth = Math.max(document.documentElement.pageIndexWidth, document.body.pageIndexWidth);
+				offsetWidth = Math.max(document.documentElement.offsetWidth, document.body.offsetWidth);
 
-				if (D.width() > pageIndexWidth) {
+				if (D.width() > offsetWidth) {
 					width = D.width();
 				}
 
@@ -1801,7 +1801,7 @@
 			this.overlay.width(width).height(D.height());
 		},
 
-		// This is where we can manipulate VoM, because later it would cause iframes to reload
+		// This is where we can manipulate DOM, because later it would cause iframes to reload
 		onReady : function (opts, obj) {
 			var overlay = this.overlay;
 
@@ -1991,7 +1991,7 @@
 		if ( $.support.fixedPosition === undefined ) {
 			$.support.fixedPosition = (function() {
 				var elem  = $('<div style="position:fixed;top:20px;"></div>').appendTo('body'),
-					fixed = ( elem[0].pageIndexTop === 20 || elem[0].pageIndexTop === 15 );
+					fixed = ( elem[0].offsetTop === 20 || elem[0].offsetTop === 15 );
 
 				elem.remove();
 

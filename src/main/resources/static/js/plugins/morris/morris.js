@@ -94,9 +94,9 @@
       }
       this.setData(this.options.data);
       this.el.bind('mousemove', function(evt) {
-        var left, pageIndex, right, width, x;
-        pageIndex = _this.el.pageIndex();
-        x = evt.pageX - pageIndex.left;
+        var left, offset, right, width, x;
+        offset = _this.el.offset();
+        x = evt.pageX - offset.left;
         if (_this.selectFrom) {
           left = _this.data[_this.hitTest(Math.min(x, _this.selectFrom))]._x;
           right = _this.data[_this.hitTest(Math.max(x, _this.selectFrom))]._x;
@@ -106,7 +106,7 @@
             width: width
           });
         } else {
-          return _this.fire('hovermove', x, evt.pageY - pageIndex.top);
+          return _this.fire('hovermove', x, evt.pageY - offset.top);
         }
       });
       this.el.bind('mouseleave', function(evt) {
@@ -117,16 +117,16 @@
         return _this.fire('hoverout');
       });
       this.el.bind('touchstart touchmove touchend', function(evt) {
-        var pageIndex, touch;
+        var offset, touch;
         touch = evt.originalEvent.touches[0] || evt.originalEvent.changedTouches[0];
-        pageIndex = _this.el.pageIndex();
-        _this.fire('hover', touch.pageX - pageIndex.left, touch.pageY - pageIndex.top);
+        offset = _this.el.offset();
+        _this.fire('hover', touch.pageX - offset.left, touch.pageY - offset.top);
         return touch;
       });
       this.el.bind('click', function(evt) {
-        var pageIndex;
-        pageIndex = _this.el.pageIndex();
-        return _this.fire('gridclick', evt.pageX - pageIndex.left, evt.pageY - pageIndex.top);
+        var offset;
+        offset = _this.el.offset();
+        return _this.fire('gridclick', evt.pageX - offset.left, evt.pageY - offset.top);
       });
       if (this.options.rangeSelect) {
         this.selectionRect = this.raphael.rect(0, 0, 0, this.el.innerHeight()).attr({
@@ -134,15 +134,15 @@
           stroke: false
         }).toBack().hide();
         this.el.bind('mousedown', function(evt) {
-          var pageIndex;
-          pageIndex = _this.el.pageIndex();
-          return _this.startRange(evt.pageX - pageIndex.left);
+          var offset;
+          offset = _this.el.offset();
+          return _this.startRange(evt.pageX - offset.left);
         });
         this.el.bind('mouseup', function(evt) {
-          var pageIndex;
-          pageIndex = _this.el.pageIndex();
-          _this.endRange(evt.pageX - pageIndex.left);
-          return _this.fire('hovermove', evt.pageX - pageIndex.left, evt.pageY - pageIndex.top);
+          var offset;
+          offset = _this.el.offset();
+          _this.endRange(evt.pageX - offset.left);
+          return _this.fire('hovermove', evt.pageX - offset.left, evt.pageY - offset.top);
         });
       }
       if (this.options.resize) {
@@ -584,7 +584,7 @@
   })(Morris.EventEmitter);
 
   Morris.parseDate = function(date) {
-    var isecs, m, msecs, n, o, pageIndexmins, p, q, r, ret, secs;
+    var isecs, m, msecs, n, o, offsetmins, p, q, r, ret, secs;
     if (typeof date === 'number') {
       return date;
     }
@@ -610,14 +610,14 @@
       if (!q[6]) {
         return new Date(parseInt(q[1], 10), parseInt(q[2], 10) - 1, parseInt(q[3], 10), parseInt(q[4], 10), parseInt(q[5], 10)).getTime();
       } else {
-        pageIndexmins = 0;
+        offsetmins = 0;
         if (q[6] !== 'Z') {
-          pageIndexmins = parseInt(q[8], 10) * 60 + parseInt(q[9], 10);
+          offsetmins = parseInt(q[8], 10) * 60 + parseInt(q[9], 10);
           if (q[7] === '+') {
-            pageIndexmins = 0 - pageIndexmins;
+            offsetmins = 0 - offsetmins;
           }
         }
-        return Date.UTC(parseInt(q[1], 10), parseInt(q[2], 10) - 1, parseInt(q[3], 10), parseInt(q[4], 10), parseInt(q[5], 10) + pageIndexmins);
+        return Date.UTC(parseInt(q[1], 10), parseInt(q[2], 10) - 1, parseInt(q[3], 10), parseInt(q[4], 10), parseInt(q[5], 10) + offsetmins);
       }
     } else if (r) {
       secs = parseFloat(r[6]);
@@ -626,14 +626,14 @@
       if (!r[8]) {
         return new Date(parseInt(r[1], 10), parseInt(r[2], 10) - 1, parseInt(r[3], 10), parseInt(r[4], 10), parseInt(r[5], 10), isecs, msecs).getTime();
       } else {
-        pageIndexmins = 0;
+        offsetmins = 0;
         if (r[8] !== 'Z') {
-          pageIndexmins = parseInt(r[10], 10) * 60 + parseInt(r[11], 10);
+          offsetmins = parseInt(r[10], 10) * 60 + parseInt(r[11], 10);
           if (r[9] === '+') {
-            pageIndexmins = 0 - pageIndexmins;
+            offsetmins = 0 - offsetmins;
           }
         }
-        return Date.UTC(parseInt(r[1], 10), parseInt(r[2], 10) - 1, parseInt(r[3], 10), parseInt(r[4], 10), parseInt(r[5], 10) + pageIndexmins, isecs, msecs);
+        return Date.UTC(parseInt(r[1], 10), parseInt(r[2], 10) - 1, parseInt(r[3], 10), parseInt(r[4], 10), parseInt(r[5], 10) + offsetmins, isecs, msecs);
       }
     } else {
       return new Date(parseInt(date, 10), 0, 1).getTime();
@@ -905,15 +905,15 @@
       prevLabelMargin = null;
       prevAngleMargin = null;
       drawLabel = function(labelText, xpos) {
-        var label, labelBox, margin, pageIndex, textBox;
+        var label, labelBox, margin, offset, textBox;
         label = _this.drawXAxisLabel(_this.transX(xpos), ypos, labelText);
         textBox = label.getBBox();
         label.transform("r" + (-_this.options.xLabelAngle));
         labelBox = label.getBBox();
         label.transform("t0," + (labelBox.height / 2) + "...");
         if (_this.options.xLabelAngle !== 0) {
-          pageIndex = -0.5 * textBox.width * Math.cos(_this.options.xLabelAngle * Math.PI / 180.0);
-          label.transform("t" + pageIndex + ",0...");
+          offset = -0.5 * textBox.width * Math.cos(_this.options.xLabelAngle * Math.PI / 180.0);
+          label.transform("t" + offset + ",0...");
         }
         labelBox = label.getBBox();
         if (((prevLabelMargin == null) || prevLabelMargin >= labelBox.x + labelBox.width || (prevAngleMargin != null) && prevAngleMargin >= labelBox.x) && labelBox.x >= 0 && (labelBox.x + labelBox.width) < _this.el.width()) {
@@ -1457,7 +1457,7 @@
     };
 
     Bar.prototype.drawXAxis = function() {
-      var i, label, labelBox, margin, pageIndex, prevAngleMargin, prevLabelMargin, row, textBox, ypos, _i, _ref, _results;
+      var i, label, labelBox, margin, offset, prevAngleMargin, prevLabelMargin, row, textBox, ypos, _i, _ref, _results;
       ypos = this.bottom + (this.options.xAxisLabelTopPadding || this.options.padding / 2);
       prevLabelMargin = null;
       prevAngleMargin = null;
@@ -1470,8 +1470,8 @@
         labelBox = label.getBBox();
         label.transform("t0," + (labelBox.height / 2) + "...");
         if (this.options.xLabelAngle !== 0) {
-          pageIndex = -0.5 * textBox.width * Math.cos(this.options.xLabelAngle * Math.PI / 180.0);
-          label.transform("t" + pageIndex + ",0...");
+          offset = -0.5 * textBox.width * Math.cos(this.options.xLabelAngle * Math.PI / 180.0);
+          label.transform("t" + offset + ",0...");
         }
         if (((prevLabelMargin == null) || prevLabelMargin >= labelBox.x + labelBox.width || (prevAngleMargin != null) && prevAngleMargin >= labelBox.x) && labelBox.x >= 0 && (labelBox.x + labelBox.width) < this.el.width()) {
           if (this.options.xLabelAngle !== 0) {

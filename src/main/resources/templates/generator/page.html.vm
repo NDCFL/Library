@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>列表</title>
-    <head th:include="include :: header"></head>
+    <head th:include="includes :: header"></head>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -25,10 +25,10 @@
                     <table id="mytab" name="mytab" class="table table-hover"></table>
                     <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
 
-                        <button id="btn_upsate_status" shiro:hasPermission="${classname}:update"  type="button" class="btn btn-default" style="display: block;">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量修改状态
-                        </button>
-                        <button id="btn_delete" shiro:hasPermission="${classname}:batchRemove"  type="button" class="btn btn-default" style="display: block;">
+##                        <button id="btn_upsate_status" shiro:hasPermission="${classname}:update"  type="button" class="btn btn-default" style="display: block;">
+##                            <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量修改状态
+##                        </button>
+                        <button id="btn_delete" shiro:hasPermission="${classname}:batchRemove"  onclick="batchRemove()"  type="button" class="btn btn-default" style="display: block;">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
                         </button>
                         <button id="btn_add" type="button" shiro:hasPermission="${classname}:add" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
@@ -40,7 +40,6 @@
         </div>
     </div>
 </div>
-<!-- 模态框（Modal） -->
 <div class="modal fade" id="webAdd" tabindex="-1" role="dialog" aria-labelledby="webAddLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -52,7 +51,7 @@
                     新增
                 </h4>
             </div>
-            <form class="form-horizontal" method="post" id="formadd">
+            <form class="form-horizontal"  id="formadd">
                 <div class="modal-body">
 					#foreach($column in $columns)
 						#if($column.columnName != $pk.columnName)
@@ -68,7 +67,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="button" id="add" class="btn btn-primary" data-dismiss="modal">
+                    <button type="submit" id="add" class="btn btn-primary">
                         确认新增
                     </button>
                 </div>
@@ -112,7 +111,6 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
-<%--数据的修改--%>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -141,7 +139,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="button" id="update" class="btn btn-primary" data-dismiss="modal">
+                    <button type="submit" id="update" class="btn btn-primary">
                         确认修改
                     </button>
                 </div>
@@ -172,7 +170,7 @@
         </script>
     </div>
 </div>
-<div th:include="include :: footer"></div>
-<script src="/js/appjs/${classname}.js"></script>
+<div th:include="includes :: footer"></div>
+<script src="/js/appjs/${classname}/${classname}.js"></script>
 </body>
 </html>

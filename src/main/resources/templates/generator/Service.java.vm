@@ -4,7 +4,7 @@ import ${package}.vo.${className}Vo;
 
 import java.util.List;
 import java.util.Map;
-
+import org.springframework.stereotype.Service;
 /**
  * ${comments}
  * 
@@ -12,13 +12,14 @@ import java.util.Map;
  * @email ${email}
  * @date ${datetime}
  */
+@Service
 public interface ${className}Service {
 	
 	${className}Vo get(${pk.attrType} ${pk.attrname});
 	
-	List<${className}Vo> list(Map<String, Object> map);
+	List<${className}Vo> list(${className}Vo ${classname}Vo);
 	
-	long count(Map<String, Object> map);
+	long count(${className}Vo ${classname}Vo);
 	
 	int save(${className}Vo ${classname});
 	

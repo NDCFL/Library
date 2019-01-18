@@ -550,11 +550,11 @@
 			var zIndex = parseInt(this.element.parents().filter(function(){
 					return $(this).css('z-index') !== 'auto';
 				}).first().css('z-index'))+10;
-			var pageIndex = this.component ? this.component.parent().pageIndex() : this.element.pageIndex();
+			var offset = this.component ? this.component.parent().offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(false);
 			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(false);
-			var left = pageIndex.left,
-				top = pageIndex.top;
+			var left = offset.left,
+				top = offset.top;
 
 			this.picker.removeClass(
 				'datepicker-orient-top datepicker-orient-bottom '+
@@ -571,9 +571,9 @@
 			else {
 				// Default to left
 				this.picker.addClass('datepicker-orient-left');
-				if (pageIndex.left < 0)
-					left -= pageIndex.left - visualPadding;
-				else if (pageIndex.left + calendarWidth > windowWidth)
+				if (offset.left < 0)
+					left -= offset.left - visualPadding;
+				else if (offset.left + calendarWidth > windowWidth)
 					left = windowWidth - calendarWidth - visualPadding;
 			}
 
@@ -582,8 +582,8 @@
 			var yorient = this.o.orientation.y,
 				top_overflow, bottom_overflow;
 			if (yorient === 'auto'){
-				top_overflow = -scrollTop + pageIndex.top - calendarHeight;
-				bottom_overflow = scrollTop + windowHeight - (pageIndex.top + height + calendarHeight);
+				top_overflow = -scrollTop + offset.top - calendarHeight;
+				bottom_overflow = scrollTop + windowHeight - (offset.top + height + calendarHeight);
 				if (Math.max(top_overflow, bottom_overflow) === bottom_overflow)
 					yorient = 'top';
 				else

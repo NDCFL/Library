@@ -5,12 +5,14 @@ $(function() {
 });
 $.validator.setDefaults({
 	submitHandler : function() {
+        console.log(menuTree+"========11111==");
 		getAllSelectNodes();
 		update();
 	}
 });
 function loadMenuTree(menuTree) {
-	$('#menuTree').jstree({
+    console.log(menuTree+"======222====");
+    $('#menuTree').jstree({
 		"plugins" : [ "wholerow", "checkbox" ],
 		'core' : {
 			'data' : menuTree
@@ -25,19 +27,22 @@ function loadMenuTree(menuTree) {
 	$('#menuTree').jstree('open_all');
 }
 function getAllSelectNodes() {
+    console.log(menuTree+"========3333==");
 	var ref = $('#menuTree').jstree(true); // 获得整个树
 	menuIds = ref.get_selected(); // 获得所有选中节点的，返回值为数组
 	$("#menuTree").find(".jstree-undetermined").each(function(i, element) {
-		menuIds.push($(element).closest('.jstree-node').attr("id"));
-	});
-	console.log(menuIds); 
+        console.log(menuIds+'-----------------------------');
+        menuIds.push($(element).closest('.jstree-node').attr("id"));
+    });
 }
 function getMenuTreeData() {
+    console.log(menuIds+'------------=====44444=====-----------------');
 	var roleId = $('#roleId').val();
 	$.ajax({
 		type : "GET",
 		url : "/menu/tree/" + roleId,
 		success : function(data) {
+            console.log(menuIds+'------------获取所有的子节点----------------');
 			loadMenuTree(data);
 		}
 	});

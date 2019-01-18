@@ -33,4 +33,8 @@ public interface MenuDao {
 	List<MenuVo> listMenuByUserId(String id);
 	
 	List<String> listUserPerms(String id);
+
+	int batchSave(List<MenuVo> menuVoList);
+
+	String[] findByParentId(String id);
 }

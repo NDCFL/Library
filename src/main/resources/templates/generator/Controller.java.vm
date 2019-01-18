@@ -44,11 +44,10 @@ public class ${className}Controller {
 	@ResponseBody
 	@PostMapping("/list")
 	@RequiresPermissions("${classname}:list")
-	public PageUtils list(@RequestParam Map<String, Object> params){
+	public PageUtils list(${className}Vo ${classname}Vo){
 		//查询列表数据
-        Query query = new Query(params);
-		List<${className}Vo> ${classname}List = ${classname}Service.list(query);
-		Long total = ${classname}Service.count(query);
+		List<${className}Vo> ${classname}List = ${classname}Service.list(${classname}Vo);
+		Long total = ${classname}Service.count(${classname}Vo);
 		PageUtils pageUtils = new PageUtils(${classname}List, total);
 		return pageUtils;
 	}
@@ -59,13 +58,21 @@ public class ${className}Controller {
 	    return "/${classname}/add";
 	}
 
-	@GetMapping("/edit/{${pk.attrname}}")
+	/*@GetMapping("/edit/{${pk.attrname}}")
 	@RequiresPermissions("${classname}:edit")
 	public String edit(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname},Model model){
 		${className}Vo ${classname} = ${classname}Service.get(${pk.attrname});
 		model.addAttribute("${classname}", ${classname});
 	    return "/${classname}/edit";
-	}
+	}*/
+
+    @GetMapping("/edit/{${pk.attrname}}")
+    @RequiresPermissions("${classname}:edit")
+    @ResponseBody
+    public ${className}Vo edit(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
+			${className}Vo ${classname} = ${classname}Service.get(${pk.attrname});
+        return ${classname};
+    }
 
 	/**
 	 * 保存
@@ -75,9 +82,9 @@ public class ${className}Controller {
 	@RequiresPermissions("${classname}:add")
 	public R save( ${className}Vo ${classname}){
 		if(${classname}Service.save(${classname})>0){
-			return R.ok();
+			return R.ok("新增成功");
 		}
-		return R.error();
+		return R.error("新增失败");
 	}
 	/**
 	 * 修改
@@ -87,7 +94,7 @@ public class ${className}Controller {
 	@RequiresPermissions("${classname}:update")
 	public R update( ${className}Vo ${classname}){
 		${classname}Service.update(${classname});
-		return R.ok();
+		return R.ok("修改成功");
 	}
 
 	/**
@@ -98,9 +105,9 @@ public class ${className}Controller {
 	@RequiresPermissions("${classname}:remove")
 	public R remove( ${pk.attrType} ${pk.attrname}){
 		if(${classname}Service.remove(${pk.attrname})>0){
-		return R.ok();
+		return R.ok("删除成功");
 		}
-		return R.error();
+		return R.error("删除失败");
 	}
 
 	/**
@@ -111,7 +118,7 @@ public class ${className}Controller {
 	@RequiresPermissions("${classname}:batchRemove")
 	public R remove(@RequestParam("ids[]") ${pk.attrType}[] ${pk.attrname}s){
 		${classname}Service.batchRemove(${pk.attrname}s);
-		return R.ok();
+		return R.ok("批量删除成功");
 	}
     /**
      * 删除
@@ -121,6 +128,6 @@ public class ${className}Controller {
     @RequiresPermissions("${classname}:batchSave")
     public R batchSave(List<${className}Vo> ${classname}List){
 			${classname}Service.batchSave(${classname}List);
-        return R.ok();
+        return R.ok("批量新增成功");
     }
 }

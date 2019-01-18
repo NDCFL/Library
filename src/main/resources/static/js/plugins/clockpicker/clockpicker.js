@@ -117,48 +117,48 @@
 		this.spanMinutes = popover.find('.clockpicker-span-minutes');
 		this.spanAmPm = popover.find('.clockpicker-span-am-pm');
 		this.amOrPm = "PM";
-
+		
 		// Setup for for 12 hour clock if option is selected
 		if (options.twelvehour) {
-
+			
 			var  amPmButtonsTemplate = ['<div class="clockpicker-am-pm-block">',
 				'<button type="button" class="btn btn-sm btn-default clockpicker-button clockpicker-am-button">',
 				'AM</button>',
 				'<button type="button" class="btn btn-sm btn-default clockpicker-button clockpicker-pm-button">',
 				'PM</button>',
 				'</div>'].join('');
-
+			
 			var amPmButtons = $(amPmButtonsTemplate);
 			//amPmButtons.appendTo(plate);
-
+			
 			////Not working b/c they are not shown when this runs
 			//$('clockpicker-am-button')
 			//    .on("click", function() {
 			//        self.amOrPm = "AM";
 			//        $('.clockpicker-span-am-pm').empty().append('AM');
 			//    });
-			//
+			//    
 			//$('clockpicker-pm-button')
 			//    .on("click", function() {
 			//         self.amOrPm = "PM";
 			//        $('.clockpicker-span-am-pm').empty().append('PM');
 			//    });
-
+	
 			$('<button type="button" class="btn btn-sm btn-default clockpicker-button am-button">' + "AM" + '</button>')
 				.on("click", function() {
 					self.amOrPm = "AM";
 					$('.clockpicker-span-am-pm').empty().append('AM');
 				}).appendTo(this.amPmBlock);
-
-
+				
+				
 			$('<button type="button" class="btn btn-sm btn-default clockpicker-button pm-button">' + "PM" + '</button>')
 				.on("click", function() {
 					self.amOrPm = 'PM';
 					$('.clockpicker-span-am-pm').empty().append('PM');
 				}).appendTo(this.amPmBlock);
-
+				
 		}
-
+		
 		if (! options.autoclose) {
 			// If autoclose is not setted, append a button
 			$('<button type="button" class="btn btn-sm btn-default btn-block clockpicker-button">' + options.donetext + '</button>')
@@ -241,10 +241,10 @@
 
 		// Mousedown or touchstart
 		function mousedown(e, space) {
-			var pageIndex = plate.pageIndex(),
+			var offset = plate.offset(),
 				isTouch = /^touch/.test(e.type),
-				x0 = pageIndex.left + dialRadius,
-				y0 = pageIndex.top + dialRadius,
+				x0 = offset.left + dialRadius,
+				y0 = offset.top + dialRadius,
 				dx = (isTouch ? e.originalEvent.touches[0] : e).pageX - x0,
 				dy = (isTouch ? e.originalEvent.touches[0] : e).pageY - y0,
 				z = Math.sqrt(dx * dx + dy * dy),
@@ -382,7 +382,7 @@
 	ClockPicker.prototype.locate = function(){
 		var element = this.element,
 			popover = this.popover,
-			pageIndex = element.pageIndex(),
+			offset = element.offset(),
 			width = element.outerWidth(),
 			height = element.outerHeight(),
 			placement = this.options.placement,
@@ -395,32 +395,32 @@
 		// Place the popover
 		switch (placement) {
 			case 'bottom':
-				styles.top = pageIndex.top + height;
+				styles.top = offset.top + height;
 				break;
 			case 'right':
-				styles.left = pageIndex.left + width;
+				styles.left = offset.left + width;
 				break;
 			case 'top':
-				styles.top = pageIndex.top - popover.outerHeight();
+				styles.top = offset.top - popover.outerHeight();
 				break;
 			case 'left':
-				styles.left = pageIndex.left - popover.outerWidth();
+				styles.left = offset.left - popover.outerWidth();
 				break;
 		}
 
 		// Align the popover arrow
 		switch (align) {
 			case 'left':
-				styles.left = pageIndex.left;
+				styles.left = offset.left;
 				break;
 			case 'right':
-				styles.left = pageIndex.left + width - popover.outerWidth();
+				styles.left = offset.left + width - popover.outerWidth();
 				break;
 			case 'top':
-				styles.top = pageIndex.top;
+				styles.top = offset.top;
 				break;
 			case 'bottom':
-				styles.top = pageIndex.top + height - popover.outerHeight();
+				styles.top = offset.top + height - popover.outerHeight();
 				break;
 		}
 
@@ -576,7 +576,7 @@
 			inner = isHours && z < (outerRadius + innerRadius) / 2,
 			radius = inner ? innerRadius : outerRadius,
 			value;
-
+			
 			if (options.twelvehour) {
 				radius = outerRadius;
 			}
@@ -621,7 +621,7 @@
 				}
 			}
 		}
-
+		
 		// Once hours or minutes changed, vibrate the device
 		if (this[this.currentView] !== value) {
 			if (vibrate && this.options.vibrate) {
@@ -679,7 +679,7 @@
 		if  (this.options.twelvehour) {
 			value = value + this.amOrPm;
 		}
-
+		
 		this.input.prop('value', value);
 		if (value !== last) {
 			this.input.triggerHandler('change');
