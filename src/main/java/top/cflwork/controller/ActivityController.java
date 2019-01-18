@@ -76,7 +76,7 @@ public class ActivityController {
 	@PostMapping("/save")
 	@RequiresPermissions("activity:add")
 	public R save( ActivityVo activity){
-		activity.setStatus(0);
+		activity.setStatus(3);
 		if(activityService.save(activity)>0){
 			return R.ok();
 		}

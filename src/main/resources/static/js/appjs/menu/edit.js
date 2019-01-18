@@ -1,12 +1,11 @@
 var prefix = "/menu"
 $(function() {
-	validateRule();
-
-	//打开图标列表
+    validateRule();
+    //打开图标列表
     $("#ico-btn").click(function(){
         layer.open({
             type: 2,
-			title:'图标列表',
+            title:'图标列表',
             content: '/FontIcoList.html',
             area: ['480px', '90%'],
             success: function(layero, index){
@@ -15,7 +14,6 @@ $(function() {
             }
         });
     });
-
 });
 $.validator.setDefaults({
 	submitHandler : function() {

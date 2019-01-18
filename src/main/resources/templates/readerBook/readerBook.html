@@ -25,12 +25,12 @@
                     <table id="mytab" name="mytab" class="table table-hover"></table>
                     <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
 
-                        <button id="btn_delete" shiro:hasPermission="gen:batchRemove"  onclick="batchRemove()"  type="button" class="btn btn-default" style="display: block;">
+                        <button id="btn_delete" shiro:hasPermission="readerBook:batchRemove"  onclick="batchRemove()"  type="button" class="btn btn-default" style="display: block;">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true" ></span>批量删除
                         </button>
-                        <button id="btn_add" type="button" shiro:hasPermission="gen:add" class="btn btn-default" data-toggle="modal" data-target="#webAdd">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增
-                        </button>
+                        <!--<button id="btn_add" type="button" shiro:hasPermission="readerBook:add" class="btn btn-default" data-toggle="modal" data-target="#webAdd">-->
+                            <!--<span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>新增-->
+                        <!--</button>-->
                     </div>
                 </div>
             </div>
@@ -57,49 +57,55 @@
 								</div>
 							</div>
 																								<div class="form-group">
-								<label class="col-sm-3 control-label">情报标题：</label>
+								<label class="col-sm-3 control-label">图书编号：</label>
 								<div class="col-sm-8">
-									<input  id="title" name="title"  type="text" class="form-control" required="" aria-required="true">
+									<input  id="bookId" name="bookId"  type="text" class="form-control" required="" aria-required="true">
 								</div>
 							</div>
 																								<div class="form-group">
-								<label class="col-sm-3 control-label">项目简介：</label>
+								<label class="col-sm-3 control-label">图书类型名称：</label>
 								<div class="col-sm-8">
-									<input  id="content" name="content"  type="text" class="form-control" required="" aria-required="true">
+									<input  id="bookTypeName" name="bookTypeName"  type="text" class="form-control" required="" aria-required="true">
 								</div>
 							</div>
 																								<div class="form-group">
-								<label class="col-sm-3 control-label">需求：</label>
+								<label class="col-sm-3 control-label">作者：</label>
 								<div class="col-sm-8">
-									<input  id="genHave" name="genHave"  type="text" class="form-control" required="" aria-required="true">
+									<input  id="bookAuther" name="bookAuther"  type="text" class="form-control" required="" aria-required="true">
 								</div>
 							</div>
 																								<div class="form-group">
-								<label class="col-sm-3 control-label">情报形式：</label>
+								<label class="col-sm-3 control-label">出版社：</label>
 								<div class="col-sm-8">
-									<input  id="shape" name="shape"  type="text" class="form-control" required="" aria-required="true">
+									<input  id="cbs" name="cbs"  type="text" class="form-control" required="" aria-required="true">
 								</div>
 							</div>
 																								<div class="form-group">
-								<label class="col-sm-3 control-label">状态 1：接收申请 2：拒绝申请：</label>
+								<label class="col-sm-3 control-label">isbn号：</label>
 								<div class="col-sm-8">
-									<input  id="status" name="status"  type="text" class="form-control" required="" aria-required="true">
+									<input  id="isbn" name="isbn"  type="text" class="form-control" required="" aria-required="true">
 								</div>
 							</div>
 																								<div class="form-group">
-								<label class="col-sm-3 control-label">理由：</label>
+								<label class="col-sm-3 control-label">图书名称：</label>
 								<div class="col-sm-8">
-									<input  id="reason" name="reason"  type="text" class="form-control" required="" aria-required="true">
+									<input  id="bookName" name="bookName"  type="text" class="form-control" required="" aria-required="true">
 								</div>
 							</div>
 																								<div class="form-group">
-								<label class="col-sm-3 control-label">完成时间：</label>
+								<label class="col-sm-3 control-label">读者名称：</label>
 								<div class="col-sm-8">
-									<input  id="endTime" name="endTime"  type="text" class="form-control" required="" aria-required="true">
+									<input  id="readUserName" name="readUserName"  type="text" class="form-control" required="" aria-required="true">
 								</div>
 							</div>
 																								<div class="form-group">
-								<label class="col-sm-3 control-label">申请时间：</label>
+								<label class="col-sm-3 control-label">状态， 1：已删除，2：未删除：</label>
+								<div class="col-sm-8">
+									<input  id="isActive" name="isActive"  type="text" class="form-control" required="" aria-required="true">
+								</div>
+							</div>
+																								<div class="form-group">
+								<label class="col-sm-3 control-label">创建时间：</label>
 								<div class="col-sm-8">
 									<input  id="createTime" name="createTime"  type="text" class="form-control" required="" aria-required="true">
 								</div>
@@ -173,49 +179,55 @@
 								</div>
 							</div>
 																								<div class="form-group">
-								<label class="col-sm-3 control-label">情报标题：</label>
+								<label class="col-sm-3 control-label">图书编号：</label>
 								<div class="col-sm-8">
-									<input id="title_" name="title" class="form-control" type="text">
+									<input id="bookId_" name="bookId" class="form-control" type="text">
 								</div>
 							</div>
 																								<div class="form-group">
-								<label class="col-sm-3 control-label">项目简介：</label>
+								<label class="col-sm-3 control-label">图书类型名称：</label>
 								<div class="col-sm-8">
-									<input id="content_" name="content" class="form-control" type="text">
+									<input id="bookTypeName_" name="bookTypeName" class="form-control" type="text">
 								</div>
 							</div>
 																								<div class="form-group">
-								<label class="col-sm-3 control-label">需求：</label>
+								<label class="col-sm-3 control-label">作者：</label>
 								<div class="col-sm-8">
-									<input id="genHave_" name="genHave" class="form-control" type="text">
+									<input id="bookAuther_" name="bookAuther" class="form-control" type="text">
 								</div>
 							</div>
 																								<div class="form-group">
-								<label class="col-sm-3 control-label">情报形式：</label>
+								<label class="col-sm-3 control-label">出版社：</label>
 								<div class="col-sm-8">
-									<input id="shape_" name="shape" class="form-control" type="text">
+									<input id="cbs_" name="cbs" class="form-control" type="text">
 								</div>
 							</div>
 																								<div class="form-group">
-								<label class="col-sm-3 control-label">状态 1：接收申请 2：拒绝申请：</label>
+								<label class="col-sm-3 control-label">isbn号：</label>
 								<div class="col-sm-8">
-									<input id="status_" name="status" class="form-control" type="text">
+									<input id="isbn_" name="isbn" class="form-control" type="text">
 								</div>
 							</div>
 																								<div class="form-group">
-								<label class="col-sm-3 control-label">理由：</label>
+								<label class="col-sm-3 control-label">图书名称：</label>
 								<div class="col-sm-8">
-									<input id="reason_" name="reason" class="form-control" type="text">
+									<input id="bookName_" name="bookName" class="form-control" type="text">
 								</div>
 							</div>
 																								<div class="form-group">
-								<label class="col-sm-3 control-label">完成时间：</label>
+								<label class="col-sm-3 control-label">读者名称：</label>
 								<div class="col-sm-8">
-									<input id="endTime_" name="endTime" class="form-control" type="text">
+									<input id="readUserName_" name="readUserName" class="form-control" type="text">
 								</div>
 							</div>
 																								<div class="form-group">
-								<label class="col-sm-3 control-label">申请时间：</label>
+								<label class="col-sm-3 control-label">状态， 1：已删除，2：未删除：</label>
+								<div class="col-sm-8">
+									<input id="isActive_" name="isActive" class="form-control" type="text">
+								</div>
+							</div>
+																								<div class="form-group">
+								<label class="col-sm-3 control-label">创建时间：</label>
 								<div class="col-sm-8">
 									<input id="createTime_" name="createTime" class="form-control" type="text">
 								</div>
@@ -239,23 +251,23 @@
             var s_resetPwd_h = 'hidden';
         </script>
     </div>
-    <div shiro:hasPermission="cflwork:gen:edit">
+    <div shiro:hasPermission="cflwork:readerBook:edit">
         <script type="text/javascript">
             s_edit_h = '';
         </script>
     </div>
-    <div shiro:hasPermission="cflwork:gen:remove">
+    <div shiro:hasPermission="cflwork:readerBook:remove">
         <script type="text/javascript">
             var s_remove_h = '';
         </script>
     </div>
-    <div shiro:hasPermission="cflwork:gen:resetPwd">
+    <div shiro:hasPermission="cflwork:readerBook:resetPwd">
         <script type="text/javascript">
             var s_resetPwd_h = '';
         </script>
     </div>
 </div>
 <div th:include="includes :: footer"></div>
-<script src="/js/appjs/gen/gen.js"></script>
+<script src="/js/appjs/readerBook/readerBook.js"></script>
 </body>
 </html>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.cflwork.dao.ReaderBookDao">
+
+	<select id="get" resultType="top.cflwork.vo.ReaderBookVo">
+		select `id`,`read_user_id`,`book_id`,`book_type_name`,`book_auther`,`cbs`,`isbn`,`book_name`,`read_user_name`,`is_active`,`create_time` from sys_reader_book
+        where id=#{id}
+	</select>
+
+	<select id="list" resultType="top.cflwork.vo.ReaderBookVo">
+		select `id`,`read_user_id`,`book_id`,`book_type_name`,`book_auther`,`cbs`,`isbn`,`book_name`,`read_user_name`,`is_active`,`create_time` from sys_reader_book
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="readUserId != null and readUserId != ''"> and read_user_id = #{readUserId} </if>
+		  		  <if test="bookId != null and bookId != ''"> and book_id = #{bookId} </if>
+		  		  <if test="bookTypeName != null and bookTypeName != ''"> and book_type_name = #{bookTypeName} </if>
+		  		  <if test="bookAuther != null and bookAuther != ''"> and book_auther = #{bookAuther} </if>
+		  		  <if test="cbs != null and cbs != ''"> and cbs = #{cbs} </if>
+		  		  <if test="isbn != null and isbn != ''"> and isbn = #{isbn} </if>
+		  		  <if test="bookName != null and bookName != ''"> and book_name = #{bookName} </if>
+		  		  <if test="readUserName != null and readUserName != ''"> and read_user_name = #{readUserName} </if>
+		  		  <if test="isActive != null and isActive != ''"> and is_active = #{isActive} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		</where>
+        <choose>
+            <when test="pager.sort != null and pager.order != null">
+                order by ${pager.sort} ${pager.order}
+            </when>
+            <otherwise>
+                order by id desc
+            </otherwise>
+        </choose>
+        <if test="pager.pageIndex != null and pager.pageSize != null">
+            limit #{pager.pageIndex}, #{pager.pageSize}
+        </if>
+	</select>
+	
+ 	<select id="count" resultType="long">
+		select count(id) from sys_reader_book
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="readUserId != null and readUserId != ''"> and read_user_id = #{readUserId} </if>
+		  		  <if test="bookId != null and bookId != ''"> and book_id = #{bookId} </if>
+		  		  <if test="bookTypeName != null and bookTypeName != ''"> and book_type_name = #{bookTypeName} </if>
+		  		  <if test="bookAuther != null and bookAuther != ''"> and book_auther = #{bookAuther} </if>
+		  		  <if test="cbs != null and cbs != ''"> and cbs = #{cbs} </if>
+		  		  <if test="isbn != null and isbn != ''"> and isbn = #{isbn} </if>
+		  		  <if test="bookName != null and bookName != ''"> and book_name = #{bookName} </if>
+		  		  <if test="readUserName != null and readUserName != ''"> and read_user_name = #{readUserName} </if>
+		  		  <if test="isActive != null and isActive != ''"> and is_active = #{isActive} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="top.cflwork.vo.ReaderBookVo">
+		insert into sys_reader_book
+		(
+			`id`, 
+			`read_user_id`, 
+			`book_id`, 
+			`book_type_name`, 
+			`book_auther`, 
+			`cbs`, 
+			`isbn`, 
+			`book_name`, 
+			`read_user_name`, 
+			`is_active`, 
+			`create_time`
+		)
+		values
+		(
+			#{id}, 
+			#{readUserId}, 
+			#{bookId}, 
+			#{bookTypeName}, 
+			#{bookAuther}, 
+			#{cbs}, 
+			#{isbn}, 
+			#{bookName}, 
+			#{readUserName}, 
+			#{isActive}, 
+			#{createTime}
+		)
+	</insert>
+
+    <insert id="batchSave" parameterType="top.cflwork.vo.ReaderBookVo">
+        insert into sys_reader_book
+        (
+					                `id`, 
+								                `read_user_id`, 
+								                `book_id`, 
+								                `book_type_name`, 
+								                `book_auther`, 
+								                `cbs`, 
+								                `isbn`, 
+								                `book_name`, 
+								                `read_user_name`, 
+								                `is_active`, 
+								                `create_time`
+					        )
+        values
+        <foreach collection="list" item="readerBookVo" separator=",">
+			(
+												#{readerBookVo.id}, 
+																#{readerBookVo.readUserId}, 
+																#{readerBookVo.bookId}, 
+																#{readerBookVo.bookTypeName}, 
+																#{readerBookVo.bookAuther}, 
+																#{readerBookVo.cbs}, 
+																#{readerBookVo.isbn}, 
+																#{readerBookVo.bookName}, 
+																#{readerBookVo.readUserName}, 
+																#{readerBookVo.isActive}, 
+																#{readerBookVo.createTime}
+										)
+		</foreach>
+    </insert>
+
+	<update id="update" parameterType="top.cflwork.vo.ReaderBookVo">
+		update sys_reader_book 
+		<set>
+			<if test="readUserId != null">`read_user_id` = #{readUserId}, </if>
+			<if test="bookId != null">`book_id` = #{bookId}, </if>
+			<if test="bookTypeName != null">`book_type_name` = #{bookTypeName}, </if>
+			<if test="bookAuther != null">`book_auther` = #{bookAuther}, </if>
+			<if test="cbs != null">`cbs` = #{cbs}, </if>
+			<if test="isbn != null">`isbn` = #{isbn}, </if>
+			<if test="bookName != null">`book_name` = #{bookName}, </if>
+			<if test="readUserName != null">`read_user_name` = #{readUserName}, </if>
+			<if test="isActive != null">`is_active` = #{isActive}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from sys_reader_book where id=#{id}
+
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from sys_reader_book where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

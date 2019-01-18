@@ -1,3 +1,4 @@
+var statusMap = ['同意申请','拒绝申请','请求处理'];
 var prefix = "/activity"
 //生成用户数据
 $('#mytab').bootstrapTable({
@@ -68,13 +69,7 @@ $('#mytab').bootstrapTable({
             align: 'center',
             valign: 'center',
             formatter: function (value, row, index) {
-                if (row.status == 0) {
-                    //表示启用状态
-                    return '<span style="color: green" >启用</span>';
-                } else {
-                    //表示启用状态
-                    return '<span style="color: red">停用</span>';
-                }
+                return '<span style="color: green" >'+statusMap[value-1]+'</span>';
             }
         },
         {
@@ -94,13 +89,11 @@ $('#mytab').bootstrapTable({
                 var d = '<a class=" ' + s_remove_h + '" href="#" title="删除"  mce_href="#" onclick="remove(\''
                     + row.id
                     + '\')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
-                var f = '';
-                if (row.status == 1) {
-                    f = '<a class="' + s_status_h + '" title="启用"  href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 0 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">启用</i></a> ';
-                } else if (row.status == 0) {
-                    f = '<a class="' + s_status_h + '" title="停用" href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
+                var f =  '<a title="同意申请" href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 1 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">同意申请</i></a> ';
+                var f1 = '<a title="拒绝申请" href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 2 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">拒绝申请</i></a> ';
+                if(row.status!=1){
+                    return f + f1;
                 }
-                return e + d +f;
             }
         }],
     locale: 'zh-CN',//中文支持,

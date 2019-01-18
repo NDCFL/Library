@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="includes :: header"></head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>新增阅览室</h5><h5 style="margin-left: 20px;color: red" onclick="window.history.go(-1); " id="back">返回列表</h5>
+        </div>
+        <div class="ibox-content" style="height: auto">
+            <div class="panel-body form-group" style="margin-bottom:0px;">
+                <form id="formadd">
+                    <div class="panel-body form-group" style="margin-bottom:0px;">
+                        <label class="col-sm-1 control-label">阅览室标题：</label>
+                        <div class="col-sm-5">
+                            <input id="title" name="title" placeholder="请输入阅览室标题" class="form-control" type="text">
+                        </div>
+                        <label class="col-sm-1 control-label">阅览室位置：</label>
+                        <div class="col-sm-5">
+                            <input id="location" name="location"   class="form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="panel-body form-group" style="margin-bottom:0px;">
+                        <label class="col-sm-1 control-label">容纳人数：</label>
+                        <div class="col-sm-5">
+                            <input id="peopleNum" name="peopleNum"  placeholder="请输入容纳人数"  class="form-control" type="text">
+                        </div>
+                    </div>
+                    <div class="panel-body form-group" style="margin-bottom:0px;">
+                        <label class="col-sm-1 control-label">描述</label>
+                        <div class="col-sm-11" style="height: 500px">
+                            <textarea  name="content" id="content"  style="height: 400px" required="" aria-required="true"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="margin-bottom:0px;">
+                        <button type="button" class="btn btn-default" onclick="window.history.go(-1); ">关闭
+                        </button>
+                        <button type="button" id="add" class="btn btn-primary" >
+                            确认新增
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div th:include="includes :: footer"></div>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="/js/appjs/readingRoom/readingRoom.js"></script>
+<script type="text/javascript" src="/js/jquery.formautoFill.js"></script>
+<script>
+    var ue = UE.getEditor('content');
+    layui.use('laydate', function() {
+        var laydate = layui.laydate;
+        //日期时间范围
+        laydate.render({
+            elem: '#startTime'
+            , type: 'datetime'
+            , range: true
+        });
+    });
+</script>
+</body>
+</html>

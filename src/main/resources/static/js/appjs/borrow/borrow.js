@@ -1,9 +1,9 @@
-var statusMap = ['接收申请','拒绝申请','未处理'];
+var statusMap = ['已借出','已归还','借阅异常'];
 //生成用户数据
 $('#mytab').bootstrapTable({
     method: 'post',
     contentType: "application/x-www-form-urlencoded",//必须要有！！！！
-    url: "/gen/list",//要请求数据的文件路径
+    url: "/borrow/list",//要请求数据的文件路径
     toolbar: '#toolbar',//指定工具栏
     striped: true, //是否显示行间隔色
     dataField: "res",
@@ -36,37 +36,52 @@ $('#mytab').bootstrapTable({
             valign: 'middle'
         },
         {
-            field: 'title',
-            title: '情报标题',
+            field: 'borrowTime',
+            title: '借出时间',
             align: 'center',
             sortable: true
         },
         {
-            field: 'content',
-            title: '项目简介',
+            field: 'inTime',
+            title: '归还时间',
             align: 'center',
             sortable: true
         },
         {
-            field: 'genHave',
-            title: '需求',
+            field: 'bookName',
+            title: '图书名',
             align: 'center',
             sortable: true
         },
         {
-            field: 'shape',
-            title: '情报形式',
+            field: 'publishTime',
+            title: '出版时间',
             align: 'center',
             sortable: true
         },
         {
-            field: 'readUserName',
-            title: '用户信息',
+            field: 'isbn',
+            title: 'isbn',
             align: 'center',
-            sortable: true,
-            formatter: function (value, row, index) {
-                return '<div><p>用户名:'+row.readUserName+'</p><p>联系电话:'+row.phone+'</p><p>电子邮件:'+row.email+'</p><p>工作单位:'+row.workAddress+'</p><p>地址:'+row.address+'</p></div>';
-            }
+            sortable: true
+        },
+        {
+            field: 'inName',
+            title: '借入者',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'outName',
+            title: '借出者',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'createTime',
+            title: '创建时间',
+            align: 'center',
+            sortable: true
         },
         {
             field: 'status',
@@ -74,33 +89,7 @@ $('#mytab').bootstrapTable({
             align: 'center',
             sortable: true,
             formatter: function (value, row, index) {
-                return '<span style="color: green" >'+statusMap[parseInt(value-1)]+'</span>';
-            }
-        },
-        {
-            field: 'endTime',
-            title: '完成时间',
-            align: 'center',
-            sortable: true
-        },
-        {
-            field: 'createTime',
-            title: '申请时间',
-            align: 'center',
-            sortable: true
-        },
-        {
-            title: '操作',
-            align: 'center',
-            field: '',
-            formatter: function (value, row, index) {
-                var e = '<a title="编辑" href="javascript:void(0);" id="gen"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
-                var d = '<a title="删除" href="javascript:void(0);" onclick="del(\'' + row.id + '\',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
-                var f = '<a title="同意申请" href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 1 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">同意申请</i></a> ';
-               var f1 = '<a title="拒绝申请" href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 2 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">拒绝申请</i></a> ';
-               if(row.status!=1){
-                   return  f +f1;
-               }
+                return '<span>'+statusMap[value-1]+'</span>';
             }
         }
     ],
@@ -167,7 +156,7 @@ function del(id, status) {
         return;
     }
     layer.confirm('确认要删除吗？', function (index) {
-        $.post("/gen/remove",
+        $.post("/borrow/remove",
             {
                 "id": id
             },
@@ -185,7 +174,7 @@ function del(id, status) {
 }
 
 function edit(name) {
-    $.get("/gen/edit/" + name,
+    $.get("/borrow/edit/" + name,
         function (data) {
             $("#updateform").autofill(data);
         },
@@ -194,16 +183,24 @@ function edit(name) {
 }
 
 function updatestatus(id, status) {
-    $.post("/gen/update",
+    $.post("/borrow/update",
         {
             "id": id,
             "status": status
         },
         function (data) {
-            if (data.code == 0) {
-                layer.alert("操作成功", {icon: 1});
+            if (status == 0) {
+                if (data.code == 0) {
+                    layer.alert("已启用", {icon: 1});
+                } else {
+                    layer.alert("操作失败", {icon: 2});
+                }
             } else {
-                layer.alert("操作失败", {icon: 2});
+                if (data.code == 0) {
+                    layer.alert("已停用", {icon: 1});
+                } else {
+                    layer.alert("操作失败", {icon: 2});
+                }
             }
             refush();
         },
@@ -213,11 +210,11 @@ function updatestatus(id, status) {
 
 //查询按钮事件
 $('#search_btn').click(function () {
-    $('#mytab').bootstrapTable('refresh', {url: '/gen/list'});
+    $('#mytab').bootstrapTable('refresh', {url: '/borrow/list'});
 })
 
 function refush() {
-    $('#mytab').bootstrapTable('refresh', {url: '/gen/list'});
+    $('#mytab').bootstrapTable('refresh', {url: '/borrow/list'});
 }
 
 $('#updateform').bootstrapValidator({
@@ -249,7 +246,7 @@ $("#update").click(function () {
         return;
     }
     $.post(
-        "/gen/update",
+        "/borrow/update",
         $('#updateform').serialize(),
         function (result) {
             if (result.code == 0) {
@@ -292,7 +289,7 @@ $("#add").click(function () {
         return;
     }
     $.post(
-        "/gen/save",
+        "/borrow/save",
         $('#formadd').serialize(),
         function (result) {
             if (result.code == 0) {
@@ -323,7 +320,7 @@ function batchRemove() {
             ids[i] = row['id'];
         });
         $.post(
-            "/gen/batchRemove",
+            "/borrow/batchRemove",
             {
                 "ids": ids
             }, function (data) {
@@ -363,7 +360,7 @@ function deleteMany() {
 $("#updateSta").click(function () {
     layer.confirm('确认要执行批量修改状态吗？', function (index) {
         $.post(
-            "/gen/deleteManyGen",
+            "/borrow/deleteManyBorrow",
             {
                 "manyId": $("#statusId").val(),
                 "status": $("#status").val()
