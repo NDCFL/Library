@@ -12,4 +12,12 @@ public class TestController {
     public String index() throws Exception {
         return "/ueditor/index";
     }
+
+    /**
+     * 测试xml调用
+     */
+
+
+
+
 }
