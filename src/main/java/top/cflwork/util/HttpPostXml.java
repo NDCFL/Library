@@ -99,7 +99,7 @@ public class HttpPostXml {
         sb.append("     </verification>  ");
         sb.append("     <userInfo>");
         sb.append("             <ip>192.168.1.107</ip>");
-        sb.append("             <userid>wh</userid>");
+        sb.append("             <userid>zhtsg</userid>");
         sb.append("     </userInfo>  ");
         sb.append("     <text>");
         sb.append("             <eventType>10020</eventType>");
@@ -111,6 +111,6 @@ public class HttpPostXml {
     }
 
     public static void main(String[] args) {
-        creatPostAndTransData("http://111.44.140.226:8087/DLibsAPI/services/ReaderWS!receive.action");
+        creatPostAndTransData("http://111.44.140.226:8083/DLibsAPI/services/ReaderWS!receive.action");
     }
 }
