@@ -2,10 +2,8 @@ package top.cflwork.controller;
 
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
-
 import javax.xml.namespace.QName;
 import javax.xml.rpc.ServiceException;
-
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
 
@@ -15,18 +13,109 @@ import org.apache.axis.client.Service;
 public class ProtocolSend {
 
 	public static void main(String args[]) {
-		String ip = "111.44.140.226";
-		String port = "8083";
-		String wsUrl = "DLibsAPI/services/ReaderWS";
-		String wsNameSpace = "http://impl.server.axis2.dlibs.com";
-		String method = "receive";
-		String xmlParams = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root><verification><authorizationCode><![CDATA[123456]]></authorizationCode><subCenterCode><![CDATA[QHL]]></subCenterCode></verification><userInfo><ip>192.168.1.107</ip><userid>wh</userid></userInfo><text><eventType>10020</eventType><cardno>QHL0000701</cardno><password>123456</password></text></root>";
-		System.out.println("开始====================");
-		String result = ProtocolSend.send(ip, port, wsUrl, wsNameSpace, method, xmlParams);
-		System.out.println("返回结果：" + result);
-		System.out.println("结束====================");
+        //获取读者信息
+//        geteRead();
+        //图书检索
+//        geteBook();
+        //获取书目信息
+//        geteBookList();
+        //馆藏信息
+//        geteGc();
+        //获取借阅记录
+        getJy();
+
 	}
 
+	public static String geteRead(){
+        String ip = "111.44.140.226";
+        String port = "8083";
+        String wsUrl = "DLibsAPI/services/ReaderWS";
+        String wsNameSpace = "http://impl.server.axis2.dlibs.com";
+        String method = "receive";
+        String xmlParams = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root><verification><authorizationCode><![CDATA[123456]]></authorizationCode><subCenterCode><![CDATA[QHL]]></subCenterCode></verification><userInfo><ip>192.168.1.107</ip><userid>wh</userid></userInfo><text><eventType>10020</eventType><cardno>QHL0000701</cardno><password>123456</password></text></root>";
+        System.out.println("开始====================");
+        String result = ProtocolSend.send(ip, port, wsUrl, wsNameSpace, method, xmlParams);
+        System.out.println("返回结果：" + result);
+        System.out.println("结束====================");
+        return result;
+    }
+
+    public static String geteBook(){
+        String ip = "111.44.140.226";
+        String port = "8083";
+        String wsUrl = "DLibsAPI/services/AssetsWS";
+        String wsNameSpace = "http://impl.server.axis2.dlibs.com";
+        String method = "receive";
+        String xmlParams = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root><verification><authorizationCode><![CDATA[123456]]></authorizationCode><subCenterCode><![CDATA[QHL]]></subCenterCode></verification><text>" +
+                "<eventType>10018</eventType>\n" +
+                "    <pageNo>1</pageNo>\n" +
+                "    <pageSize>20</pageSize>\n" +
+                "    <select1>all</select1>\n" +
+                "    <text1>玄幻</text1>\n" +
+                "<occur1/>" +
+                "</text></root>";
+        System.out.println("开始====================");
+        String result = ProtocolSend.send(ip, port, wsUrl, wsNameSpace, method, xmlParams);
+        System.out.println("返回结果：" + result);
+        System.out.println("结束====================");
+        return result;
+    }
+    public static String geteBookList(){
+        String ip = "111.44.140.226";
+        String port = "8083";
+        String wsUrl = "DLibsAPI/services/BibliosWS";
+        String wsNameSpace = "http://impl.server.axis2.dlibs.com";
+        String method = "receive";
+        String xmlParams = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root><verification><authorizationCode><![CDATA[123456]]></authorizationCode><subCenterCode><![CDATA[QHL]]></subCenterCode></verification><text>\n" +
+                "      <eventType>10013</eventType>\n" +
+                "      <metaid>1000</metaid>\n" +
+                "      <metatable>i_biblios</metatable>\n" +
+                "      </text></root>";
+        System.out.println("开始====================");
+        String result = ProtocolSend.send(ip, port, wsUrl, wsNameSpace, method, xmlParams);
+        System.out.println("返回结果：" + result);
+        System.out.println("结束====================");
+        return result;
+    }
+
+
+    public static String geteGc(){
+        String ip = "111.44.140.226";
+        String port = "8083";
+        String wsUrl = "DLibsAPI/services/AssetsWS";
+        String wsNameSpace = "http://impl.server.axis2.dlibs.com";
+        String method = "receive";
+        String xmlParams = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root><verification><authorizationCode><![CDATA[123456]]></authorizationCode><subCenterCode><![CDATA[QHL]]></subCenterCode></verification><text>\n" +
+                "        <eventType>10016</eventType>\n" +
+                " <metaid>300</metaid>\n" +
+                " <metatable>i_bbl_biblios</metatable>\n" +
+                " <pageNo>1</pageNo>\n" +
+                " <pageSize>100</pageSize>\n" +
+                " </text>" +
+                "</root>";
+        System.out.println("开始====================");
+        String result = ProtocolSend.send(ip, port, wsUrl, wsNameSpace, method, xmlParams);
+        System.out.println("返回结果：" + result);
+        System.out.println("结束====================");
+        return result;
+    }
+    public static String getJy(){
+        String ip = "111.44.140.226";
+        String port = "8083";
+        String wsUrl = "DLibsAPI/services/ReaderWS";
+        String wsNameSpace = "http://impl.server.axis2.dlibs.com";
+        String method = "receive";
+        String xmlParams = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root><verification><authorizationCode><![CDATA[123456]]></authorizationCode><subCenterCode><![CDATA[QHL]]></subCenterCode></verification><text> \n" +
+                "    <eventType>10015</eventType>  \n" +
+                "    <cardno>QHL0000701</cardno> \n" +
+                "  </text>" +
+                "</root>";
+        System.out.println("开始====================");
+        String result = ProtocolSend.send(ip, port, wsUrl, wsNameSpace, method, xmlParams);
+        System.out.println("返回结果：" + result);
+        System.out.println("结束====================");
+        return result;
+    }
 	/**
 	 * 
 	 * 
