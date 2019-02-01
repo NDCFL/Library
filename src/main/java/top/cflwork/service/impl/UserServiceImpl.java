@@ -158,8 +158,8 @@ public class UserServiceImpl implements UserService {
     public Tree<DeptVo> getTree() {
         List<Tree<DeptVo>> trees = new ArrayList<Tree<DeptVo>>();
         List<DeptVo> depts = deptDao.list(new HashMap<String, Object>(16));
-        Long[] pDepts = deptDao.listParentDept();
-        Long[] uDepts = userDao.listAllDept();
+        String[] pDepts = deptDao.listParentDept();
+        String[] uDepts = userDao.listAllDept();
         String[] allDepts = (String[]) ArrayUtils.addAll(pDepts, uDepts);
         for (DeptVo dept : depts) {
             if (!ArrayUtils.contains(allDepts, dept.getDeptId())) {

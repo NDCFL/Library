@@ -30,7 +30,7 @@ public interface DeptDao {
 	
 	int batchRemove(String[] deptIds);
 	
-	Long[] listParentDept();
+	String[] listParentDept();
 	
 	int getDeptUserNumber(String deptId);
 }

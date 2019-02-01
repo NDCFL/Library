@@ -30,7 +30,7 @@ public interface UserDao {
 	
 	int batchRemove(String[] userIds);
 	
-	Long[] listAllDept();
+	String[] listAllDept();
 
 	int updateFaceImg(UserVo userVo);
 

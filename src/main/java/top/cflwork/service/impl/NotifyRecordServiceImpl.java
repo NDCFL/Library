@@ -2,10 +2,12 @@ package top.cflwork.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import top.cflwork.common.SequenceId;
 import top.cflwork.dao.NotifyRecordDao;
 import top.cflwork.vo.NotifyRecordVo;
 import top.cflwork.service.NotifyRecordService;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +16,8 @@ import java.util.Map;
 public class NotifyRecordServiceImpl implements NotifyRecordService {
 	@Autowired
 	private NotifyRecordDao notifyRecordDao;
-	
+	@Resource
+	private SequenceId sequenceId;
 	@Override
 	public NotifyRecordVo get(String id){
 		return notifyRecordDao.get(id);
@@ -32,6 +35,7 @@ public class NotifyRecordServiceImpl implements NotifyRecordService {
 	
 	@Override
 	public int save(NotifyRecordVo notifyRecord){
+		notifyRecord.setId(sequenceId.nextId());
 		return notifyRecordDao.save(notifyRecord);
 	}
 	

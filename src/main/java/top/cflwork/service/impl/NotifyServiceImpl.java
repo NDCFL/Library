@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import top.cflwork.common.SequenceId;
 import top.cflwork.dao.NotifyDao;
 import top.cflwork.dao.NotifyRecordDao;
 import top.cflwork.dao.UserDao;
@@ -17,6 +18,7 @@ import top.cflwork.service.SessionService;
 import top.cflwork.util.DateUtils;
 import top.cflwork.util.PageUtils;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +41,8 @@ public class NotifyServiceImpl implements NotifyService {
     private SessionService sessionService;
     @Autowired
     private SimpMessagingTemplate template;
-
+    @Resource
+    private SequenceId sequenceId;
     @Override
     public NotifyVo get(String id) {
         NotifyVo rVo = notifyDao.get(id);
@@ -64,6 +67,7 @@ public class NotifyServiceImpl implements NotifyService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public int save(NotifyVo notify) {
+        notify.setId(sequenceId.nextId());
         notify.setUpdateDate(new Date());
         int r = notifyDao.save(notify);
         // 保存到接受者列表中
@@ -72,6 +76,7 @@ public class NotifyServiceImpl implements NotifyService {
         List<NotifyRecordVo> records = new ArrayList<>();
         for (String userId : userIds) {
             NotifyRecordVo record = new NotifyRecordVo();
+            record.setId(sequenceId.nextId());
             record.setNotifyId(notifyId);
             record.setUserId(userId);
             record.setIsRead(0);

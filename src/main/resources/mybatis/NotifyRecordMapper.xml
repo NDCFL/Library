@@ -91,6 +91,7 @@
 		useGeneratedKeys="true" keyProperty="id">
 		insert into oa_notify_record
 		(
+		`id`,
 		`notify_id`,
 		`user_id`,
 		`is_read`,
@@ -100,6 +101,7 @@
 		<foreach item="item" index="index" collection="list"
 			separator=",">
 			(
+			#{item.id},
 			#{item.notifyId},
 			#{item.userId},
 			#{item.isRead},

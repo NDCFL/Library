@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import top.cflwork.config.Constant;
+import top.cflwork.util.QiniuUtil;
 import top.cflwork.vo.NotifyVo;
 import top.cflwork.vo.NotifyRecordVo;
 import top.cflwork.service.DictService;
@@ -81,7 +83,9 @@ public class NotifyController extends BaseController {
 	@ResponseBody
 	@PostMapping("/save")
 	@RequiresPermissions("oa:notify:add")
-	public R save(NotifyVo notify) {
+	public R save(NotifyVo notify, MultipartFile file) {
+		String url = QiniuUtil.uploadImage(file, "upload/faceImg");
+		System.out.println(url+"======================");
 		notify.setCreateBy(getUserId());
 		if (notifyService.save(notify) > 0) {
 			return R.ok();
