@@ -10,6 +10,7 @@ import java.util.Date;
 import java.text.DateFormat;
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 import top.cflwork.util.Socketio;
 
 import javax.xml.namespace.QName;
@@ -22,7 +23,10 @@ public class TestController {
     public String index() throws Exception {
         return "/ueditor/index";
     }
-
+    @RequestMapping("page")
+    public String page() throws Exception {
+        return "/socketio";
+    }
     /**
      * 测试xml调用
      */
@@ -54,10 +58,12 @@ public class TestController {
      */
     @GetMapping("/pushMessage")
     @ApiOperation( "测试消息推送" )
-    public void pushMessage(){
+    @ResponseBody
+    public String pushMessage(){
         Socketio socketio = new Socketio();
         //这里发送的消息内容可以结合具体场景自定义对象
         socketio.pushArr("connect_msg", "今天下午2点开会");
+        return "推送成功";
     }
 
 }
