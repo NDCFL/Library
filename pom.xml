@@ -348,7 +348,13 @@
             <artifactId>axis</artifactId>
             <version>1.4</version>
         </dependency>
-
+        <!--消息推送-->
+        <dependency>
+            <groupId>com.corundumstudio.socketio</groupId>
+            <artifactId>netty-socketio</artifactId>
+            <version>1.7.7</version>
+        </dependency>
+        <!--消息推送-->
     </dependencies>
     <build>
         <plugins>
