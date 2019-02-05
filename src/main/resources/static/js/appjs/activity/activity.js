@@ -69,6 +69,10 @@ $('#mytab').bootstrapTable({
             align: 'center',
             valign: 'center',
             formatter: function (value, row, index) {
+                if(value==0){
+                    value = 1;
+
+                }
                 return '<span style="color: green" >'+statusMap[value-1]+'</span>';
             }
         },

@@ -95,7 +95,7 @@ $('#mytab').bootstrapTable({
                 var e = '<a title="编辑" href="javascript:void(0);" id="electronExpress"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del(\'' + row.id + '\',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
                 var f = '<a title="评分"  data-toggle="modal"data-target="#updateStatus" onclick="return scores(\'' + row.id + '\')"><i class="glyphicon glyphicon-ok-sign" style="color:green">评分</i></a> ';
-                return e + d + f;
+                return d + f;
             }
         }
     ],

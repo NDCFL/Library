@@ -50,10 +50,7 @@ $('#mytab').bootstrapTable({
             field: 'createTime',
             title: '创建时间',
             align: 'center',
-            sortable: true,
-            formatter: function (value, row, index) {
-                return formattimes(value);
-            }
+            sortable: true
         },
         {
             field: 'isActive',

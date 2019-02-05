@@ -1,4 +1,5 @@
 //生成用户数据
+var path = "http://plbbcqkft.bkt.clouddn.com/";
 $('#mytab').bootstrapTable({
     method: 'post',
     contentType: "application/x-www-form-urlencoded",//必须要有！！！！
@@ -38,7 +39,10 @@ $('#mytab').bootstrapTable({
             field: 'faceImg',
             title: '用户头像',
             align: 'center',
-            sortable: true
+            sortable: true,
+            formatter: function (value, row, index) {
+                return '<img style="width: 80px;height: 80px;border-radius: 100%" src="'+path+value+'"/>';
+            }
         },
         {
             field: 'name',
@@ -122,10 +126,7 @@ $('#mytab').bootstrapTable({
             field: 'createTime',
             title: '创建时间',
             align: 'center',
-            sortable: true,
-            formatter: function (value, row, index) {
-                return formattimes(value);
-            }
+            sortable: true
         },
         {
             title: '操作',

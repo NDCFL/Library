@@ -7,6 +7,7 @@ import java.util.Date;
 
 import io.swagger.annotations.ApiModelProperty;
 import top.cflwork.common.Pager;
+import top.cflwork.config.Constant;
 
 /**
  * 读者管理
@@ -60,4 +61,5 @@ public class ReadUserVo implements Serializable {
     private Date createTime;
     @ApiModelProperty("分页对象")
     private Pager pager;
+
 }
