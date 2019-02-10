@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import top.cflwork.vo.UserPwdVo;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -203,16 +204,21 @@ public class UserController extends BaseController {
 	}
 	@ResponseBody
 	@PostMapping("/uploadImg")
-	public R uploadImg(@RequestParam("avatar_file") MultipartFile file, String avatar_data, HttpServletRequest request) {
-		Map<String, Object> result = new HashMap<>();
+	public R uploadImg(String base64) {
 		try {
-			result = userService.updatePersonalImg(file, avatar_data, getUserId());
+			String url = Base64ToImage.imgUpload(base64);
+			System.out.println(url);
+			File file = new File(url);
+            String headUrl = QiniuUtil.commonUploadFile(file, "upload/faceImg");
+            file.delete();
+			int cnt  = userService.updatePersonalImg(headUrl, getUserId());
+			if(cnt>0){
+				return R.ok("更新图片成功!");
+			}else{
+				return R.error("更新图像失败！");
+			}
 		} catch (Exception e) {
-			return R.error("更新图像失败！");
-		}
-		if(result!=null && result.size()>0){
-			return R.ok(result);
-		}else {
+			e.printStackTrace();
 			return R.error("更新图像失败！");
 		}
 	}

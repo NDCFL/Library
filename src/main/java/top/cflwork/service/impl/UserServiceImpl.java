@@ -198,42 +198,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> updatePersonalImg(MultipartFile file, String avatar_data, String userId) throws Exception {
-        String fileName = file.getOriginalFilename();
-        fileName = FileUtil.renameToUUID(fileName);
-        FileListVo sysFile = new FileListVo(FileType.fileType(fileName), "/files/" + fileName, new Date());
-        //获取图片后缀
-        String prefix = fileName.substring((fileName.lastIndexOf(".") + 1));
-        String[] str = avatar_data.split(",");
-        //获取截取的x坐标
-        int x = (int) Math.floor(Double.parseDouble(str[0].split(":")[1]));
-        //获取截取的y坐标
-        int y = (int) Math.floor(Double.parseDouble(str[1].split(":")[1]));
-        //获取截取的高度
-        int h = (int) Math.floor(Double.parseDouble(str[2].split(":")[1]));
-        //获取截取的宽度
-        int w = (int) Math.floor(Double.parseDouble(str[3].split(":")[1]));
-        //获取旋转的角度
-        int r = Integer.parseInt(str[4].split(":")[1].replaceAll("}", ""));
-        try {
-            BufferedImage cutImage = ImageUtils.cutImage(file, x, y, w, h, prefix);
-            BufferedImage rotateImage = ImageUtils.rotateImage(cutImage, r);
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            boolean flag = ImageIO.write(rotateImage, prefix, out);
-            //转换后存入数据库
-            byte[] b = out.toByteArray();
-            FileUtil.uploadFile(b, cflworksConfig.getUploadPath(), fileName);
-        } catch (Exception e) {
-            throw new Exception("图片裁剪错误！！");
-        }
-        Map<String, Object> result = new HashMap<>();
+    public int updatePersonalImg(String src,String userId) throws Exception {
         UserVo userVo = new UserVo();
         userVo.setUserId(userId);
-        userVo.setHeadIcon(sysFile.getUrl());
-        if (userDao.update(userVo) > 0) {
-            result.put("url", sysFile.getUrl());
-        }
-        return result;
+        userVo.setHeadIcon(src);
+        return userDao.update(userVo);
     }
 
     @Override

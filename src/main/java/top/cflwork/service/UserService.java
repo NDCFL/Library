@@ -44,12 +44,10 @@ public interface UserService {
 
 	/**
 	 * 更新个人图片
-	 * @param file 图片
-	 * @param avatar_data 裁剪信息
 	 * @param userId 用户ID
 	 * @throws Exception
 	 */
-    Map<String, Object> updatePersonalImg(MultipartFile file, String avatar_data, String userId) throws Exception;
+    int updatePersonalImg(String base64,String userId) throws Exception;
 
 	int updateFaceImg(UserVo userVo);
 }

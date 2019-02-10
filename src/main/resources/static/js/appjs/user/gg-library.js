@@ -223,33 +223,20 @@ $(function(){
     },
 
     ajaxUpload: function () {
-      var url = this.$avatarForm.attr('action'),
-          data = new FormData(this.$avatarForm[0]),
-          _this = this;
-
-      $.ajax(url, {
-        type: 'post',
-        data: data,
-        dataType: 'json',
-        processData: false,
-        contentType: false,
-
-        beforeSend: function () {
-          _this.submitStart();
-        },
-
-        success: function (data) {
-          _this.submitDone(data);
-        },
-
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-          _this.submitFail(textStatus || errorThrown);
-        },
-
-        complete: function () {
-          _this.submitEnd();
-        }
-      });
+      $.post(
+          "/user/uploadImg",
+          {
+            "base64":$(".preview-sm img").attr("src")
+          },
+          function (data) {
+            if(data.code==0){
+                alert(data.msg);
+            }else{
+              alert(data.msg);
+            }
+          },
+          "json"
+      );
     },
 
     syncUpload: function () {
