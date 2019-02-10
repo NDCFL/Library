@@ -1,24 +1,22 @@
 package top.cflwork.controller;
 
-import io.swagger.annotations.ApiOperation;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.beans.Transient;
-import java.util.Date;
-import java.text.DateFormat;
+import com.xiaoleilu.hutool.json.JSONUtil;
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
-import top.cflwork.util.Socketio;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import top.cflwork.util.JpushReceiver;
+import top.cflwork.vo.jpush.Extras;
+import top.cflwork.vo.jpush.JpushApp;
+import top.cflwork.vo.jpush.Push;
 
-import javax.xml.namespace.QName;
-import java.lang.Integer;
-import javax.xml.rpc.ParameterMode;
+import javax.annotation.Resource;
+
 @Controller
 @RequestMapping("test")
 public class TestController {
+    @Resource
+    private JpushReceiver jpushReceiver;
     @RequestMapping("index")
     public String index() throws Exception {
         return "/ueditor/index";
@@ -53,17 +51,14 @@ public class TestController {
             System.err.println(e.toString());
         }
     }
-    /**
-     * 测试报警推送服务:主要应用一个方法pushArr
-     */
-    @GetMapping("/pushMessage")
-    @ApiOperation( "测试消息推送" )
-    @ResponseBody
-    public String pushMessage(){
-        Socketio socketio = new Socketio();
-        //这里发送的消息内容可以结合具体场景自定义对象
-        socketio.pushArr("connect_msg", "今天下午2点开会");
-        return "推送成功";
+    @RequestMapping("testUp")
+    public void testSend(){
+        Push push = null;
+        push = Push.newBuilder(JpushApp.HOTEL)
+                .setTag("111111")
+                .setMessage(Push.Message.newBuilder().setMsgContent("test").setExtras(Extras.newBuilder().setType(Extras.SCHOOL_BROADCAST).setId("1").build()).build())
+                .build();
+        jpushReceiver.sendPush(JSONUtil.toJsonStr(push));
+        System.out.println("消息推送=================");
     }
-
 }

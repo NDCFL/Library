@@ -1,6 +1,6 @@
 package top.cflwork.config;
 
-public class Constant {
+public interface Constant {
     //演示系统账户
     public static String DEMO_ACCOUNT = "test";
     //自动去除表前缀
@@ -25,6 +25,8 @@ public class Constant {
     public static String JWT_SECRET="7786df7fc3a34e26a61c034d5ec8245d";
     public static String TOKEN="token";//登录的请求令牌名称
     public static String PATH = "http://plbbcqkft.bkt.clouddn.com/";
-
+    interface JPUSH{
+        String SOUND_1="sound.caf";
+    }
     
 }
