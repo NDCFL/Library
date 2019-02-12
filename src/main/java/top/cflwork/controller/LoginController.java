@@ -65,8 +65,8 @@ public class LoginController extends BaseController {
 	@PostMapping("/login")
 	@ResponseBody
     public R ajaxLogin(String username, String password) {
-
 		password = MD5Utils.encrypt(username, password);
+		System.out.println(password);
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 		Subject subject = SecurityUtils.getSubject();
 		try {

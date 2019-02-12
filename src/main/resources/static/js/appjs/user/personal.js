@@ -32,6 +32,9 @@ $("#base_save").click(function () {
 
 });
 $("#pwd_save").click(function () {
+    $("#pwdOld").val(md5($("#pwdOld").val()));
+    $("#pwdNew").val(md5($("#pwdNew").val()));
+    $("#confirm_password").val(md5($("#confirm_password").val()));
     if($("#modifyPwd").valid()){
         $.ajax({
             cache : true,
