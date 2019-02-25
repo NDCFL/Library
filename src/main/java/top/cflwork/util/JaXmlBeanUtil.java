@@ -19,6 +19,7 @@ import java.util.List;
 /**
  * xml与bean互转工具类
  */
+
 public class JaXmlBeanUtil {
 
     /**

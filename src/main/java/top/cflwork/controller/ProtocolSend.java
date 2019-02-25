@@ -2,10 +2,15 @@ package top.cflwork.controller;
 
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
+import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 import javax.xml.rpc.ServiceException;
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
+import top.cflwork.util.JaXmlBeanUtil;
+import top.cflwork.vo.JaBeanToXml;
+
+import static top.cflwork.util.JaXmlBeanUtil.parseBeanToXml;
 
 /**
  * 青海 webservice 测试
@@ -23,6 +28,11 @@ public class ProtocolSend {
 //        geteGc();
         //获取借阅记录
         getJy();
+        JaBeanToXml jaBeanToXml = new JaBeanToXml();
+        jaBeanToXml.setAge(10);
+        jaBeanToXml.setName("测试");
+        jaBeanToXml.setAddress("洪山区");
+        System.out.println(parseBeanToXml(new JaBeanToXml().getClass(),jaBeanToXml));
 
 	}
 

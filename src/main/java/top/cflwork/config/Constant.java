@@ -24,7 +24,7 @@ public interface Constant {
     public static String RES_PRE="http://library.com";
     public static String JWT_SECRET="7786df7fc3a34e26a61c034d5ec8245d";
     public static String TOKEN="token";//登录的请求令牌名称
-    public static String PATH = "http://plbbcqkft.bkt.clouddn.com/";
+    public static String PATH = "http://file.mykefang.com";
     interface JPUSH{
         String SOUND_1="sound.caf";
     }

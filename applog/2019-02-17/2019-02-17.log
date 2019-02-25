@@ -1,0 +1,348 @@
+2019-02-17 12:07:12 -Starting LibraryApplication on DESKTOP-9BL6UMN with PID 7036 (F:\idea\Library\target\classes started by DELL in F:\idea\Library)
+2019-02-17 12:07:12 -The following profiles are active: dev
+2019-02-17 12:07:12 -Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6517dbb: startup date [Sun Feb 17 12:07:12 CST 2019]; root of context hierarchy
+2019-02-17 12:07:14 -Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-02-17 12:07:15 -Bean 'com.alicp.jetcache.anno.config.JetCacheProxyConfiguration' of type [com.alicp.jetcache.anno.config.JetCacheProxyConfiguration$$EnhancerBySpringCGLIB$$4fe7f992] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-17 12:07:15 -Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$4380367b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-17 12:07:15 -Bean 'shiroConfig' of type [top.cflwork.config.ShiroConfig$$EnhancerBySpringCGLIB$$d9b9d7d4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-17 12:07:15 -Bean 'userRealm' of type [top.cflwork.shiro.UserRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-17 12:07:15 -No configuration found. Configuring ehcache from ehcache-failsafe.xml  found in the classpath: jar:file:/C:/Users/DELL/.m2/repository/net/sf/ehcache/ehcache/2.10.5/ehcache-2.10.5.jar!/ehcache-failsafe.xml
+2019-02-17 12:07:16 -Bean 'cacheManager2' of type [net.sf.ehcache.CacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-17 12:07:16 -Bean 'ehCacheManager' of type [org.apache.shiro.cache.ehcache.EhCacheManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-17 12:07:16 -Cache with name 'top.cflwork.shiro.UserRealm.authorizationCache' does not yet exist.  Creating now.
+2019-02-17 12:07:16 -Added EhCache named [top.cflwork.shiro.UserRealm.authorizationCache]
+2019-02-17 12:07:16 -Bean 'sessionDAO' of type [org.apache.shiro.session.mgt.eis.MemorySessionDAO] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-17 12:07:16 -Bean 'sessionManager' of type [org.apache.shiro.web.session.mgt.DefaultWebSessionManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-17 12:07:16 -Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-17 12:07:16 -Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-17 12:07:16 -Tomcat initialized with port(s): 8088 (http)
+2019-02-17 12:07:16 -Initializing ProtocolHandler ["http-nio-8088"]
+2019-02-17 12:07:16 -Starting service [Tomcat]
+2019-02-17 12:07:16 -Starting Servlet Engine: Apache Tomcat/8.5.31
+2019-02-17 12:07:16 -The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_181\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Git\cmd;D:\Program Files\PuTTY\;C:\Program Files\TortoiseGit\bin;C:\Program Files\TortoiseSVN\bin;C:\Program Files\nodejs\;C:\Program Files\VisualSVN Server\bin;C:\WINDOWS\System32\OpenSSH\;C:\Users\DELL\AppData\Roaming\npm;C:\Users\DELL\AppData\Local\Microsoft\WindowsApps;";C:\Program Files\Java\jdk1.6.0_43\bin";;.]
+2019-02-17 12:07:16 -Initializing Spring embedded WebApplicationContext
+2019-02-17 12:07:16 -Root WebApplicationContext: initialization completed in 3851 ms
+2019-02-17 12:07:17 -Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-02-17 12:07:17 -Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-02-17 12:07:17 -Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2019-02-17 12:07:17 -Mapping filter: 'requestContextFilter' to: [/*]
+2019-02-17 12:07:17 -Filter xssFilter was not registered (disabled)
+2019-02-17 12:07:17 -Mapping filter: 'webStatFilter' to urls: [/*]
+2019-02-17 12:07:17 -Mapping filter: 'shiroFilterFactoryBean' to: [/*]
+2019-02-17 12:07:17 -Servlet statViewServlet mapped to [/druid/*]
+2019-02-17 12:07:17 -Servlet dispatcherServlet mapped to [/]
+2019-02-17 12:07:18 -Initializing ExecutorService  'clientInboundChannelExecutor'
+2019-02-17 12:07:18 -Initializing ExecutorService  'clientOutboundChannelExecutor'
+2019-02-17 12:07:19 -Mapped "{[/error]}" onto public top.cflwork.util.R top.cflwork.common.exception.MainsiteErrorController.handleError(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2019-02-17 12:07:19 -Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView top.cflwork.common.exception.MainsiteErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2019-02-17 12:07:19 -Mapped "{[/activity/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.ActivityController.add()
+2019-02-17 12:07:19 -Mapped "{[/activity/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ActivityController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/activity/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ActivityController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/activity/update]}" onto public top.cflwork.util.R top.cflwork.controller.ActivityController.update(top.cflwork.vo.ActivityVo)
+2019-02-17 12:07:19 -Mapped "{[/activity/list],methods=[POST]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.ActivityController.list(top.cflwork.vo.ActivityVo)
+2019-02-17 12:07:19 -Mapped "{[/activity/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ActivityController.save(top.cflwork.vo.ActivityVo)
+2019-02-17 12:07:19 -Mapped "{[/activity/activityPage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.ActivityController.Activity()
+2019-02-17 12:07:19 -Mapped "{[/activity/batchSave],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ActivityController.batchSave(java.util.List<top.cflwork.vo.ActivityVo>)
+2019-02-17 12:07:19 -Mapped "{[/activity/edit/{id}],methods=[GET]}" onto public java.lang.String top.cflwork.controller.ActivityController.edit(java.lang.String,org.springframework.ui.Model)
+2019-02-17 12:07:19 -Mapped "{[/address/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.AddressController.add()
+2019-02-17 12:07:19 -Mapped "{[/address/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.AddressController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/address/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.AddressController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/address/update]}" onto public top.cflwork.util.R top.cflwork.controller.AddressController.update(top.cflwork.vo.AddressVo)
+2019-02-17 12:07:19 -Mapped "{[/address/list],methods=[POST]}" onto public java.util.List<top.cflwork.vo.AddressVo> top.cflwork.controller.AddressController.list(top.cflwork.vo.AddressVo)
+2019-02-17 12:07:19 -Mapped "{[/address/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.AddressController.save(top.cflwork.vo.AddressVo)
+2019-02-17 12:07:19 -Mapped "{[/address/batchSave],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.AddressController.batchSave(java.util.List<top.cflwork.vo.AddressVo>)
+2019-02-17 12:07:19 -Mapped "{[/address/addressPage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.AddressController.Address()
+2019-02-17 12:07:19 -Mapped "{[/address/edit/{id}],methods=[GET]}" onto public top.cflwork.vo.AddressVo top.cflwork.controller.AddressController.edit(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/book/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.BookController.add()
+2019-02-17 12:07:19 -Mapped "{[/book/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.BookController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/book/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.BookController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/book/update]}" onto public top.cflwork.util.R top.cflwork.controller.BookController.update(top.cflwork.vo.BookVo)
+2019-02-17 12:07:19 -Mapped "{[/book/list],methods=[POST]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.BookController.list(top.cflwork.vo.BookVo)
+2019-02-17 12:07:19 -Mapped "{[/book/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.BookController.save(top.cflwork.vo.BookVo)
+2019-02-17 12:07:19 -Mapped "{[/book/batchSave],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.BookController.batchSave(java.util.List<top.cflwork.vo.BookVo>)
+2019-02-17 12:07:19 -Mapped "{[/book/bookPage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.BookController.Book()
+2019-02-17 12:07:19 -Mapped "{[/book/edit/{id}],methods=[GET]}" onto public java.lang.String top.cflwork.controller.BookController.edit(java.lang.String,org.springframework.ui.Model)
+2019-02-17 12:07:19 -Mapped "{[/bookType/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.BookTypeController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/bookType/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.BookTypeController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/bookType/update]}" onto public top.cflwork.util.R top.cflwork.controller.BookTypeController.update(top.cflwork.vo.BookTypeVo)
+2019-02-17 12:07:19 -Mapped "{[/bookType/list],methods=[POST]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.BookTypeController.list(top.cflwork.vo.BookTypeVo)
+2019-02-17 12:07:19 -Mapped "{[/bookType/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.BookTypeController.save(top.cflwork.vo.BookTypeVo)
+2019-02-17 12:07:19 -Mapped "{[/bookType/batchSave],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.BookTypeController.batchSave(java.util.List<top.cflwork.vo.BookTypeVo>)
+2019-02-17 12:07:19 -Mapped "{[/bookType/bookTypePage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.BookTypeController.BookType()
+2019-02-17 12:07:19 -Mapped "{[/bookType/edit/{id}],methods=[GET]}" onto public top.cflwork.vo.BookTypeVo top.cflwork.controller.BookTypeController.edit(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/borrow/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.BorrowController.add()
+2019-02-17 12:07:19 -Mapped "{[/borrow/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.BorrowController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/borrow/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.BorrowController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/borrow/update]}" onto public top.cflwork.util.R top.cflwork.controller.BorrowController.update(top.cflwork.vo.BorrowVo)
+2019-02-17 12:07:19 -Mapped "{[/borrow/list],methods=[POST]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.BorrowController.list(top.cflwork.vo.BorrowVo)
+2019-02-17 12:07:19 -Mapped "{[/borrow/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.BorrowController.save(top.cflwork.vo.BorrowVo)
+2019-02-17 12:07:19 -Mapped "{[/borrow/batchSave],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.BorrowController.batchSave(java.util.List<top.cflwork.vo.BorrowVo>)
+2019-02-17 12:07:19 -Mapped "{[/borrow/edit/{id}],methods=[GET]}" onto public top.cflwork.vo.BorrowVo top.cflwork.controller.BorrowController.edit(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/borrow/borrowPage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.BorrowController.Borrow()
+2019-02-17 12:07:19 -Mapped "{[/courierOrder/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.CourierOrderController.add()
+2019-02-17 12:07:19 -Mapped "{[/courierOrder/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.CourierOrderController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/courierOrder/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.CourierOrderController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/courierOrder/update]}" onto public top.cflwork.util.R top.cflwork.controller.CourierOrderController.update(top.cflwork.vo.CourierOrderVo)
+2019-02-17 12:07:19 -Mapped "{[/courierOrder/list],methods=[POST]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.CourierOrderController.list(top.cflwork.vo.CourierOrderVo)
+2019-02-17 12:07:19 -Mapped "{[/courierOrder/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.CourierOrderController.save(top.cflwork.vo.CourierOrderVo)
+2019-02-17 12:07:19 -Mapped "{[/courierOrder/batchSave],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.CourierOrderController.batchSave(java.util.List<top.cflwork.vo.CourierOrderVo>)
+2019-02-17 12:07:19 -Mapped "{[/courierOrder/edit/{id}],methods=[GET]}" onto public top.cflwork.vo.CourierOrderVo top.cflwork.controller.CourierOrderController.edit(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/courierOrder/courierOrderPage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.CourierOrderController.CourierOrder()
+2019-02-17 12:07:19 -Mapped "{[/sysDept/add/{pId}],methods=[GET]}" onto public java.lang.String top.cflwork.controller.DeptController.add(java.lang.String,org.springframework.ui.Model)
+2019-02-17 12:07:19 -Mapped "{[/sysDept/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.DeptController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/sysDept/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.DeptController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/sysDept/update]}" onto public top.cflwork.util.R top.cflwork.controller.DeptController.update(top.cflwork.vo.DeptVo)
+2019-02-17 12:07:19 -Mapped "{[/sysDept/list],methods=[GET]}" onto public java.util.List<top.cflwork.vo.DeptVo> top.cflwork.controller.DeptController.list()
+2019-02-17 12:07:19 -Mapped "{[/sysDept/save]}" onto public top.cflwork.util.R top.cflwork.controller.DeptController.save(top.cflwork.vo.DeptVo)
+2019-02-17 12:07:19 -Mapped "{[/sysDept/tree],methods=[GET]}" onto public top.cflwork.vo.Tree<top.cflwork.vo.DeptVo> top.cflwork.controller.DeptController.tree()
+2019-02-17 12:07:19 -Mapped "{[/sysDept/edit/{deptId}],methods=[GET]}" onto public java.lang.String top.cflwork.controller.DeptController.edit(java.lang.String,org.springframework.ui.Model)
+2019-02-17 12:07:19 -Mapped "{[/sysDept/treeView],methods=[GET]}" onto public java.lang.String top.cflwork.controller.DeptController.treeView()
+2019-02-17 12:07:19 -Mapped "{[/sysDept/sysDeptPage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.DeptController.dept()
+2019-02-17 12:07:19 -Mapped "{[/dict/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.DictController.add()
+2019-02-17 12:07:19 -Mapped "{[/dict/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.DictController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/dict/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.DictController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/dict/update]}" onto public top.cflwork.util.R top.cflwork.controller.DictController.update(top.cflwork.vo.DictVo)
+2019-02-17 12:07:19 -Mapped "{[/dict/list],methods=[GET]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.DictController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2019-02-17 12:07:19 -Mapped "{[/dict/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.DictController.save(top.cflwork.vo.DictVo)
+2019-02-17 12:07:19 -Mapped "{[/dict/type],methods=[GET]}" onto public java.util.List<top.cflwork.vo.DictVo> top.cflwork.controller.DictController.listType()
+2019-02-17 12:07:19 -Mapped "{[/dict/edit/{id}],methods=[GET]}" onto public java.lang.String top.cflwork.controller.DictController.edit(java.lang.String,org.springframework.ui.Model)
+2019-02-17 12:07:19 -Mapped "{[/dict/dictPage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.DictController.dict()
+2019-02-17 12:07:19 -Mapped "{[/dict/list/{type}],methods=[GET]}" onto public java.util.List<top.cflwork.vo.DictVo> top.cflwork.controller.DictController.listByType(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/dict/add/{type}/{description}],methods=[GET]}" onto public java.lang.String top.cflwork.controller.DictController.addD(org.springframework.ui.Model,java.lang.String,java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/electronExpress/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.ElectronExpressController.add()
+2019-02-17 12:07:19 -Mapped "{[/electronExpress/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ElectronExpressController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/electronExpress/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ElectronExpressController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/electronExpress/update]}" onto public top.cflwork.util.R top.cflwork.controller.ElectronExpressController.update(top.cflwork.vo.ElectronExpressVo)
+2019-02-17 12:07:19 -Mapped "{[/electronExpress/list],methods=[POST]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.ElectronExpressController.list(top.cflwork.vo.ElectronExpressVo)
+2019-02-17 12:07:19 -Mapped "{[/electronExpress/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ElectronExpressController.save(top.cflwork.vo.ElectronExpressVo)
+2019-02-17 12:07:19 -Mapped "{[/electronExpress/batchSave],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ElectronExpressController.batchSave(java.util.List<top.cflwork.vo.ElectronExpressVo>)
+2019-02-17 12:07:19 -Mapped "{[/electronExpress/edit/{id}],methods=[GET]}" onto public top.cflwork.vo.ElectronExpressVo top.cflwork.controller.ElectronExpressController.edit(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/electronExpress/electronExpressPage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.ElectronExpressController.ElectronExpress()
+2019-02-17 12:07:19 -Mapped "{[/sysFile/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.FileController.add()
+2019-02-17 12:07:19 -Mapped "{[/sysFile/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.FileController.remove(java.lang.String,javax.servlet.http.HttpServletRequest)
+2019-02-17 12:07:19 -Mapped "{[/sysFile/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.FileController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/sysFile/update]}" onto public top.cflwork.util.R top.cflwork.controller.FileController.update(top.cflwork.vo.FileListVo)
+2019-02-17 12:07:19 -Mapped "{[/sysFile/list],methods=[GET]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.FileController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2019-02-17 12:07:19 -Mapped "{[/sysFile/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.FileController.save(top.cflwork.vo.FileListVo)
+2019-02-17 12:07:19 -Mapped "{[/sysFile/info/{id}]}" onto public top.cflwork.util.R top.cflwork.controller.FileController.info(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/sysFile/edit],methods=[GET]}" onto public java.lang.String top.cflwork.controller.FileController.edit(java.lang.String,org.springframework.ui.Model)
+2019-02-17 12:07:19 -Mapped "{[/sysFile/upload],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.FileController.upload(org.springframework.web.multipart.MultipartFile,javax.servlet.http.HttpServletRequest)
+2019-02-17 12:07:19 -Mapped "{[/sysFile/sysFilePage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.FileController.sysFile(org.springframework.ui.Model)
+2019-02-17 12:07:19 -Mapped "{[/gen/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.GenController.add()
+2019-02-17 12:07:19 -Mapped "{[/gen/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.GenController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/gen/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.GenController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/gen/update]}" onto public top.cflwork.util.R top.cflwork.controller.GenController.update(top.cflwork.vo.GenVo)
+2019-02-17 12:07:19 -Mapped "{[/gen/list],methods=[POST]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.GenController.list(top.cflwork.vo.GenVo)
+2019-02-17 12:07:19 -Mapped "{[/gen/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.GenController.save(top.cflwork.vo.GenVo)
+2019-02-17 12:07:19 -Mapped "{[/gen/batchSave],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.GenController.batchSave(java.util.List<top.cflwork.vo.GenVo>)
+2019-02-17 12:07:19 -Mapped "{[/gen/edit/{id}],methods=[GET]}" onto public top.cflwork.vo.GenVo top.cflwork.controller.GenController.edit(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/gen/genPage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.GenController.Gen()
+2019-02-17 12:07:19 -Mapped "{[/generator/update],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.GeneratorController.update(java.util.Map<java.lang.String, java.lang.Object>)
+2019-02-17 12:07:19 -Mapped "{[/generator/list],methods=[GET]}" onto public java.util.List<java.util.Map<java.lang.String, java.lang.Object>> top.cflwork.controller.GeneratorController.list()
+2019-02-17 12:07:19 -Mapped "{[/generator/code/{tableName}]}" onto public void top.cflwork.controller.GeneratorController.code(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String) throws java.io.IOException
+2019-02-17 12:07:19 -Mapped "{[/generator/generatorPage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.GeneratorController.generator()
+2019-02-17 12:07:19 -Mapped "{[/generator/edit],methods=[GET]}" onto public java.lang.String top.cflwork.controller.GeneratorController.edit(org.springframework.ui.Model)
+2019-02-17 12:07:19 -Mapped "{[/generator/batchCode]}" onto public void top.cflwork.controller.GeneratorController.batchCode(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse,java.lang.String) throws java.io.IOException
+2019-02-17 12:07:19 -Mapped "{[/log/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.LogController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/log/logPage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.LogController.log()
+2019-02-17 12:07:19 -Mapped "{[/log/list],methods=[GET]}" onto public top.cflwork.util.PageUtils<top.cflwork.vo.LogVo> top.cflwork.controller.LogController.list(top.cflwork.vo.LogVo)
+2019-02-17 12:07:19 -Mapped "{[/log/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.LogController.batchRemove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/index],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView top.cflwork.controller.LoginController.index(org.springframework.ui.Model)
+2019-02-17 12:07:19 -Mapped "{[/main],methods=[GET]}" onto public java.lang.String top.cflwork.controller.LoginController.main()
+2019-02-17 12:07:19 -Mapped "{[/login],methods=[GET]}" onto public java.lang.String top.cflwork.controller.LoginController.login()
+2019-02-17 12:07:19 -Mapped "{[/logout],methods=[GET]}" onto public java.lang.String top.cflwork.controller.LoginController.logout()
+2019-02-17 12:07:19 -Mapped "{[/ || ],methods=[GET]}" onto public java.lang.String top.cflwork.controller.LoginController.welcome(org.springframework.ui.Model)
+2019-02-17 12:07:19 -Mapped "{[/login],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.LoginController.ajaxLogin(java.lang.String,java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/menu/add/{pId}],methods=[GET]}" onto public java.lang.String top.cflwork.controller.MenuController.add(org.springframework.ui.Model,java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/menu/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.MenuController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/menu/update],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.MenuController.update(top.cflwork.vo.MenuVo)
+2019-02-17 12:07:19 -Mapped "{[/menu/list]}" onto public java.util.List<top.cflwork.vo.MenuVo> top.cflwork.controller.MenuController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2019-02-17 12:07:19 -Mapped "{[/menu/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.MenuController.save(top.cflwork.vo.MenuVo)
+2019-02-17 12:07:19 -Mapped "{[/menu/tree/{roleId}],methods=[GET]}" onto public top.cflwork.vo.Tree<top.cflwork.vo.MenuVo> top.cflwork.controller.MenuController.tree(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/menu/tree],methods=[GET]}" onto public top.cflwork.vo.Tree<top.cflwork.vo.MenuVo> top.cflwork.controller.MenuController.tree()
+2019-02-17 12:07:19 -Mapped "{[/menu/edit/{id}],methods=[GET]}" onto public java.lang.String top.cflwork.controller.MenuController.edit(org.springframework.ui.Model,java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/menu/menuPage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.MenuController.menu(org.springframework.ui.Model)
+2019-02-17 12:07:19 -Mapped "{[/oa/notify/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.NotifyController.add()
+2019-02-17 12:07:19 -Mapped "{[/oa/notify/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.NotifyController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/oa/notify/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.NotifyController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/oa/notify/update]}" onto public top.cflwork.util.R top.cflwork.controller.NotifyController.update(top.cflwork.vo.NotifyVo)
+2019-02-17 12:07:19 -Mapped "{[/oa/notify/read/{id}],methods=[GET]}" onto public java.lang.String top.cflwork.controller.NotifyController.read(java.lang.String,org.springframework.ui.Model)
+2019-02-17 12:07:19 -Mapped "{[/oa/notify/list],methods=[GET]}" onto public java.util.List<top.cflwork.vo.NotifyVo> top.cflwork.controller.NotifyController.list(top.cflwork.vo.NotifyVo)
+2019-02-17 12:07:19 -Mapped "{[/oa/notify/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.NotifyController.save(top.cflwork.vo.NotifyVo,org.springframework.web.multipart.MultipartFile)
+2019-02-17 12:07:19 -Mapped "{[/oa/notify/message],methods=[GET]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.NotifyController.message()
+2019-02-17 12:07:19 -Mapped "{[/oa/notify/edit/{id}],methods=[GET]}" onto public java.lang.String top.cflwork.controller.NotifyController.edit(java.lang.String,org.springframework.ui.Model)
+2019-02-17 12:07:19 -Mapped "{[/oa/notify/selfNotify],methods=[GET]}" onto public java.lang.String top.cflwork.controller.NotifyController.selefNotify()
+2019-02-17 12:07:19 -Mapped "{[/oa/notify],methods=[GET]}" onto public java.lang.String top.cflwork.controller.NotifyController.oaNotify()
+2019-02-17 12:07:19 -Mapped "{[/oa/notify/selfList],methods=[GET]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.NotifyController.selfList(java.util.Map<java.lang.String, java.lang.Object>)
+2019-02-17 12:07:19 -Mapped "{[/paperExpress/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.PaperExpressController.add()
+2019-02-17 12:07:19 -Mapped "{[/paperExpress/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.PaperExpressController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/paperExpress/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.PaperExpressController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/paperExpress/update]}" onto public top.cflwork.util.R top.cflwork.controller.PaperExpressController.update(top.cflwork.vo.PaperExpressVo)
+2019-02-17 12:07:19 -Mapped "{[/paperExpress/list],methods=[POST]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.PaperExpressController.list(top.cflwork.vo.PaperExpressVo)
+2019-02-17 12:07:19 -Mapped "{[/paperExpress/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.PaperExpressController.save(top.cflwork.vo.PaperExpressVo)
+2019-02-17 12:07:19 -Mapped "{[/paperExpress/batchSave],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.PaperExpressController.batchSave(java.util.List<top.cflwork.vo.PaperExpressVo>)
+2019-02-17 12:07:19 -Mapped "{[/paperExpress/edit/{id}],methods=[GET]}" onto public top.cflwork.vo.PaperExpressVo top.cflwork.controller.PaperExpressController.edit(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/paperExpress/paperExpressPage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.PaperExpressController.PaperExpress()
+2019-02-17 12:07:19 -Mapped "{[/readerBook/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.ReaderBookController.add()
+2019-02-17 12:07:19 -Mapped "{[/readerBook/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ReaderBookController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/readerBook/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ReaderBookController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/readerBook/update]}" onto public top.cflwork.util.R top.cflwork.controller.ReaderBookController.update(top.cflwork.vo.ReaderBookVo)
+2019-02-17 12:07:19 -Mapped "{[/readerBook/list],methods=[POST]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.ReaderBookController.list(top.cflwork.vo.ReaderBookVo)
+2019-02-17 12:07:19 -Mapped "{[/readerBook/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ReaderBookController.save(top.cflwork.vo.ReaderBookVo)
+2019-02-17 12:07:19 -Mapped "{[/readerBook/batchSave],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ReaderBookController.batchSave(java.util.List<top.cflwork.vo.ReaderBookVo>)
+2019-02-17 12:07:19 -Mapped "{[/readerBook/edit/{id}],methods=[GET]}" onto public top.cflwork.vo.ReaderBookVo top.cflwork.controller.ReaderBookController.edit(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/readerBook/readerBookPage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.ReaderBookController.ReaderBook()
+2019-02-17 12:07:19 -Mapped "{[/readingRoom/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.ReadingRoomController.add()
+2019-02-17 12:07:19 -Mapped "{[/readingRoom/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ReadingRoomController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/readingRoom/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ReadingRoomController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/readingRoom/update]}" onto public top.cflwork.util.R top.cflwork.controller.ReadingRoomController.update(top.cflwork.vo.ReadingRoomVo)
+2019-02-17 12:07:19 -Mapped "{[/readingRoom/list],methods=[POST]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.ReadingRoomController.list(top.cflwork.vo.ReadingRoomVo)
+2019-02-17 12:07:19 -Mapped "{[/readingRoom/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ReadingRoomController.save(top.cflwork.vo.ReadingRoomVo)
+2019-02-17 12:07:19 -Mapped "{[/readingRoom/batchSave],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ReadingRoomController.batchSave(java.util.List<top.cflwork.vo.ReadingRoomVo>)
+2019-02-17 12:07:19 -Mapped "{[/readingRoom/edit/{id}],methods=[GET]}" onto public java.lang.String top.cflwork.controller.ReadingRoomController.edit(java.lang.String,org.springframework.ui.Model)
+2019-02-17 12:07:19 -Mapped "{[/readingRoom/readingRoomPage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.ReadingRoomController.ReadingRoom()
+2019-02-17 12:07:19 -Mapped "{[/readUser/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.ReadUserController.add()
+2019-02-17 12:07:19 -Mapped "{[/readUser/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ReadUserController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/readUser/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ReadUserController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/readUser/update]}" onto public top.cflwork.util.R top.cflwork.controller.ReadUserController.update(top.cflwork.vo.ReadUserVo)
+2019-02-17 12:07:19 -Mapped "{[/readUser/list],methods=[POST]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.ReadUserController.list(top.cflwork.vo.ReadUserVo)
+2019-02-17 12:07:19 -Mapped "{[/readUser/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ReadUserController.save(top.cflwork.vo.ReadUserVo)
+2019-02-17 12:07:19 -Mapped "{[/readUser/batchSave],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.ReadUserController.batchSave(java.util.List<top.cflwork.vo.ReadUserVo>)
+2019-02-17 12:07:19 -Mapped "{[/readUser/edit/{id}],methods=[GET]}" onto public top.cflwork.vo.ReadUserVo top.cflwork.controller.ReadUserController.edit(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/readUser/readUserPage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.ReadUserController.ReadUser()
+2019-02-17 12:07:19 -Mapped "{[/readUser/resetPwd/{id}]}" onto public top.cflwork.util.R top.cflwork.controller.ReadUserController.resetPwd(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/role/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.RoleController.add()
+2019-02-17 12:07:19 -Mapped "{[/role/update],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.RoleController.update(top.cflwork.vo.RoleVo)
+2019-02-17 12:07:19 -Mapped "{[/role/list],methods=[GET]}" onto public java.util.List<top.cflwork.vo.RoleVo> top.cflwork.controller.RoleController.list()
+2019-02-17 12:07:19 -Mapped "{[/role/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.RoleController.save(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/role/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.RoleController.save(top.cflwork.vo.RoleVo)
+2019-02-17 12:07:19 -Mapped "{[/role/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.RoleController.batchRemove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/role/rolePage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.RoleController.role()
+2019-02-17 12:07:19 -Mapped "{[/role/edit/{id}],methods=[GET]}" onto public java.lang.String top.cflwork.controller.RoleController.edit(java.lang.String,org.springframework.ui.Model)
+2019-02-17 12:07:19 -Mapped "{[/seat/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.SeatController.add()
+2019-02-17 12:07:19 -Mapped "{[/seat/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SeatController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/seat/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SeatController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/seat/update]}" onto public top.cflwork.util.R top.cflwork.controller.SeatController.update(top.cflwork.vo.SeatVo)
+2019-02-17 12:07:19 -Mapped "{[/seat/list],methods=[POST]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.SeatController.list(top.cflwork.vo.SeatVo)
+2019-02-17 12:07:19 -Mapped "{[/seat/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SeatController.save(top.cflwork.vo.SeatVo)
+2019-02-17 12:07:19 -Mapped "{[/seat/batchSave],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SeatController.batchSave(java.util.List<top.cflwork.vo.SeatVo>)
+2019-02-17 12:07:19 -Mapped "{[/seat/edit/{id}],methods=[GET]}" onto public top.cflwork.vo.SeatVo top.cflwork.controller.SeatController.edit(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/seat/seatPage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.SeatController.Seat()
+2019-02-17 12:07:19 -Mapped "{[/seatUse/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.SeatUseController.add()
+2019-02-17 12:07:19 -Mapped "{[/seatUse/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SeatUseController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/seatUse/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SeatUseController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/seatUse/update]}" onto public top.cflwork.util.R top.cflwork.controller.SeatUseController.update(top.cflwork.vo.SeatUseVo)
+2019-02-17 12:07:19 -Mapped "{[/seatUse/list],methods=[POST]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.SeatUseController.list(top.cflwork.vo.SeatUseVo)
+2019-02-17 12:07:19 -Mapped "{[/seatUse/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SeatUseController.save(top.cflwork.vo.SeatUseVo)
+2019-02-17 12:07:19 -Mapped "{[/seatUse/batchSave],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SeatUseController.batchSave(java.util.List<top.cflwork.vo.SeatUseVo>)
+2019-02-17 12:07:19 -Mapped "{[/seatUse/edit/{id}],methods=[GET]}" onto public top.cflwork.vo.SeatUseVo top.cflwork.controller.SeatUseController.edit(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/seatUse/seatUsePage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.SeatUseController.SeatUse()
+2019-02-17 12:07:19 -Mapped "{[/online/list]}" onto public java.util.List<top.cflwork.vo.UserOnline> top.cflwork.controller.SessionController.list()
+2019-02-17 12:07:19 -Mapped "{[/online/sessionList]}" onto public java.util.Collection<org.apache.shiro.session.Session> top.cflwork.controller.SessionController.sessionList()
+2019-02-17 12:07:19 -Mapped "{[/online/onlinePage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.SessionController.online()
+2019-02-17 12:07:19 -Mapped "{[/online/forceLogout/{sessionId}]}" onto public top.cflwork.util.R top.cflwork.controller.SessionController.forceLogout(java.lang.String,org.springframework.web.servlet.mvc.support.RedirectAttributes)
+2019-02-17 12:07:19 -Mapped "{[/space/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.SpaceController.add()
+2019-02-17 12:07:19 -Mapped "{[/space/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SpaceController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/space/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SpaceController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/space/update]}" onto public top.cflwork.util.R top.cflwork.controller.SpaceController.update(top.cflwork.vo.SpaceVo)
+2019-02-17 12:07:19 -Mapped "{[/space/list],methods=[POST]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.SpaceController.list(top.cflwork.vo.SpaceVo)
+2019-02-17 12:07:19 -Mapped "{[/space/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SpaceController.save(top.cflwork.vo.SpaceVo)
+2019-02-17 12:07:19 -Mapped "{[/space/batchSave],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SpaceController.batchSave(java.util.List<top.cflwork.vo.SpaceVo>)
+2019-02-17 12:07:19 -Mapped "{[/space/edit/{id}],methods=[GET]}" onto public top.cflwork.vo.SpaceVo top.cflwork.controller.SpaceController.edit(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/space/spacePage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.SpaceController.Space()
+2019-02-17 12:07:19 -Mapped "{[/spaceUse/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.SpaceUseController.add()
+2019-02-17 12:07:19 -Mapped "{[/spaceUse/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SpaceUseController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/spaceUse/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SpaceUseController.remove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/spaceUse/update]}" onto public top.cflwork.util.R top.cflwork.controller.SpaceUseController.update(top.cflwork.vo.SpaceUseVo)
+2019-02-17 12:07:19 -Mapped "{[/spaceUse/list],methods=[POST]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.SpaceUseController.list(top.cflwork.vo.SpaceUseVo)
+2019-02-17 12:07:19 -Mapped "{[/spaceUse/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SpaceUseController.save(top.cflwork.vo.SpaceUseVo)
+2019-02-17 12:07:19 -Mapped "{[/spaceUse/batchSave],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.SpaceUseController.batchSave(java.util.List<top.cflwork.vo.SpaceUseVo>)
+2019-02-17 12:07:19 -Mapped "{[/spaceUse/edit/{id}],methods=[GET]}" onto public top.cflwork.vo.SpaceUseVo top.cflwork.controller.SpaceUseController.edit(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/spaceUse/spaceUsePage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.SpaceUseController.SpaceUse()
+2019-02-17 12:07:19 -Mapped "{[/test/index]}" onto public java.lang.String top.cflwork.controller.TestController.index() throws java.lang.Exception
+2019-02-17 12:07:19 -Mapped "{[/test/page]}" onto public java.lang.String top.cflwork.controller.TestController.page() throws java.lang.Exception
+2019-02-17 12:07:19 -Mapped "{[/test/testUp]}" onto public void top.cflwork.controller.TestController.testSend()
+2019-02-17 12:07:19 -Mapped "{[/ueditor/core]}" onto public void top.cflwork.controller.UeditorController.core(javax.servlet.http.HttpServletResponse,javax.servlet.http.HttpServletRequest) throws java.lang.Exception
+2019-02-17 12:07:19 -Mapped "{[/user/exit],methods=[POST]}" onto boolean top.cflwork.controller.UserController.exit(java.util.Map<java.lang.String, java.lang.Object>)
+2019-02-17 12:07:19 -Mapped "{[/user/add],methods=[GET]}" onto public java.lang.String top.cflwork.controller.UserController.add(org.springframework.ui.Model)
+2019-02-17 12:07:19 -Mapped "{[/user/remove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.UserController.remove(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/user/update],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.UserController.update(top.cflwork.vo.UserVo)
+2019-02-17 12:07:19 -Mapped "{[/user/list],methods=[GET]}" onto public top.cflwork.util.PageUtils top.cflwork.controller.UserController.list(java.util.Map<java.lang.String, java.lang.Object>)
+2019-02-17 12:07:19 -Mapped "{[/user/save],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.UserController.save(top.cflwork.vo.UserVo)
+2019-02-17 12:07:19 -Mapped "{[/user/batchRemove],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.UserController.batchRemove(java.lang.String[])
+2019-02-17 12:07:19 -Mapped "{[/user/tree],methods=[GET]}" onto public top.cflwork.vo.Tree<top.cflwork.vo.DeptVo> top.cflwork.controller.UserController.tree()
+2019-02-17 12:07:19 -Mapped "{[/user/userPage],methods=[GET]}" onto public java.lang.String top.cflwork.controller.UserController.user()
+2019-02-17 12:07:19 -Mapped "{[/user/getInfo],methods=[GET]}" onto public top.cflwork.util.R top.cflwork.controller.UserController.getInfo()
+2019-02-17 12:07:19 -Mapped "{[/user/edit/{id}],methods=[GET]}" onto public java.lang.String top.cflwork.controller.UserController.edit(org.springframework.ui.Model,java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/user/treeView],methods=[GET]}" onto public java.lang.String top.cflwork.controller.UserController.treeView()
+2019-02-17 12:07:19 -Mapped "{[/user/resetPwd/{id}],methods=[GET]}" onto public java.lang.String top.cflwork.controller.UserController.resetPwd(java.lang.String,org.springframework.ui.Model)
+2019-02-17 12:07:19 -Mapped "{[/user/resetPwd],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.UserController.resetPwd(top.cflwork.vo.UserPwdVo)
+2019-02-17 12:07:19 -Mapped "{[/user/updateHeadIcon],methods=[POST]}" onto public top.cflwork.vo.FileVo top.cflwork.controller.UserController.updateImg(org.springframework.web.multipart.MultipartFile,javax.servlet.http.HttpServletRequest)
+2019-02-17 12:07:19 -Mapped "{[/user/updatePeronal],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.UserController.updatePeronal(top.cflwork.vo.UserVo)
+2019-02-17 12:07:19 -Mapped "{[/user/personal],methods=[GET]}" onto public java.lang.String top.cflwork.controller.UserController.personal(org.springframework.ui.Model)
+2019-02-17 12:07:19 -Mapped "{[/user/uploadImg],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.UserController.uploadImg(java.lang.String)
+2019-02-17 12:07:19 -Mapped "{[/user/adminResetPwd],methods=[POST]}" onto public top.cflwork.util.R top.cflwork.controller.UserController.adminResetPwd(top.cflwork.vo.UserPwdVo)
+2019-02-17 12:07:19 -Mapped "{[/swagger-resources/configuration/ui]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.UiConfiguration> springfox.documentation.swagger.web.ApiResourceController.uiConfiguration()
+2019-02-17 12:07:19 -Mapped "{[/swagger-resources]}" onto public org.springframework.http.ResponseEntity<java.util.List<springfox.documentation.swagger.web.SwaggerResource>> springfox.documentation.swagger.web.ApiResourceController.swaggerResources()
+2019-02-17 12:07:19 -Mapped "{[/swagger-resources/configuration/security]}" onto public org.springframework.http.ResponseEntity<springfox.documentation.swagger.web.SecurityConfiguration> springfox.documentation.swagger.web.ApiResourceController.securityConfiguration()
+2019-02-17 12:07:19 -Mapped URL path [/v2/api-docs] onto method [public org.springframework.http.ResponseEntity<springfox.documentation.spring.web.json.Json> springfox.documentation.swagger2.web.Swagger2Controller.getDocumentation(java.lang.String,javax.servlet.http.HttpServletRequest)]
+2019-02-17 12:07:19 -Initializing ExecutorService  'messageBrokerTaskScheduler'
+2019-02-17 12:07:19 -Mapped URL path [/endpointChat/**] onto handler of type [class org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler]
+2019-02-17 12:07:19 -Initializing ExecutorService  'brokerChannelExecutor'
+2019-02-17 12:07:19 -Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-02-17 12:07:19 -Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6517dbb: startup date [Sun Feb 17 12:07:12 CST 2019]; root of context hierarchy
+2019-02-17 12:07:20 -Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-02-17 12:07:20 -Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-02-17 12:07:20 -Mapped URL path [/files/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2019-02-17 12:07:20 -Detected @ExceptionHandler methods in BDExceptionHandler
+2019-02-17 12:07:20 -[THYMELEAF][restartedMain] Template Mode 'LEGACYHTML5' is deprecated. Using Template Mode 'HTML' instead.
+2019-02-17 12:07:20 -Adding welcome page template: index
+2019-02-17 12:07:20 -init cache area default , type= redis
+2019-02-17 12:07:20 -init cache area default , type= linkedhashmap
+2019-02-17 12:07:20 -cache stat period at 15 MINUTES
+2019-02-17 12:07:21 -Using default implementation for ThreadExecutor
+2019-02-17 12:07:21 -Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2019-02-17 12:07:21 -Quartz Scheduler v.2.2.1 created.
+2019-02-17 12:07:21 -RAMJobStore initialized.
+2019-02-17 12:07:21 -Scheduler meta-data: Quartz Scheduler (v2.2.1) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2019-02-17 12:07:21 -Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2019-02-17 12:07:21 -Quartz scheduler version: 2.2.1
+2019-02-17 12:07:21 -JobFactory set to: org.springframework.boot.autoconfigure.quartz.AutowireCapableBeanJobFactory@451abf7f
+2019-02-17 12:07:21 -LiveReload server is running on port 35729
+2019-02-17 12:07:21 -Registering beans for JMX exposure on startup
+2019-02-17 12:07:21 -Bean with name 'dataSource' has been autodetected for JMX exposure
+2019-02-17 12:07:21 -Located MBean 'dataSource': registering with JMX server as MBean [com.alibaba.druid.pool:name=dataSource,type=DruidDataSource]
+2019-02-17 12:07:21 -Starting beans in phase 2147483647
+2019-02-17 12:07:21 -Context refreshed
+2019-02-17 12:07:21 -Found 1 custom documentation plugin(s)
+2019-02-17 12:07:21 -Scanning for api listing references
+2019-02-17 12:07:22 -Starting...
+2019-02-17 12:07:22 -BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [DefaultSubscriptionRegistry[cache[0 destination(s)], registry[0 sessions]]]]
+2019-02-17 12:07:22 -Started.
+2019-02-17 12:07:22 -Starting Quartz Scheduler now
+2019-02-17 12:07:22 -Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2019-02-17 12:07:22 -Starting ProtocolHandler ["http-nio-8088"]
+2019-02-17 12:07:22 -Using a shared selector for servlet write/read
+2019-02-17 12:07:22 -Tomcat started on port(s): 8088 (http) with context path ''
+2019-02-17 12:07:22 -Started LibraryApplication in 9.704 seconds (JVM running for 10.873)
+2019-02-17 12:07:26 -Initializing Spring FrameworkServlet 'dispatcherServlet'
+2019-02-17 12:07:26 -FrameworkServlet 'dispatcherServlet': initialization started
+2019-02-17 12:07:26 -FrameworkServlet 'dispatcherServlet': initialization completed in 34 ms
+2019-02-17 12:07:26 -Enabling session validation scheduler...
+2019-02-17 12:07:26 -请求地址 : http://localhost:8088/login
+2019-02-17 12:07:26 -HTTP METHOD : GET
+2019-02-17 12:07:26 -CLASS_METHOD : top.cflwork.controller.LoginController.login
+2019-02-17 12:07:26 -参数 : []
+2019-02-17 12:07:26 -耗时 : 4
+2019-02-17 12:07:27 -请求地址 : http://localhost:8088/login;JSESSIONID=5bb55bc6-47bc-4be0-880d-951ff633b730
+2019-02-17 12:07:27 -HTTP METHOD : GET
+2019-02-17 12:07:27 -CLASS_METHOD : top.cflwork.controller.LoginController.login
+2019-02-17 12:07:27 -参数 : []
+2019-02-17 12:07:27 -耗时 : 1
