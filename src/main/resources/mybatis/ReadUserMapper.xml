@@ -211,4 +211,30 @@
         </foreach>
     </delete>
 
+    <select id="getReadUser" resultType="top.cflwork.vo.ReadUserVo">
+        select * from sys_read_user
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="name != null and name != ''">and name = #{name}</if>
+            <if test="sex != null and sex != ''">and sex = #{sex}</if>
+            <if test="age != null and age != ''">and age = #{age}</if>
+            <if test="faceImg != null and faceImg != ''">and face_img = #{faceImg}</if>
+            <if test="phone != null and phone != ''">and phone = #{phone}</if>
+            <if test="password != null and password != ''">and password = #{password}</if>
+            <if test="cardNum != null and cardNum != ''">and card_num = #{cardNum}</if>
+            <if test="cardPwd != null and cardPwd != ''">and card_pwd = #{cardPwd}</if>
+            <if test="cardRcDate != null and cardRcDate != ''">and card_rc_date = #{cardRcDate}</if>
+            <if test="idCard != null and idCard != ''">and id_card = #{idCard}</if>
+            <if test="qq != null and qq != ''">and qq = #{qq}</if>
+            <if test="wx != null and wx != ''">and wx = #{wx}</if>
+            <if test="email != null and email != ''">and email = #{email}</if>
+            <if test="workAdress != null and workAdress != ''">and work_adress = #{workAdress}</if>
+            <if test="isActive != null and isActive != ''">and is_active = #{isActive}</if>
+            <if test="remark != null and remark != ''">and remark = #{remark}</if>
+            <if test="adress != null and adress != ''">and adress = #{adress}</if>
+            <if test="updateTime != null">and update_time = #{updateTime}</if>
+            <if test="createTime != null">and create_time = #{createTime}</if>
+        </where>
+    </select>
+
 </mapper>

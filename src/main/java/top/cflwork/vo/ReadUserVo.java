@@ -6,8 +6,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.Length;
+import top.cflwork.common.GroupTwo;
 import top.cflwork.common.Pager;
 import top.cflwork.config.Constant;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * 读者管理
@@ -29,7 +33,9 @@ public class ReadUserVo implements Serializable {
     private Integer age;
     @ApiModelProperty("用户头像")
     private String faceImg;
-    @ApiModelProperty("读者手机号")
+    @ApiModelProperty("读者手机号,登录账号")
+    @NotBlank(groups = GroupTwo.class,message = "电话号码不能你为空")
+    @Length(max = 11,groups = GroupTwo.class,message = "电话号码长度应为{max}")
     private String phone;
     @ApiModelProperty("读者登录密码")
     private String password;

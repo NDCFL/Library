@@ -60,17 +60,31 @@ public class Swagger2Config {
 //                .build();
 //    }
     @Bean
-    public Docket tApi() {
+    public Docket userApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("用户模块")
                 .apiInfo(apiInfo())
                 .select()
-                .paths(markingPaths())
+                .paths(userPaths())
                 .build();
     }
-    private Predicate<String> markingPaths() {
+    private Predicate<String> userPaths() {
         return or(
                 regex("/user/.*")
+        );
+    }
+    @Bean
+    public Docket loginApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("读者登录模块")
+                .apiInfo(apiInfo())
+                .select()
+                .paths(loginPaths())
+                .build();
+    }
+    private Predicate<String> loginPaths() {
+        return or(
+                regex("/readUser/login.*")
         );
     }
     private ApiInfo apiInfo() {

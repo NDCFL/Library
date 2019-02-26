@@ -30,4 +30,6 @@ public interface ReadUserService {
 	int batchRemove(String[] ids);
 
     int batchSave(List<ReadUserVo> readUserList);
+
+	ReadUserVo getReadUser(ReadUserVo readUserVo);
 }

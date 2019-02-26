@@ -28,4 +28,7 @@ public interface ReadUserDao {
 	int batchRemove(String[] ids);
 
 	int batchSave(List<ReadUserVo> readUserList);
+
+	ReadUserVo getReadUser(ReadUserVo readUserVo);
+
 }

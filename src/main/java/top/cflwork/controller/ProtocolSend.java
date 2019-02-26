@@ -1,16 +1,18 @@
 package top.cflwork.controller;
 
-import java.net.MalformedURLException;
-import java.rmi.RemoteException;
-import javax.annotation.Resource;
-import javax.xml.namespace.QName;
-import javax.xml.rpc.ServiceException;
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
 import top.cflwork.util.JaXmlBeanUtil;
-import top.cflwork.vo.JaBeanToXml;
+import top.cflwork.vo.xmlvo.ReadRootVo;
+import top.cflwork.vo.xmlvo.ReadVo;
 
-import static top.cflwork.util.JaXmlBeanUtil.parseBeanToXml;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.namespace.QName;
+import javax.xml.rpc.ServiceException;
+import java.io.StringReader;
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
 
 /**
  * 青海 webservice 测试
@@ -19,7 +21,7 @@ public class ProtocolSend {
 
 	public static void main(String args[]) {
         //获取读者信息
-//        geteRead();
+        geteRead();
         //图书检索
 //        geteBook();
         //获取书目信息
@@ -27,15 +29,9 @@ public class ProtocolSend {
         //馆藏信息
 //        geteGc();
         //获取借阅记录
-        getJy();
-        JaBeanToXml jaBeanToXml = new JaBeanToXml();
-        jaBeanToXml.setAge(10);
-        jaBeanToXml.setName("测试");
-        jaBeanToXml.setAddress("洪山区");
-        System.out.println(parseBeanToXml(new JaBeanToXml().getClass(),jaBeanToXml));
+//        getJy();
 
 	}
-
 	public static String geteRead(){
         String ip = "111.44.140.226";
         String port = "8083";
@@ -45,7 +41,8 @@ public class ProtocolSend {
         String xmlParams = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root><verification><authorizationCode><![CDATA[123456]]></authorizationCode><subCenterCode><![CDATA[QHL]]></subCenterCode></verification><userInfo><ip>192.168.1.107</ip><userid>wh</userid></userInfo><text><eventType>10020</eventType><cardno>QHL0000701</cardno><password>123456</password></text></root>";
         System.out.println("开始====================");
         String result = ProtocolSend.send(ip, port, wsUrl, wsNameSpace, method, xmlParams);
-        System.out.println("返回结果：" + result);
+        ReadRootVo readRootVo = JaXmlBeanUtil.converyToJavaBean(result, ReadRootVo.class);
+        System.out.println("返回结果：" + readRootVo.getText().getEquipvalue());
         System.out.println("结束====================");
         return result;
     }

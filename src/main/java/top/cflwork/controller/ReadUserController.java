@@ -3,6 +3,7 @@ package top.cflwork.controller;
 import java.util.List;
 import java.util.Map;
 
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -15,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import top.cflwork.util.MD5Utils;
+import top.cflwork.common.ResponseJson;
+import top.cflwork.common.XmlSendUtil;
+import top.cflwork.config.Constant;
+import top.cflwork.util.*;
 import top.cflwork.vo.ReadUserVo;
 import top.cflwork.service.ReadUserService;
-import top.cflwork.util.PageUtils;
-import top.cflwork.util.Query;
-import top.cflwork.util.R;
+import top.cflwork.vo.SendVo;
+import top.cflwork.vo.xmlvo.ReadRootVo;
 
 /**
  * 读者管理
@@ -35,7 +38,8 @@ import top.cflwork.util.R;
 public class ReadUserController {
 	@Autowired
 	private ReadUserService readUserService;
-	
+	@Autowired
+	private XmlSendUtil xmlSendUtil;
 	@GetMapping("readUserPage")
 	@RequiresPermissions("readUser:readUserPage")
 	public String ReadUser(){
@@ -82,7 +86,7 @@ public class ReadUserController {
 	 * 修改
 	 */
 	@ResponseBody
-	@RequestMapping("/update")
+	@PostMapping("/update")
 	@RequiresPermissions("readUser:update")
 	public R update( ReadUserVo readUser){
 		readUserService.update(readUser);
@@ -93,7 +97,7 @@ public class ReadUserController {
 	 * 重置密码
 	 */
 	@ResponseBody
-	@RequestMapping("/resetPwd/{id}")
+	@GetMapping("/resetPwd/{id}")
 	@RequiresPermissions("readUser:update")
 	public R resetPwd(@PathVariable("id") String id){
 		try{
@@ -142,4 +146,62 @@ public class ReadUserController {
 			readUserService.batchSave(readUserList);
         return R.ok("批量新增成功");
     }
+
+	/**
+	 * 登录
+	 */
+	@PostMapping( "/login")
+	@ResponseBody
+	@ApiOperation(value = "读者登录：传入卡号(cardNum)，密码(password)", notes = "返回读者信息")
+	public ResponseJson login(@RequestBody ReadUserVo readUserVo) {
+		try{
+			ReadUserVo u = new ReadUserVo();
+			u.setCardNum(readUserVo.getCardNum());
+			long cnt = readUserService.count(u);
+			ReadUserVo user = readUserService.getReadUser(readUserVo);
+			if (cnt==0) {
+				SendVo sendVo = new SendVo();
+				sendVo.setWsUrl("DLibsAPI/services/ReaderWS");
+				sendVo.setXmlParams(Constant.XMLPARAMS+"<text><eventType>10020</eventType><cardno>"+readUserVo.getCardNum()+"</cardno><password>"+readUserVo.getPassword()+"</password></text></root>");
+				ResponseJson responseJson  = xmlSendUtil.send(sendVo);
+				if(responseJson.getResult().isSuccess()){
+					ReadRootVo readRootVo = JaXmlBeanUtil.converyToJavaBean(responseJson.getResult().getMsg(), ReadRootVo.class);
+					ReadUserVo readUserVo1 = new ReadUserVo();
+					//调用接口可以查询到
+					if(readRootVo.getText()==null){
+						return new ResponseJson(false, "错误的用户名或密码");
+					}else{
+						readUserVo1.setPassword(readUserVo.getPassword());
+						readUserVo1.setCardNum(readRootVo.getText().getCardno());
+						readUserVo1.setPhone(readRootVo.getText().getMobile());
+						readUserVo1.setName(readRootVo.getText().getName());
+						readUserVo1.setSex(readRootVo.getText().getGender()=="男"?0:1);
+						readUserService.save(readUserVo1);
+						String token = JwtUtil.createJWT(readUserVo.getPhone(), "{}", null, -1);
+						return new ResponseJson(true, token, user);
+					}
+				}else{
+					return new ResponseJson(false, "错误的用户名或密码");
+				}
+			} else {
+				if(user==null){
+					return new ResponseJson(false, "错误的用户名或密码");
+				}else{
+					String token = JwtUtil.createJWT(readUserVo.getPhone(), "{}", null, -1);
+					return new ResponseJson(true, token, user);
+				}
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+			return new ResponseJson(false, "服务器异常");
+		}
+	}
+
+	public static void main(String[] args) {
+		SendVo sendVo = new SendVo();
+		sendVo.setWsUrl("DLibsAPI/services/ReaderWS");
+		sendVo.setXmlParams(Constant.XMLPARAMS+"<text><eventType>10020</eventType><cardno>QHL0000701</cardno><password>123456</password></text></root>");
+		ResponseJson responseJson  = new XmlSendUtil().send(sendVo);
+		System.out.println(responseJson.getResult().getMsg());
+	}
 }

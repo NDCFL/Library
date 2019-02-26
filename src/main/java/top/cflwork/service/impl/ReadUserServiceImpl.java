@@ -68,4 +68,9 @@ public class ReadUserServiceImpl implements ReadUserService {
 			readUserList.forEach(e -> e.setId(sequenceId.nextId()));
         return readUserDao.batchSave(readUserList);
     }
+
+	@Override
+	public ReadUserVo getReadUser(ReadUserVo readUserVo) {
+		return readUserDao.getReadUser(readUserVo);
+	}
 }

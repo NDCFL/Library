@@ -28,5 +28,6 @@ public interface Constant {
     interface JPUSH{
         String SOUND_1="sound.caf";
     }
+    String XMLPARAMS = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root><verification><authorizationCode><![CDATA[123456]]></authorizationCode><subCenterCode><![CDATA[QHL]]></subCenterCode></verification><userInfo><ip>192.168.1.107</ip><userid>wh</userid></userInfo>";
     
 }
