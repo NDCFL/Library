@@ -10939,3 +10939,8 @@ java.sql.SQLException: Incorrect integer value: '' for column 'phone' at row 1
 2019-02-26 16:59:07 -CLASS_METHOD : top.cflwork.controller.ReadUserController.login
 2019-02-26 16:59:07 -参数 : [ReadUserVo(id=null, name=null, sex=null, age=null, faceImg=null, phone=null, password=123456, cardNum=QHL0000701, cardPwd=null, cardRcDate=null, idCard=null, qq=null, wx=null, email=null, workAdress=null, isActive=null, remark=null, adress=null, updateTime=null, createTime=null, pager=null)]
 2019-02-26 16:59:07 -耗时 : 5
+2019-02-26 17:00:00 -jetcache stat from 2019-02-26 16:55:17,363 to 2019-02-26 17:00:00,005
+cache|       qps|   rate|           get|           hit|          fail|        expire|avgLoadTime|maxLoadTime
+-----+----------+-------+--------------+--------------+--------------+--------------+-----------+-----------
+-----+----------+-------+--------------+--------------+--------------+--------------+-----------+-----------
+

@@ -1,10 +1,10 @@
 package top.cflwork.controller;
 
+import com.xiaoleilu.hutool.http.HttpUtil;
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
 import top.cflwork.util.JaXmlBeanUtil;
-import top.cflwork.vo.xmlvo.ReadRootVo;
-import top.cflwork.vo.xmlvo.ReadVo;
+import top.cflwork.vo.xmlvo.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
@@ -13,6 +13,7 @@ import javax.xml.rpc.ServiceException;
 import java.io.StringReader;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
+import java.util.List;
 
 /**
  * 青海 webservice 测试
@@ -21,7 +22,7 @@ public class ProtocolSend {
 
 	public static void main(String args[]) {
         //获取读者信息
-        geteRead();
+//        geteRead();
         //图书检索
 //        geteBook();
         //获取书目信息
@@ -30,8 +31,12 @@ public class ProtocolSend {
 //        geteGc();
         //获取借阅记录
 //        getJy();
-
+        //获取流通记录
+//        getLtjl();
+        //新书通报
+        getxstb();
 	}
+
 	public static String geteRead(){
         String ip = "111.44.140.226";
         String port = "8083";
@@ -63,7 +68,8 @@ public class ProtocolSend {
                 "</text></root>";
         System.out.println("开始====================");
         String result = ProtocolSend.send(ip, port, wsUrl, wsNameSpace, method, xmlParams);
-        System.out.println("返回结果：" + result);
+        BookSearchRootVo searchRootVos = JaXmlBeanUtil.converyToJavaBean(result,BookSearchRootVo.class);
+        System.out.println("返回结果：" + searchRootVos);
         System.out.println("结束====================");
         return result;
     }
@@ -80,7 +86,8 @@ public class ProtocolSend {
                 "      </text></root>";
         System.out.println("开始====================");
         String result = ProtocolSend.send(ip, port, wsUrl, wsNameSpace, method, xmlParams);
-        System.out.println("返回结果：" + result);
+        MetaTableRootVo metaTableRootVo = JaXmlBeanUtil.converyToJavaBean(result,MetaTableRootVo.class);
+        System.out.println("返回结果：" + metaTableRootVo);
         System.out.println("结束====================");
         return result;
     }
@@ -94,16 +101,31 @@ public class ProtocolSend {
         String method = "receive";
         String xmlParams = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root><verification><authorizationCode><![CDATA[123456]]></authorizationCode><subCenterCode><![CDATA[QHL]]></subCenterCode></verification><text>\n" +
                 "        <eventType>10016</eventType>\n" +
-                " <metaid>300</metaid>\n" +
-                " <metatable>i_bbl_biblios</metatable>\n" +
+                " <metaid>269511</metaid>\n" +
+                " <metatable>i_biblios</metatable>\n" +
                 " <pageNo>1</pageNo>\n" +
                 " <pageSize>100</pageSize>\n" +
                 " </text>" +
                 "</root>";
         System.out.println("开始====================");
         String result = ProtocolSend.send(ip, port, wsUrl, wsNameSpace, method, xmlParams);
-        System.out.println("返回结果：" + result);
+        CollectionBookRootVo collectionBookRootVo = JaXmlBeanUtil.converyToJavaBean(result,CollectionBookRootVo.class);
+        System.out.println("返回结果：" + collectionBookRootVo);
         System.out.println("结束====================");
+        /**
+         * <barcode><![CDATA[010501610]]></barcode>
+         <callno><![CDATA[J218.2/77]]></callno>
+         <regdate><![CDATA[2013-10-30]]></regdate>
+         <retudate><![CDATA[2015-02-20]]></retudate>
+         <status><![CDATA[普通借出]]></status>
+         <metaid><![CDATA[269511]]></metaid>
+         <metatable><![CDATA[i_biblios]]></metatable>
+         <price><![CDATA[3800]]></price>
+         <sublib><![CDATA[青海省图书馆]]></sublib>
+         <local><![CDATA[一楼]]></local>
+         <cursublib><![CDATA[青海省图书馆]]></cursublib>
+         <curlocal><![CDATA[一楼]]></curlocal>
+         */
         return result;
     }
     public static String getJy(){
@@ -119,10 +141,58 @@ public class ProtocolSend {
                 "</root>";
         System.out.println("开始====================");
         String result = ProtocolSend.send(ip, port, wsUrl, wsNameSpace, method, xmlParams);
-        System.out.println("返回结果：" + result);
+        BorrowRootVo borrowRootVo= JaXmlBeanUtil.converyToJavaBean(result,BorrowRootVo.class);
+        System.out.println("返回结果：" + borrowRootVo);
         System.out.println("结束====================");
         return result;
     }
+    //根据读者证号查询读者历史流通记录
+    public static String getLtjl(){
+        String ip = "111.44.140.226";
+        String port = "8083";
+        String wsUrl = "DLibsAPI/services/ReaderWS";
+        String wsNameSpace = "http://impl.server.axis2.dlibs.com";
+        String method = "receive";
+        String xmlParams = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root><verification><authorizationCode><![CDATA[123456]]></authorizationCode><subCenterCode><![CDATA[QHL]]></subCenterCode></verification><text> \n" +
+                "    <eventType>10025</eventType>  \n" +
+                "    <cardno>QHL0000701</cardno> " +
+                "    <startDate>2016-01-01</startDate>  \n" +
+                "    <endDate>2016-01-31</endDate>  \n" +
+                "    <pageNo>1</pageNo>  \n" +
+                "    <pageSize>20</pageSize>" +
+                "  </text>" +
+                "</root>";
+        System.out.println("开始====================");
+        String result = ProtocolSend.send(ip, port, wsUrl, wsNameSpace, method, xmlParams);
+        ReadBorrowRootVo readBorrowRootVo= JaXmlBeanUtil.converyToJavaBean(result,ReadBorrowRootVo.class);
+        System.out.println("返回结果：" + readBorrowRootVo);
+        System.out.println("结束====================");
+        return result;
+    }
+
+    //新书通报
+    public static String getxstb(){
+        String ip = "111.44.140.226";
+        String port = "8083";
+        String wsUrl = "DLibsAPI/services/AssetsWS";
+        String wsNameSpace = "http://impl.server.axis2.dlibs.com";
+        String method = "receive";
+        String xmlParams = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root><verification><authorizationCode><![CDATA[123456]]></authorizationCode><subCenterCode><![CDATA[QHL]]></subCenterCode></verification><text> \n" +
+                "       <eventType>10003</eventType>\n" +
+                "      <startDate>2018-01-03</startDate>\n" +
+                "       <endDate>2019-02-03</endDate>\n" +
+                "      <sublib>QHL</sublib>\n" +
+                "      <pageNo>1</pageNo>  \n" +
+                "      <pageSize>10</pageSize> </text>" +
+                "</root>";
+        System.out.println("开始====================");
+        String result = ProtocolSend.send(ip, port, wsUrl, wsNameSpace, method, xmlParams);
+        NewBookRootVo newBookRootVo= JaXmlBeanUtil.converyToJavaBean(result,NewBookRootVo.class);
+        System.out.println("返回结果：" + newBookRootVo);
+        System.out.println("结束====================");
+        return result;
+    }
+
 	/**
 	 * 
 	 * 
@@ -184,4 +254,9 @@ public class ProtocolSend {
 		}
 		return result;
 	}
+
+    public static String resultJson(String xml) {
+        return HttpUtil.post("https://www.sojson.com/json/xml2json/execute.shtml","xml="+xml);
+
+    }
 }

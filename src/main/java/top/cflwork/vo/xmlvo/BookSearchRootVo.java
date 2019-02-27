@@ -9,14 +9,15 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.List;
 
 @XmlRootElement(name="root")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
 /**
- * 读者
+ * 图书检索
  */
-public class ReadRootVo  implements Serializable {
+public class BookSearchRootVo implements Serializable {
     @XmlElement(name="code")
     @XmlElementAnno
     @ApiModelProperty("返回code   失败：0  成功 ：1")
@@ -33,7 +34,11 @@ public class ReadRootVo  implements Serializable {
     private Integer pageSize;
 
     @XmlElement(name="text")
-    private ReadVo text;
+    private List<BookSearchVo> text;
+
+    @XmlElement(name="totalCount")
+    @XmlElementAnno
+    private Long totalCount;
 
 
 
