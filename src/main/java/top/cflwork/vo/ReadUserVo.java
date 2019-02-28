@@ -67,5 +67,6 @@ public class ReadUserVo implements Serializable {
     private Date createTime;
     @ApiModelProperty("分页对象")
     private Pager pager;
+    private Date endTime;
 
 }

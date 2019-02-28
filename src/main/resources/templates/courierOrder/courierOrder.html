@@ -14,26 +14,51 @@
         <div class="ibox-content">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    查询条件
+                    查询列表
                 </div>
-                <!--<div class="panel-body form-group" style="margin-bottom:0px;">-->
-                    <!--<div class="col-sm-1" style="width: 120px;margin-left: 100px">-->
-                        <!--<button class="btn btn-primary" id="search_btn" style="width: 100px">查询</button>-->
-                    <!--</div>-->
-                <!--</div>-->
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <table id="mytab" name="mytab" class="table table-hover"></table>
-                    <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
-
-                        <button id="btn_delete" shiro:hasPermission="courierOrder:batchRemove" onclick="batchRemove()"
-                                type="button" class="btn btn-default" style="display: block;">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>批量删除
-                        </button>
-                        <!--<button id="btn_add" type="button" shiro:hasPermission="courierOrder:add"-->
-                                <!--class="btn btn-default" data-toggle="modal" data-target="#webAdd">-->
-                            <!--<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增-->
-                        <!--</button>-->
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">创建时间</label>
+                    <div class="col-sm-2" >
+                        <input type="text" class="form-control" placeholder="请选择时间范围"   name="createTime" id="test_2"/>
                     </div>
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">读者姓名</label>
+                    <div class="col-sm-2"  >
+                        <input type="text" class="form-control" placeholder="请输入读者姓名"  name="readUserName" id="readUserName__"/>
+                    </div>
+                    <label class="col-sm-1 control-label"  style=" margin-top:5px;">读者卡号</label>
+                    <div class="col-sm-2" >
+                        <input type="number" class="form-control" placeholder="请输入读者卡号" style="" name="readUserCardNum" id="readUserCardNum__"/>
+                    </div>
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">抢单员手机</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control" placeholder="请输入抢单员手机号" style="" id="courierPhone__" name="courierPhone"/>
+                    </div>
+                </div>
+
+                <div class="panel-body form-group" style="margin-bottom:0px;">
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">抢单员身份证</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control" placeholder="请输入抢单员身份证" style="" id="courierIdcard__" name="courierIdcard"/>
+                    </div>
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">抢单员地址</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control" placeholder="请输入抢单员地址" style="" id="courierAdress__" name="courierAdress"/>
+                    </div>
+                    <div class="col-sm-3" style="text-align: center;margin: auto" >
+                        <button class="btn btn-primary"  id="search_btn" style="width: 200px" >查询</button>
+                    </div>
+                </div>
+                <table id="mytab" name="mytab" class="table table-hover"></table>
+                <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
+
+                    <button id="btn_delete" shiro:hasPermission="courierOrder:batchRemove" onclick="batchRemove()"
+                            type="button" class="btn btn-default" style="display: block;">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>批量删除
+                    </button>
+                    <!--<button id="btn_add" type="button" shiro:hasPermission="courierOrder:add"-->
+                            <!--class="btn btn-default" data-toggle="modal" data-target="#webAdd">-->
+                        <!--<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增-->
+                    <!--</button>-->
                 </div>
             </div>
         </div>
@@ -229,5 +254,12 @@
 </div>
 <div th:include="includes :: footer"></div>
 <script src="/js/appjs/courierOrder/courierOrder.js"></script>
+<script>
+    laydate.render({
+        elem: '#test_2'//指定元素，
+        ,type: 'date'
+        ,range: true
+    });
+</script>
 </body>
 </html>

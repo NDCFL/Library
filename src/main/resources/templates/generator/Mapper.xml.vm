@@ -23,9 +23,11 @@
                 order by ${pk.columnName} desc
             </otherwise>
         </choose>
-        <if test="pager.pageIndex != null and pager.pageSize != null">
-            limit #{pager.pageIndex}, #{pager.pageSize}
-        </if>
+        <if test="pager!=null and  pager.paging">
+			<if test="pager.pageIndex != null and pager.pageSize != null">
+				limit #{pager.pageIndex}, #{pager.pageSize}
+			</if>
+		</if>
 	</select>
 	
  	<select id="count" resultType="long">

@@ -25,6 +25,8 @@ public class Pager {
     //排序方式
     private String order;
 
+    private boolean paging = true;
+
     public int getPageIndex() {
         return (pageIndex-1)*pageSize;
     }

@@ -208,19 +208,32 @@ $('#updateform').bootstrapValidator({
         validating: 'glyphicon glyphicon-refresh'
     },
     fields: {
-        name: {
-            message: '用户名验证失败',
+        title: {
+            message: '座位名称验证失败',
             validators: {
                 notEmpty: {
-                    message: '用户名称不能为空'
+                    message: '座位名称不能为空'
                 },
                 stringLength: {
                     min: 2,
                     max: 30,
-                    message: '分类名称长度必须在2到30位之间'
+                    message: '座位名称长度必须在2到30位之间'
                 }
             }
-        }
+        },
+        seatCode: {
+            message: '座位编号验证失败',
+            validators: {
+                notEmpty: {
+                    message: '座位编号不能为空'
+                },
+                stringLength: {
+                    min: 2,
+                    max: 30,
+                    message: '座位编号长度必须在2到30位之间'
+                }
+            }
+        },
     }
 });
 $("#update").click(function () {
@@ -251,19 +264,32 @@ $('#formadd').bootstrapValidator({
         validating: 'glyphicon glyphicon-refresh'
     },
     fields: {
-        name: {
-            message: '用户名验证失败',
+        title: {
+            message: '座位名称验证失败',
             validators: {
                 notEmpty: {
-                    message: '分类名称不能为空'
+                    message: '座位名称不能为空'
                 },
                 stringLength: {
                     min: 2,
                     max: 30,
-                    message: '分类名称长度必须在2到30位之间'
+                    message: '座位名称长度必须在2到30位之间'
                 }
             }
-        }
+        },
+        seatCode: {
+            message: '座位编号验证失败',
+            validators: {
+                notEmpty: {
+                    message: '座位编号不能为空'
+                },
+                stringLength: {
+                    min: 2,
+                    max: 30,
+                    message: '座位编号长度必须在2到30位之间'
+                }
+            }
+        },
     }
 });
 $("#add").click(function () {

@@ -2,7 +2,7 @@
 $('#mytab').bootstrapTable({
     method: 'post',
     contentType: "application/x-www-form-urlencoded",//必须要有！！！！
-    url: "/courierOrder/list",//要请求数据的文件路径
+    url: "/readUserBehave/list",//要请求数据的文件路径
     toolbar: '#toolbar',//指定工具栏
     striped: true, //是否显示行间隔色
     dataField: "res",
@@ -35,38 +35,26 @@ $('#mytab').bootstrapTable({
             valign: 'middle'
         },
         {
-            field: 'readUserName',
-            title: '读者名字',
+            field: 'id',
+            title: '兴趣爱好编号',
             align: 'center',
             sortable: true
         },
         {
-            field: 'readUserCardNum',
-            title: '读者卡号',
+            field: 'readUserId',
+            title: '读者编号',
             align: 'center',
             sortable: true
         },
         {
-            field: 'courierPhone',
-            title: '抢单员手机号',
-            align: 'center',
-            sortable: true
-        },
-        {
-            field: 'courierIdcard',
-            title: '抢单员身份证号',
-            align: 'center',
-            sortable: true
-        },
-        {
-            field: 'courierAdress',
-            title: '抢单员地址',
+            field: 'title',
+            title: '兴趣名称',
             align: 'center',
             sortable: true
         },
         {
             field: 'createTime',
-            title: '申请时间',
+            title: '创建时间',
             align: 'center',
             sortable: true
         },
@@ -75,7 +63,7 @@ $('#mytab').bootstrapTable({
             align: 'center',
             field: '',
             formatter: function (value, row, index) {
-                var e = '<a title="编辑"  id="courierOrder"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
+                var e = '<a title="编辑" href="javascript:void(0);" id="readUserBehave"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del(\'' + row.id + '\',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
                 var f = '';
                 if (row.isActive == 1) {
@@ -84,7 +72,7 @@ $('#mytab').bootstrapTable({
                     f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
                 }
 
-                return d ;
+                return e + d + f;
             }
         }
     ],
@@ -106,15 +94,10 @@ $('#mytab').bootstrapTable({
 
 //请求服务数据时所传参数
 function queryParams(params) {
-    var times = $("#test_2").val();
-    var start, end;
-    if (!times) {
-        start = null;
-        end = null;
-    } else {
-        start = times.substring(0, 11) + "00:00:00";
-        end = times.substring(13, times.length) + " 23:59:59";
-    }
+    var title = "";
+    $(".search input").each(function () {
+        title = $(this).val();
+    });
     return {
         //每页多少条数据
         'pager.pageSize': this.pageSize,
@@ -124,13 +107,7 @@ function queryParams(params) {
         'pager.sort': 'create_time',
         //排序方式
         'pager.order': 'desc',
-        createTime: start,
-        endTime: end,
-        readUserName: $("#readUserName__").val(),
-        readUserCardNum: $("#readUserCardNum__").val(),
-        courierPhone: $("#courierPhone__").val(),
-        courierIdcard: $("#courierIdcard__").val(),
-        courierAdress:$("#courierAdress__").val()
+        searchVal: title
     }
 }
 
@@ -162,7 +139,7 @@ function del(id, status) {
         return;
     }
     layer.confirm('确认要删除吗？', function (index) {
-        $.post("/courierOrder/remove",
+        $.post("/readUserBehave/remove",
             {
                 "id": id
             },
@@ -180,8 +157,7 @@ function del(id, status) {
 }
 
 function edit(name) {
-    alert(name);
-    $.get("/courierOrder/edit/" + name,
+    $.get("/readUserBehave/edit/" + name,
         function (data) {
             $("#updateform").autofill(data);
         },
@@ -190,7 +166,7 @@ function edit(name) {
 }
 
 function updatestatus(id, status) {
-    $.post("/courierOrder/update",
+    $.post("/readUserBehave/update",
         {
             "id": id,
             "status": status
@@ -217,49 +193,11 @@ function updatestatus(id, status) {
 
 //查询按钮事件
 $('#search_btn').click(function () {
-    var times = $("#test_2").val();
-    var start, end;
-    if (!times) {
-        start = null;
-        end = null;
-    } else {
-        start = times.substring(0, 11) + "00:00:00";
-        end = times.substring(13, times.length) + " 23:59:59";
-    }
-    $('#mytab').bootstrapTable('refresh', {url: '/courierOrder/list',
-        query: {
-            createTime: start,
-            endTime: end,
-            readUserName: $("#readUserName__").val(),
-            readUserCardNum: $("#readUserCardNum__").val(),
-            courierPhone: $("#courierPhone__").val(),
-            courierIdcard: $("#courierIdcard__").val(),
-            courierAdress:$("#courierAdress__").val()
-        }
-    });
+    $('#mytab').bootstrapTable('refresh', {url: '/readUserBehave/list'});
 })
 
 function refush() {
-    var times = $("#test_2").val();
-    var start, end;
-    if (!times) {
-        start = null;
-        end = null;
-    } else {
-        start = times.substring(0, 11) + "00:00:00";
-        end = times.substring(13, times.length) + " 23:59:59";
-    }
-    $('#mytab').bootstrapTable('refresh', {url: '/courierOrder/list',
-        query: {
-            createTime: start,
-            endTime: end,
-            readUserName: $("#readUserName__").val(),
-            readUserCardNum: $("#readUserCardNum__").val(),
-            courierPhone: $("#courierPhone__").val(),
-            courierIdcard: $("#courierIdcard__").val(),
-            courierAdress:$("#courierAdress__").val()
-        }
-    });
+    $('#mytab').bootstrapTable('refresh', {url: '/readUserBehave/list'});
 }
 
 $('#updateform').bootstrapValidator({
@@ -291,7 +229,7 @@ $("#update").click(function () {
         return;
     }
     $.post(
-        "/courierOrder/update",
+        "/readUserBehave/update",
         $('#updateform').serialize(),
         function (result) {
             if (result.code == 0) {
@@ -334,7 +272,7 @@ $("#add").click(function () {
         return;
     }
     $.post(
-        "/courierOrder/save",
+        "/readUserBehave/save",
         $('#formadd').serialize(),
         function (result) {
             if (result.code == 0) {
@@ -365,7 +303,7 @@ function batchRemove() {
             ids[i] = row['id'];
         });
         $.post(
-            "/courierOrder/batchRemove",
+            "/readUserBehave/batchRemove",
             {
                 "ids": ids
             }, function (data) {
@@ -405,7 +343,7 @@ function deleteMany() {
 $("#updateSta").click(function () {
     layer.confirm('确认要执行批量修改状态吗？', function (index) {
         $.post(
-            "/courierOrder/deleteManyCourierOrder",
+            "/readUserBehave/deleteManyReadUserBehave",
             {
                 "manyId": $("#statusId").val(),
                 "status": $("#status").val()

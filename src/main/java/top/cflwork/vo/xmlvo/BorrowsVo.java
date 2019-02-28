@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public class BorrowVo implements Serializable {
+public class BorrowsVo implements Serializable {
 
     @XmlElement(name = "status")
     @XmlElementAnno

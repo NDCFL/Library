@@ -141,7 +141,7 @@ public class ProtocolSend {
                 "</root>";
         System.out.println("开始====================");
         String result = ProtocolSend.send(ip, port, wsUrl, wsNameSpace, method, xmlParams);
-        BorrowRootVo borrowRootVo= JaXmlBeanUtil.converyToJavaBean(result,BorrowRootVo.class);
+        BorrowsRootVo borrowRootVo= JaXmlBeanUtil.converyToJavaBean(result,BorrowsRootVo.class);
         System.out.println("返回结果：" + borrowRootVo);
         System.out.println("结束====================");
         return result;

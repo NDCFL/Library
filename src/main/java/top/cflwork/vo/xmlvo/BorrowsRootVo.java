@@ -14,7 +14,7 @@ import java.util.List;
 @XmlRootElement(name="root")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public class BorrowRootVo implements Serializable{
+public class BorrowsRootVo implements Serializable{
 
     @XmlElement(name="code")
     @XmlElementAnno
@@ -22,5 +22,5 @@ public class BorrowRootVo implements Serializable{
     private Integer code;
 
     @XmlElement(name="text")
-    private BorrowVo text;
+    private BorrowsVo text;
 }

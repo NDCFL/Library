@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import top.cflwork.common.Pager;
 import top.cflwork.vo.AddressVo;
 import top.cflwork.service.AddressService;
 import top.cflwork.util.PageUtils;
@@ -45,6 +46,20 @@ public class AddressController {
     @PostMapping("/list")
     public List<AddressVo> list(AddressVo addressVo) {
         //查询列表数据
+        List<AddressVo> addressList = addressService.list(addressVo);
+        return addressList;
+    }
+    @ResponseBody
+    @PostMapping("/findList/{id}")
+    public List<AddressVo> findList(@PathVariable("id") String id) {
+        //查询列表数据
+        AddressVo addressVo = new AddressVo();
+        addressVo.setReadUserId(id);
+        Pager pager = new Pager();
+        pager.setOrder("desc");
+        pager.setSort("create_time");
+        pager.setPaging(false);
+        addressVo.setPager(pager);
         List<AddressVo> addressList = addressService.list(addressVo);
         return addressList;
     }
@@ -115,7 +130,7 @@ public class AddressController {
     }
 
     /**
-     * 删除
+     * 批量保存
      */
     @PostMapping("/batchSave")
     @ResponseBody
@@ -123,4 +138,17 @@ public class AddressController {
         addressService.batchSave(addressList);
         return R.ok("批量新增成功");
     }
+
+    @PostMapping("/saveOrUpdate")
+    @ResponseBody
+    public R saveOrUpdate(AddressVo addressVo) {
+        if(null==addressVo.getId() || "".equals(addressVo.getId())){
+            addressService.save(addressVo);
+        }else{
+            addressService.update(addressVo);
+        }
+        return R.ok("操作成功");
+    }
+
+
 }

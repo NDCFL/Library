@@ -15,13 +15,12 @@
         <where>
             <if test="id != null and id != ''">and id = #{id}</if>
             <if test="readUserId != null and readUserId != ''">and read_user_id = #{readUserId}</if>
-            <if test="readUserName != null and readUserName != ''">and read_user_name = #{readUserName}</if>
-            <if test="readUserCardNum != null and readUserCardNum != ''">and read_user_card_num = #{readUserCardNum}
-            </if>
-            <if test="courierPhone != null and courierPhone != ''">and courier_phone = #{courierPhone}</if>
-            <if test="courierIdcard != null and courierIdcard != ''">and courier_idcard = #{courierIdcard}</if>
-            <if test="courierAdress != null and courierAdress != ''">and courier_adress = #{courierAdress}</if>
-            <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+            <if test="readUserName != null and readUserName != ''">and read_user_name like concat('%${readUserName}%')</if>
+            <if test="readUserCardNum != null and readUserCardNum != ''">and read_user_card_num like concat('%${readUserCardNum}%')</if>
+            <if test="courierPhone != null and courierPhone != ''">and courier_phone  like concat('%${courierPhone}%')</if>
+            <if test="courierIdcard != null and courierIdcard != ''">and courier_idcard  like concat('%${courierIdcard}%')</if>
+            <if test="courierAdress != null and courierAdress != ''">and courier_adress  like concat('%${courierAdress}%')</if>
+            <if test="createTime != null and endTime != null">and create_time between  #{createTime} and #{endTime}</if>
         </where>
         <choose>
             <when test="pager.sort != null and pager.order != null">
@@ -41,13 +40,12 @@
         <where>
             <if test="id != null and id != ''">and id = #{id}</if>
             <if test="readUserId != null and readUserId != ''">and read_user_id = #{readUserId}</if>
-            <if test="readUserName != null and readUserName != ''">and read_user_name = #{readUserName}</if>
-            <if test="readUserCardNum != null and readUserCardNum != ''">and read_user_card_num = #{readUserCardNum}
-            </if>
-            <if test="courierPhone != null and courierPhone != ''">and courier_phone = #{courierPhone}</if>
-            <if test="courierIdcard != null and courierIdcard != ''">and courier_idcard = #{courierIdcard}</if>
-            <if test="courierAdress != null and courierAdress != ''">and courier_adress = #{courierAdress}</if>
-            <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+            <if test="readUserName != null and readUserName != ''">and read_user_name like concat('%${readUserName}%')</if>
+            <if test="readUserCardNum != null and readUserCardNum != ''">and read_user_card_num like concat('%${readUserCardNum}%')</if>
+            <if test="courierPhone != null and courierPhone != ''">and courier_phone  like concat('%${courierPhone}%')</if>
+            <if test="courierIdcard != null and courierIdcard != ''">and courier_idcard  like concat('%${courierIdcard}%')</if>
+            <if test="courierAdress != null and courierAdress != ''">and courier_adress  like concat('%${courierAdress}%')</if>
+            <if test="createTime != null and endTime != null">and create_time between  #{createTime} and #{endTime}</if>
         </where>
     </select>
 

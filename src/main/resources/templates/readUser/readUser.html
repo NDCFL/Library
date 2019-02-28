@@ -14,26 +14,47 @@
         <div class="ibox-content">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    查询条件
+                    查询列表
                 </div>
-                <!--<div class="panel-body form-group" style="margin-bottom:0px;">-->
-                    <!--<div class="col-sm-1" style="width: 120px;margin-left: 100px">-->
-                        <!--<button class="btn btn-primary" id="search_btn" style="width: 100px">查询</button>-->
-                    <!--</div>-->
-                <!--</div>-->
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <table id="mytab" name="mytab" class="table table-hover"></table>
-                    <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
-
-                        <button id="btn_delete" shiro:hasPermission="readUser:batchRemove" onclick="batchRemove()"
-                                type="button" class="btn btn-default" style="display: block;">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>批量删除
-                        </button>
-                        <!--<button id="btn_add" type="button" shiro:hasPermission="readUser:add" class="btn btn-default"-->
-                                <!--data-toggle="modal" data-target="#webAdd">-->
-                            <!--<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增-->
-                        <!--</button>-->
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">创建时间</label>
+                    <div class="col-sm-2" >
+                        <input type="text" class="form-control" placeholder="请选择时间范围"   name="createTime" id="test_2"/>
                     </div>
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">读者姓名</label>
+                    <div class="col-sm-2"  >
+                        <input type="text" class="form-control" placeholder="请输入读者姓名"  name="name" id="name__"/>
+                    </div>
+                    <label class="col-sm-1 control-label"  style=" margin-top:5px;">读者证号</label>
+                    <div class="col-sm-2" >
+                        <input type="number" class="form-control" placeholder="请输入读者证号" style="" name="cardNum" id="cardNum__"/>
+                    </div>
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">身份证号</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control" placeholder="请输入身份证号" style="" id="idCard__" name="idCard"/>
+                    </div>
+                </div>
+
+                <div class="panel-body form-group" style="margin-bottom:0px;">
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">手机号</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control" placeholder="请输入手机号" style="" id="phone__" name="phone"/>
+                    </div>
+                    <div class="col-sm-3" style="text-align: center;margin: auto" >
+                        <button class="btn btn-primary"  id="search_btn" style="width: 200px" >查询</button>
+                    </div>
+                </div>
+                    <table id="mytab" name="mytab"  class="table table-hover"></table>
+                <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
+
+                    <button id="btn_delete" shiro:hasPermission="readUser:batchRemove" onclick="batchRemove()"
+                            type="button" class="btn btn-default" style="display: block;">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>批量删除
+                    </button>
+                    <!--<button id="btn_add" type="button" shiro:hasPermission="readUser:add" class="btn btn-default"-->
+                            <!--data-toggle="modal" data-target="#webAdd">-->
+                        <!--<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增-->
+                    <!--</button>-->
                 </div>
             </div>
         </div>
@@ -340,6 +361,104 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+<div class="modal fade  bs-example-modal-lg" id="order_item_list" tabindex="-1" role="dialog" aria-labelledby="remark_modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    地址管理
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="form_add">
+                    <input type="hidden" id="id_add" name="id" />
+                    <input type="hidden" id="readUserId_add" name="readUserId" />
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">联系人</label>
+                            <div class="col-sm-4">
+                                <input id="name_add" name="name" type="text" placeholder="请输入联系人" class="form-control" required=""
+                                       aria-required="true">
+                            </div>
+                            <label class="col-sm-2 control-label">联系方式</label>
+                            <div class="col-sm-4">
+                                <input id="phone_add" name="phone" type="text" placeholder="请输入联系方式" class="form-control" required=""
+                                       aria-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">地址</label>
+                            <div class="col-sm-4">
+                                <input id="adress_add" name="adress" type="text" placeholder="请输入地址" class="form-control" required=""
+                                       aria-required="true">
+                            </div>
+                            <label class="col-sm-2 control-label">是否默认</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" name="isOften">
+                                    <option value="0">是</option>
+                                    <option value="1">否</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                    <button type="reset" class="btn btn-default" id="reset_add" onclick="resetAddress()">重置
+                    </button>
+                        <button type="button" id="add_add" class="btn btn-primary">
+                            确认新增
+                        </button>
+                </form>
+                <table id="mytab2" name="mytab2" class="table table-hover"></table>
+                <div id="toolbar1" class="btn-group pull-right" style="margin-right: 20px;">
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</div>
+<div class="modal fade  bs-example-modal-lg" id="love_item_list" tabindex="-1" role="dialog" aria-labelledby="remark_modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    兴趣爱好管理
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="form_add_love">
+                    <input type="hidden" id="id_add_love" name="id" />
+                    <input type="hidden" id="readUserId_add_love" name="readUserId" />
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">爱好名称</label>
+                            <div class="col-sm-4">
+                                <input id="title_add" name="title" type="text" placeholder="请输入爱好名称" class="form-control" required=""
+                                       aria-required="true">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="reset" class="btn btn-default" id="reset_add_love" onclick="resetLove()">重置
+                    </button>
+                    <button type="button" id="add_add_love" class="btn btn-primary">
+                        确认新增
+                    </button>
+                </form>
+                <table id="mytab3" name="mytab2" class="table table-hover"></table>
+                <div id="toolbar2" class="btn-group pull-right" style="margin-right: 20px;">
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+</div>
+
 <!--shiro控制bootstraptable行内按钮看见性 来自cflworks的创新方案 -->
 <div>
     <script type="text/javascript">
@@ -366,5 +485,12 @@
 
 <div th:include="includes :: footer"></div>
 <script src="/js/appjs/readUser/readUser.js"></script>
+<script>
+    laydate.render({
+        elem: '#test_2'//指定元素，
+        ,type: 'date'
+        ,range: true
+    });
+</script>
 </body>
 </html>

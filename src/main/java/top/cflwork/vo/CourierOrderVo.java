@@ -36,4 +36,6 @@ public class CourierOrderVo implements Serializable {
     private Date createTime;
     @ApiModelProperty("分页对象")
     private Pager pager;
+    @ApiModelProperty("结束时间")
+    private Date endTime;
 }
