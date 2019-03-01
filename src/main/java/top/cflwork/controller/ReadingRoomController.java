@@ -44,12 +44,12 @@ public class ReadingRoomController {
 	@ResponseBody
 	@PostMapping("/list")
 	@RequiresPermissions("readingRoom:list")
-	public PageUtils list(ReadingRoomVo readingRoomVo){
+	public List<ReadingRoomVo> list(ReadingRoomVo readingRoomVo){
 		//查询列表数据
 		List<ReadingRoomVo> readingRoomList = readingRoomService.list(readingRoomVo);
-		Long total = readingRoomService.count(readingRoomVo);
-		PageUtils pageUtils = new PageUtils(readingRoomList, total);
-		return pageUtils;
+//		Long total = readingRoomService.count(readingRoomVo);
+//		PageUtils pageUtils = new PageUtils(readingRoomList, total);
+		return readingRoomList;
 	}
 
 	@GetMapping("/add")

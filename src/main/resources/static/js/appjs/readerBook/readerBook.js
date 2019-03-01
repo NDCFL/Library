@@ -11,7 +11,7 @@ $('#mytab').bootstrapTable({
     pagination: true,//是否分页
     queryParamsType: 'limit',//查询参数组织方式
     queryParams: queryParams,//请求服务器时所传的参数
-    sidePagination: 'server',//指定服务器端分页
+    sidePagination: 'client',//指定服务器端分页
     pageNumber: 1, //初始化加载第一页，默认第一页
     pageSize: 10,//单页记录数
     pageList: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],//分页步进值
@@ -74,7 +74,16 @@ $('#mytab').bootstrapTable({
             field: 'isActive',
             title: '状态',
             align: 'center',
-            sortable: true
+            sortable: true,
+            formatter: function (value, row, index) {
+                if (value == 0) {
+                    //表示启用状态
+                    return '<span style="color: green" >启用</span>';
+                } else {
+                    //表示启用状态
+                    return '<span style="color: red" >停用</span>';
+                }
+            }
         },
         {
             field: 'createTime',
@@ -101,19 +110,19 @@ $('#mytab').bootstrapTable({
         }
     ],
     locale: 'zh-CN',//中文支持,
-    responseHandler: function (res) {
-        if (res) {
-            return {
-                "res": res.rows,
-                "total": res.total
-            };
-        } else {
-            return {
-                "rows": [],
-                "total": 0
-            };
-        }
-    }
+    // responseHandler: function (res) {
+    //     if (res) {
+    //         return {
+    //             "res": res.rows,
+    //             "total": res.total
+    //         };
+    //     } else {
+    //         return {
+    //             "rows": [],
+    //             "total": 0
+    //         };
+    //     }
+    // }
 })
 
 //请求服务数据时所传参数

@@ -13,14 +13,14 @@
         <where>
             <if test="id != null and id != ''">and s.id = #{id}</if>
             <if test="readUserId != null and readUserId != ''">and s.read_user_id = #{readUserId}</if>
-            <if test="title != null and title != ''">and s.title = #{title}</if>
-            <if test="content != null and content != ''">and s.content = #{content}</if>
-            <if test="genHave != null and genHave != ''">and s.gen_have = #{genHave}</if>
-            <if test="shape != null and shape != ''">and s.shape = #{shape}</if>
+            <if test="title != null and title != ''">and s.title  like concat('%${title}%')</if>
+            <if test="content != null and content != ''">and s.content like concat('%${content}%')</if>
+            <if test="genHave != null and genHave != ''">and s.gen_have like concat('%${genHave}%')</if>
+            <if test="shape != null and shape != ''">and s.shape like concat('%${shape}%')</if>
             <if test="status != null and status != ''">and s.status = #{status}</if>
-            <if test="reason != null and reason != ''">and s.reason = #{reason}</if>
-            <if test="endTime != null and endTime != ''">and s.end_time = #{endTime}</if>
-            <if test="createTime != null and createTime != ''">and s.create_time = #{createTime}</if>
+            <if test="reason != null and reason != ''">and s.reason like concat('%${reason}%')</if>
+            <if test="endTime != null">and s.end_time = #{endTime}</if>
+            <if test="createTime != null and endsTime != null">and s.create_time between  #{createTime} and #{endsTime}</if>
         </where>
         <choose>
             <when test="pager.sort != null and pager.order != null">
@@ -40,14 +40,14 @@
         <where>
             <if test="id != null and id != ''">and s.id = #{id}</if>
             <if test="readUserId != null and readUserId != ''">and s.read_user_id = #{readUserId}</if>
-            <if test="title != null and title != ''">and s.title = #{title}</if>
-            <if test="content != null and content != ''">and s.content = #{content}</if>
-            <if test="genHave != null and genHave != ''">and s.gen_have = #{genHave}</if>
-            <if test="shape != null and shape != ''">and s.shape = #{shape}</if>
+            <if test="title != null and title != ''">and s.title  like concat('%${title}%')</if>
+            <if test="content != null and content != ''">and s.content like concat('%${content}%')</if>
+            <if test="genHave != null and genHave != ''">and s.gen_have like concat('%${genHave}%')</if>
+            <if test="shape != null and shape != ''">and s.shape like concat('%${shape}%')</if>
             <if test="status != null and status != ''">and s.status = #{status}</if>
-            <if test="reason != null and reason != ''">and s.reason = #{reason}</if>
-            <if test="endTime != null and endTime != ''">and s.end_time = #{endTime}</if>
-            <if test="createTime != null and createTime != ''">and s.create_time = #{createTime}</if>
+            <if test="reason != null and reason != ''">and s.reason like concat('%${reason}%')</if>
+            <if test="endTime != null">and s.end_time = #{endTime}</if>
+            <if test="createTime != null and endsTime != null">and s.create_time between  #{createTime} and #{endsTime}</if>
         </where>
     </select>
 

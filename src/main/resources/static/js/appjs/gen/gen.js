@@ -122,10 +122,15 @@ $('#mytab').bootstrapTable({
 
 //请求服务数据时所传参数
 function queryParams(params) {
-    var title = "";
-    $(".search input").each(function () {
-        title = $(this).val();
-    });
+    var times = $("#test_2").val();
+    var start, end;
+    if (!times) {
+        start = null;
+        end = null;
+    } else {
+        start = times.substring(0, 11) + "00:00:00";
+        end = times.substring(13, times.length) + " 23:59:59";
+    }
     return {
         //每页多少条数据
         'pager.pageSize': this.pageSize,
@@ -135,7 +140,12 @@ function queryParams(params) {
         'pager.sort': 'create_time',
         //排序方式
         'pager.order': 'desc',
-        searchVal: title
+        createTime: start,
+        endsTime: end,
+        title: $("#title__").val(),
+        content: $("#content__").val(),
+        genHave: $("#genHave__").val(),
+        shape: $("#shape__").val()
     }
 }
 
@@ -213,11 +223,47 @@ function updatestatus(id, status) {
 
 //查询按钮事件
 $('#search_btn').click(function () {
-    $('#mytab').bootstrapTable('refresh', {url: '/gen/list'});
+    var times = $("#test_2").val();
+    var start, end;
+    if (!times) {
+        start = null;
+        end = null;
+    } else {
+        start = times.substring(0, 11) + "00:00:00";
+        end = times.substring(13, times.length) + " 23:59:59";
+    }
+    $('#mytab').bootstrapTable('refresh', {url: '/gen/list',
+        query: {
+            createTime: start,
+            endsTime: end,
+            title: $("#title__").val(),
+            content: $("#content__").val(),
+            genHave: $("#genHave__").val(),
+            shape: $("#shape__").val()
+        }
+    });
 })
 
 function refush() {
-    $('#mytab').bootstrapTable('refresh', {url: '/gen/list'});
+    var times = $("#test_2").val();
+    var start, end;
+    if (!times) {
+        start = null;
+        end = null;
+    } else {
+        start = times.substring(0, 11) + "00:00:00";
+        end = times.substring(13, times.length) + " 23:59:59";
+    }
+    $('#mytab').bootstrapTable('refresh', {url: '/gen/list',
+        query: {
+            createTime: start,
+            endsTime: end,
+            title: $("#title__").val(),
+            content: $("#content__").val(),
+            genHave: $("#genHave__").val(),
+            shape: $("#shape__").val()
+        }
+    });
 }
 
 $('#updateform').bootstrapValidator({

@@ -44,12 +44,12 @@ public class SpaceUseController {
 	@ResponseBody
 	@PostMapping("/list")
 	@RequiresPermissions("spaceUse:list")
-	public PageUtils list(SpaceUseVo spaceUseVo){
+	public List<SpaceUseVo> list(SpaceUseVo spaceUseVo){
 		//查询列表数据
 		List<SpaceUseVo> spaceUseList = spaceUseService.list(spaceUseVo);
-		Long total = spaceUseService.count(spaceUseVo);
-		PageUtils pageUtils = new PageUtils(spaceUseList, total);
-		return pageUtils;
+//		Long total = spaceUseService.count(spaceUseVo);
+//		PageUtils pageUtils = new PageUtils(spaceUseList, total);
+		return spaceUseList;
 	}
 
 	@GetMapping("/add")

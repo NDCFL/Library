@@ -44,12 +44,12 @@ public class SeatController {
 	@ResponseBody
 	@PostMapping("/list")
 	@RequiresPermissions("seat:list")
-	public PageUtils list(SeatVo seatVo){
+	public List<SeatVo> list(SeatVo seatVo){
 		//查询列表数据
 		List<SeatVo> seatList = seatService.list(seatVo);
-		Long total = seatService.count(seatVo);
-		PageUtils pageUtils = new PageUtils(seatList, total);
-		return pageUtils;
+//		Long total = seatService.count(seatVo);
+//		PageUtils pageUtils = new PageUtils(seatList, total);
+		return seatList;
 	}
 
 	@GetMapping("/add")

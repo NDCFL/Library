@@ -1,4 +1,3 @@
-var statusMap = ['已借出','已归还','借阅异常'];
 //生成用户数据
 $('#mytab').bootstrapTable({
     method: 'post',
@@ -12,7 +11,7 @@ $('#mytab').bootstrapTable({
     pagination: true,//是否分页
     queryParamsType: 'limit',//查询参数组织方式
     queryParams: queryParams,//请求服务器时所传的参数
-    sidePagination: 'server',//指定服务器端分页
+    sidePagination: 'client',//指定服务器端分页
     pageNumber: 1, //初始化加载第一页，默认第一页
     pageSize: 10,//单页记录数
     pageList: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],//分页步进值
@@ -36,26 +35,38 @@ $('#mytab').bootstrapTable({
             valign: 'middle'
         },
         {
-            field: 'borrowTime',
-            title: '借出时间',
+            field: 'id',
+            title: '借阅编号',
             align: 'center',
             sortable: true
         },
         {
-            field: 'inTime',
-            title: '归还时间',
+            field: 'cardno',
+            title: '读者卡号',
             align: 'center',
             sortable: true
         },
         {
-            field: 'bookName',
+            field: 'loandate',
+            title: '借书时间',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'retudate',
+            title: '还书时间',
+            align: 'center',
+            sortable: true
+        },
+        {
+            field: 'title',
             title: '图书名',
             align: 'center',
             sortable: true
         },
         {
-            field: 'publishTime',
-            title: '出版时间',
+            field: 'callno',
+            title: '索书号',
             align: 'center',
             sortable: true
         },
@@ -66,14 +77,14 @@ $('#mytab').bootstrapTable({
             sortable: true
         },
         {
-            field: 'inName',
-            title: '借入者',
+            field: 'cirtype',
+            title: '流通类别',
             align: 'center',
             sortable: true
         },
         {
-            field: 'outName',
-            title: '借出者',
+            field: 'renenum',
+            title: '续借次数',
             align: 'center',
             sortable: true
         },
@@ -84,29 +95,49 @@ $('#mytab').bootstrapTable({
             sortable: true
         },
         {
-            field: 'status',
-            title: '状态',
+            field: 'readUserIdIn',
+            title: '读者编号',
             align: 'center',
-            sortable: true,
+            sortable: true
+        },
+        {
+            field: 'bookId',
+            title: '图书编号',
+            align: 'center',
+            sortable: true
+        },
+        {
+            title: '操作',
+            align: 'center',
+            field: '',
             formatter: function (value, row, index) {
-                return '<span>'+statusMap[value-1]+'</span>';
+                var e = '<a title="编辑" href="javascript:void(0);" id="borrow"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
+                var d = '<a title="删除" href="javascript:void(0);" onclick="del(\'' + row.id + '\',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
+                var f = '';
+                if (row.isActive == 1) {
+                    f = '<a title="启用" href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 0 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">启用</i></a> ';
+                } else if (row.isActive == 0) {
+                    f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
+                }
+
+                return e + d + f;
             }
         }
     ],
     locale: 'zh-CN',//中文支持,
-    responseHandler: function (res) {
-        if (res) {
-            return {
-                "res": res.rows,
-                "total": res.total
-            };
-        } else {
-            return {
-                "rows": [],
-                "total": 0
-            };
-        }
-    }
+    // responseHandler: function (res) {
+    //     if (res) {
+    //         return {
+    //             "res": res.rows,
+    //             "total": res.total
+    //         };
+    //     } else {
+    //         return {
+    //             "rows": [],
+    //             "total": 0
+    //         };
+    //     }
+    // }
 })
 
 //请求服务数据时所传参数

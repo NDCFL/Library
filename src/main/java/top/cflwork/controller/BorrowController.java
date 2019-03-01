@@ -26,7 +26,7 @@ import top.cflwork.util.R;
  * 
  * @author cfl
  * @email 275300091@qq.com
- * @date 2019-01-18 17:55:59
+ * @date 2019-03-01 17:27:02
  */
  
 @Controller
@@ -44,12 +44,12 @@ public class BorrowController {
 	@ResponseBody
 	@PostMapping("/list")
 	@RequiresPermissions("borrow:list")
-	public PageUtils list(BorrowVo borrowVo){
+	public List<BorrowVo> list(BorrowVo borrowVo){
 		//查询列表数据
 		List<BorrowVo> borrowList = borrowService.list(borrowVo);
-		Long total = borrowService.count(borrowVo);
-		PageUtils pageUtils = new PageUtils(borrowList, total);
-		return pageUtils;
+//		Long total = borrowService.count(borrowVo);
+//		PageUtils pageUtils = new PageUtils(borrowList, total);
+		return borrowList;
 	}
 
 	@GetMapping("/add")

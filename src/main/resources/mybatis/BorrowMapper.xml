@@ -3,29 +3,27 @@
 
 <mapper namespace="top.cflwork.dao.BorrowDao">
 
-    <select id="get" resultType="top.cflwork.vo.BorrowVo">
-		select `id`,`read_user_id_in`,`book_id`,`borrow_time`,`in_time`,`book_name`,`publish_time`,`isbn`,`in_name`,`out_name`,`status`,`create_time` from sys_borrow
+	<select id="get" resultType="top.cflwork.vo.BorrowVo">
+		select `id`,`cardno`,`loandate`,`retudate`,`title`,`callno`,`isbn`,`cirtype`,`renenum`,`create_time`,`read_user_id_in`,`book_id` from sys_borrow
         where id=#{id}
 	</select>
 
-    <select id="list" resultType="top.cflwork.vo.BorrowVo">
-        select
-        `id`,`read_user_id_in`,`book_id`,`borrow_time`,`in_time`,`book_name`,`publish_time`,`isbn`,`in_name`,`out_name`,`status`,`create_time`
-        from sys_borrow
-        <where>
-            <if test="id != null and id != ''">and id = #{id}</if>
-            <if test="readUserIdIn != null and readUserIdIn != ''">and read_user_id_in = #{readUserIdIn}</if>
-            <if test="bookId != null and bookId != ''">and book_id = #{bookId}</if>
-            <if test="borrowTime != null and borrowTime != ''">and borrow_time = #{borrowTime}</if>
-            <if test="inTime != null and inTime != ''">and in_time = #{inTime}</if>
-            <if test="bookName != null and bookName != ''">and book_name = #{bookName}</if>
-            <if test="publishTime != null and publishTime != ''">and publish_time = #{publishTime}</if>
-            <if test="isbn != null and isbn != ''">and isbn = #{isbn}</if>
-            <if test="inName != null and inName != ''">and in_name = #{inName}</if>
-            <if test="outName != null and outName != ''">and out_name = #{outName}</if>
-            <if test="status != null and status != ''">and status = #{status}</if>
-            <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
-        </where>
+	<select id="list" resultType="top.cflwork.vo.BorrowVo">
+		select `id`,`cardno`,`loandate`,`retudate`,`title`,`callno`,`isbn`,`cirtype`,`renenum`,`create_time`,`read_user_id_in`,`book_id` from sys_borrow
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="cardno != null and cardno != ''"> and cardno = #{cardno} </if>
+		  		  <if test="loandate != null and loandate != ''"> and loandate = #{loandate} </if>
+		  		  <if test="retudate != null and retudate != ''"> and retudate = #{retudate} </if>
+		  		  <if test="title != null and title != ''"> and title = #{title} </if>
+		  		  <if test="callno != null and callno != ''"> and callno = #{callno} </if>
+		  		  <if test="isbn != null and isbn != ''"> and isbn = #{isbn} </if>
+		  		  <if test="cirtype != null and cirtype != ''"> and cirtype = #{cirtype} </if>
+		  		  <if test="renenum != null and renenum != ''"> and renenum = #{renenum} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="readUserIdIn != null and readUserIdIn != ''"> and read_user_id_in = #{readUserIdIn} </if>
+		  		  <if test="bookId != null and bookId != ''"> and book_id = #{bookId} </if>
+		  		</where>
         <choose>
             <when test="pager.sort != null and pager.order != null">
                 order by ${pager.sort} ${pager.order}
@@ -34,125 +32,127 @@
                 order by id desc
             </otherwise>
         </choose>
-        <if test="pager.pageIndex != null and pager.pageSize != null">
-            limit #{pager.pageIndex}, #{pager.pageSize}
-        </if>
-    </select>
-
-    <select id="count" resultType="long">
-        select count(id) from sys_borrow
-        <where>
-            <if test="id != null and id != ''">and id = #{id}</if>
-            <if test="readUserIdIn != null and readUserIdIn != ''">and read_user_id_in = #{readUserIdIn}</if>
-            <if test="bookId != null and bookId != ''">and book_id = #{bookId}</if>
-            <if test="borrowTime != null and borrowTime != ''">and borrow_time = #{borrowTime}</if>
-            <if test="inTime != null and inTime != ''">and in_time = #{inTime}</if>
-            <if test="bookName != null and bookName != ''">and book_name = #{bookName}</if>
-            <if test="publishTime != null and publishTime != ''">and publish_time = #{publishTime}</if>
-            <if test="isbn != null and isbn != ''">and isbn = #{isbn}</if>
-            <if test="inName != null and inName != ''">and in_name = #{inName}</if>
-            <if test="outName != null and outName != ''">and out_name = #{outName}</if>
-            <if test="status != null and status != ''">and status = #{status}</if>
-            <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
-        </where>
-    </select>
-
-    <insert id="save" parameterType="top.cflwork.vo.BorrowVo">
+        <if test="pager!=null and  pager.paging">
+			<if test="pager.pageIndex != null and pager.pageSize != null">
+				limit #{pager.pageIndex}, #{pager.pageSize}
+			</if>
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="long">
+		select count(id) from sys_borrow
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="cardno != null and cardno != ''"> and cardno = #{cardno} </if>
+		  		  <if test="loandate != null and loandate != ''"> and loandate = #{loandate} </if>
+		  		  <if test="retudate != null and retudate != ''"> and retudate = #{retudate} </if>
+		  		  <if test="title != null and title != ''"> and title = #{title} </if>
+		  		  <if test="callno != null and callno != ''"> and callno = #{callno} </if>
+		  		  <if test="isbn != null and isbn != ''"> and isbn = #{isbn} </if>
+		  		  <if test="cirtype != null and cirtype != ''"> and cirtype = #{cirtype} </if>
+		  		  <if test="renenum != null and renenum != ''"> and renenum = #{renenum} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="readUserIdIn != null and readUserIdIn != ''"> and read_user_id_in = #{readUserIdIn} </if>
+		  		  <if test="bookId != null and bookId != ''"> and book_id = #{bookId} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="top.cflwork.vo.BorrowVo">
 		insert into sys_borrow
 		(
 			`id`, 
-			`read_user_id_in`, 
-			`book_id`, 
-			`borrow_time`, 
-			`in_time`, 
-			`book_name`, 
-			`publish_time`, 
+			`cardno`, 
+			`loandate`, 
+			`retudate`, 
+			`title`, 
+			`callno`, 
 			`isbn`, 
-			`in_name`, 
-			`out_name`, 
-			`status`, 
-			`create_time`
+			`cirtype`, 
+			`renenum`, 
+			`create_time`, 
+			`read_user_id_in`, 
+			`book_id`
 		)
 		values
 		(
 			#{id}, 
-			#{readUserIdIn}, 
-			#{bookId}, 
-			#{borrowTime}, 
-			#{inTime}, 
-			#{bookName}, 
-			#{publishTime}, 
+			#{cardno}, 
+			#{loandate}, 
+			#{retudate}, 
+			#{title}, 
+			#{callno}, 
 			#{isbn}, 
-			#{inName}, 
-			#{outName}, 
-			#{status}, 
-			#{createTime}
+			#{cirtype}, 
+			#{renenum}, 
+			#{createTime}, 
+			#{readUserIdIn}, 
+			#{bookId}
 		)
 	</insert>
 
     <insert id="batchSave" parameterType="top.cflwork.vo.BorrowVo">
         insert into sys_borrow
         (
-        `id`,
-        `read_user_id_in`,
-        `book_id`,
-        `borrow_time`,
-        `in_time`,
-        `book_name`,
-        `publish_time`,
-        `isbn`,
-        `in_name`,
-        `out_name`,
-        `status`,
-        `create_time`
-        )
+					                `id`, 
+								                `cardno`, 
+								                `loandate`, 
+								                `retudate`, 
+								                `title`, 
+								                `callno`, 
+								                `isbn`, 
+								                `cirtype`, 
+								                `renenum`, 
+								                `create_time`, 
+								                `read_user_id_in`, 
+								                `book_id`
+					        )
         values
         <foreach collection="list" item="borrowVo" separator=",">
-            (
-            #{borrowVo.id},
-            #{borrowVo.readUserIdIn},
-            #{borrowVo.bookId},
-            #{borrowVo.borrowTime},
-            #{borrowVo.inTime},
-            #{borrowVo.bookName},
-            #{borrowVo.publishTime},
-            #{borrowVo.isbn},
-            #{borrowVo.inName},
-            #{borrowVo.outName},
-            #{borrowVo.status},
-            #{borrowVo.createTime}
-            )
-        </foreach>
+			(
+												#{borrowVo.id}, 
+																#{borrowVo.cardno}, 
+																#{borrowVo.loandate}, 
+																#{borrowVo.retudate}, 
+																#{borrowVo.title}, 
+																#{borrowVo.callno}, 
+																#{borrowVo.isbn}, 
+																#{borrowVo.cirtype}, 
+																#{borrowVo.renenum}, 
+																#{borrowVo.createTime}, 
+																#{borrowVo.readUserIdIn}, 
+																#{borrowVo.bookId}
+										)
+		</foreach>
     </insert>
 
-    <update id="update" parameterType="top.cflwork.vo.BorrowVo">
-        update sys_borrow
-        <set>
-            <if test="readUserIdIn != null">`read_user_id_in` = #{readUserIdIn},</if>
-            <if test="bookId != null">`book_id` = #{bookId},</if>
-            <if test="borrowTime != null">`borrow_time` = #{borrowTime},</if>
-            <if test="inTime != null">`in_time` = #{inTime},</if>
-            <if test="bookName != null">`book_name` = #{bookName},</if>
-            <if test="publishTime != null">`publish_time` = #{publishTime},</if>
-            <if test="isbn != null">`isbn` = #{isbn},</if>
-            <if test="inName != null">`in_name` = #{inName},</if>
-            <if test="outName != null">`out_name` = #{outName},</if>
-            <if test="status != null">`status` = #{status},</if>
-            <if test="createTime != null">`create_time` = #{createTime}</if>
-        </set>
-        where id = #{id}
-    </update>
-
-    <delete id="remove">
+	<update id="update" parameterType="top.cflwork.vo.BorrowVo">
+		update sys_borrow 
+		<set>
+			<if test="cardno != null">`cardno` = #{cardno}, </if>
+			<if test="loandate != null">`loandate` = #{loandate}, </if>
+			<if test="retudate != null">`retudate` = #{retudate}, </if>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="callno != null">`callno` = #{callno}, </if>
+			<if test="isbn != null">`isbn` = #{isbn}, </if>
+			<if test="cirtype != null">`cirtype` = #{cirtype}, </if>
+			<if test="renenum != null">`renenum` = #{renenum}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="readUserIdIn != null">`read_user_id_in` = #{readUserIdIn}, </if>
+			<if test="bookId != null">`book_id` = #{bookId}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
 		delete from sys_borrow where id=#{id}
 
 	</delete>
-
-    <delete id="batchRemove">
-        delete from sys_borrow where id in
-        <foreach item="id" collection="array" open="(" separator="," close=")">
-            #{id}
-        </foreach>
-    </delete>
+	
+	<delete id="batchRemove">
+		delete from sys_borrow where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
 
 </mapper>

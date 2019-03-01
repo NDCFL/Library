@@ -50,4 +50,6 @@ public class GenVo implements Serializable {
     private String workAddress;
     @ApiModelProperty("工作地址")
     private String address;
+    @ApiModelProperty("结束时间")
+    private String endsTime;
 }

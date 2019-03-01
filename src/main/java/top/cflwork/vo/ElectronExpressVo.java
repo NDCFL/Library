@@ -42,4 +42,6 @@ public class ElectronExpressVo implements Serializable {
     private Date createTime;
     @ApiModelProperty("分页对象")
     private Pager pager;
+    @ApiModelProperty("终止时间")
+    private Date endTime;
 }

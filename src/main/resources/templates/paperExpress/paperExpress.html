@@ -16,11 +16,35 @@
                 <div class="panel-heading">
                     查询条件
                 </div>
-                <!--<div class="panel-body form-group" style="margin-bottom:0px;">-->
-                    <!--<div class="col-sm-1" style="width: 120px;margin-left: 100px">-->
-                        <!--<button class="btn btn-primary" id="search_btn" style="width: 100px">查询</button>-->
-                    <!--</div>-->
-                <!--</div>-->
+                <div class="panel-body form-group" style="margin-bottom:0px;">
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">创建时间</label>
+                    <div class="col-sm-2" >
+                        <input type="text" class="form-control" placeholder="请选择时间范围"   name="createTime" id="test_2"/>
+                    </div>
+                    <label class="col-sm-1 control-label">读者名字</label>
+                    <div class="col-sm-2">
+                        <input id="readUserName__" name="readUserName" type="text" placeholder="请输入读者名字" class="form-control" required=""
+                               aria-required="true">
+                    </div>
+                    <label class="col-sm-1 control-label"  style=" margin-top:5px;">读者卡号</label>
+                    <div class="col-sm-2" >
+                        <input type="number" class="form-control" placeholder="请输入读者卡号" style="" name="readUserCardNum" id="readUserCardNum__"/>
+                    </div>
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">isbn</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control" placeholder="请输入图书isbn" style="" id="isbn__" name="isbn"/>
+                    </div>
+                </div>
+
+                <div class="panel-body form-group" style="margin-bottom:0px;">
+                    <label class="col-sm-1 control-label" style=" margin-top:5px">图书名称</label>
+                    <div class="col-sm-2">
+                        <input type="number" class="form-control" placeholder="请输入图书名称" style="" id="bookName__" name="bookName"/>
+                    </div>
+                    <div class="col-sm-2" style="text-align: center;margin: auto" >
+                        <button class="btn btn-primary"  id="search_btn" style="width: 200px" >查询</button>
+                    </div>
+                </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
                     <table id="mytab" name="mytab" class="table table-hover"></table>
                     <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
@@ -296,6 +320,11 @@
                 $("#scores").val(value);
             }
         });
+    });
+    laydate.render({
+        elem: '#test_2'//指定元素，
+        ,type: 'date'
+        ,range: true
     });
 </script>
 </body>
