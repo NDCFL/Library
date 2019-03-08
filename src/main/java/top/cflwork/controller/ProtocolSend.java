@@ -24,7 +24,7 @@ public class ProtocolSend {
         //获取读者信息
 //        geteRead();
         //图书检索
-//        geteBook();
+        geteBook();
         //获取书目信息
 //        geteBookList();
         //馆藏信息
@@ -34,7 +34,7 @@ public class ProtocolSend {
         //获取流通记录
 //        getLtjl();
         //新书通报
-        getxstb();
+//        getxstb();
 	}
 
 	public static String geteRead(){

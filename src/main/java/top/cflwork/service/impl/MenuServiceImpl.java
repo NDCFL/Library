@@ -61,7 +61,9 @@ public class MenuServiceImpl implements MenuService {
 	    //删除主菜单
 		int result = menuMapper.remove(id);
 		String stringList[] = menuMapper.findByParentId(id);
-		menuMapper.batchRemove(stringList);
+		if(stringList.length>0){
+			menuMapper.batchRemove(stringList);
+		}
 		return result;
 	}
 	@Transactional(readOnly = false,rollbackFor = Exception.class)

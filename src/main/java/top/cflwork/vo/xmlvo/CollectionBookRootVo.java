@@ -32,6 +32,6 @@ public class CollectionBookRootVo implements Serializable {
     private Integer pageSize;
 
     @XmlElement(name="text")
-    private List<CollectionBookVo> text;
+    private List<CollectionBooksVo> text;
 
 }

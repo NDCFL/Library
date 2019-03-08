@@ -176,6 +176,7 @@ public class ReadUserController {
 						readUserVo1.setPhone(readRootVo.getText().getMobile());
 						readUserVo1.setName(readRootVo.getText().getName());
 						readUserVo1.setSex(readRootVo.getText().getGender()=="男"?0:1);
+						readUserVo1.setIsActive(0);
 						readUserService.save(readUserVo1);
 						String token = JwtUtil.createJWT(readUserVo.getPhone(), "{}", null, -1);
 						return new ResponseJson(true, token, user);

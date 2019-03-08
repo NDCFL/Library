@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public class CollectionBookVo implements Serializable {
+public class CollectionBooksVo implements Serializable {
 
 
     @XmlElement(name = "barcode")

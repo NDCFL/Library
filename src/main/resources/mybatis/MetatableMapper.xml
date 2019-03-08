@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.cflwork.dao.MetatableDao">
+
+    <select id="get" resultType="top.cflwork.vo.MetatableVo">
+		select `id`,`title`,`author`,`isbn`,`publisher`,`publish_date`,`callno`,`classno`,`abbstract`,`price`,`publish_name`,`publish_address`,`ctrlno`,`subject`,`publish`,`note`,`version` from sys_metatable
+        where id=#{id}
+	</select>
+
+    <select id="list" resultType="top.cflwork.vo.MetatableVo">
+        select
+        `id`,`title`,`author`,`isbn`,`publisher`,`publish_date`,`callno`,`classno`,`abbstract`,`price`,`publish_name`,`publish_address`,`ctrlno`,`subject`,`publish`,`note`,`version`
+        from sys_metatable
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="title != null and title != ''">and title = #{title}</if>
+            <if test="author != null and author != ''">and author = #{author}</if>
+            <if test="isbn != null and isbn != ''">and isbn = #{isbn}</if>
+            <if test="publisher != null and publisher != ''">and publisher = #{publisher}</if>
+            <if test="publishDate != null and publishDate != ''">and publish_date = #{publishDate}</if>
+            <if test="callno != null and callno != ''">and callno = #{callno}</if>
+            <if test="classno != null and classno != ''">and classno = #{classno}</if>
+            <if test="abbstract != null and abbstract != ''">and abbstract = #{abbstract}</if>
+            <if test="price != null and price != ''">and price = #{price}</if>
+            <if test="publishName != null and publishName != ''">and publish_name = #{publishName}</if>
+            <if test="publishAddress != null and publishAddress != ''">and publish_address = #{publishAddress}</if>
+            <if test="ctrlno != null and ctrlno != ''">and ctrlno = #{ctrlno}</if>
+            <if test="subject != null and subject != ''">and subject = #{subject}</if>
+            <if test="publish != null and publish != ''">and publish = #{publish}</if>
+            <if test="note != null and note != ''">and note = #{note}</if>
+            <if test="version != null and version != ''">and version = #{version}</if>
+        </where>
+        <choose>
+            <when test="pager.sort != null and pager.order != null">
+                order by ${pager.sort} ${pager.order}
+            </when>
+            <otherwise>
+                order by id desc
+            </otherwise>
+        </choose>
+        <if test="pager!=null and  pager.paging">
+            <if test="pager.pageIndex != null and pager.pageSize != null">
+                limit #{pager.pageIndex}, #{pager.pageSize}
+            </if>
+        </if>
+    </select>
+
+    <select id="count" resultType="long">
+        select count(id) from sys_metatable
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="title != null and title != ''">and title = #{title}</if>
+            <if test="author != null and author != ''">and author = #{author}</if>
+            <if test="isbn != null and isbn != ''">and isbn = #{isbn}</if>
+            <if test="publisher != null and publisher != ''">and publisher = #{publisher}</if>
+            <if test="publishDate != null and publishDate != ''">and publish_date = #{publishDate}</if>
+            <if test="callno != null and callno != ''">and callno = #{callno}</if>
+            <if test="classno != null and classno != ''">and classno = #{classno}</if>
+            <if test="abbstract != null and abbstract != ''">and abbstract = #{abbstract}</if>
+            <if test="price != null and price != ''">and price = #{price}</if>
+            <if test="publishName != null and publishName != ''">and publish_name = #{publishName}</if>
+            <if test="publishAddress != null and publishAddress != ''">and publish_address = #{publishAddress}</if>
+            <if test="ctrlno != null and ctrlno != ''">and ctrlno = #{ctrlno}</if>
+            <if test="subject != null and subject != ''">and subject = #{subject}</if>
+            <if test="publish != null and publish != ''">and publish = #{publish}</if>
+            <if test="note != null and note != ''">and note = #{note}</if>
+            <if test="version != null and version != ''">and version = #{version}</if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="top.cflwork.vo.MetatableVo">
+		insert into sys_metatable
+		(
+			`id`, 
+			`title`, 
+			`author`, 
+			`isbn`, 
+			`publisher`, 
+			`publish_date`, 
+			`callno`, 
+			`classno`, 
+			`abbstract`, 
+			`price`, 
+			`publish_name`, 
+			`publish_address`, 
+			`ctrlno`, 
+			`subject`, 
+			`publish`, 
+			`note`, 
+			`version`
+		)
+		values
+		(
+			#{id}, 
+			#{title}, 
+			#{author}, 
+			#{isbn}, 
+			#{publisher}, 
+			#{publishDate}, 
+			#{callno}, 
+			#{classno}, 
+			#{abbstract}, 
+			#{price}, 
+			#{publishName}, 
+			#{publishAddress}, 
+			#{ctrlno}, 
+			#{subject}, 
+			#{publish}, 
+			#{note}, 
+			#{version}
+		)
+	</insert>
+
+    <insert id="batchSave" parameterType="top.cflwork.vo.MetatableVo">
+        insert into sys_metatable
+        (
+        `id`,
+        `title`,
+        `author`,
+        `isbn`,
+        `publisher`,
+        `publish_date`,
+        `callno`,
+        `classno`,
+        `abbstract`,
+        `price`,
+        `publish_name`,
+        `publish_address`,
+        `ctrlno`,
+        `subject`,
+        `publish`,
+        `note`,
+        `version`
+        )
+        values
+        <foreach collection="list" item="metatableVo" separator=",">
+            (
+            #{metatableVo.id},
+            #{metatableVo.title},
+            #{metatableVo.author},
+            #{metatableVo.isbn},
+            #{metatableVo.publisher},
+            #{metatableVo.publishDate},
+            #{metatableVo.callno},
+            #{metatableVo.classno},
+            #{metatableVo.abbstract},
+            #{metatableVo.price},
+            #{metatableVo.publishName},
+            #{metatableVo.publishAddress},
+            #{metatableVo.ctrlno},
+            #{metatableVo.subject},
+            #{metatableVo.publish},
+            #{metatableVo.note},
+            #{metatableVo.version}
+            )
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="top.cflwork.vo.MetatableVo">
+        update sys_metatable
+        <set>
+            <if test="title != null">`title` = #{title},</if>
+            <if test="author != null">`author` = #{author},</if>
+            <if test="isbn != null">`isbn` = #{isbn},</if>
+            <if test="publisher != null">`publisher` = #{publisher},</if>
+            <if test="publishDate != null">`publish_date` = #{publishDate},</if>
+            <if test="callno != null">`callno` = #{callno},</if>
+            <if test="classno != null">`classno` = #{classno},</if>
+            <if test="abbstract != null">`abbstract` = #{abbstract},</if>
+            <if test="price != null">`price` = #{price},</if>
+            <if test="publishName != null">`publish_name` = #{publishName},</if>
+            <if test="publishAddress != null">`publish_address` = #{publishAddress},</if>
+            <if test="ctrlno != null">`ctrlno` = #{ctrlno},</if>
+            <if test="subject != null">`subject` = #{subject},</if>
+            <if test="publish != null">`publish` = #{publish},</if>
+            <if test="note != null">`note` = #{note},</if>
+            <if test="version != null">`version` = #{version}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="remove">
+		delete from sys_metatable where id=#{id}
+
+	</delete>
+
+    <delete id="batchRemove">
+        delete from sys_metatable where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

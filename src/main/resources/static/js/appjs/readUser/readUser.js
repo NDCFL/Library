@@ -276,7 +276,7 @@ function edit(name) {
 }
 
 function resetPwd(id) {
-    $.post("/readUser/resetPwd/" + id,
+    $.get("/readUser/resetPwd/" + id,
         function (data) {
             if (data.code == 0) {
                 layer.alert(data.msg, {icon: 1});

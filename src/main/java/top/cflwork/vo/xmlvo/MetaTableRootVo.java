@@ -24,5 +24,5 @@ public class MetaTableRootVo implements Serializable{
     private Integer code;
 
     @XmlElement(name="text")
-    private MetaTableVo text;
+    private MetaTablesVo text;
 }

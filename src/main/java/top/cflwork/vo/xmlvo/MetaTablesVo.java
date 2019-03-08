@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public class MetaTableVo implements Serializable{
+public class MetaTablesVo implements Serializable{
 
 
     @XmlElement(name = "title")
@@ -71,14 +71,14 @@ public class MetaTableVo implements Serializable{
     private String publishName;
 
 
-    @XmlElement(name = "publishName")
+    @XmlElement(name = "publishAddress")
     @XmlElementAnno
     @ApiModelProperty("出版地址")
     private String publishAddress;
 
     @XmlElement(name = "ctrlno")
     @XmlElementAnno
-    @ApiModelProperty("ctrlno")
+    @ApiModelProperty("控制号")
     private String ctrlno;
 
     @XmlElement(name = "subject")
