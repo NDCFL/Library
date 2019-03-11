@@ -5,12 +5,14 @@ import top.cflwork.vo.CollectionBookVo;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;
+import top.cflwork.vo.xmlvo.BookSearchVo;
+
 /**
- * 图书书目信息
+ * 馆藏表
  * 
  * @author cfl
  * @email 275300091@qq.com
- * @date 2019-03-07 17:23:37
+ * @date 2019-03-11 13:23:06
  */
 @Service
 public interface CollectionBookService {
@@ -30,4 +32,9 @@ public interface CollectionBookService {
 	int batchRemove(String[] ids);
 
     int batchSave(List<CollectionBookVo> collectionBookList);
+
+
+
+
+
 }

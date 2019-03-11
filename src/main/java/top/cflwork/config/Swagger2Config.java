@@ -35,30 +35,6 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @ComponentScan("top.cflwork.controller")
 public class Swagger2Config {
 
-//    @Bean
-//    public Docket createRestApi() {
-//        return new Docket(DocumentationType.SWAGGER_2)
-//                .apiInfo(apiInfo())
-//                .select()
-//                //为当前包路径
-//                .apis(RequestHandlerSelectors.any())
-//                .paths(PathSelectors.any())
-//                .build();
-//    }
-//
-//    //构建 api文档的详细信息函数
-//    private ApiInfo apiInfo() {
-//        return new ApiInfoBuilder()
-//                //页面标题
-//                .title("功能测试")
-//                //创建人
-//                .contact(new Contact("Edison", "xxx@qq.com", "xxx@qq.com"))
-//                //版本号
-//                .version("1.0")
-//                //描述
-//                .description("API 描述")
-//                .build();
-//    }
     @Bean
     public Docket userApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -87,6 +63,22 @@ public class Swagger2Config {
                 regex("/readUser/login.*")
         );
     }
+
+    @Bean
+    public Docket bookSearchApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("图书检索模块")
+                .apiInfo(apiInfo())
+                .select()
+                .paths(bookSearchPaths())
+                .build();
+    }
+    private Predicate<String> bookSearchPaths() {
+        return or(
+                regex("/metatable/bookSearch.*")
+        );
+    }
+
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("cflwork")

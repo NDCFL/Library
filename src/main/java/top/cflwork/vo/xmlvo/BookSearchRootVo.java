@@ -40,6 +40,11 @@ public class BookSearchRootVo implements Serializable {
     @XmlElementAnno
     private Long totalCount;
 
+    @ApiModelProperty(value = "type的类型有：all（所有词） ,title（标题）,author（作者）,publisher（出版社）,ctrlno（控制号）,subject（主题）,isbn（isbn号）,callno（书架号）,classno（分类号）,参数必填",required = true)
+    private String searchType;
+
+    @ApiModelProperty(value = "搜索内容,参数必填",required =true)
+    private String searchValue;
 
 
 }

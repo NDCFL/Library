@@ -5,6 +5,8 @@ import top.cflwork.vo.MetatableVo;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;
+import top.cflwork.vo.xmlvo.BookSearchVo;
+
 /**
  * 图书书目信息表
  * 
@@ -30,4 +32,6 @@ public interface MetatableService {
 	int batchRemove(String[] ids);
 
     int batchSave(List<MetatableVo> metatableList);
+
+	int batchSaveBook(BookSearchVo bookSearchVo);
 }

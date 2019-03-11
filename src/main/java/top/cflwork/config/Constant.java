@@ -2,32 +2,37 @@ package top.cflwork.config;
 
 public interface Constant {
     //演示系统账户
-    public static String DEMO_ACCOUNT = "test";
+     String DEMO_ACCOUNT = "test";
     //自动去除表前缀
-    public static String AUTO_REOMVE_PRE = "true";
+     String AUTO_REOMVE_PRE = "true";
     //停止计划任务
-    public static String STATUS_RUNNING_STOP = "stop";
+     String STATUS_RUNNING_STOP = "stop";
     //开启计划任务
-    public static String STATUS_RUNNING_START = "start";
+     String STATUS_RUNNING_START = "start";
     //通知公告阅读状态-未读
-    public static String OA_NOTIFY_READ_NO = "0";
+     String OA_NOTIFY_READ_NO = "0";
     //通知公告阅读状态-已读
-    public static int OA_NOTIFY_READ_YES = 1;
+     int OA_NOTIFY_READ_YES = 1;
     //部门根节点id
-    public static Long DEPT_ROOT_ID = 0l;
+     Long DEPT_ROOT_ID = 0l;
     //缓存方式
-    public static String CACHE_TYPE_REDIS ="redis";
+     String CACHE_TYPE_REDIS ="redis";
 
-    public static String LOG_ERROR = "error";
+     String LOG_ERROR = "error";
 
-    public static String UPLOAD_AVATAR="upload/avatar";
-    public static String RES_PRE="http://library.com";
-    public static String JWT_SECRET="7786df7fc3a34e26a61c034d5ec8245d";
-    public static String TOKEN="token";//登录的请求令牌名称
-    public static String PATH = "http://file.mykefang.com";
+     String UPLOAD_AVATAR="upload/avatar";
+     String RES_PRE="http://library.com";
+     String JWT_SECRET="7786df7fc3a34e26a61c034d5ec8245d";
+     String TOKEN="token";//登录的请求令牌名称
+     String PATH = "http://file.mykefang.com";
     interface JPUSH{
         String SOUND_1="sound.caf";
     }
-    String XMLPARAMS = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root><verification><authorizationCode><![CDATA[123456]]></authorizationCode><subCenterCode><![CDATA[QHL]]></subCenterCode></verification><userInfo><ip>192.168.1.107</ip><userid>wh</userid></userInfo>";
+    String XMLPARAMS = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root><verification><authorizationCode><![CDATA[123456]]></authorizationCode><subCenterCode><![CDATA[QHL]]></subCenterCode></verification>";
+    interface BOOK{
+        String BOOK="DLibsAPI/services/ReaderWS";
+        String BOOKSEARCH = "DLibsAPI/services/AssetsWS";
+    }
+    
     
 }

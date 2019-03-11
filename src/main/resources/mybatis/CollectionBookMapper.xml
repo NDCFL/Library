@@ -3,31 +3,29 @@
 
 <mapper namespace="top.cflwork.dao.CollectionBookDao">
 
-	<select id="get" resultType="top.cflwork.vo.CollectionBookVo">
-		select `id`,`title`,`publisher`,`publish_date`,`author`,`isbn`,`callno`,`classno`,`asset_count`,`metaid`,`metatable`,`sublib`,`local`,`cursublib`,`curlocal`,`price` from sys_collection_book
+    <select id="get" resultType="top.cflwork.vo.CollectionBookVo">
+		select `id`,`barcode`,`callno`,`retudate`,`regdate`,`shiftno`,`status`,`sublib`,`local`,`cursublib`,`curlocal`,`price` from sys_collection_book
         where id=#{id}
 	</select>
 
-	<select id="list" resultType="top.cflwork.vo.CollectionBookVo">
-		select `id`,`title`,`publisher`,`publish_date`,`author`,`isbn`,`callno`,`classno`,`asset_count`,`metaid`,`metatable`,`sublib`,`local`,`cursublib`,`curlocal`,`price` from sys_collection_book
-        <where>  
-		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="title != null and title != ''"> and title = #{title} </if>
-		  		  <if test="publisher != null and publisher != ''"> and publisher = #{publisher} </if>
-		  		  <if test="publishDate != null and publishDate != ''"> and publish_date = #{publishDate} </if>
-		  		  <if test="author != null and author != ''"> and author = #{author} </if>
-		  		  <if test="isbn != null and isbn != ''"> and isbn = #{isbn} </if>
-		  		  <if test="callno != null and callno != ''"> and callno = #{callno} </if>
-		  		  <if test="classno != null and classno != ''"> and classno = #{classno} </if>
-		  		  <if test="assetCount != null and assetCount != ''"> and asset_count = #{assetCount} </if>
-		  		  <if test="metaid != null and metaid != ''"> and metaid = #{metaid} </if>
-		  		  <if test="metatable != null and metatable != ''"> and metatable = #{metatable} </if>
-		  		  <if test="sublib != null and sublib != ''"> and sublib = #{sublib} </if>
-		  		  <if test="local != null and local != ''"> and local = #{local} </if>
-		  		  <if test="cursublib != null and cursublib != ''"> and cursublib = #{cursublib} </if>
-		  		  <if test="curlocal != null and curlocal != ''"> and curlocal = #{curlocal} </if>
-		  		  <if test="price != null and price != ''"> and price = #{price} </if>
-		  		</where>
+    <select id="list" resultType="top.cflwork.vo.CollectionBookVo">
+        select
+        `id`,`barcode`,`callno`,`retudate`,`regdate`,`shiftno`,`status`,`sublib`,`local`,`cursublib`,`curlocal`,`price`
+        from sys_collection_book
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="barcode != null and barcode != ''">and barcode = #{barcode}</if>
+            <if test="callno != null and callno != ''">and callno = #{callno}</if>
+            <if test="retudate != null and retudate != ''">and retudate = #{retudate}</if>
+            <if test="regdate != null and regdate != ''">and regdate = #{regdate}</if>
+            <if test="shiftno != null and shiftno != ''">and shiftno = #{shiftno}</if>
+            <if test="status != null and status != ''">and status = #{status}</if>
+            <if test="sublib != null and sublib != ''">and sublib = #{sublib}</if>
+            <if test="local != null and local != ''">and local = #{local}</if>
+            <if test="cursublib != null and cursublib != ''">and cursublib = #{cursublib}</if>
+            <if test="curlocal != null and curlocal != ''">and curlocal = #{curlocal}</if>
+            <if test="price != null and price != ''">and price = #{price}</if>
+        </where>
         <choose>
             <when test="pager.sort != null and pager.order != null">
                 order by ${pager.sort} ${pager.order}
@@ -37,48 +35,40 @@
             </otherwise>
         </choose>
         <if test="pager!=null and  pager.paging">
-			<if test="pager.pageIndex != null and pager.pageSize != null">
-				limit #{pager.pageIndex}, #{pager.pageSize}
-			</if>
-		</if>
-	</select>
-	
- 	<select id="count" resultType="long">
-		select count(id) from sys_collection_book
-		 <where>  
-		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="title != null and title != ''"> and title = #{title} </if>
-		  		  <if test="publisher != null and publisher != ''"> and publisher = #{publisher} </if>
-		  		  <if test="publishDate != null and publishDate != ''"> and publish_date = #{publishDate} </if>
-		  		  <if test="author != null and author != ''"> and author = #{author} </if>
-		  		  <if test="isbn != null and isbn != ''"> and isbn = #{isbn} </if>
-		  		  <if test="callno != null and callno != ''"> and callno = #{callno} </if>
-		  		  <if test="classno != null and classno != ''"> and classno = #{classno} </if>
-		  		  <if test="assetCount != null and assetCount != ''"> and asset_count = #{assetCount} </if>
-		  		  <if test="metaid != null and metaid != ''"> and metaid = #{metaid} </if>
-		  		  <if test="metatable != null and metatable != ''"> and metatable = #{metatable} </if>
-		  		  <if test="sublib != null and sublib != ''"> and sublib = #{sublib} </if>
-		  		  <if test="local != null and local != ''"> and local = #{local} </if>
-		  		  <if test="cursublib != null and cursublib != ''"> and cursublib = #{cursublib} </if>
-		  		  <if test="curlocal != null and curlocal != ''"> and curlocal = #{curlocal} </if>
-		  		  <if test="price != null and price != ''"> and price = #{price} </if>
-		  		</where>
-	</select>
-	 
-	<insert id="save" parameterType="top.cflwork.vo.CollectionBookVo">
+            <if test="pager.pageIndex != null and pager.pageSize != null">
+                limit #{pager.pageIndex}, #{pager.pageSize}
+            </if>
+        </if>
+    </select>
+
+    <select id="count" resultType="long">
+        select count(id) from sys_collection_book
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="barcode != null and barcode != ''">and barcode = #{barcode}</if>
+            <if test="callno != null and callno != ''">and callno = #{callno}</if>
+            <if test="retudate != null and retudate != ''">and retudate = #{retudate}</if>
+            <if test="regdate != null and regdate != ''">and regdate = #{regdate}</if>
+            <if test="shiftno != null and shiftno != ''">and shiftno = #{shiftno}</if>
+            <if test="status != null and status != ''">and status = #{status}</if>
+            <if test="sublib != null and sublib != ''">and sublib = #{sublib}</if>
+            <if test="local != null and local != ''">and local = #{local}</if>
+            <if test="cursublib != null and cursublib != ''">and cursublib = #{cursublib}</if>
+            <if test="curlocal != null and curlocal != ''">and curlocal = #{curlocal}</if>
+            <if test="price != null and price != ''">and price = #{price}</if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="top.cflwork.vo.CollectionBookVo">
 		insert into sys_collection_book
 		(
 			`id`, 
-			`title`, 
-			`publisher`, 
-			`publish_date`, 
-			`author`, 
-			`isbn`, 
+			`barcode`, 
 			`callno`, 
-			`classno`, 
-			`asset_count`, 
-			`metaid`, 
-			`metatable`, 
+			`retudate`, 
+			`regdate`, 
+			`shiftno`, 
+			`status`, 
 			`sublib`, 
 			`local`, 
 			`cursublib`, 
@@ -88,16 +78,12 @@
 		values
 		(
 			#{id}, 
-			#{title}, 
-			#{publisher}, 
-			#{publishDate}, 
-			#{author}, 
-			#{isbn}, 
+			#{barcode}, 
 			#{callno}, 
-			#{classno}, 
-			#{assetCount}, 
-			#{metaid}, 
-			#{metatable}, 
+			#{retudate}, 
+			#{regdate}, 
+			#{shiftno}, 
+			#{status}, 
 			#{sublib}, 
 			#{local}, 
 			#{cursublib}, 
@@ -109,78 +95,66 @@
     <insert id="batchSave" parameterType="top.cflwork.vo.CollectionBookVo">
         insert into sys_collection_book
         (
-					                `id`, 
-								                `title`, 
-								                `publisher`, 
-								                `publish_date`, 
-								                `author`, 
-								                `isbn`, 
-								                `callno`, 
-								                `classno`, 
-								                `asset_count`, 
-								                `metaid`, 
-								                `metatable`, 
-								                `sublib`, 
-								                `local`, 
-								                `cursublib`, 
-								                `curlocal`, 
-								                `price`
-					        )
+        `id`,
+        `barcode`,
+        `callno`,
+        `retudate`,
+        `regdate`,
+        `shiftno`,
+        `status`,
+        `sublib`,
+        `local`,
+        `cursublib`,
+        `curlocal`,
+        `price`
+        )
         values
         <foreach collection="list" item="collectionBookVo" separator=",">
-			(
-												#{collectionBookVo.id}, 
-																#{collectionBookVo.title}, 
-																#{collectionBookVo.publisher}, 
-																#{collectionBookVo.publishDate}, 
-																#{collectionBookVo.author}, 
-																#{collectionBookVo.isbn}, 
-																#{collectionBookVo.callno}, 
-																#{collectionBookVo.classno}, 
-																#{collectionBookVo.assetCount}, 
-																#{collectionBookVo.metaid}, 
-																#{collectionBookVo.metatable}, 
-																#{collectionBookVo.sublib}, 
-																#{collectionBookVo.local}, 
-																#{collectionBookVo.cursublib}, 
-																#{collectionBookVo.curlocal}, 
-																#{collectionBookVo.price}
-										)
-		</foreach>
+            (
+            #{collectionBookVo.id},
+            #{collectionBookVo.barcode},
+            #{collectionBookVo.callno},
+            #{collectionBookVo.retudate},
+            #{collectionBookVo.regdate},
+            #{collectionBookVo.shiftno},
+            #{collectionBookVo.status},
+            #{collectionBookVo.sublib},
+            #{collectionBookVo.local},
+            #{collectionBookVo.cursublib},
+            #{collectionBookVo.curlocal},
+            #{collectionBookVo.price}
+            )
+        </foreach>
     </insert>
 
-	<update id="update" parameterType="top.cflwork.vo.CollectionBookVo">
-		update sys_collection_book 
-		<set>
-			<if test="title != null">`title` = #{title}, </if>
-			<if test="publisher != null">`publisher` = #{publisher}, </if>
-			<if test="publishDate != null">`publish_date` = #{publishDate}, </if>
-			<if test="author != null">`author` = #{author}, </if>
-			<if test="isbn != null">`isbn` = #{isbn}, </if>
-			<if test="callno != null">`callno` = #{callno}, </if>
-			<if test="classno != null">`classno` = #{classno}, </if>
-			<if test="assetCount != null">`asset_count` = #{assetCount}, </if>
-			<if test="metaid != null">`metaid` = #{metaid}, </if>
-			<if test="metatable != null">`metatable` = #{metatable}, </if>
-			<if test="sublib != null">`sublib` = #{sublib}, </if>
-			<if test="local != null">`local` = #{local}, </if>
-			<if test="cursublib != null">`cursublib` = #{cursublib}, </if>
-			<if test="curlocal != null">`curlocal` = #{curlocal}, </if>
-			<if test="price != null">`price` = #{price}</if>
-		</set>
-		where id = #{id}
-	</update>
-	
-	<delete id="remove">
+    <update id="update" parameterType="top.cflwork.vo.CollectionBookVo">
+        update sys_collection_book
+        <set>
+            <if test="barcode != null">`barcode` = #{barcode},</if>
+            <if test="callno != null">`callno` = #{callno},</if>
+            <if test="retudate != null">`retudate` = #{retudate},</if>
+            <if test="regdate != null">`regdate` = #{regdate},</if>
+            <if test="shiftno != null">`shiftno` = #{shiftno},</if>
+            <if test="status != null">`status` = #{status},</if>
+            <if test="sublib != null">`sublib` = #{sublib},</if>
+            <if test="local != null">`local` = #{local},</if>
+            <if test="cursublib != null">`cursublib` = #{cursublib},</if>
+            <if test="curlocal != null">`curlocal` = #{curlocal},</if>
+            <if test="price != null">`price` = #{price}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="remove">
 		delete from sys_collection_book where id=#{id}
 
 	</delete>
-	
-	<delete id="batchRemove">
-		delete from sys_collection_book where id in 
-		<foreach item="id" collection="array" open="(" separator="," close=")">
-			#{id}
-		</foreach>
-	</delete>
+
+    <delete id="batchRemove">
+        delete from sys_collection_book where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 
 </mapper>

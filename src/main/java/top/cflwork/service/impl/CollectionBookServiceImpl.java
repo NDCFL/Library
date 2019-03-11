@@ -11,6 +11,7 @@ import top.cflwork.dao.CollectionBookDao;
 import top.cflwork.vo.CollectionBookVo;
 import top.cflwork.service.CollectionBookService;
 import top.cflwork.common.SequenceId;
+import top.cflwork.vo.xmlvo.BookSearchVo;
 
 
 @Service
@@ -68,4 +69,5 @@ public class CollectionBookServiceImpl implements CollectionBookService {
 			collectionBookList.forEach(e -> e.setId(sequenceId.nextId()));
         return collectionBookDao.batchSave(collectionBookList);
     }
+
 }

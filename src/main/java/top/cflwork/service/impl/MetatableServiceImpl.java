@@ -11,6 +11,7 @@ import top.cflwork.dao.MetatableDao;
 import top.cflwork.vo.MetatableVo;
 import top.cflwork.service.MetatableService;
 import top.cflwork.common.SequenceId;
+import top.cflwork.vo.xmlvo.BookSearchVo;
 
 
 @Service
@@ -68,4 +69,11 @@ public class MetatableServiceImpl implements MetatableService {
 			metatableList.forEach(e -> e.setId(sequenceId.nextId()));
         return metatableDao.batchSave(metatableList);
     }
+
+	@Override
+	@Transactional
+	public int batchSaveBook(BookSearchVo bookSearchVo){
+		bookSearchVo.setId(sequenceId.nextId());
+		return metatableDao.batchSaveBook(bookSearchVo);
+	}
 }

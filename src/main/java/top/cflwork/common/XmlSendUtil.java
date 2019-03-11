@@ -51,6 +51,7 @@ public class XmlSendUtil {
             try {
                 object = call.invoke(new Object[] { sendVo.getXmlParams() });
                 result = object.toString();
+                System.out.println(result);
                 return  new ResponseJson(true,result);
             } catch (RemoteException e1) {
                 e1.printStackTrace();

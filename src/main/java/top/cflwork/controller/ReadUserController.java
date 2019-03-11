@@ -161,8 +161,8 @@ public class ReadUserController {
 			ReadUserVo user = readUserService.getReadUser(readUserVo);
 			if (cnt==0) {
 				SendVo sendVo = new SendVo();
-				sendVo.setWsUrl("DLibsAPI/services/ReaderWS");
-				sendVo.setXmlParams(Constant.XMLPARAMS+"<text><eventType>10020</eventType><cardno>"+readUserVo.getCardNum()+"</cardno><password>"+readUserVo.getPassword()+"</password></text></root>");
+				sendVo.setWsUrl(Constant.BOOK.BOOK);
+				sendVo.setXmlParams(Constant.XMLPARAMS+"<userInfo><ip>192.168.1.107</ip><userid>wh</userid></userInfo><text><eventType>10020</eventType><cardno>"+readUserVo.getCardNum()+"</cardno><password>"+readUserVo.getPassword()+"</password></text></root>");
 				ResponseJson responseJson  = xmlSendUtil.send(sendVo);
 				if(responseJson.getResult().isSuccess()){
 					ReadRootVo readRootVo = JaXmlBeanUtil.converyToJavaBean(responseJson.getResult().getMsg(), ReadRootVo.class);

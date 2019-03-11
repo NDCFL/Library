@@ -63,10 +63,10 @@ public class ProtocolSend {
                 "    <pageNo>1</pageNo>\n" +
                 "    <pageSize>20</pageSize>\n" +
                 "    <select1>all</select1>\n" +
-                "    <text1>玄幻</text1>\n" +
+                "    <text1>经济管理</text1>\n" +
                 "<occur1/>" +
                 "</text></root>";
-        System.out.println("开始====================");
+        System.out.println("开始===================="+xmlParams);
         String result = ProtocolSend.send(ip, port, wsUrl, wsNameSpace, method, xmlParams);
         BookSearchRootVo searchRootVos = JaXmlBeanUtil.converyToJavaBean(result,BookSearchRootVo.class);
         System.out.println("返回结果：" + searchRootVos);

@@ -10,37 +10,29 @@ import top.cflwork.common.Pager;
 import java.util.Date;
 
 /**
- * 图书书目信息
+ * 馆藏表
  *
  * @author cfl
  * @email 275300091@qq.com
- * @date 2019-03-07 17:23:37
+ * @date 2019-03-11 13:23:06
  */
 @Data
 public class CollectionBookVo implements Serializable {
     private static final long serialVersionUID = 1L;
     @ApiModelProperty("编号")
     private String id;
-    @ApiModelProperty("标题")
-    private String title;
-    @ApiModelProperty("出版社")
-    private String publisher;
-    @ApiModelProperty("出版时间")
-    private String publishDate;
-    @ApiModelProperty("作者")
-    private String author;
-    @ApiModelProperty("isbn号")
-    private String isbn;
+    @ApiModelProperty("条码号")
+    private String barcode;
     @ApiModelProperty("索书号")
     private String callno;
-    @ApiModelProperty("分类号")
-    private String classno;
-    @ApiModelProperty("馆藏数目")
-    private Integer assetCount;
-    @ApiModelProperty("书目metaid")
-    private String metaid;
-    @ApiModelProperty("书目metatable")
-    private String metatable;
+    @ApiModelProperty("还回日期")
+    private Date retudate;
+    @ApiModelProperty("入馆时间")
+    private Date regdate;
+    @ApiModelProperty("书架位置")
+    private String shiftno;
+    @ApiModelProperty("状态")
+    private Integer status;
     @ApiModelProperty("原分馆")
     private String sublib;
     @ApiModelProperty("原馆藏地点")

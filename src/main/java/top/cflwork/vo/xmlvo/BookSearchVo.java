@@ -2,6 +2,7 @@ package top.cflwork.vo.xmlvo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import top.cflwork.common.Pager;
 import top.cflwork.common.XmlElementAnno;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -12,6 +13,9 @@ import java.io.Serializable;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
 public class BookSearchVo implements Serializable {
+
+    @ApiModelProperty("图书编号")
+    private String id;
 
     @XmlElement(name = "title")
     @XmlElementAnno
@@ -70,4 +74,5 @@ public class BookSearchVo implements Serializable {
     @XmlElementAnno
     @ApiModelProperty("价格")
     private String price;
+
 }

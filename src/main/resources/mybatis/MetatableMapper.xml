@@ -4,13 +4,13 @@
 <mapper namespace="top.cflwork.dao.MetatableDao">
 
     <select id="get" resultType="top.cflwork.vo.MetatableVo">
-		select `id`,`title`,`author`,`isbn`,`publisher`,`publish_date`,`callno`,`classno`,`abbstract`,`price`,`publish_name`,`publish_address`,`ctrlno`,`subject`,`publish`,`note`,`version` from sys_metatable
+		select `id`,`title`,`author`,`isbn`,`publisher`,`publish_date`,`callno`,`classno`,`abbstract`,`price`,`publish_name`,`publish_address`,`ctrlno`,`subject`,`publish`,`note`,`version`,`asset_count`,`metaid`,`metatable`,`face_img` from sys_metatable
         where id=#{id}
 	</select>
 
     <select id="list" resultType="top.cflwork.vo.MetatableVo">
         select
-        `id`,`title`,`author`,`isbn`,`publisher`,`publish_date`,`callno`,`classno`,`abbstract`,`price`,`publish_name`,`publish_address`,`ctrlno`,`subject`,`publish`,`note`,`version`
+        `id`,`title`,`author`,`isbn`,`publisher`,`publish_date`,`callno`,`classno`,`abbstract`,`price`,`publish_name`,`publish_address`,`ctrlno`,`subject`,`publish`,`note`,`version`,`asset_count`,`metaid`,`metatable`,`face_img`
         from sys_metatable
         <where>
             <if test="id != null and id != ''">and id = #{id}</if>
@@ -30,6 +30,10 @@
             <if test="publish != null and publish != ''">and publish = #{publish}</if>
             <if test="note != null and note != ''">and note = #{note}</if>
             <if test="version != null and version != ''">and version = #{version}</if>
+            <if test="assetCount != null and assetCount != ''">and asset_count = #{assetCount}</if>
+            <if test="metaid != null and metaid != ''">and metaid = #{metaid}</if>
+            <if test="metatable != null and metatable != ''">and metatable = #{metatable}</if>
+            <if test="faceImg != null and faceImg != ''">and face_img = #{faceImg}</if>
         </where>
         <choose>
             <when test="pager.sort != null and pager.order != null">
@@ -66,6 +70,10 @@
             <if test="publish != null and publish != ''">and publish = #{publish}</if>
             <if test="note != null and note != ''">and note = #{note}</if>
             <if test="version != null and version != ''">and version = #{version}</if>
+            <if test="assetCount != null and assetCount != ''">and asset_count = #{assetCount}</if>
+            <if test="metaid != null and metaid != ''">and metaid = #{metaid}</if>
+            <if test="metatable != null and metatable != ''">and metatable = #{metatable}</if>
+            <if test="faceImg != null and faceImg != ''">and face_img = #{faceImg}</if>
         </where>
     </select>
 
@@ -88,7 +96,11 @@
 			`subject`, 
 			`publish`, 
 			`note`, 
-			`version`
+			`version`, 
+			`asset_count`, 
+			`metaid`, 
+			`metatable`, 
+			`face_img`
 		)
 		values
 		(
@@ -108,7 +120,11 @@
 			#{subject}, 
 			#{publish}, 
 			#{note}, 
-			#{version}
+			#{version}, 
+			#{assetCount}, 
+			#{metaid}, 
+			#{metatable}, 
+			#{faceImg}
 		)
 	</insert>
 
@@ -131,7 +147,11 @@
         `subject`,
         `publish`,
         `note`,
-        `version`
+        `version`,
+        `asset_count`,
+        `metaid`,
+        `metatable`,
+        `face_img`
         )
         values
         <foreach collection="list" item="metatableVo" separator=",">
@@ -152,7 +172,11 @@
             #{metatableVo.subject},
             #{metatableVo.publish},
             #{metatableVo.note},
-            #{metatableVo.version}
+            #{metatableVo.version},
+            #{metatableVo.assetCount},
+            #{metatableVo.metaid},
+            #{metatableVo.metatable},
+            #{metatableVo.faceImg}
             )
         </foreach>
     </insert>
@@ -175,7 +199,11 @@
             <if test="subject != null">`subject` = #{subject},</if>
             <if test="publish != null">`publish` = #{publish},</if>
             <if test="note != null">`note` = #{note},</if>
-            <if test="version != null">`version` = #{version}</if>
+            <if test="version != null">`version` = #{version},</if>
+            <if test="assetCount != null">`asset_count` = #{assetCount},</if>
+            <if test="metaid != null">`metaid` = #{metaid},</if>
+            <if test="metatable != null">`metatable` = #{metatable},</if>
+            <if test="faceImg != null">`face_img` = #{faceImg}</if>
         </set>
         where id = #{id}
     </update>
@@ -191,5 +219,37 @@
             #{id}
         </foreach>
     </delete>
+
+    <insert id="batchSaveBook" parameterType="top.cflwork.vo.xmlvo.BookSearchVo">
+        insert ignore into sys_metatable
+        (
+        `id`,
+        `title`,
+        `publisher`,
+        `publish_date`,
+        `author`,
+        `isbn`,
+        `callno`,
+        `classno`,
+        `asset_count`,
+        `metaid`,
+        `metatable`,
+        `price`
+        )
+        values(
+            #{id},
+            #{title},
+            #{publisher},
+            #{publishDate},
+            #{author},
+            #{isbn},
+            #{callno},
+            #{classno},
+            #{assetCount},
+            #{metaid},
+            #{metatable},
+            #{price}
+            )
+    </insert>
 
 </mapper>

@@ -3,6 +3,10 @@ package top.cflwork.controller;
 import java.util.List;
 import java.util.Map;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -15,26 +19,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import top.cflwork.common.ResponseJson;
+import top.cflwork.common.XmlSendUtil;
+import top.cflwork.config.Constant;
+import top.cflwork.util.*;
 import top.cflwork.vo.CollectionBookVo;
 import top.cflwork.service.CollectionBookService;
-import top.cflwork.util.PageUtils;
-import top.cflwork.util.Query;
-import top.cflwork.util.R;
+import top.cflwork.vo.ReadUserVo;
+import top.cflwork.vo.SendVo;
+import top.cflwork.vo.xmlvo.BookSearchRootVo;
+import top.cflwork.vo.xmlvo.BookSearchVo;
+import top.cflwork.vo.xmlvo.ReadRootVo;
 
 /**
- * 图书书目信息
+ * 馆藏表
  * 
  * @author cfl
  * @email 275300091@qq.com
- * @date 2019-03-07 17:23:37
+ * @date 2019-03-11 13:23:06
  */
  
 @Controller
 @RequestMapping("/collectionBook")
+@Api(value = "/collectionBook",description = "图书馆藏模块")
 public class CollectionBookController {
 	@Autowired
 	private CollectionBookService collectionBookService;
-	
+
 	@GetMapping("collectionBookPage")
 	@RequiresPermissions("collectionBook:collectionBookPage")
 	public String CollectionBook(){
@@ -130,4 +141,5 @@ public class CollectionBookController {
 			collectionBookService.batchSave(collectionBookList);
         return R.ok("批量新增成功");
     }
+
 }
