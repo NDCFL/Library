@@ -91,7 +91,7 @@ public class NewBookController {
 	 * 修改
 	 */
 	@ResponseBody
-	@RequestMapping("/update")
+	@PostMapping("/update")
 	public R update( NewBookVo newBook){
 		newBookService.update(newBook);
 		return R.ok("修改成功");

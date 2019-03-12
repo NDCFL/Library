@@ -79,14 +79,30 @@ public class Swagger2Config {
         );
     }
 
+
+    @Bean
+    public Docket newBookApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("新书通报模块")
+                .apiInfo(apiInfo())
+                .select()
+                .paths(newBookPaths())
+                .build();
+    }
+    private Predicate<String> newBookPaths() {
+        return or(
+                regex("/newBook/.*")
+        );
+    }
+
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("cflwork")
-                .description("<h4>接口里pager对象只在查询列表时用到</h4>")
+                .description("<h4>接口里pager对象只在查询列表时用到,图片，文件等需要加上前缀http://file.mykefang.com</h4>")
                 .termsOfServiceUrl("http://springfox.io")
                 .contact(new Contact("名字", "www.baidu.com", "test@163.com"))
                 .license("Apache License Version 2.0")
-                .licenseUrl("https://github.com/springfox/springfox/blob/master/LICENSE")
+                .licenseUrl("http://file.mykefang.com")
                 .version("1.0")
                 .build();
     }
