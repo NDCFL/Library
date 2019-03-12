@@ -329,7 +329,7 @@ public class MetatableController {
      */
     @PostMapping( "/newBookList")
     @ResponseBody
-    @ApiOperation(value = "根据cardno,读者卡号，根据读者证号查询读者历史流通记录", notes = "根据读者证号查询读者历史流通记录", response = BookSearchRootVo.class)
+    @ApiOperation(value = "根据，分馆（sublib），起始时间（startDate），终止时间（endDate），当前页（pageNo），页大小（pageSize）", notes = "根据读者证号查询读者历史流通记录", response = BookSearchRootVo.class)
     public ResponseJson newBookList(@ApiParam(value = "根据cardno,读者卡号，根据读者证号查询读者历史流通记录", required = true)@RequestBody NewBookRootVo newBookRootVo){
         try{
             SendVo sendVo = new SendVo();
