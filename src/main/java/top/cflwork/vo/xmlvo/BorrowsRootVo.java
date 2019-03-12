@@ -23,4 +23,7 @@ public class BorrowsRootVo implements Serializable{
 
     @XmlElement(name="text")
     private BorrowsVo text;
+
+    @ApiModelProperty(value = "卡号",required = true)
+    private String cardno;
 }

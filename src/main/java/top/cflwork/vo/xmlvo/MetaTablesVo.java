@@ -111,6 +111,15 @@ public class MetaTablesVo implements Serializable{
     @ApiModelProperty("版本")
     private String version;
 
+    @ApiModelProperty("馆藏数量")
+    private Integer assetCount;
+    @ApiModelProperty("metaid")
+    private String metaid;
+    @ApiModelProperty("metatable")
+    private String metatable;
+    @ApiModelProperty("封面图")
+    private String faceImg = "/book.gif";
+
     /*
     abbstract 摘要
 ctrlno 控制号

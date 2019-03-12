@@ -11,7 +11,11 @@ import java.io.Serializable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public class NewBookVo implements Serializable{
+public class NewBooksVo implements Serializable{
+
+
+    private String id;
+
 
     @XmlElement(name = "title")
     @XmlElementAnno
@@ -57,6 +61,9 @@ public class NewBookVo implements Serializable{
     @XmlElementAnno
     @ApiModelProperty("简介")
     private String intdtion;
+
+    @ApiModelProperty("图书封面")
+    private String faceImg = "/book.gif";
 
 
     /**

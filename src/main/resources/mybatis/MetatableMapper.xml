@@ -251,5 +251,30 @@
             #{price}
             )
     </insert>
-
+    <update id="updateBook" parameterType="top.cflwork.vo.xmlvo.MetaTablesVo">
+        update sys_metatable
+        <set>
+            <if test="title != null">`title` = #{title},</if>
+            <if test="author != null">`author` = #{author},</if>
+            <if test="isbn != null">`isbn` = #{isbn},</if>
+            <if test="publisher != null">`publisher` = #{publisher},</if>
+            <if test="publishDate != null">`publish_date` = #{publishDate},</if>
+            <if test="callno != null">`callno` = #{callno},</if>
+            <if test="classno != null">`classno` = #{classno},</if>
+            <if test="abbstract != null">`abbstract` = #{abbstract},</if>
+            <if test="price != null">`price` = #{price},</if>
+            <if test="publishName != null">`publish_name` = #{publishName},</if>
+            <if test="publishAddress != null">`publish_address` = #{publishAddress},</if>
+            <if test="ctrlno != null">`ctrlno` = #{ctrlno},</if>
+            <if test="subject != null">`subject` = #{subject},</if>
+            <if test="publish != null">`publish` = #{publish},</if>
+            <if test="note != null">`note` = #{note},</if>
+            <if test="version != null">`version` = #{version},</if>
+            <if test="assetCount != null">`asset_count` = #{assetCount},</if>
+            <if test="metaid != null">`metaid` = #{metaid},</if>
+            <if test="metatable != null">`metatable` = #{metatable},</if>
+            <if test="faceImg != null">`face_img` = #{faceImg}</if>
+        </set>
+        where `metaid` = #{metaid} and metatable=#{metatable}
+    </update>
 </mapper>

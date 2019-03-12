@@ -7,6 +7,7 @@ import top.cflwork.common.XmlElementAnno;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
 public class ReadBorrowVo {
@@ -23,62 +24,63 @@ public class ReadBorrowVo {
 
     @XmlElement(name = "title")
     @XmlElementAnno
-    @ApiModelProperty("图书标题")
+    @ApiModelProperty("书名")
     private String title;
-
-    @XmlElement(name = "loandate")
-    @XmlElementAnno
-    @ApiModelProperty("借书日期")
-    private String loandate;
-
-    @XmlElement(name = "retudate")
-    @XmlElementAnno
-    @ApiModelProperty("还回日期")
-    private String retudate;
 
     @XmlElement(name = "callno")
     @XmlElementAnno
-    @ApiModelProperty("书架号")
+    @ApiModelProperty("条码号")
     private String callno;
 
     @XmlElement(name = "cirtype")
     @XmlElementAnno
-    @ApiModelProperty("书架号")
+    @ApiModelProperty("流通类别")
     private String cirtype;
+
+    @XmlElement(name = "author")
+    @XmlElementAnno
+    @ApiModelProperty("作者")
+    private String author;
 
     @XmlElement(name = "metaid")
     @XmlElementAnno
-    @ApiModelProperty("Metaid 值")
+    @ApiModelProperty("metaid")
     private String metaid;
 
     @XmlElement(name = "metatable")
     @XmlElementAnno
-    @ApiModelProperty("metatable值")
+    @ApiModelProperty("metatable")
     private String metatable;
 
-    @XmlElement(name = "local")
+    @XmlElement(name = "eventType")
     @XmlElementAnno
-    @ApiModelProperty("位置")
-    private String local;
+    @ApiModelProperty("借出还回类型")
+    private String eventType;
 
-    @XmlElement(name = "sublib")
+    @XmlElement(name = "updateDate")
     @XmlElementAnno
-    @ApiModelProperty("分馆")
-    private String sublib;
+    @ApiModelProperty("日期")
+    private String updateDate;
 
     /**
-     <status><![CDATA[普通借出]]></status>
-     <barcode><![CDATA[223456789]]></barcode>
-     <title><![CDATA[权利的游戏]]></title>
-     <loandate><![CDATA[2018-11-08]]></loandate>
-     <retudate><![CDATA[2019-01-07]]></retudate>
-     <callno><![CDATA[I]]></callno>
-     <cirtype><![CDATA[中文类图书]]></cirtype>
-     <renenum><![CDATA[1]]></renenum>
-     <metaid><![CDATA[286697]]></metaid>
-     <metatable><![CDATA[i_biblios]]></metatable>
-     <local><![CDATA[QHL_BK01]]></local>
-     <sublib><![CDATA[QHL]]></sublib>
+     <barcode><![CDATA[01091800000034]]></barcode>
+     <title><![CDATA[八十年代中学生]]></title>
+     <callno><![CDATA[G635.5-64/1]]></callno>
+     <cirtype><![CDATA[一卡通中文书]]></cirtype>
+     <author><![CDATA[任曙林图/文 鲍昆文 顾铮文]]></author>
+     <metaid><![CDATA[1019]]></metaid>
+     <metatable><![CDATA[i_bbl_biblios]]></metatable>
+     <eventType><![CDATA[读者还回]]></eventType>
+     <updateDate><![CDATA[2016-01-02]]></updateDate>
+
+     title				书名
+     updaetDate				日期
+     callno				索书号
+     cirtype				流通类别
+     metatable				馆藏metatable
+     metaid				馆藏metaid
+     eventType				借出还回类型
+     author				作者
      */
 
 

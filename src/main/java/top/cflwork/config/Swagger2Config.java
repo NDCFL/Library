@@ -75,7 +75,7 @@ public class Swagger2Config {
     }
     private Predicate<String> bookSearchPaths() {
         return or(
-                regex("/metatable/bookSearch.*")
+                regex("/metatable/.*")
         );
     }
 

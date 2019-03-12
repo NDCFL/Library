@@ -23,15 +23,19 @@ public class CollectionBookRootVo implements Serializable {
 
     @XmlElement(name="pageNo")
     @XmlElementAnno
-    @ApiModelProperty("当前页")
+    @ApiModelProperty(value = "当前页",required = true)
     private Integer pageNo;
 
     @XmlElement(name="pageSize")
     @XmlElementAnno
-    @ApiModelProperty("页条数")
+    @ApiModelProperty(value = "页条数",required = true)
     private Integer pageSize;
 
     @XmlElement(name="text")
     private List<CollectionBooksVo> text;
+    @ApiModelProperty(value = "metaid",required = true)
+    private String metaid;
+    @ApiModelProperty(value = "metatable",required = true)
+    private String metatable;
 
 }

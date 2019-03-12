@@ -23,6 +23,7 @@ import top.cflwork.common.Pager;
 import top.cflwork.common.ResponseJson;
 import top.cflwork.common.XmlSendUtil;
 import top.cflwork.config.Constant;
+import top.cflwork.service.NewBookService;
 import top.cflwork.util.JaXmlBeanUtil;
 import top.cflwork.vo.MetatableVo;
 import top.cflwork.service.MetatableService;
@@ -30,8 +31,7 @@ import top.cflwork.util.PageUtils;
 import top.cflwork.util.Query;
 import top.cflwork.util.R;
 import top.cflwork.vo.SendVo;
-import top.cflwork.vo.xmlvo.BookSearchRootVo;
-import top.cflwork.vo.xmlvo.BookSearchVo;
+import top.cflwork.vo.xmlvo.*;
 
 /**
  * 图书书目信息表
@@ -47,6 +47,8 @@ import top.cflwork.vo.xmlvo.BookSearchVo;
 public class MetatableController {
 	@Autowired
 	private MetatableService metatableService;
+	@Autowired
+	private NewBookService newBookService;
 	@Autowired
 	private XmlSendUtil xmlSendUtil;
 	@GetMapping("metatablePage")
@@ -104,7 +106,7 @@ public class MetatableController {
 	 * 修改
 	 */
 	@ResponseBody
-	@RequestMapping("/update")
+	@PostMapping("/update")
 	@RequiresPermissions("metatable:update")
 	public R update( MetatableVo metatable){
 		metatableService.update(metatable);
@@ -191,17 +193,177 @@ public class MetatableController {
 		}
 	}
 
+	/**
+	 * 图书书目信息详情
+	 */
+	@PostMapping( "/bookInfo")
+	@ResponseBody
+	@ApiOperation(value = "根据metaid,metable 两个参数，查询书目的详细信息", notes = "查询书目的详细信息", response = BookSearchRootVo.class)
+	public ResponseJson bookInfo(@ApiParam(value = "根据metaid,metable 两个参数，查询书目的详细信息", required = true)@RequestBody MetatableVo metatableVo){
+		try{
+			SendVo sendVo = new SendVo();
+			sendVo.setWsUrl(Constant.BOOK.BOOKINFO);
+			sendVo.setXmlParams(Constant.XMLPARAMS+"<text><eventType>10013</eventType><metaid>"+metatableVo.getMetaid()+"</metaid><metatable>"+metatableVo.getMetatable()+"</metatable></text></root>");
+			System.out.println(sendVo.getXmlParams()+"========================");
+			ResponseJson responseJson  = xmlSendUtil.send(sendVo);
+			System.out.println(responseJson+"==================");
+			if(responseJson.getResult().isSuccess()){
+				MetaTableRootVo metaTableRootVo = JaXmlBeanUtil.converyToJavaBean(responseJson.getResult().getMsg(), MetaTableRootVo.class);
+				//调用接口可以查询到
+				if(metaTableRootVo.getCode()==0){
+					//数据异常
+					return new ResponseJson(false, "服务器接口异常");
+				}else{
+					//数据正常
+					metaTableRootVo.getText().setMetaid(metatableVo.getMetaid());
+					metaTableRootVo.getText().setMetatable(metatableVo.getMetatable());
+					metatableService.updateBook(metaTableRootVo.getText());
+					return new ResponseJson(true,metaTableRootVo);
+				}
+			}else{
+				return new ResponseJson(false, "服务器接口异常");
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+			return new ResponseJson(false, "服务器接口异常");
+		}
+	}
+	/**
+	 * 图书馆藏信息详情
+	 */
+	@PostMapping( "/bookList")
+	@ResponseBody
+	@ApiOperation(value = "根据metaid,metable 两个参数，查询图书馆藏信息详情", notes = "图书馆藏信息详情", response = BookSearchRootVo.class)
+	public ResponseJson bookList(@ApiParam(value = "根据metaid,metable 两个参数，图书馆藏信息详情", required = true)@RequestBody CollectionBookRootVo collectionBookRootVo){
+		try{
+			SendVo sendVo = new SendVo();
+			sendVo.setWsUrl(Constant.BOOK.BOOKLIST);
+			sendVo.setXmlParams(Constant.XMLPARAMS+"<text><eventType>10016</eventType><metaid>"+collectionBookRootVo.getMetaid()+"</metaid><metatable>"+collectionBookRootVo.getMetatable()+"</metatable><pageNo>"+collectionBookRootVo.getPageNo()+"</pageNo><pageSize>"+collectionBookRootVo.getPageSize()+"</pageSize></text></root>");
+			System.out.println(sendVo.getXmlParams()+"========================");
+			ResponseJson responseJson  = xmlSendUtil.send(sendVo);
+			System.out.println(responseJson+"==================");
+			if(responseJson.getResult().isSuccess()){
+				CollectionBookRootVo collectionBookRootVo1 = JaXmlBeanUtil.converyToJavaBean(responseJson.getResult().getMsg(), CollectionBookRootVo.class);
+				//调用接口可以查询到
+				if(collectionBookRootVo1.getCode()==0){
+					//数据异常
+					return new ResponseJson(false, "服务器接口异常");
+				}else{
+					return new ResponseJson(true,collectionBookRootVo1);
+				}
+			}else{
+				return new ResponseJson(false, "服务器接口异常");
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+			return new ResponseJson(false, "服务器接口异常");
+		}
+	}
+
+	/**
+	 * 根据读者卡号，获取读者的借阅列表
+	 */
+	@PostMapping( "/bookBorrowByCard")
+	@ResponseBody
+	@ApiOperation(value = "根据cardno,读者卡号，获取读者的借阅列表", notes = "获取读者的借阅列表", response = BookSearchRootVo.class)
+	public ResponseJson bookBorrowByCard(@ApiParam(value = "根据cardno,读者卡号，获取读者的借阅列表", required = true)@RequestBody BorrowsRootVo borrowsRootVo){
+		try{
+			SendVo sendVo = new SendVo();
+			sendVo.setWsUrl(Constant.BOOK.BORROW);
+			sendVo.setXmlParams(Constant.XMLPARAMS+"<text><eventType>10015</eventType><cardno>"+borrowsRootVo.getCardno()+"</cardno></text></root>");
+			System.out.println(sendVo.getXmlParams()+"========================");
+			ResponseJson responseJson  = xmlSendUtil.send(sendVo);
+			System.out.println(responseJson+"==================");
+			if(responseJson.getResult().isSuccess()){
+				BorrowsRootVo borrowsRootVo1 = JaXmlBeanUtil.converyToJavaBean(responseJson.getResult().getMsg(), BorrowsRootVo.class);
+				//调用接口可以查询到
+				if(borrowsRootVo1.getCode()==0){
+					//数据异常
+					return new ResponseJson(false, "服务器接口异常");
+				}else{
+					return new ResponseJson(true,borrowsRootVo1);
+				}
+			}else{
+				return new ResponseJson(false, "服务器接口异常");
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+			return new ResponseJson(false, "服务器接口异常");
+		}
+	}
+
+	/**
+	 * 根据读者证号查询读者历史流通记录
+	 */
+	@PostMapping( "/bookBorrowByCardList")
+	@ResponseBody
+	@ApiOperation(value = "根据cardno,读者卡号，根据读者证号查询读者历史流通记录", notes = "根据读者证号查询读者历史流通记录", response = BookSearchRootVo.class)
+	public ResponseJson bookBorrowByCardList(@ApiParam(value = "根据cardno,读者卡号，根据读者证号查询读者历史流通记录", required = true)@RequestBody BorrowsRootVo borrowsRootVo){
+		try{
+			SendVo sendVo = new SendVo();
+			sendVo.setWsUrl(Constant.BOOK.BORROW);
+			sendVo.setXmlParams(Constant.XMLPARAMS+"<text><eventType>10015</eventType><cardno>"+borrowsRootVo.getCardno()+"</cardno></text></root>");
+			System.out.println(sendVo.getXmlParams()+"========================");
+			ResponseJson responseJson  = xmlSendUtil.send(sendVo);
+			System.out.println(responseJson+"==================");
+			if(responseJson.getResult().isSuccess()){
+				BorrowsRootVo borrowsRootVo1 = JaXmlBeanUtil.converyToJavaBean(responseJson.getResult().getMsg(), BorrowsRootVo.class);
+				//调用接口可以查询到
+				if(borrowsRootVo1.getCode()==0){
+					//数据异常
+					return new ResponseJson(false, "服务器接口异常");
+				}else{
+					return new ResponseJson(true,borrowsRootVo1);
+				}
+			}else{
+				return new ResponseJson(false, "服务器接口异常");
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+			return new ResponseJson(false, "服务器接口异常");
+		}
+	}
+
+    /**
+     * 新书通报
+     */
+    @PostMapping( "/newBookList")
+    @ResponseBody
+    @ApiOperation(value = "根据cardno,读者卡号，根据读者证号查询读者历史流通记录", notes = "根据读者证号查询读者历史流通记录", response = BookSearchRootVo.class)
+    public ResponseJson newBookList(@ApiParam(value = "根据cardno,读者卡号，根据读者证号查询读者历史流通记录", required = true)@RequestBody NewBookRootVo newBookRootVo){
+        try{
+            SendVo sendVo = new SendVo();
+            sendVo.setWsUrl(Constant.BOOK.NEWBOOK);
+            sendVo.setXmlParams(Constant.XMLPARAMS+"<text><eventType>10003</eventType><startDate>"+newBookRootVo.getStartDate()+"</startDate><endDate>"+newBookRootVo.getEndDate()+"</endDate><sublib>QHL</sublib><pageNo>"+newBookRootVo.getPageNo()+"</pageNo><pageSize>"+newBookRootVo.getPageSize()+"</pageSize></text></root>");
+            System.out.println(sendVo.getXmlParams()+"========================");
+            ResponseJson responseJson  = xmlSendUtil.send(sendVo);
+            System.out.println(responseJson+"==================");
+            if(responseJson.getResult().isSuccess()){
+                NewBookRootVo newBookRootVo1 = JaXmlBeanUtil.converyToJavaBean(responseJson.getResult().getMsg(), NewBookRootVo.class);
+                //调用接口可以查询到
+                if(newBookRootVo1.getCode()==0){
+                    //数据异常
+                    return new ResponseJson(false, "服务器接口异常");
+                }else{
+                	if(newBookRootVo1.getText()!=null){
+						newBookService.bachSaveNewBook(newBookRootVo1.getText());
+					}
+                    return new ResponseJson(true,newBookRootVo1);
+                }
+            }else{
+                return new ResponseJson(false, "服务器接口异常");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseJson(false, "服务器接口异常");
+        }
+    }
+
+
 	public static void main(String[] args) {
 		SendVo sendVo = new SendVo();
-		sendVo.setWsUrl(Constant.BOOK.BOOKSEARCH);
-		sendVo.setXmlParams(Constant.XMLPARAMS+"<text>" +
-				"<eventType>10018</eventType>\n" +
-				"    <pageNo>1</pageNo>\n" +
-				"    <pageSize>20</pageSize>\n" +
-				"    <select1>all</select1>\n" +
-				"    <text1>经济管理</text1>\n" +
-				"<occur1/>" +
-				"</text></root>");
+		sendVo.setWsUrl(Constant.BOOK.BOOKINFO);
+		sendVo.setXmlParams(Constant.XMLPARAMS+"<text><eventType>10013</eventType><metaid>66696</metaid><metatable>i_biblios</metatable></text></root>");
 		ResponseJson responseJson  = new XmlSendUtil().send(sendVo);
 		System.out.println(sendVo.getXmlParams());
 		System.out.println(responseJson.getResult().getMsg()+"==================");

@@ -24,7 +24,7 @@ public class ProtocolSend {
         //获取读者信息
 //        geteRead();
         //图书检索
-        geteBook();
+//        geteBook();
         //获取书目信息
 //        geteBookList();
         //馆藏信息
@@ -32,7 +32,7 @@ public class ProtocolSend {
         //获取借阅记录
 //        getJy();
         //获取流通记录
-//        getLtjl();
+        getLtjl();
         //新书通报
 //        getxstb();
 	}
@@ -157,13 +157,14 @@ public class ProtocolSend {
                 "    <eventType>10025</eventType>  \n" +
                 "    <cardno>QHL0000701</cardno> " +
                 "    <startDate>2016-01-01</startDate>  \n" +
-                "    <endDate>2016-01-31</endDate>  \n" +
+                "    <endDate>2019-01-31</endDate>  \n" +
                 "    <pageNo>1</pageNo>  \n" +
                 "    <pageSize>20</pageSize>" +
                 "  </text>" +
                 "</root>";
         System.out.println("开始====================");
         String result = ProtocolSend.send(ip, port, wsUrl, wsNameSpace, method, xmlParams);
+        System.out.println(result);
         ReadBorrowRootVo readBorrowRootVo= JaXmlBeanUtil.converyToJavaBean(result,ReadBorrowRootVo.class);
         System.out.println("返回结果：" + readBorrowRootVo);
         System.out.println("结束====================");

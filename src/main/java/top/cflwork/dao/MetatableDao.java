@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import top.cflwork.vo.xmlvo.BookSearchVo;
+import top.cflwork.vo.xmlvo.MetaTablesVo;
 
 /**
  * 图书书目信息表
@@ -32,4 +33,6 @@ public interface MetatableDao {
 	int batchSave(List<MetatableVo> metatableList);
 
 	int batchSaveBook(BookSearchVo bookSearchVo);
+
+	int updateBook(MetaTablesVo metaTablesVo);
 }

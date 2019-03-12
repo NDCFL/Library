@@ -26,5 +26,18 @@ public class NewBookRootVo  implements Serializable {
     private Integer totalCount;
 
     @XmlElement(name="text")
-    private List<NewBookVo> text;
+    private List<NewBooksVo> text;
+
+    @ApiModelProperty(value = "起始时间",required = true)
+    private String startDate;
+    @ApiModelProperty(value = "结束时间",required = true)
+    private String endDate;
+    @ApiModelProperty(value = "分馆",required = true)
+    private String sublib = "QHL";
+    @ApiModelProperty(value = "当前页",required = true)
+    private String pageNo;
+    @ApiModelProperty(value = "页条数",required = true)
+    private String pageSize;
+
+
 }

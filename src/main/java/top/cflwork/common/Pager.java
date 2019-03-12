@@ -17,12 +17,13 @@ import java.util.List;
 @ApiModel("分页排序等支撑类,保存数据时请忽略,做条件查询时用")
 @Data
 public class Pager {
+    @ApiModelProperty(value = "当前页",required = true)
     private int pageIndex;
-    // 每页条数
+    @ApiModelProperty(value = "页条数",required = true)
     private int pageSize;
-    //排序字段
+    @ApiModelProperty(value = "排序字段",required = true)
     private String sort;
-    //排序方式
+    @ApiModelProperty(value = "排序顺序，esc(顺序),desc(倒序)",required = true)
     private String order;
 
     private boolean paging = true;

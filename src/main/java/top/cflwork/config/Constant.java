@@ -32,6 +32,10 @@ public interface Constant {
     interface BOOK{
         String BOOK="DLibsAPI/services/ReaderWS";
         String BOOKSEARCH = "DLibsAPI/services/AssetsWS";
+        String BOOKINFO = "DLibsAPI/services/BibliosWS";
+        String BOOKLIST = "DLibsAPI/services/AssetsWS";
+        String BORROW="DLibsAPI/services/ReaderWS";
+        String NEWBOOK = "DLibsAPI/services/AssetsWS";
     }
     
     
