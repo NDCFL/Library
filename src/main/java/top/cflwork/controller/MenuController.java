@@ -1,7 +1,9 @@
 package top.cflwork.controller;
 
+import com.xiaoleilu.hutool.util.PageUtil;
 import top.cflwork.common.annotation.Log;
 import top.cflwork.config.Constant;
+import top.cflwork.util.PageUtils;
 import top.cflwork.util.R;
 import top.cflwork.vo.MenuVo;
 import top.cflwork.service.MenuService;
@@ -11,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import top.cflwork.vo.TreePageVo;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,9 +38,17 @@ public class MenuController extends BaseController {
 	@RequiresPermissions("menu:menu")
 	@RequestMapping("/list")
 	@ResponseBody
-	public List<MenuVo> list(@RequestParam Map<String, Object> params) {
+	public TreePageVo<MenuVo> list(@RequestParam Map<String, Object> params) {
+		Map<String,Object> map = new HashMap<>();
+		params.put("sort","order_num");
+		params.put("order","asc");
 		List<MenuVo> menus = menuService.list(params);
-		return menus;
+        TreePageVo<MenuVo> treePageVo = new TreePageVo<>();
+        treePageVo.setCode(0);
+        treePageVo.setData(menus);
+        treePageVo.setCount(20l);
+        treePageVo.setMsg("查询成功");
+		return treePageVo;
 	}
 
 	@Log("添加菜单")

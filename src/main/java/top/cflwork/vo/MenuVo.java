@@ -33,4 +33,6 @@ public class MenuVo implements Serializable {
 	@ApiModelProperty("分页对象")
 	private Pager pager;
 
+	private Integer authorityId;
+
 }

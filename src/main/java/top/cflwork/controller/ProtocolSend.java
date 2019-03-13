@@ -32,9 +32,11 @@ public class ProtocolSend {
         //获取借阅记录
 //        getJy();
         //获取流通记录
-        getLtjl();
+//        getLtjl();
         //新书通报
 //        getxstb();
+//        排行榜
+        getphb();
 	}
 
 	public static String geteRead(){
@@ -194,7 +196,29 @@ public class ProtocolSend {
         return result;
     }
 
-	/**
+    public static String getphb(){
+        String ip = "111.44.140.226";
+        String port = "8083";
+        String wsUrl = "DLibsAPI/services/AssetsWS";
+        String wsNameSpace = "http://impl.server.axis2.dlibs.com";
+        String method = "receive";
+        String xmlParams = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><root><verification><authorizationCode><![CDATA[123456]]></authorizationCode><subCenterCode><![CDATA[QHL]]></subCenterCode></verification><text> \n" +
+                "       <eventType>10002</eventType>\n" +
+                "      <sublib>QHL</sublib>  \n" +
+                "    <time>201601</time>  \n" +
+                "    <type>Month</type>  \n" +
+                "    <pageNo>1</pageNo>  \n" +
+                "    <pageSize>10</pageSize> " +
+                "</text>" +
+                "</root>";
+        System.out.println("开始====================");
+        String result = ProtocolSend.send(ip, port, wsUrl, wsNameSpace, method, xmlParams);
+        System.out.println("返回结果：" + result);
+        System.out.println("结束====================");
+        return result;
+    }
+
+    /**
 	 * 
 	 * 
 	 * @param
