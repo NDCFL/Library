@@ -22,12 +22,14 @@ public class SeatVo implements Serializable {
     private String id;
     @ApiModelProperty("座位名称")
     private String title;
-    @ApiModelProperty("座位编号")
-    private String seatCode;
+    @ApiModelProperty("阅览室编号")
+    private String readdingId;
     @ApiModelProperty("状态")
     private String status;
     @ApiModelProperty("创建时间")
     private Date createTime;
     @ApiModelProperty("分页对象")
     private Pager pager;
+    @ApiModelProperty("阅览室名称")
+    private String readdingName;
 }

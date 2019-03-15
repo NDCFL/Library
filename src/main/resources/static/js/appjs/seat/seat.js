@@ -41,8 +41,8 @@ $('#mytab').bootstrapTable({
             sortable: true
         },
         {
-            field: 'seatCode',
-            title: '座位编号',
+            field: 'readdingName',
+            title: '所属阅览室',
             align: 'center',
             sortable: true
         },

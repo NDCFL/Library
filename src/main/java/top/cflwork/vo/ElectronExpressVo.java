@@ -22,14 +22,14 @@ public class ElectronExpressVo implements Serializable {
     private String id;
     @ApiModelProperty("读者编号")
     private String readUserId;
-    @ApiModelProperty("读者名字")
+    @ApiModelProperty("读者姓名")
     private String readUserName;
     @ApiModelProperty("读者卡号")
     private String readUserCardNum;
     @ApiModelProperty("图书编号")
-    private String bookId;
+    private String title;
     @ApiModelProperty("isbn号")
-    private String isbn;
+    private String subject;
     @ApiModelProperty("图书名称")
     private String bookName;
     @ApiModelProperty("状态 1：可抢单 2：已抢单 3：已送达 4：已评分 5：未送达 6：申请已取消")

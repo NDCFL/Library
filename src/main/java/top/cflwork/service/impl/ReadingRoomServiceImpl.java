@@ -11,6 +11,7 @@ import top.cflwork.dao.ReadingRoomDao;
 import top.cflwork.vo.ReadingRoomVo;
 import top.cflwork.service.ReadingRoomService;
 import top.cflwork.common.SequenceId;
+import top.cflwork.vo.Select2Vo;
 
 
 @Service
@@ -68,4 +69,9 @@ public class ReadingRoomServiceImpl implements ReadingRoomService {
 			readingRoomList.forEach(e -> e.setId(sequenceId.nextId()));
         return readingRoomDao.batchSave(readingRoomList);
     }
+
+	@Override
+	public List<Select2Vo> getReaddingRoom() {
+		return readingRoomDao.getReaddingRoom();
+	}
 }

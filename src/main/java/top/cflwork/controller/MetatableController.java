@@ -60,12 +60,12 @@ public class MetatableController {
 	@ResponseBody
 	@PostMapping("/list")
 	@RequiresPermissions("metatable:list")
-	public PageUtils list(MetatableVo metatableVo){
+	public List<MetatableVo> list(MetatableVo metatableVo){
 		//查询列表数据
 		List<MetatableVo> metatableList = metatableService.list(metatableVo);
-		Long total = metatableService.count(metatableVo);
-		PageUtils pageUtils = new PageUtils(metatableList, total);
-		return pageUtils;
+//		Long total = metatableService.count(metatableVo);
+//		PageUtils pageUtils = new PageUtils(metatableList, total);
+		return metatableList;
 	}
 
 	@GetMapping("/add")
@@ -74,13 +74,6 @@ public class MetatableController {
 	    return "/metatable/add";
 	}
 
-	/*@GetMapping("/edit/{id}")
-	@RequiresPermissions("metatable:edit")
-	public String edit(@PathVariable("id") String id,Model model){
-		MetatableVo metatable = metatableService.get(id);
-		model.addAttribute("metatable", metatable);
-	    return "/metatable/edit";
-	}*/
 
     @GetMapping("/edit/{id}")
     @RequiresPermissions("metatable:edit")

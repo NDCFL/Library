@@ -89,11 +89,9 @@ $('#mytab').bootstrapTable({
             field: '',
             formatter: function (value, row, index) {
                 var e = '<a title="编辑" href="javascript:void(0);" id="spaceUse"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
-                var d = '<a title="删除" href="javascript:void(0);" onclick="del(\'' + row.id + '\',' + row.status + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
-                var f =  '<a title="同意申请" href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 1 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">同意申请</i></a> ';
-                var f1 = '<a title="拒绝申请" href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 2 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">拒绝申请</i></a> ';
+                var f =  '<a title="审核" href="javascript:void(0);" data-toggle="modal" data-id="' + row.id + '" data-target="#myModal" onclick="edit(\'' + row.id + '\',' + 1 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">审核</i></a> ';
                 if(row.status!=1){
-                    return f + f1;
+                    return f;
                 }
             }
         }
@@ -257,6 +255,25 @@ $("#update").click(function () {
         "json"
     );
 });
+
+function update(val) {
+    $("#status__").val(val);
+    $.post(
+        "/spaceUse/update",
+        $('#updateform').serialize(),
+        function (result) {
+            if (result.code == 0) {
+                layer.alert(result.msg, {icon: 1});
+                $("#myModal").modal('hide');
+            } else {
+                layer.alert(result.msg, {icon: 2});
+            }
+            refush();
+        },
+        "json"
+    );
+}
+
 $('#formadd').bootstrapValidator({
     message: 'This value is not valid',
     feedbackIcons: {

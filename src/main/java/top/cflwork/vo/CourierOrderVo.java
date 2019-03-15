@@ -22,15 +22,15 @@ public class CourierOrderVo implements Serializable {
     private String id;
     @ApiModelProperty("读者编号")
     private String readUserId;
-    @ApiModelProperty("读者名字")
+    @ApiModelProperty("读者姓名")
     private String readUserName;
     @ApiModelProperty("读者卡号")
     private String readUserCardNum;
-    @ApiModelProperty("抢单员手机号")
+    @ApiModelProperty("快递员手机号")
     private String courierPhone;
-    @ApiModelProperty("抢单员身份证号")
+    @ApiModelProperty("快递员身份证号")
     private String courierIdcard;
-    @ApiModelProperty("抢单员地址")
+    @ApiModelProperty("快递员地址")
     private String courierAdress;
     @ApiModelProperty("申请时间")
     private Date createTime;

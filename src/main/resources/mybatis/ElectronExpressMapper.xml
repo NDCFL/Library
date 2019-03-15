@@ -4,21 +4,21 @@
 <mapper namespace="top.cflwork.dao.ElectronExpressDao">
 
     <select id="get" resultType="top.cflwork.vo.ElectronExpressVo">
-		select `id`,`read_user_id`,`read_user_name`,`read_user_card_num`,`book_id`,`isbn`,`book_name`,`status`,`score`,`reason`,`create_time` from sys_electron_express
+		select `id`,`read_user_id`,`read_user_name`,`read_user_card_num`,`title`,`subject`,`book_name`,`status`,`score`,`reason`,`create_time` from sys_electron_express
         where id=#{id}
 	</select>
 
     <select id="list" resultType="top.cflwork.vo.ElectronExpressVo">
         select
-        `id`,`read_user_id`,`read_user_name`,`read_user_card_num`,`book_id`,`isbn`,`book_name`,`status`,`score`,`reason`,`create_time`
+        `id`,`read_user_id`,`read_user_name`,`read_user_card_num`,`title`,`subject`,`book_name`,`status`,`score`,`reason`,`create_time`
         from sys_electron_express
         <where>
             <if test="id != null and id != ''">and id = #{id}</if>
             <if test="readUserId != null and readUserId != ''">and read_user_id = #{readUserId}</if>
             <if test="readUserName != null and readUserName != ''">and read_user_name  like concat('%${readUserName}%')</if>
             <if test="readUserCardNum != null and readUserCardNum != ''">and read_user_card_num like concat('%${readUserCardNum}%')</if>
-            <if test="bookId != null and bookId != ''">and book_id = #{bookId}</if>
-            <if test="isbn != null and isbn != ''">and isbn  like concat('%${isbn}%')</if>
+            <if test="title != null and title != ''">and title like concat('%${title}%')</if>
+            <if test="subject != null and subject != ''">and subject  like concat('%${subject}%')</if>
             <if test="bookName != null and bookName != ''">and book_name  like concat('%${bookName}%')</if>
             <if test="status != null and status != ''">and status = #{status}</if>
             <if test="score != null and score != ''">and score = #{score}</if>
@@ -45,9 +45,8 @@
             <if test="readUserId != null and readUserId != ''">and read_user_id = #{readUserId}</if>
             <if test="readUserName != null and readUserName != ''">and read_user_name  like concat('%${readUserName}%')</if>
             <if test="readUserCardNum != null and readUserCardNum != ''">and read_user_card_num like concat('%${readUserCardNum}%')</if>
-            <if test="bookId != null and bookId != ''">and book_id = #{bookId}</if>
-            <if test="isbn != null and isbn != ''">and isbn  like concat('%${isbn}%')</if>
-            <if test="bookName != null and bookName != ''">and book_name  like concat('%${bookName}%')</if>
+            <if test="title != null and title != ''">and title like concat('%${title}%')</if>
+            <if test="subject != null and subject != ''">and subject  like concat('%${subject}%')</if>
             <if test="status != null and status != ''">and status = #{status}</if>
             <if test="score != null and score != ''">and score = #{score}</if>
             <if test="reason != null and reason != ''">and reason  like concat('%${reason}%')</if>
@@ -62,10 +61,9 @@
 			`read_user_id`, 
 			`read_user_name`, 
 			`read_user_card_num`, 
-			`book_id`, 
-			`isbn`, 
-			`book_name`, 
-			`status`, 
+			`title`, 
+			`subject`, 
+			`status`,
 			`score`, 
 			`reason`, 
 			`create_time`
@@ -76,10 +74,9 @@
 			#{readUserId}, 
 			#{readUserName}, 
 			#{readUserCardNum}, 
-			#{bookId}, 
-			#{isbn}, 
-			#{bookName}, 
-			#{status}, 
+			#{title}, 
+			#{subject}, 
+			#{status},
 			#{score}, 
 			#{reason}, 
 			#{createTime}
@@ -93,9 +90,8 @@
         `read_user_id`,
         `read_user_name`,
         `read_user_card_num`,
-        `book_id`,
-        `isbn`,
-        `book_name`,
+        `title`,
+        `subject`,
         `status`,
         `score`,
         `reason`,
@@ -108,9 +104,8 @@
             #{electronExpressVo.readUserId},
             #{electronExpressVo.readUserName},
             #{electronExpressVo.readUserCardNum},
-            #{electronExpressVo.bookId},
-            #{electronExpressVo.isbn},
-            #{electronExpressVo.bookName},
+            #{electronExpressVo.title},
+            #{electronExpressVo.subject},
             #{electronExpressVo.status},
             #{electronExpressVo.score},
             #{electronExpressVo.reason},
@@ -125,9 +120,8 @@
             <if test="readUserId != null">`read_user_id` = #{readUserId},</if>
             <if test="readUserName != null">`read_user_name` = #{readUserName},</if>
             <if test="readUserCardNum != null">`read_user_card_num` = #{readUserCardNum},</if>
-            <if test="bookId != null">`book_id` = #{bookId},</if>
-            <if test="isbn != null">`isbn` = #{isbn},</if>
-            <if test="bookName != null">`book_name` = #{bookName},</if>
+            <if test="title != null">`title` = #{title},</if>
+            <if test="subject != null">`subject` = #{subject},</if>
             <if test="status != null">`status` = #{status},</if>
             <if test="score != null">`score` = #{score},</if>
             <if test="reason != null">`reason` = #{reason},</if>

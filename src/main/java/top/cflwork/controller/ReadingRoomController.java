@@ -20,6 +20,7 @@ import top.cflwork.service.ReadingRoomService;
 import top.cflwork.util.PageUtils;
 import top.cflwork.util.Query;
 import top.cflwork.util.R;
+import top.cflwork.vo.Select2Vo;
 
 /**
  * 阅览室管理
@@ -130,4 +131,14 @@ public class ReadingRoomController {
 			readingRoomService.batchSave(readingRoomList);
         return R.ok("批量新增成功");
     }
+
+	/**
+	 * 获取所有的阅览室
+	 */
+	@PostMapping( "/getReaddingRoom")
+	@ResponseBody
+	public List<Select2Vo> getReaddingRoom(){
+		return readingRoomService.getReaddingRoom();
+	}
+
 }

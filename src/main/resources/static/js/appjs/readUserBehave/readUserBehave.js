@@ -34,12 +34,7 @@ $('#mytab').bootstrapTable({
             align: 'center',
             valign: 'middle'
         },
-        {
-            field: 'id',
-            title: '兴趣爱好编号',
-            align: 'center',
-            sortable: true
-        },
+
         {
             field: 'readUserId',
             title: '读者编号',

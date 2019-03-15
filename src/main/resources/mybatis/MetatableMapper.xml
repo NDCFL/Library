@@ -4,9 +4,9 @@
 <mapper namespace="top.cflwork.dao.MetatableDao">
 
     <select id="get" resultType="top.cflwork.vo.MetatableVo">
-		select `id`,`title`,`author`,`isbn`,`publisher`,`publish_date`,`callno`,`classno`,`abbstract`,`price`,`publish_name`,`publish_address`,`ctrlno`,`subject`,`publish`,`note`,`version`,`asset_count`,`metaid`,`metatable`,`face_img` from sys_metatable
+        select `id`,`title`,`author`,`isbn`,`publisher`,`publish_date`,`callno`,`classno`,`abbstract`,`price`,`publish_name`,`publish_address`,`ctrlno`,`subject`,`publish`,`note`,`version`,`asset_count`,`metaid`,`metatable`,`face_img` from sys_metatable
         where id=#{id}
-	</select>
+    </select>
 
     <select id="list" resultType="top.cflwork.vo.MetatableVo">
         select
@@ -78,55 +78,55 @@
     </select>
 
     <insert id="save" parameterType="top.cflwork.vo.MetatableVo">
-		insert into sys_metatable
-		(
-			`id`, 
-			`title`, 
-			`author`, 
-			`isbn`, 
-			`publisher`, 
-			`publish_date`, 
-			`callno`, 
-			`classno`, 
-			`abbstract`, 
-			`price`, 
-			`publish_name`, 
-			`publish_address`, 
-			`ctrlno`, 
-			`subject`, 
-			`publish`, 
-			`note`, 
-			`version`, 
-			`asset_count`, 
-			`metaid`, 
-			`metatable`, 
-			`face_img`
-		)
-		values
-		(
-			#{id}, 
-			#{title}, 
-			#{author}, 
-			#{isbn}, 
-			#{publisher}, 
-			#{publishDate}, 
-			#{callno}, 
-			#{classno}, 
-			#{abbstract}, 
-			#{price}, 
-			#{publishName}, 
-			#{publishAddress}, 
-			#{ctrlno}, 
-			#{subject}, 
-			#{publish}, 
-			#{note}, 
-			#{version}, 
-			#{assetCount}, 
-			#{metaid}, 
-			#{metatable}, 
-			#{faceImg}
-		)
-	</insert>
+        insert into sys_metatable
+        (
+        `id`,
+        `title`,
+        `author`,
+        `isbn`,
+        `publisher`,
+        `publish_date`,
+        `callno`,
+        `classno`,
+        `abbstract`,
+        `price`,
+        `publish_name`,
+        `publish_address`,
+        `ctrlno`,
+        `subject`,
+        `publish`,
+        `note`,
+        `version`,
+        `asset_count`,
+        `metaid`,
+        `metatable`,
+        `face_img`
+        )
+        values
+        (
+        #{id},
+        #{title},
+        #{author},
+        #{isbn},
+        #{publisher},
+        #{publishDate},
+        #{callno},
+        #{classno},
+        #{abbstract},
+        #{price},
+        #{publishName},
+        #{publishAddress},
+        #{ctrlno},
+        #{subject},
+        #{publish},
+        #{note},
+        #{version},
+        #{assetCount},
+        #{metaid},
+        #{metatable},
+        #{faceImg}
+        )
+    </insert>
 
     <insert id="batchSave" parameterType="top.cflwork.vo.MetatableVo">
         insert into sys_metatable
@@ -209,9 +209,9 @@
     </update>
 
     <delete id="remove">
-		delete from sys_metatable where id=#{id}
+        delete from sys_metatable where id=#{id}
 
-	</delete>
+    </delete>
 
     <delete id="batchRemove">
         delete from sys_metatable where id in
@@ -220,61 +220,4 @@
         </foreach>
     </delete>
 
-    <insert id="batchSaveBook" parameterType="top.cflwork.vo.xmlvo.BookSearchVo">
-        insert ignore into sys_metatable
-        (
-        `id`,
-        `title`,
-        `publisher`,
-        `publish_date`,
-        `author`,
-        `isbn`,
-        `callno`,
-        `classno`,
-        `asset_count`,
-        `metaid`,
-        `metatable`,
-        `price`
-        )
-        values(
-            #{id},
-            #{title},
-            #{publisher},
-            #{publishDate},
-            #{author},
-            #{isbn},
-            #{callno},
-            #{classno},
-            #{assetCount},
-            #{metaid},
-            #{metatable},
-            #{price}
-            )
-    </insert>
-    <update id="updateBook" parameterType="top.cflwork.vo.xmlvo.MetaTablesVo">
-        update sys_metatable
-        <set>
-            <if test="title != null">`title` = #{title},</if>
-            <if test="author != null">`author` = #{author},</if>
-            <if test="isbn != null">`isbn` = #{isbn},</if>
-            <if test="publisher != null">`publisher` = #{publisher},</if>
-            <if test="publishDate != null">`publish_date` = #{publishDate},</if>
-            <if test="callno != null">`callno` = #{callno},</if>
-            <if test="classno != null">`classno` = #{classno},</if>
-            <if test="abbstract != null">`abbstract` = #{abbstract},</if>
-            <if test="price != null">`price` = #{price},</if>
-            <if test="publishName != null">`publish_name` = #{publishName},</if>
-            <if test="publishAddress != null">`publish_address` = #{publishAddress},</if>
-            <if test="ctrlno != null">`ctrlno` = #{ctrlno},</if>
-            <if test="subject != null">`subject` = #{subject},</if>
-            <if test="publish != null">`publish` = #{publish},</if>
-            <if test="note != null">`note` = #{note},</if>
-            <if test="version != null">`version` = #{version},</if>
-            <if test="assetCount != null">`asset_count` = #{assetCount},</if>
-            <if test="metaid != null">`metaid` = #{metaid},</if>
-            <if test="metatable != null">`metatable` = #{metatable},</if>
-            <if test="faceImg != null">`face_img` = #{faceImg}</if>
-        </set>
-        where `metaid` = #{metaid} and metatable=#{metatable}
-    </update>
 </mapper>

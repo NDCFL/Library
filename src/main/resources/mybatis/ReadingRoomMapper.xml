@@ -118,4 +118,8 @@
         </foreach>
     </delete>
 
+    <select id="getReaddingRoom" resultType="top.cflwork.vo.Select2Vo">
+      select id,title as 'text' from sys_reading_room
+    </select>
+
 </mapper>

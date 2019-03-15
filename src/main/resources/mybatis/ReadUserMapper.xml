@@ -4,13 +4,12 @@
 <mapper namespace="top.cflwork.dao.ReadUserDao">
 
     <select id="get" resultType="top.cflwork.vo.ReadUserVo">
-		select `id`,`name`,`sex`,`age`,`face_img`,`phone`,`password`,`card_num`,`card_pwd`,`card_rc_date`,`id_card`,`qq`,`wx`,`email`,`work_adress`,`is_active`,`remark`,`adress`,`update_time`,`create_time` from sys_read_user
+		select `id`,`name`,`sex`,`age`,`face_img`,`phone`,`password`,`card_num`,`card_pwd`,`card_rc_date`,`id_card`,`qq`,`wx`,`email`,`work_adress`,`is_active`,`remark`,`adress`,`update_time`,`create_time`,`express`,`express_status` from sys_read_user
         where id=#{id}
 	</select>
-
     <select id="list" resultType="top.cflwork.vo.ReadUserVo">
         select
-        `id`,`name`,`sex`,`age`,`face_img`,`phone`,`password`,`card_num`,`card_pwd`,`card_rc_date`,`id_card`,`qq`,`wx`,`email`,`work_adress`,`is_active`,`remark`,`adress`,`update_time`,`create_time`
+        `id`,`name`,`sex`,`age`,`face_img`,`phone`,`password`,`card_num`,`card_pwd`,`card_rc_date`,`id_card`,`qq`,`wx`,`email`,`work_adress`,`is_active`,`remark`,`adress`,`update_time`,`create_time`,`express`,`express_status`
         from sys_read_user
         <where>
             <if test="id != null and id != ''">and id = #{id}</if>
@@ -33,6 +32,8 @@
             <if test="adress != null and adress != ''">and adress  like concat('%${adress}%')</if>
             <if test="updateTime != null">and update_time = #{updateTime}</if>
             <if test="createTime != null and endTime != null">and create_time between  #{createTime} and #{endTime}</if>
+            <if test="express != null and district != ''">and express = #{express}</if>
+            <if test="expressStatus != null and expressStatus != ''">and express_status = #{expressStatus}</if>
         </where>
         <choose>
             <when test="pager.sort != null and pager.order != null">
@@ -70,6 +71,8 @@
             <if test="adress != null and adress != ''">and adress  like concat('%${adress}%')</if>
             <if test="updateTime != null">and update_time = #{updateTime}</if>
             <if test="createTime != null and endTime != null">and create_time between  #{createTime} and #{endTime}</if>
+            <if test="express != null and district != ''">and express = #{express}</if>
+            <if test="expressStatus != null and expressStatus != ''">and express_status = #{expressStatus}</if>
         </where>
     </select>
 
@@ -95,7 +98,9 @@
 			`remark`, 
 			`adress`, 
 			`update_time`, 
-			`create_time`
+			`create_time`,
+			`express`,
+			`express_status`
 		)
 		values
 		(
@@ -118,7 +123,9 @@
 			#{remark}, 
 			#{adress}, 
 			#{updateTime}, 
-			#{createTime}
+			#{createTime},
+			#{express},
+			#{expressStatus}
 		)
 	</insert>
 
@@ -194,7 +201,9 @@
             <if test="remark != null">`remark` = #{remark},</if>
             <if test="adress != null">`adress` = #{adress},</if>
             <if test="updateTime != null">`update_time` = #{updateTime},</if>
-            <if test="createTime != null">`create_time` = #{createTime}</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="express != null">express = #{express},</if>
+            <if test="expressStatus != null">express_status = #{expressStatus},</if>
         </set>
         where id = #{id}
     </update>
@@ -234,6 +243,8 @@
             <if test="adress != null and adress != ''">and adress = #{adress}</if>
             <if test="updateTime != null">and update_time = #{updateTime}</if>
             <if test="createTime != null">and create_time = #{createTime}</if>
+            <if test="express != null">and express = #{express}</if>
+            <if test="expressStatus != null">and express_status = #{expressStatus}</if>
         </where>
     </select>
 

@@ -19,57 +19,57 @@ import top.cflwork.vo.xmlvo.MetaTablesVo;
 public class MetatableServiceImpl implements MetatableService {
 	@Autowired
 	private MetatableDao metatableDao;
-    @Autowired
-    private SequenceId sequenceId;
+	@Autowired
+	private SequenceId sequenceId;
 	@Override
-    @Transactional
+	@Transactional
 	public MetatableVo get(String id){
 		return metatableDao.get(id);
 	}
-	
+
 	@Override
-    @Transactional
+	@Transactional
 	public List<MetatableVo> list(MetatableVo metatableVo){
 		return metatableDao.list(metatableVo);
 	}
-	
+
 	@Override
-    @Transactional
+	@Transactional
 	public long count(MetatableVo metatableVo){
 		return metatableDao.count(metatableVo);
 	}
-	
+
 	@Override
-    @Transactional
+	@Transactional
 	public int save(MetatableVo metatable){
-	    metatable.setId(sequenceId.nextId());
-	    return metatableDao.save(metatable);
+		metatable.setId(sequenceId.nextId());
+		return metatableDao.save(metatable);
 	}
-	
+
 	@Override
-    @Transactional
+	@Transactional
 	public int update(MetatableVo metatable){
 		return metatableDao.update(metatable);
 	}
-	
+
 	@Override
-    @Transactional
+	@Transactional
 	public int remove(String id){
 		return metatableDao.remove(id);
 	}
-	
+
 	@Override
-    @Transactional
+	@Transactional
 	public int batchRemove(String[] ids){
 		return metatableDao.batchRemove(ids);
 	}
 
-    @Override
-    @Transactional
-    public int batchSave(List<MetatableVo> metatableList){
-			metatableList.forEach(e -> e.setId(sequenceId.nextId()));
-        return metatableDao.batchSave(metatableList);
-    }
+	@Override
+	@Transactional
+	public int batchSave(List<MetatableVo> metatableList){
+		metatableList.forEach(e -> e.setId(sequenceId.nextId()));
+		return metatableDao.batchSave(metatableList);
+	}
 
 	@Override
 	@Transactional

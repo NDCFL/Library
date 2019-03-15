@@ -4,25 +4,25 @@
 <mapper namespace="top.cflwork.dao.SeatDao">
 
     <select id="get" resultType="top.cflwork.vo.SeatVo">
-		select `id`,`title`,`seat_code`,`status`,`create_time` from sys_seat
-        where id=#{id}
+		select s.`id`,s.`title`,s.`readding_id`,s.`status`,s.`create_time`,r.title as 'readdingName' from sys_seat s left join sys_reading_room r on s.readding_id=r.id
+        where  s.id=#{id}
 	</select>
 
     <select id="list" resultType="top.cflwork.vo.SeatVo">
-        select `id`,`title`,`seat_code`,`status`,`create_time` from sys_seat
+        select s.`id`,s.`title`,s.`readding_id`,s.`status`,s.`create_time`,r.title as 'readdingName' from sys_seat s left join sys_reading_room r on s.readding_id=r.id
         <where>
-            <if test="id != null and id != ''">and id = #{id}</if>
-            <if test="title != null and title != ''">and title = #{title}</if>
-            <if test="seatCode != null and seatCode != ''">and seat_code = #{seatCode}</if>
-            <if test="status != null and status != ''">and status = #{status}</if>
-            <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+            <if test="id != null and id != ''">and s.id = #{id}</if>
+            <if test="title != null and title != ''">and s.title = #{title}</if>
+            <if test="readdingId != null and readdingId != ''">and s.readding_id = #{readdingId}</if>
+            <if test="status != null and status != ''">and s.status = #{status}</if>
+            <if test="createTime != null and createTime != ''">and s.create_time = #{createTime}</if>
         </where>
         <choose>
             <when test="pager.sort != null and pager.order != null">
-                order by ${pager.sort} ${pager.order}
+                order by s.${pager.sort} ${pager.order}
             </when>
             <otherwise>
-                order by id desc
+                order by s.id desc
             </otherwise>
         </choose>
         <if test="pager.pageIndex != null and pager.pageSize != null">
@@ -35,7 +35,7 @@
         <where>
             <if test="id != null and id != ''">and id = #{id}</if>
             <if test="title != null and title != ''">and title = #{title}</if>
-            <if test="seatCode != null and seatCode != ''">and seat_code = #{seatCode}</if>
+            <if test="readdingId != null and readdingId != ''">and readding_id = #{readdingId}</if>
             <if test="status != null and status != ''">and status = #{status}</if>
             <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
         </where>
@@ -46,7 +46,7 @@
 		(
 			`id`, 
 			`title`, 
-			`seat_code`, 
+			`readding_id`, 
 			`status`, 
 			`create_time`
 		)
@@ -54,7 +54,7 @@
 		(
 			#{id}, 
 			#{title}, 
-			#{seatCode}, 
+			#{readdingId}, 
 			#{status}, 
 			#{createTime}
 		)
@@ -65,7 +65,7 @@
         (
         `id`,
         `title`,
-        `seat_code`,
+        `readding_id`,
         `status`,
         `create_time`
         )
@@ -74,7 +74,7 @@
             (
             #{seatVo.id},
             #{seatVo.title},
-            #{seatVo.seatCode},
+            #{seatVo.readdingId},
             #{seatVo.status},
             #{seatVo.createTime}
             )
@@ -85,7 +85,7 @@
         update sys_seat
         <set>
             <if test="title != null">`title` = #{title},</if>
-            <if test="seatCode != null">`seat_code` = #{seatCode},</if>
+            <if test="readdingId != null">`readding_id` = #{readdingId},</if>
             <if test="status != null">`status` = #{status},</if>
             <if test="createTime != null">`create_time` = #{createTime}</if>
         </set>

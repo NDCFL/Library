@@ -4,6 +4,8 @@ import top.cflwork.vo.ReadingRoomVo;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
+import top.cflwork.vo.Select2Vo;
+
 /**
  * 阅览室管理
  * @author cfl
@@ -28,4 +30,6 @@ public interface ReadingRoomDao {
 	int batchRemove(String[] ids);
 
 	int batchSave(List<ReadingRoomVo> readingRoomList);
+
+	List<Select2Vo> getReaddingRoom();
 }

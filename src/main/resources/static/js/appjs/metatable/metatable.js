@@ -1,3 +1,4 @@
+var path = "http://file.mykefang.com/";
 //生成用户数据
 $('#mytab').bootstrapTable({
     method: 'post',
@@ -11,7 +12,7 @@ $('#mytab').bootstrapTable({
     pagination: true,//是否分页
     queryParamsType: 'limit',//查询参数组织方式
     queryParams: queryParams,//请求服务器时所传的参数
-    sidePagination: 'server',//指定服务器端分页
+    sidePagination: 'client',//指定服务器端分页
     pageNumber: 1, //初始化加载第一页，默认第一页
     pageSize: 10,//单页记录数
     pageList: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],//分页步进值
@@ -33,6 +34,15 @@ $('#mytab').bootstrapTable({
             width: 25,
             align: 'center',
             valign: 'middle'
+        },
+        {
+            field: 'faceImg',
+            title: '封面',
+            align: 'center',
+            sortable: true,
+            formatter: function (value, row, index) {
+                return '<img src="'+path+value+'" style="width: 60px;height: 80px" />';
+            }
         },
         {
             field: 'title',
@@ -129,39 +139,40 @@ $('#mytab').bootstrapTable({
             title: '版本',
             align: 'center',
             sortable: true
-        },
-        {
-            title: '操作',
-            align: 'center',
-            field: '',
-            formatter: function (value, row, index) {
-                var e = '<a title="编辑" href="javascript:void(0);" id="metatable"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
-                var d = '<a title="删除" href="javascript:void(0);" onclick="del(\'' + row.id + '\',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
-                var f = '';
-                if (row.isActive == 1) {
-                    f = '<a title="启用" href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 0 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">启用</i></a> ';
-                } else if (row.isActive == 0) {
-                    f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
-                }
-
-                return e + d + f;
-            }
         }
+        // ,
+        // {
+        //     title: '操作',
+        //     align: 'center',
+        //     field: '',
+        //     formatter: function (value, row, index) {
+        //         var e = '<a title="编辑" href="javascript:void(0);" id="metatable"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
+        //         var d = '<a title="删除" href="javascript:void(0);" onclick="del(\'' + row.id + '\',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
+        //         var f = '';
+        //         if (row.isActive == 1) {
+        //             f = '<a title="启用" href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 0 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">启用</i></a> ';
+        //         } else if (row.isActive == 0) {
+        //             f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
+        //         }
+        //
+        //         return e + d + f;
+        //     }
+        // }
     ],
     locale: 'zh-CN',//中文支持,
-    responseHandler: function (res) {
-        if (res) {
-            return {
-                "res": res.rows,
-                "total": res.total
-            };
-        } else {
-            return {
-                "rows": [],
-                "total": 0
-            };
-        }
-    }
+    // responseHandler: function (res) {
+    //     if (res) {
+    //         return {
+    //             "res": res.rows,
+    //             "total": res.total
+    //         };
+    //     } else {
+    //         return {
+    //             "rows": [],
+    //             "total": 0
+    //         };
+    //     }
+    // }
 })
 
 //请求服务数据时所传参数
@@ -176,7 +187,7 @@ function queryParams(params) {
         //请求第几页
         'pager.pageIndex': this.pageNumber,
         //排序字段
-        'pager.sort': 'create_time',
+        'pager.sort': 'publish_date',
         //排序方式
         'pager.order': 'desc',
         searchVal: $("#searchVal").val()

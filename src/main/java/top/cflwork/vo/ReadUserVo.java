@@ -69,4 +69,9 @@ public class ReadUserVo implements Serializable {
     private Pager pager;
     private Date endTime;
 
+    @ApiModelProperty("是否是快递员")
+    private Integer express;
+    @ApiModelProperty("是否有快递资格")
+    private Integer expressStatus;
+
 }

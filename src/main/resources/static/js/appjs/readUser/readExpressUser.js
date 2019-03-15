@@ -3,7 +3,7 @@ var path = "http://file.mykefang.com/";
 $('#mytab').bootstrapTable({
     method: 'post',
     contentType: "application/x-www-form-urlencoded",//必须要有！！！！
-    url: "/readUser/list",//要请求数据的文件路径
+    url: "/readUserExpress/list",//要请求数据的文件路径
     toolbar: '#toolbar',//指定工具栏
     striped: true, //是否显示行间隔色
     dataField: "res",
@@ -51,12 +51,6 @@ $('#mytab').bootstrapTable({
             sortable: true
         },
         {
-            field: 'cardNum',
-            title: '读者证号',
-            align: 'center',
-            sortable: true
-        },
-        {
             field: 'idCard',
             title: '身份证号',
             align: 'center',
@@ -84,89 +78,64 @@ $('#mytab').bootstrapTable({
             sortable: true
         },
         {
-            field: 'email',
-            title: '邮箱',
-            align: 'center',
-            sortable: true
-        },
-        {
             field: 'phone',
-            title: '读者手机号',
+            title: '快递员手机号',
             align: 'center',
             sortable: true
         },
         {
-            field: 'qq',
-            title: 'qq号',
-            align: 'center',
-            sortable: true
-        },
-        {
-            field: 'wx',
-            title: '微信号',
-            align: 'center',
-            sortable: true
-        },
-        {
-            field: 'isActive',
-            title: '状态',
+            field: 'express',
+            title: '身份',
             align: 'center',
             sortable: true,
             formatter: function (value, row, index) {
                 if (value == 0) {
                     //表示启用状态
-                    return '<span style="color: green" >启用</span>';
+                    return '<span style="color: red" >读者</span>';
                 } else {
                     //表示启用状态
-                    return '<span style="color: red" >停用</span>';
+                    return '<span style="color: green" >快递员</span>';
                 }
             }
         },
         {
-            field: 'createTime',
-            title: '创建时间',
+            field: 'expressStatus',
+            title: '快递员资格',
             align: 'center',
-            sortable: true
+            sortable: true,
+            formatter: function (value, row, index) {
+                if (value == 0) {
+                    //表示启用状态
+                    return '<span style="color: red" >禁用</span>';
+                } else {
+                    //表示启用状态
+                    return '<span style="color: green" >启用</span>';
+                }
+            }
         },
         {
-            title: '操作',
+            title: '操作', 
             align: 'center',
             field: '',
             formatter: function (value, row, index) {
-                var e = '<a title="查看" href="javascript:void(0);" id="readUser"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="查看" style="color:green">查看</i></a> ';
-                var d = '<a title="删除" href="javascript:void(0);" onclick="del(\'' + row.id + '\',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
-                var p = '<a title="重置密码" href="javascript:void(0);" onclick="resetPwd(\'' + row.id + '\')"><i class="glyphicon glyphicon-trash" alt="重置密码" style="color:red">重置密码</i></a>';
-                var f = '';
-                if (row.isActive == 1) {
-                    f = '<a title="启用" role="menuitem" tabindex="-1"  href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 0 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">启用</i></a> ';
-                } else if (row.isActive == 0) {
-                    f = '<a title="停用" role="menuitem" tabindex="-1"  href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
+                var f='';
+                if (row.express == 1) {
+                    f = '<a title="取消快递资格" role="menuitem" tabindex="-1"  href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 0 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">取消快递资格</i></a> ';
+                } else if (row.express == 0) {
+                    f = '<a title="恢复快递资格" role="menuitem" tabindex="-1"  href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">恢复快递资格</i></a> ';
                 }
-                var menu = '<div class="dropdown">\n' +
-                    '    <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">操作\n' +
-                    '        <span class="caret"></span>\n' +
-                    '    </button>\n' +
-                    '    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">\n' +
-                    '        <li role="presentation">\n' +
-                    '            <a role="menuitem" tabindex="-1" title="查看" href="javascript:void(0);" id="readUser"  data-toggle="modal" data-id="' + row.id + '" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="查看" style="color:green">查看</i></a>\n' +
-                    '        </li>\n' +
-                    '        <li role="presentation">\n' +
-                    '            <a role="menuitem" tabindex="-1" title="删除" href="javascript:void(0);" onclick="del(\'' + row.id + '\',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a>\n' +
-                    '        </li>\n' +
-                    '        <li role="presentation">\n' +
-                    '            <a role="menuitem" tabindex="-1" title="重置密码" href="javascript:void(0);" onclick="resetPwd(\'' + row.id + '\')"><i class="glyphicon glyphicon-repeat" alt="重置密码" style="color:green">重置密码</i></a>\n' +
-                    '        </li>\n' +
-                    '        <li role="presentation">' + f + '</li>' +
-                    '        <li role="presentation" class="divider"></li>\n' +
-                    '        <li role="presentation">\n' +
-                    '            <a role="menuitem" tabindex="-1" data-toggle="modal" data-id="\' + row.id + \'" data-target="#love_item_list" onclick="return love(\'' + row.id + '\')"><i class="glyphicon glyphicon-th-list" alt="兴趣爱好" style="color:green" >兴趣爱好</i></a>\n' +
-                    '        </li>\n' +
-                    '        <li role="presentation">\n' +
-                    '            <a role="menuitem" tabindex="-1"  data-toggle="modal" data-id="\' + row.id + \'" data-target="#order_item_list" onclick="return address(\'' + row.id + '\')"><i class="glyphicon glyphicon-th-large" alt="收货地址" style="color:green" >收货地址</i></a>\n' +
-                    '        </li>\n' +
-                    '    </ul>\n' +
-                    '</div>';
-                return menu;
+
+                var p='';
+                if (row.expressStatus == 1) {
+                    p = '<a title="冻结快递资格" role="menuitem" tabindex="-1"  href="javascript:void(0);" onclick="updateexpressstatus(\'' + row.id + '\',' + 0 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">冻结快递资格</i></a> ';
+                } else if (row.expressStatus == 0) {
+                    p = '<a title="解冻快递资格" role="menuitem" tabindex="-1"  href="javascript:void(0);" onclick="updateexpressstatus(\'' + row.id + '\',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">解冻快递资格</i></a> ';
+                }
+                if(row.express==1){
+                    return f+p;
+                }else{
+                    return f;
+                }
             }
         }
     ],
@@ -188,15 +157,15 @@ $('#mytab').bootstrapTable({
 
 //请求服务数据时所传参数
 function queryParams(params) {
-    var times = $("#test_2").val();
-    var start, end;
-    if (!times) {
-        start = null;
-        end = null;
-    } else {
-        start = times.substring(0, 11) + "00:00:00";
-        end = times.substring(13, times.length) + " 23:59:59";
-    }
+    // var times = $("#test_2").val();
+    // var start, end;
+    // if (!times) {
+    //     start = null;
+    //     end = null;
+    // } else {
+    //     start = times.substring(0, 11) + "00:00:00";
+    //     end = times.substring(13, times.length) + " 23:59:59";
+    // }
     return {
         //每页多少条数据
         'pager.pageSize': this.pageSize,
@@ -206,8 +175,8 @@ function queryParams(params) {
         'pager.sort': 'create_time',
         //排序方式
         'pager.order': 'desc',
-        createTime: start,
-        endTime: end,
+        // createTime: start,
+        // endTime: end,
         name: $("#name__").val(),
         cardNum: $("#cardNum__").val(),
         idCard: $("#idCard__").val(),
@@ -243,7 +212,7 @@ function del(id, status) {
         return;
     }
     layer.confirm('确认要删除吗？', function (index) {
-        $.post("/readUser/remove",
+        $.post("/readUserExpress/remove",
             {
                 "id": id
             },
@@ -261,7 +230,7 @@ function del(id, status) {
 }
 
 function edit(name) {
-    $.get("/readUser/edit/" + name,
+    $.get("/readUserExpress/edit/" + name,
         function (data) {
             $("#updateform").autofill(data);
         },
@@ -270,7 +239,7 @@ function edit(name) {
 }
 
 function resetPwd(id) {
-    $.get("/readUser/resetPwd/" + id,
+    $.get("/readUserExpress/resetPwd/" + id,
         function (data) {
             if (data.code == 0) {
                 layer.alert(data.msg, {icon: 1});
@@ -283,24 +252,16 @@ function resetPwd(id) {
 }
 
 function updatestatus(id, status) {
-    $.post("/readUser/update",
+    $.post("/readUserExpress/update",
         {
             "id": id,
-            "isActive": status
+            "express": status
         },
         function (data) {
-            if (status == 0) {
-                if (data.code == 0) {
-                    layer.alert("已启用", {icon: 1});
-                } else {
-                    layer.alert("操作失败", {icon: 2});
-                }
+            if (data.code == 0) {
+                layer.alert("操作成功", {icon: 1});
             } else {
-                if (data.code == 0) {
-                    layer.alert("已停用", {icon: 1});
-                } else {
-                    layer.alert("操作失败", {icon: 2});
-                }
+                layer.alert("操作失败", {icon: 2});
             }
             refush();
         },
@@ -308,22 +269,39 @@ function updatestatus(id, status) {
     );
 }
 
+function updateexpressstatus(id, status) {
+    $.post("/readUserExpress/update",
+        {
+            "id": id,
+            "expressStatus": status
+        },
+        function (data) {
+            if (data.code == 0) {
+                layer.alert("操作成功", {icon: 1});
+            } else {
+                layer.alert("操作失败", {icon: 2});
+            }
+            refush();
+        },
+        "json"
+    );
+}
 //查询按钮事件
 $('#search_btn').click(function () {
-    var times = $("#test_2").val();
-    var start, end;
-    if (!times) {
-        start = null;
-        end = null;
-    } else {
-        start = times.substring(0, 11) + "00:00:00";
-        end = times.substring(13, times.length) + " 23:59:59";
-    }
+    // var times = $("#test_2").val();
+    // var start, end;
+    // if (!times) {
+    //     start = null;
+    //     end = null;
+    // } else {
+    //     start = times.substring(0, 11) + "00:00:00";
+    //     end = times.substring(13, times.length) + " 23:59:59";
+    // }
     $('#mytab').bootstrapTable('refresh', {
-        url: '/readUser/list',
+        url: '/readUserExpress/list',
         query: {
-            createTime: start,
-            endTime: end,
+            // createTime: start,
+            // endTime: end,
             name: $("#name__").val(),
             cardNum: $("#cardNum__").val(),
             idCard: $("#idCard__").val(),
@@ -333,20 +311,20 @@ $('#search_btn').click(function () {
 })
 
 function refush() {
-    var times = $("#test_2").val();
-    var start, end;
-    if (!times) {
-        start = null;
-        end = null;
-    } else {
-        start = times.substring(0, 11) + "00:00:00";
-        end = times.substring(13, times.length) + " 23:59:59";
-    }
+    // var times = $("#test_2").val();
+    // var start, end;
+    // if (!times) {
+    //     start = null;
+    //     end = null;
+    // } else {
+    //     start = times.substring(0, 11) + "00:00:00";
+    //     end = times.substring(13, times.length) + " 23:59:59";
+    // }
     $('#mytab').bootstrapTable('refresh', {
-        url: '/readUser/list',
+        url: '/readUserExpress/list',
         query: {
-            createTime: start,
-            endTime: end,
+            // createTime: start,
+            // endTime: end,
             name: $("#name__").val(),
             cardNum: $("#cardNum__").val(),
             idCard: $("#idCard__").val(),
@@ -384,7 +362,7 @@ $("#update").click(function () {
         return;
     }
     $.post(
-        "/readUser/update",
+        "/readUserExpress/update",
         $('#updateform').serialize(),
         function (result) {
             if (result.code == 0) {
@@ -427,7 +405,7 @@ $("#add").click(function () {
         return;
     }
     $.post(
-        "/readUser/save",
+        "/readUserExpress/save",
         $('#formadd').serialize(),
         function (result) {
             if (result.code == 0) {
@@ -458,7 +436,7 @@ function batchRemove() {
             ids[i] = row['id'];
         });
         $.post(
-            "/readUser/batchRemove",
+            "/readUserExpress/batchRemove",
             {
                 "ids": ids
             }, function (data) {
@@ -498,7 +476,7 @@ function deleteMany() {
 $("#updateSta").click(function () {
     layer.confirm('确认要执行批量修改状态吗？', function (index) {
         $.post(
-            "/readUser/deleteManyReadUser",
+            "/readUserExpress/deleteManyReadUser",
             {
                 "manyId": $("#statusId").val(),
                 "status": $("#status").val()
@@ -538,7 +516,6 @@ $("#add_add").click(function () {
                 layer.alert(data.msg, {icon: 6});
                 refushAdress(idValue);
             }
-            resetAddress();
         }, "json"
     );
 });
@@ -707,7 +684,6 @@ $("#add_add_love").click(function () {
                 layer.alert(data.msg, {icon: 6});
                 refushLove(idValues);
             }
-            resetLove();
         }, "json"
     );
 });

@@ -17,17 +17,17 @@ import top.cflwork.vo.xmlvo.MetaTablesVo;
 public interface MetatableDao {
 
 	MetatableVo get(String id);
-	
+
 	List<MetatableVo> list(MetatableVo metatableVo);
-	
+
 	long count(MetatableVo metatableVo);
-	
+
 	int save(MetatableVo metatable);
-	
+
 	int update(MetatableVo metatable);
-	
+
 	int remove(String id);
-	
+
 	int batchRemove(String[] ids);
 
 	int batchSave(List<MetatableVo> metatableList);

@@ -171,72 +171,28 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    修改
+                    审核
                 </h4>
             </div>
             <form class="form-horizontal" id="updateform">
                 <div class="modal-body">
                     <input id="id" name="id" type="hidden">
+                    <input id="status__" name="status" type="hidden">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">读者编号：</label>
-                        <div class="col-sm-8">
-                            <input id="readUserId_" name="readUserId" class="form-control" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">场地编号：</label>
-                        <div class="col-sm-8">
-                            <input id="spaceId_" name="spaceId" class="form-control" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">主题：</label>
-                        <div class="col-sm-8">
-                            <input id="title_" name="title" class="form-control" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">参加人数：</label>
-                        <div class="col-sm-8">
-                            <input id="peopleNum_" name="peopleNum" class="form-control" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">预约时间：</label>
-                        <div class="col-sm-8">
-                            <input id="useTime_" name="useTime" class="form-control" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">预约说明：</label>
-                        <div class="col-sm-8">
-                            <input id="remark_" name="remark" class="form-control" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">状态 1：审核通过 2：审核不通过：</label>
-                        <div class="col-sm-8">
-                            <input id="status_" name="status" class="form-control" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">审核理由：</label>
+                        <label class="col-sm-3 control-label">审核备注：</label>
                         <div class="col-sm-8">
                             <input id="reason_" name="reason" class="form-control" type="text">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">创建时间：</label>
-                        <div class="col-sm-8">
-                            <input id="creatTime_" name="creatTime" class="form-control" type="text">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
                     </button>
-                    <button type="submit" id="update" class="btn btn-primary">
-                        确认修改
+                    <button type="button" id="updateTY" onclick="update(1);" class="btn btn-primary">
+                        同意审请
+                    </button>
+                    <button type="button" id="updateJJ" onclick="update(2);" class="btn btn-error">
+                        拒绝审请
                     </button>
                 </div>
             </form>

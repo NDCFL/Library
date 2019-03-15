@@ -22,7 +22,7 @@ public class PaperExpressVo implements Serializable {
     private String id;
     @ApiModelProperty("读者编号")
     private String readUserId;
-    @ApiModelProperty("读者名字")
+    @ApiModelProperty("读者姓名")
     private String readUserName;
     @ApiModelProperty("读者卡号")
     private String readUserCardNum;

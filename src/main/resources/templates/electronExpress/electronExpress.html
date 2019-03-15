@@ -17,30 +17,29 @@
                     查询条件
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <label class="col-sm-1 control-label" style=" margin-top:5px">创建时间</label>
-                    <div class="col-sm-2" >
-                        <input type="text" class="form-control" placeholder="请选择时间范围"   name="createTime" id="test_2"/>
-                    </div>
-                    <label class="col-sm-1 control-label">读者名字</label>
+
+                    <label class="col-sm-1 control-label">读者姓名</label>
                     <div class="col-sm-2">
-                        <input id="readUserName__" name="readUserName" type="text" placeholder="请输入读者名字" class="form-control" required=""
+                        <input id="readUserName__" name="readUserName" type="text" placeholder="请输入读者姓名" class="form-control" required=""
                                aria-required="true">
                     </div>
                     <label class="col-sm-1 control-label"  style=" margin-top:5px;">读者卡号</label>
                     <div class="col-sm-2" >
                         <input type="number" class="form-control" placeholder="请输入读者卡号" style="" name="readUserCardNum" id="readUserCardNum__"/>
                     </div>
-                    <label class="col-sm-1 control-label" style=" margin-top:5px">isbn</label>
+                    <label class="col-sm-1 control-label">题名</label>
                     <div class="col-sm-2">
-                        <input type="number" class="form-control" placeholder="请输入图书isbn" style="" id="isbn__" name="isbn"/>
+                        <input id="title__" name="title" type="text" placeholder="请输入读者姓名" class="form-control" required=""
+                               aria-required="true">
+                    </div>
+                    <label class="col-sm-1 control-label"  style=" margin-top:5px;">主题</label>
+                    <div class="col-sm-2" >
+                        <input type="text" class="form-control" placeholder="请输入主题" style="" name="subject" id="subject__"/>
                     </div>
                 </div>
 
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <label class="col-sm-1 control-label" style=" margin-top:5px">图书名称</label>
-                    <div class="col-sm-2">
-                        <input type="number" class="form-control" placeholder="请输入图书名称" style="" id="bookName__" name="bookName"/>
-                    </div>
+
                     <div class="col-sm-3" style="text-align: center;margin: auto" >
                         <button class="btn btn-primary"  id="search_btn" style="width: 200px" >查询</button>
                     </div>
@@ -77,7 +76,7 @@
             <form class="form-horizontal" id="formadd">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">读者名字：</label>
+                        <label class="col-sm-3 control-label">读者姓名：</label>
                         <div class="col-sm-8">
                             <input id="readUserName" name="readUserName" type="text" class="form-control" required=""
                                    aria-required="true">
@@ -212,7 +211,7 @@
                 <div class="modal-body">
                     <input id="id" name="id" type="hidden">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">读者名字：</label>
+                        <label class="col-sm-3 control-label">读者姓名：</label>
                         <div class="col-sm-8">
                             <input id="readUserName_" name="readUserName" class="form-control" type="text">
                         </div>

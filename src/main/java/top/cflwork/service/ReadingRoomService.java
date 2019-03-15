@@ -5,6 +5,8 @@ import top.cflwork.vo.ReadingRoomVo;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;
+import top.cflwork.vo.Select2Vo;
+
 /**
  * 阅览室管理
  * 
@@ -30,4 +32,6 @@ public interface ReadingRoomService {
 	int batchRemove(String[] ids);
 
     int batchSave(List<ReadingRoomVo> readingRoomList);
+
+	List<Select2Vo> getReaddingRoom();
 }

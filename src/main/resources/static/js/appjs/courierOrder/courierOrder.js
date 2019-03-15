@@ -36,7 +36,7 @@ $('#mytab').bootstrapTable({
         },
         {
             field: 'readUserName',
-            title: '读者名字',
+            title: '读者姓名',
             align: 'center',
             sortable: true
         },
@@ -48,19 +48,19 @@ $('#mytab').bootstrapTable({
         },
         {
             field: 'courierPhone',
-            title: '抢单员手机号',
+            title: '快递员手机号',
             align: 'center',
             sortable: true
         },
         {
             field: 'courierIdcard',
-            title: '抢单员身份证号',
+            title: '快递员身份证号',
             align: 'center',
             sortable: true
         },
         {
             field: 'courierAdress',
-            title: '抢单员地址',
+            title: '快递员地址',
             align: 'center',
             sortable: true
         },

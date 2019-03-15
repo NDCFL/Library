@@ -37,7 +37,7 @@ $('#mytab').bootstrapTable({
         },
         {
             field: 'readUserName',
-            title: '读者名字',
+            title: '读者姓名',
             align: 'center',
             sortable: true
         },
@@ -48,14 +48,14 @@ $('#mytab').bootstrapTable({
             sortable: true
         },
         {
-            field: 'isbn',
-            title: 'isbn号',
+            field: 'title',
+            title: '标题',
             align: 'center',
             sortable: true
         },
         {
-            field: 'bookName',
-            title: '图书名称',
+            field: 'subject',
+            title: '主题',
             align: 'center',
             sortable: true
         },
@@ -117,15 +117,15 @@ $('#mytab').bootstrapTable({
 
 //请求服务数据时所传参数
 function queryParams(params) {
-    var times = $("#test_2").val();
-    var start, end;
-    if (!times) {
-        start = null;
-        end = null;
-    } else {
-        start = times.substring(0, 11) + "00:00:00";
-        end = times.substring(13, times.length) + " 23:59:59";
-    }
+    // var times = $("#test_2").val();
+    // var start, end;
+    // if (!times) {
+    //     start = null;
+    //     end = null;
+    // } else {
+    //     start = times.substring(0, 11) + "00:00:00";
+    //     end = times.substring(13, times.length) + " 23:59:59";
+    // }
     return {
         //每页多少条数据
         'pager.pageSize': this.pageSize,
@@ -135,12 +135,12 @@ function queryParams(params) {
         'pager.sort': 'create_time',
         //排序方式
         'pager.order': 'desc',
-        createTime: start,
-        endTime: end,
+        // createTime: start,
+        // endTime: end,
         readUserName: $("#readUserName__").val(),
         readUserCardNum: $("#readUserCardNum__").val(),
-        isbn: $("#isbn__").val(),
-        bookName: $("#bookName__").val()
+        subject: $("#subject__").val(),
+        title: $("#title__").val()
     }
 }
 
@@ -241,45 +241,45 @@ $("#updateScope").click(function () {
 });
 //查询按钮事件
 $('#search_btn').click(function () {
-    var times = $("#test_2").val();
-    var start, end;
-    if (!times) {
-        start = null;
-        end = null;
-    } else {
-        start = times.substring(0, 11) + "00:00:00";
-        end = times.substring(13, times.length) + " 23:59:59";
-    }
+    // var times = $("#test_2").val();
+    // var start, end;
+    // if (!times) {
+    //     start = null;
+    //     end = null;
+    // } else {
+    //     start = times.substring(0, 11) + "00:00:00";
+    //     end = times.substring(13, times.length) + " 23:59:59";
+    // }
     $('#mytab').bootstrapTable('refresh', {url: '/electronExpress/list',
         query: {
-            createTime: start,
-            endTime: end,
+            // createTime: start,
+            // endTime: end,
             readUserName: $("#readUserName__").val(),
             readUserCardNum: $("#readUserCardNum__").val(),
-            isbn: $("#isbn__").val(),
-            bookName: $("#bookName__").val()
+            subject: $("#subject__").val(),
+            title: $("#title__").val()
         }
     });
 })
 
 function refush() {
-    var times = $("#test_2").val();
-    var start, end;
-    if (!times) {
-        start = null;
-        end = null;
-    } else {
-        start = times.substring(0, 11) + "00:00:00";
-        end = times.substring(13, times.length) + " 23:59:59";
-    }
+    // var times = $("#test_2").val();
+    // var start, end;
+    // if (!times) {
+    //     start = null;
+    //     end = null;
+    // } else {
+    //     start = times.substring(0, 11) + "00:00:00";
+    //     end = times.substring(13, times.length) + " 23:59:59";
+    // }
     $('#mytab').bootstrapTable('refresh', {url: '/electronExpress/list',
         query: {
-            createTime: start,
-            endTime: end,
+            // createTime: start,
+            // endTime: end,
             readUserName: $("#readUserName__").val(),
             readUserCardNum: $("#readUserCardNum__").val(),
-            isbn: $("#isbn__").val(),
-            bookName: $("#bookName__").val()
+            subject: $("#subject__").val(),
+            title: $("#title__").val()
         }
     });
 }
