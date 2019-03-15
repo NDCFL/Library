@@ -17,10 +17,10 @@
                     查询列表
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
-                    <label class="col-sm-1 control-label" style=" margin-top:5px">创建时间</label>
-                    <div class="col-sm-2" >
-                        <input type="text" class="form-control" placeholder="请选择时间范围"   name="createTime" id="test_2"/>
-                    </div>
+                    <!--<label class="col-sm-1 control-label" style=" margin-top:5px">创建时间</label>-->
+                    <!--<div class="col-sm-2" >-->
+                        <!--<input type="text" class="form-control" placeholder="请选择时间范围"   name="createTime" id="test_2"/>-->
+                    <!--</div>-->
                     <label class="col-sm-1 control-label" style=" margin-top:5px">读者姓名</label>
                     <div class="col-sm-2"  >
                         <input type="text" class="form-control" placeholder="请输入读者姓名"  name="name" id="name__"/>
@@ -51,17 +51,17 @@
                             type="button" class="btn btn-default" style="display: block;">
                         <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>批量删除
                     </button>
-                    <!--<button id="btn_add" type="button" shiro:hasPermission="readUser:add" class="btn btn-default"-->
-                            <!--data-toggle="modal" data-target="#webAdd">-->
-                        <!--<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增-->
-                    <!--</button>-->
+                    <button id="btn_add" type="button" shiro:hasPermission="readUser:add" class="btn btn-default"
+                            data-toggle="modal" data-target="#webAdd">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="modal fade" id="webAdd" tabindex="-1" role="dialog" aria-labelledby="webAddLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade bs-example-modal-lg" id="webAdd" tabindex="-1" role="dialog" aria-labelledby="webAddLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -74,120 +74,80 @@
             <form class="form-horizontal" id="formadd">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">读者姓名：</label>
-                        <div class="col-sm-8">
-                            <input id="name" name="name" type="text" class="form-control" required=""
+                        <label class="col-sm-2 control-label"><span style="color: red">*</span>读者姓名：</label>
+                        <div class="col-sm-4">
+                            <input id="name" name="name" type="text" placeholder="请输入读者姓名" class="form-control" required=""
+                                   aria-required="true">
+                        </div>
+                        <label class="col-sm-2 control-label">读者性别：</label>
+                        <div class="col-sm-4">
+                            <select id="sex" name="sex"  class="form-control">
+                                <option value="0">男士</option>
+                                <option value="1">女士</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><span style="color: red">*</span>读者证号：</label>
+                        <div class="col-sm-4">
+                            <input id="cardNum" name="cardNum" type="text" placeholder="请输入读者证号" class="form-control" />
+                        </div>
+                        <label class="col-sm-2 control-label">读者证号密码：</label>
+                        <div class="col-sm-4">
+                            <input id="cardPwd" name="cardPwd" type="text" placeholder="请输入读者证号密码" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"><span style="color: red">*</span>读者手机号：</label>
+                        <div class="col-sm-4">
+                            <input id="phone" name="phone" type="text" placeholder="请输入读者手机号" class="form-control"/>
+                        </div>
+                        <label class="col-sm-2 control-label"><span style="color: red">*</span>读者登录密码：</label>
+                        <div class="col-sm-4">
+                            <input id="password" name="password" placeholder="请输入读者登录密码" type="text" class="form-control" required=""
                                    aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">性别：</label>
-                        <div class="col-sm-8">
-                            <input id="sex" name="sex" type="text" class="form-control" required=""
+                        <label class="col-sm-2 control-label">读者地址：</label>
+                        <div class="col-sm-4">
+                            <input id="adress" name="adress" type="text" placeholder="请输入读者地址" class="form-control" required=""
+                                   aria-required="true">
+                        </div>
+                        <label class="col-sm-2 control-label">读者年龄：</label>
+                        <div class="col-sm-4">
+                            <input id="age" name="age" type="number" placeholder="请输入读者年龄" class="form-control" required=""
+                                   aria-required="true">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">读者发证日期：</label>
+                        <div class="col-sm-4">
+                            <input id="cardRcDate" name="cardRcDate" placeholder="请选择读者发证日期" type="text" class="form-control" required=""
+                                   aria-required="true">
+                        </div>
+                        <label class="col-sm-2 control-label">读者身份证号：</label>
+                        <div class="col-sm-4">
+                            <input id="idCard" name="idCard" type="text" placeholder="请输入读者身份证号" class="form-control" required=""
                                    aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">年龄：</label>
-                        <div class="col-sm-8">
-                            <input id="age" name="age" type="text" class="form-control" required=""
-                                   aria-required="true">
+                        <label class="col-sm-2 control-label">读者QQ号：</label>
+                        <div class="col-sm-4">
+                            <input id="qq" name="qq" type="text" class="form-control" placeholder="请输入读者QQ号" required="" aria-required="true">
+                        </div>
+                        <label class="col-sm-2 control-label">读者微信号：</label>
+                        <div class="col-sm-4">
+                            <input id="wx" name="wx" type="text" class="form-control" placeholder="请输入读者微信号" required="" aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">用户头像：</label>
-                        <div class="col-sm-8">
-                            <input id="faceImg" name="faceImg" type="text" class="form-control" required=""
-                                   aria-required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">读者手机号：</label>
-                        <div class="col-sm-8">
-                            <input id="phone" name="phone" type="text" class="form-control" required=""
-                                   aria-required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">读者登录密码：</label>
-                        <div class="col-sm-8">
-                            <input id="password" name="password" type="text" class="form-control" required=""
-                                   aria-required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">读者证号：</label>
-                        <div class="col-sm-8">
-                            <input id="cardNum" name="cardNum" type="text" class="form-control" required=""
-                                   aria-required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">读者证号密码：</label>
-                        <div class="col-sm-8">
-                            <input id="cardPwd" name="cardPwd" type="text" class="form-control" required=""
-                                   aria-required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">读者证号发证日期：</label>
-                        <div class="col-sm-8">
-                            <input id="cardRcDate" name="cardRcDate" type="text" class="form-control" required=""
-                                   aria-required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">身份证号：</label>
-                        <div class="col-sm-8">
-                            <input id="idCard" name="idCard" type="text" class="form-control" required=""
-                                   aria-required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">qq号：</label>
-                        <div class="col-sm-8">
-                            <input id="qq" name="qq" type="text" class="form-control" required="" aria-required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">微信号：</label>
-                        <div class="col-sm-8">
-                            <input id="wx" name="wx" type="text" class="form-control" required="" aria-required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">状态，0：启用，1:禁用：</label>
-                        <div class="col-sm-8">
-                            <input id="isActive" name="isActive" type="text" class="form-control" required=""
-                                   aria-required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">个性签名：</label>
-                        <div class="col-sm-8">
-                            <input id="remark" name="remark" type="text" class="form-control" required=""
-                                   aria-required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">地址：</label>
-                        <div class="col-sm-8">
-                            <input id="adress" name="adress" type="text" class="form-control" required=""
-                                   aria-required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">修改时间：</label>
-                        <div class="col-sm-8">
-                            <input id="updateTime" name="updateTime" type="text" class="form-control" required=""
-                                   aria-required="true">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">创建时间：</label>
-                        <div class="col-sm-8">
-                            <input id="createTime" name="createTime" type="text" class="form-control" required=""
-                                   aria-required="true">
+                        <label class="col-sm-2 control-label">读者个性签名：</label>
+                        <div class="col-sm-10">
+                            <textarea id="remark" name="remark" rows="3" placeholder="请输入读者个性签名" class="form-control" required=""
+                                      aria-required="true"></textarea>
                         </div>
                     </div>
                 </div>
@@ -490,6 +450,10 @@
         elem: '#test_2'//指定元素，
         ,type: 'date'
         ,range: true
+    });
+    laydate.render({
+        elem: '#cardRcDate'//指定元素，
+        ,type: 'date'
     });
 </script>
 </body>

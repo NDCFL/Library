@@ -17,7 +17,7 @@ import java.util.*;
 
 @Service
 @Transactional(readOnly = true,rollbackFor = Exception.class)
-public class MenuServiceImpl implements MenuService {
+public class MenuServiceImpl implements MenuService  {
 	@Autowired
 	MenuDao menuMapper;
 	@Autowired

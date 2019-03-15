@@ -15,11 +15,14 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import io.jsonwebtoken.Claims;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-  
+import org.springframework.http.HttpHeaders;
+import top.cflwork.util.JwtUtil;
+
 /** 
  * 拦截防止xss注入
  * 通过Jsoup过滤请求参数内的特定字符
@@ -40,7 +43,6 @@ public class XssFilter implements Filter {
     	if(logger.isDebugEnabled()){
   			logger.debug("xss filter is open");
   		}
-  		
   		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
   		if(handleExcludeURL(req, resp)){
