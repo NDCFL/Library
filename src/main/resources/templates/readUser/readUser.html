@@ -79,22 +79,9 @@
                             <input id="name" name="name" type="text" placeholder="请输入读者姓名" class="form-control" required=""
                                    aria-required="true">
                         </div>
-                        <label class="col-sm-2 control-label">读者性别：</label>
-                        <div class="col-sm-4">
-                            <select id="sex" name="sex"  class="form-control">
-                                <option value="0">男士</option>
-                                <option value="1">女士</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label class="col-sm-2 control-label"><span style="color: red">*</span>读者证号：</label>
                         <div class="col-sm-4">
                             <input id="cardNum" name="cardNum" type="text" placeholder="请输入读者证号" class="form-control" />
-                        </div>
-                        <label class="col-sm-2 control-label">读者证号密码：</label>
-                        <div class="col-sm-4">
-                            <input id="cardPwd" name="cardPwd" type="text" placeholder="请输入读者证号密码" class="form-control" >
                         </div>
                     </div>
                     <div class="form-group">
@@ -109,45 +96,53 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-2 control-label">读者证号密码：</label>
+                        <div class="col-sm-4">
+                            <input name="adress" id="cardPwd" type="text" class="form-control" placeholder="请输入读者微信号"/>
+                        </div>
+                        <label class="col-sm-2 control-label">读者性别：</label>
+                        <div class="col-sm-4">
+                            <select id="sex" name="sex"  class="form-control">
+                                <option value="0">男士</option>
+                                <option value="1">女士</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">读者地址：</label>
                         <div class="col-sm-4">
-                            <input id="adress" name="adress" type="text" placeholder="请输入读者地址" class="form-control" required=""
-                                   aria-required="true">
+                            <input name="adress" id="adress" type="text" class="form-control" placeholder="请输入读者微信号"/>
                         </div>
                         <label class="col-sm-2 control-label">读者年龄：</label>
                         <div class="col-sm-4">
-                            <input id="age" name="age" type="number" placeholder="请输入读者年龄" class="form-control" required=""
-                                   aria-required="true">
+                            <input name="age" id="age" type="text" class="form-control" placeholder="请输入读者微信号"/>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">读者发证日期：</label>
                         <div class="col-sm-4">
-                            <input id="cardRcDate" name="cardRcDate" placeholder="请选择读者发证日期" type="text" class="form-control" required=""
-                                   aria-required="true">
+                            <input id="cardRcDate" name="cardRcDate" placeholder="请选择读者发证日期" type="text" class="form-control" />
                         </div>
                         <label class="col-sm-2 control-label">读者身份证号：</label>
                         <div class="col-sm-4">
-                            <input id="idCard" name="idCard" type="text" placeholder="请输入读者身份证号" class="form-control" required=""
-                                   aria-required="true">
+                            <input id="idCard" name="idCard" type="text" placeholder="请输入读者身份证号" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">读者QQ号：</label>
                         <div class="col-sm-4">
-                            <input id="qq" name="qq" type="text" class="form-control" placeholder="请输入读者QQ号" required="" aria-required="true">
+                            <input id="qq" name="qq" type="text" class="form-control" placeholder="请输入读者QQ号" />
                         </div>
                         <label class="col-sm-2 control-label">读者微信号：</label>
                         <div class="col-sm-4">
-                            <input id="wx" name="wx" type="text" class="form-control" placeholder="请输入读者微信号" required="" aria-required="true">
+                            <input id="wx" name="wx" type="text" class="form-control" placeholder="请输入读者微信号"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">读者个性签名：</label>
                         <div class="col-sm-10">
-                            <textarea id="remark" name="remark" rows="3" placeholder="请输入读者个性签名" class="form-control" required=""
-                                      aria-required="true"></textarea>
+                            <textarea id="remark" name="remark" rows="3" placeholder="请输入读者个性签名" class="form-control"></textarea>
                         </div>
                     </div>
                 </div>
@@ -445,6 +440,7 @@
 
 <div th:include="includes :: footer"></div>
 <script src="/js/appjs/readUser/readUser.js"></script>
+<script src="/js/md5.js" type="text/javascript"></script>
 <script>
     laydate.render({
         elem: '#test_2'//指定元素，

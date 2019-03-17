@@ -202,7 +202,7 @@ function updatestatus(id, status) {
     $.post("/readerBook/update",
         {
             "id": id,
-            "status": status
+            "isActive": status
         },
         function (data) {
             if (status == 0) {

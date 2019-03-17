@@ -1,5 +1,6 @@
 package top.cflwork.service.impl;
 
+import top.cflwork.common.SequenceId;
 import top.cflwork.service.DictService;
 import top.cflwork.util.StringUtils;
 import top.cflwork.dao.DictDao;
@@ -18,7 +19,8 @@ import java.util.Objects;
 public class DictServiceImpl implements DictService {
     @Autowired
     private DictDao dictDao;
-
+    @Autowired
+    private SequenceId sequenceId;
     @Override
     public DictVo get(String id) {
         return dictDao.get(id);
@@ -36,6 +38,7 @@ public class DictServiceImpl implements DictService {
 
     @Override
     public int save(DictVo dict) {
+        dict.setId(sequenceId.nextId());
         return dictDao.save(dict);
     }
 

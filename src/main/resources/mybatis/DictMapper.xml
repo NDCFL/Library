@@ -42,7 +42,7 @@
 	</select>
 
 	<select id="count" resultType="long">
-		select count(*) from sys_dict
+		select count(id) from sys_dict
 		<where>
 			<if test="id != null and id != ''"> and id = #{id} </if>
 			<if test="name != null and name != ''"> and name = #{name} </if>

@@ -60,6 +60,7 @@ public class ReadUserController {
 	@GetMapping("/add")
 	@RequiresPermissions("readUser:add")
 	public String add(){
+
 	    return "/readUser/add";
 	}
 
@@ -77,6 +78,7 @@ public class ReadUserController {
 	@PostMapping("/save")
 	@RequiresPermissions("readUser:add")
 	public R save( ReadUserVo readUser){
+		readUser.setPassword(MD5Utils.encrypt(readUser.getName(), readUser.getPassword()));
 		if(readUserService.save(readUser)>0){
 			return R.ok("新增成功");
 		}

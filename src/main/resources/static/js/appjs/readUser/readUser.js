@@ -364,18 +364,47 @@ $('#updateform').bootstrapValidator({
     },
     fields: {
         name: {
-            message: '用户名验证失败',
+            message: '读者姓名验证失败',
             validators: {
                 notEmpty: {
-                    message: '用户名称不能为空'
+                    message: '读者姓名不能为空'
                 },
                 stringLength: {
                     min: 2,
-                    max: 30,
-                    message: '分类名称长度必须在2到30位之间'
+                    max: 10,
+                    message: '读者姓名长度必须在2到10位之间'
                 }
             }
-        }
+        },
+        cardNum: {
+            message: '读者证号验证失败',
+            validators: {
+                notEmpty: {
+                    message: '读者证号不能为空'
+                }
+            }
+        },
+        phone: {
+            message: '读者手机号验证失败',
+            validators: {
+                notEmpty: {
+                    message: '读者手机号不能为空'
+                },
+                stringLength: {
+                    min: 11,
+                    max: 11,
+                    message: '读者手机号长度必须是11位'
+                }
+            }
+        },
+        password: {
+            message: '读者登录密码验证失败',
+            validators: {
+                notEmpty: {
+                    message: '读者登录密码不能为空'
+                }
+            }
+        },
     }
 });
 $("#update").click(function () {
@@ -418,6 +447,35 @@ $('#formadd').bootstrapValidator({
                     message: '读者姓名长度必须在2到10位之间'
                 }
             }
+        },
+        cardNum: {
+            message: '读者证号验证失败',
+            validators: {
+                notEmpty: {
+                    message: '读者证号不能为空'
+                }
+            }
+        },
+        phone: {
+            message: '读者手机号验证失败',
+            validators: {
+                notEmpty: {
+                    message: '读者手机号不能为空'
+                },
+                stringLength: {
+                    min: 11,
+                    max: 11,
+                    message: '读者手机号长度必须是11位'
+                }
+            }
+        },
+        password: {
+            message: '读者登录密码验证失败',
+            validators: {
+                notEmpty: {
+                    message: '读者登录密码不能为空'
+                }
+            }
         }
     }
 });
@@ -426,6 +484,7 @@ $("#add").click(function () {
     if (!$('#formadd').data('bootstrapValidator').isValid()) {
         return;
     }
+    $("#password").val(md5($("#password").val()));
     $.post(
         "/readUser/save",
         $('#formadd').serialize(),
