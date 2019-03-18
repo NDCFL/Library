@@ -74,5 +74,7 @@ public class BookSearchVo implements Serializable {
     @XmlElementAnno
     @ApiModelProperty("价格")
     private String price;
+    @ApiModelProperty("封面需要加上前缀")
+    private String faceImg = "/book.gif";
 
 }

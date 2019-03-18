@@ -282,6 +282,12 @@ function resetPwd(id) {
     );
 }
 
+function add() {
+    alert("-------------------");
+    //初始化校验
+    $("#formadd").data('bootstrapValidator').destroy();
+}
+
 function updatestatus(id, status) {
     $.post("/readUser/update",
         {
@@ -492,6 +498,8 @@ $("#add").click(function () {
             if (result.code == 0) {
                 layer.alert(result.msg, {icon: 1});
                 $("#webAdd").modal('hide');
+                $("#formadd").data('bootstrapValidator').destroy();
+                $('#formadd')[0].reset();
             } else {
                 layer.alert(result.msg, {icon: 2});
             }

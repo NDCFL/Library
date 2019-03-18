@@ -164,18 +164,7 @@ public class MetatableController {
 				}else{
 					//数据正常
 					List<BookSearchVo> bookSearchVoList = bookSearchRootVo1.getText();
-					bookSearchVoList.stream().forEach(e->{
-						BookSearchVo bookSearchVo= new BookSearchVo();
-						bookSearchVo.setMetaid(e.getMetaid()) ;
-						bookSearchVo.setMetatable(e.getMetatable());
-						MetatableVo metatableVo = new MetatableVo();
-						metatableVo.setMetaid(e.getMetaid());
-						metatableVo.setMetatable(e.getMetatable());
-						long cnt = metatableService.count(metatableVo);
-						if(cnt==0){
-							metatableService.batchSaveBook(bookSearchVo);
-						}
-					});
+					metatableService.batchSaveBook(bookSearchVoList);
 					return new ResponseJson(true,bookSearchRootVo1);
 				}
 			}else{

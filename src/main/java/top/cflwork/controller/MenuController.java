@@ -39,7 +39,6 @@ public class MenuController extends BaseController {
 	@RequestMapping("/list")
 	@ResponseBody
 	public TreePageVo<MenuVo> list(@RequestParam Map<String, Object> params) {
-		Map<String,Object> map = new HashMap<>();
 		params.put("sort","order_num");
 		params.put("order","asc");
 		List<MenuVo> menus = menuService.list(params);

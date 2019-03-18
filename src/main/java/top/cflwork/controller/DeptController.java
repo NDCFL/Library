@@ -5,6 +5,7 @@ import top.cflwork.controller.BaseController;
 import top.cflwork.util.R;
 import top.cflwork.vo.DeptVo;
 import top.cflwork.service.DeptService;
+import top.cflwork.vo.MenuVo;
 import top.cflwork.vo.Tree;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import top.cflwork.vo.TreePageVo;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,10 +44,15 @@ public class DeptController extends BaseController {
 	@ResponseBody
 	@GetMapping("/list")
 	@RequiresPermissions("sysDept:sysDeptPage")
-	public List<DeptVo> list() {
+	public TreePageVo<DeptVo> list() {
+		TreePageVo<DeptVo> treePageVo = new TreePageVo<>();
 		Map<String, Object> query = new HashMap<>(16);
 		List<DeptVo> sysDeptList = sysDeptService.list(query);
-		return sysDeptList;
+		treePageVo.setCode(0);
+		treePageVo.setData(sysDeptList);
+		treePageVo.setCount(20l);
+		treePageVo.setMsg("查询成功");
+		return treePageVo;
 	}
 
 	@GetMapping("/add/{pId}")

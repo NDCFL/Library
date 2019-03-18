@@ -87,11 +87,11 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label"><span style="color: red">*</span>读者手机号：</label>
                         <div class="col-sm-4">
-                            <input id="phone" name="phone" type="text" placeholder="请输入读者手机号" class="form-control"/>
+                            <input id="phone" name="phone" type="text" placeholder="请输入读者手机号"  maxlength="11" minlength="11" class="form-control"/>
                         </div>
                         <label class="col-sm-2 control-label"><span style="color: red">*</span>读者登录密码：</label>
                         <div class="col-sm-4">
-                            <input id="password" name="password" placeholder="请输入读者登录密码" type="text" class="form-control" required=""
+                            <input id="password" name="password" placeholder="请输入读者登录密码" type="password" class="form-control" required=""
                                    aria-required="true">
                         </div>
                     </div>
@@ -148,6 +148,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="reset" class="btn btn-error">重置
                     </button>
                     <button type="submit" id="add" class="btn btn-primary">
                         确认新增

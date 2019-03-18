@@ -34,7 +34,7 @@ public interface MetatableService {
 
 	int batchSave(List<MetatableVo> metatableList);
 
-	int batchSaveBook(BookSearchVo bookSearchVo);
+	int batchSaveBook(List<BookSearchVo> bookSearchVoList);
 
 	int updateBook(MetaTablesVo metaTablesVo);
 }

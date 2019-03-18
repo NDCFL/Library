@@ -73,9 +73,11 @@ public class MetatableServiceImpl implements MetatableService {
 
 	@Override
 	@Transactional
-	public int batchSaveBook(BookSearchVo bookSearchVo){
-		bookSearchVo.setId(sequenceId.nextId());
-		return metatableDao.batchSaveBook(bookSearchVo);
+	public int batchSaveBook(List<BookSearchVo> bookSearchVoList){
+		bookSearchVoList.stream().forEach(e->{
+			e.setId(sequenceId.nextId());
+		});
+		return metatableDao.batchSaveBook(bookSearchVoList);
 	}
 
 	@Override
