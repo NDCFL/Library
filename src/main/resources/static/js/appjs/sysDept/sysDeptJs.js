@@ -60,17 +60,17 @@ layui.config({
                                 + s_edit_h
                                 + '" href="#" mce_href="#" title="编辑" onclick="edit(\''
                                 + item.deptId
-                                + '\')">编辑</a> ';
+                                + '\')"><i class="fa fa-edit"></i>编辑</a> ';
                             var p = '<a class="layui-badge layui-bg-blue'
                                 + s_add_h
                                 + '" href="#" mce_href="#" title="添加下级" onclick="add(\''
                                 + item.deptId
-                                + '\')">新增</a> ';
+                                + '\')"><i class="fa fa-plus"></i>新增</a> ';
                             var d = '<a class="layui-badge layui-bg-red '
                                 + s_remove_h
                                 + '" href="#" title="删除"  mce_href="#" onclick="remove(\''
                                 + item.deptId
-                                + '\')">删除</a> ';
+                                + '\')"><i class="fa fa-remove"></i>删除</a> ';
                             return e + d + p;
                         },
                     }

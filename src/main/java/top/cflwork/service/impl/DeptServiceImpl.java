@@ -1,5 +1,6 @@
 package top.cflwork.service.impl;
 
+import top.cflwork.common.SequenceId;
 import top.cflwork.dao.DeptDao;
 import top.cflwork.vo.DeptVo;
 import top.cflwork.service.DeptService;
@@ -19,6 +20,8 @@ import java.util.Map;
 public class DeptServiceImpl implements DeptService {
 	@Autowired
 	private DeptDao sysDeptMapper;
+	@Autowired
+	private SequenceId sequenceId;
 
 	@Override
 	public DeptVo get(String deptId){
@@ -37,6 +40,7 @@ public class DeptServiceImpl implements DeptService {
 
 	@Override
 	public int save(DeptVo sysDept){
+		sysDept.setDeptId(sequenceId.nextId());
 		return sysDeptMapper.save(sysDept);
 	}
 

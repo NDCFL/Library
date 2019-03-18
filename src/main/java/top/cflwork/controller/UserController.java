@@ -85,6 +85,7 @@ public class UserController extends BaseController {
 	@ResponseBody
 	public R save(UserVo user) {
 		user.setPassword(MD5Utils.encrypt(user.getUsername(), user.getPassword()));
+
 		if (userService.save(user) > 0) {
 			return R.ok();
 		}

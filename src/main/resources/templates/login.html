@@ -57,8 +57,10 @@
                 <p class="m-t-md text-center">欢迎登录青海图书馆后台管理系统</p>
                 <input type="text" name="username" id="username" class="form-control uname"
                        value="test"/>
-                <input type="password" name="password" id="password"
+                <input type="password"  id="password"
                        class="form-control pword m-b" value="111111"/>
+                <input type="hidden" name="password" id="password_"
+                       class="form-control pword m-b" value=""/>
                 <a id="login" class="btn btn-login btn-block">登录</a>
                 <!--按钮模块-->
                 <div class="outside-login">
@@ -120,7 +122,7 @@
     });
 
     function login() {
-        $("#password").val(md5($("#password").val()));
+        $("#password_").val(md5($("#password").val()));
         $.ajax({
             type: "POST",
             url: ctx+"login",

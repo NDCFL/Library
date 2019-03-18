@@ -56,6 +56,26 @@ public class NewBookController {
 		return pageUtils;
 	}
 
+	@ResponseBody
+	@PostMapping("/findList")
+	@ApiOperation("分页获取新书通报列表，也可以根据指定的参数搜索")
+	public PageUtils findList(NewBookVo newBookVo){
+		//查询列表数据
+		List<NewBookVo> newBookList = newBookService.list(newBookVo);
+		Long total = newBookService.count(newBookVo);
+		PageUtils pageUtils = new PageUtils(newBookList, total);
+		return pageUtils;
+	}
+
+	@ResponseBody
+	@PostMapping("/listAll")
+	@ApiOperation("分页获取新书通报列表，也可以根据指定的参数搜索")
+	public List<NewBookVo> listAll(NewBookVo newBookVo){
+		//查询列表数据
+		List<NewBookVo> newBookList = newBookService.list(newBookVo);
+		return newBookList;
+	}
+
 	@GetMapping("/add")
 	public String add(){
 	    return "/newBook/add";

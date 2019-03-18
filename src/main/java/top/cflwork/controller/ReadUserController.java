@@ -78,9 +78,13 @@ public class ReadUserController {
 	@PostMapping("/save")
 	@RequiresPermissions("readUser:add")
 	public R save( ReadUserVo readUser){
+		readUser.setPassword(MD5Utils.encrypt(readUser.getName(), "66666666"));
+		readUser.setExpress(0);
+		readUser.setExpressStatus(0);
+		readUser.setFaceImg("/face.gif");
 		readUser.setPassword(MD5Utils.encrypt(readUser.getName(), readUser.getPassword()));
 		if(readUserService.save(readUser)>0){
-			return R.ok("新增成功");
+			return R.ok("新增成功，默认密码8个6");
 		}
 		return R.error("新增失败");
 	}
@@ -91,6 +95,7 @@ public class ReadUserController {
 	@PostMapping("/update")
 	@RequiresPermissions("readUser:update")
 	public R update( ReadUserVo readUser){
+		readUser.setPassword(MD5Utils.encrypt(readUser.getName(), "66666666"));
 		readUserService.update(readUser);
 		return R.ok("修改成功");
 	}

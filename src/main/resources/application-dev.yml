@@ -10,7 +10,7 @@ spring:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/library?useUnicode=true&characterEncoding=utf8
     username: root
-    password: root
+    password: cfl,1997
     initialSize: 1
     minIdle: 3
     maxActive: 20

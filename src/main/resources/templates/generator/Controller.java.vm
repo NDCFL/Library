@@ -52,6 +52,15 @@ public class ${className}Controller {
 		return pageUtils;
 	}
 
+    @ResponseBody
+    @PostMapping("/listAll")
+    @RequiresPermissions("${classname}:list")
+    public List<${className}Vo> listAll(${className}Vo ${classname}Vo){
+        //查询列表数据
+        List<${className}Vo> ${classname}List = ${classname}Service.list(${classname}Vo);
+        return ${classname}List;
+    }
+
 	@GetMapping("/add")
 	@RequiresPermissions("${classname}:add")
 	public String add(){

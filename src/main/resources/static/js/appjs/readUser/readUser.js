@@ -41,7 +41,7 @@ $('#mytab').bootstrapTable({
             align: 'center',
             sortable: true,
             formatter: function (value, row, index) {
-                return '<img style="width: 80px;height: 80px;border-radius: 100%" src="' + path + value + '"/>';
+                return '<img style="width: 60px;height: 60px;border-radius: 100%" src="' + path + value + '"/>';
             }
         },
         {
@@ -63,17 +63,21 @@ $('#mytab').bootstrapTable({
             sortable: true
         },
         {
+            field: 'phone',
+            title: '读者手机号',
+            align: 'center',
+            sortable: true
+        },
+        {
             field: 'sex',
             title: '性别',
             align: 'center',
             sortable: true,
             formatter: function (value, row, index) {
                 if (value == 0) {
-                    //表示启用状态
-                    return '<span style="color: green" >男</span>';
-                } else {
-                    //表示启用状态
-                    return '<span style="color: red" >女</span>';
+                    return '<span class="label label-primary">男</span>';
+                } else{
+                    return '<span class="label label-danger">女</span>';
                 }
             }
         },
@@ -86,24 +90,6 @@ $('#mytab').bootstrapTable({
         {
             field: 'email',
             title: '邮箱',
-            align: 'center',
-            sortable: true
-        },
-        {
-            field: 'phone',
-            title: '读者手机号',
-            align: 'center',
-            sortable: true
-        },
-        {
-            field: 'qq',
-            title: 'qq号',
-            align: 'center',
-            sortable: true
-        },
-        {
-            field: 'wx',
-            title: '微信号',
             align: 'center',
             sortable: true
         },
@@ -133,7 +119,7 @@ $('#mytab').bootstrapTable({
             align: 'center',
             field: '',
             formatter: function (value, row, index) {
-                var e = '<a title="查看" href="javascript:void(0);" id="readUser"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="查看" style="color:green">查看</i></a> ';
+                var e = '<a title="修改" href="javascript:void(0);" id="readUser"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del(\'' + row.id + '\',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
                 var p = '<a title="重置密码" href="javascript:void(0);" onclick="resetPwd(\'' + row.id + '\')"><i class="glyphicon glyphicon-trash" alt="重置密码" style="color:red">重置密码</i></a>';
                 var f = '';
@@ -148,7 +134,7 @@ $('#mytab').bootstrapTable({
                     '    </button>\n' +
                     '    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">\n' +
                     '        <li role="presentation">\n' +
-                    '            <a role="menuitem" tabindex="-1" title="查看" href="javascript:void(0);" id="readUser"  data-toggle="modal" data-id="' + row.id + '" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="查看" style="color:green">查看</i></a>\n' +
+                    '            <a role="menuitem" tabindex="-1" title="修改" href="javascript:void(0);" id="readUser"  data-toggle="modal" data-id="' + row.id + '" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a>\n' +
                     '        </li>\n' +
                     '        <li role="presentation">\n' +
                     '            <a role="menuitem" tabindex="-1" title="删除" href="javascript:void(0);" onclick="del(\'' + row.id + '\',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a>\n' +
@@ -264,6 +250,7 @@ function edit(name) {
     $.get("/readUser/edit/" + name,
         function (data) {
             $("#updateform").autofill(data);
+            $("#password_").val(data.password);
         },
         "json"
     );
@@ -283,7 +270,6 @@ function resetPwd(id) {
 }
 
 function add() {
-    alert("-------------------");
     //初始化校验
     $("#formadd").data('bootstrapValidator').destroy();
 }
@@ -490,7 +476,6 @@ $("#add").click(function () {
     if (!$('#formadd').data('bootstrapValidator').isValid()) {
         return;
     }
-    $("#password").val(md5($("#password").val()));
     $.post(
         "/readUser/save",
         $('#formadd').serialize(),

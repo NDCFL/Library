@@ -20,15 +20,15 @@
                 </div>
                 <div class="panel-body form-group" style="margin-bottom:0px;">
                     <div id="toolbar" class="btn-group pull-right" style="margin-right: 20px;">
-                        <button shiro:hasPermission="activity:add" type="button"
+                        <button shiro:hasPermission="sysDept:add" type="button"
                                 class="btn  btn-default" onclick="add(0)">
                             <i class="fa fa-plus" aria-hidden="true"></i>添加
                         </button>
-                        <button shiro:hasPermission="activity:batchRemove" type="button"
-                                class="btn  btn-default"
-                                onclick="batchRemove()">
-                            <i class="fa fa-trash" aria-hidden="true"></i>批量删除
-                        </button>
+                        <!--<button shiro:hasPermission="sysDept:batchRemove" type="button"-->
+                                <!--class="btn  btn-default"-->
+                                <!--onclick="batchRemove()">-->
+                            <!--<i class="fa fa-trash" aria-hidden="true"></i>批量删除-->
+                        <!--</button>-->
                     </div>
                     <table id="auth-table" class="layui-table" lay-filter="auth-table"></table>
                 </div>
@@ -44,17 +44,17 @@
         var s_remove_h = 'hidden';
     </script>
 </div>
-<div shiro:hasPermission="menu:add">
+<div shiro:hasPermission="sysDept:add">
     <script type="text/javascript">
         s_add_h = '';
     </script>
 </div>
-<div shiro:hasPermission="user:edit">
+<div shiro:hasPermission="sysDept:edit">
     <script type="text/javascript">
         s_edit_h = '';
     </script>
 </div>
-<div shiro:hasPermission="user:remove">
+<div shiro:hasPermission="sysDept:remove">
     <script type="text/javascript">
         var s_remove_h = '';
     </script>
