@@ -30,6 +30,7 @@ import top.cflwork.service.MetatableService;
 import top.cflwork.util.PageUtils;
 import top.cflwork.util.Query;
 import top.cflwork.util.R;
+import top.cflwork.vo.NewBookVo;
 import top.cflwork.vo.SendVo;
 import top.cflwork.vo.xmlvo.*;
 
@@ -351,7 +352,16 @@ public class MetatableController {
             return new ResponseJson(false, "服务器接口异常");
         }
     }
-
+	@ResponseBody
+	@PostMapping("/newBooklist")
+	@ApiOperation("分页获取新书通报列表，也可以根据指定的参数搜索")
+	public PageUtils list(@RequestBody @ApiParam("参数是个json对象，") NewBookVo newBookVo){
+		//查询列表数据
+		List<NewBookVo> newBookList = newBookService.list(newBookVo);
+		Long total = newBookService.count(newBookVo);
+		PageUtils pageUtils = new PageUtils(newBookList, total);
+		return pageUtils;
+	}
 
 	public static void main(String[] args) {
 		SendVo sendVo = new SendVo();

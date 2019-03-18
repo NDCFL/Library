@@ -67,7 +67,7 @@ public class Swagger2Config {
     @Bean
     public Docket bookSearchApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("图书检索模块")
+                .groupName("图书检索和新书通报模块")
                 .apiInfo(apiInfo())
                 .select()
                 .paths(bookSearchPaths())
@@ -78,23 +78,6 @@ public class Swagger2Config {
                 regex("/metatable/.*")
         );
     }
-
-
-    @Bean
-    public Docket newBookApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("新书通报模块")
-                .apiInfo(apiInfo())
-                .select()
-                .paths(newBookPaths())
-                .build();
-    }
-    private Predicate<String> newBookPaths() {
-        return or(
-                regex("/newBook/.*")
-        );
-    }
-
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("cflwork")

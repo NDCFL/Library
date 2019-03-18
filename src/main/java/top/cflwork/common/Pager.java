@@ -23,7 +23,7 @@ public class Pager {
     private int pageSize;
     @ApiModelProperty(value = "排序字段",required = true)
     private String sort;
-    @ApiModelProperty(value = "排序顺序，esc(顺序),desc(倒序)",required = true)
+    @ApiModelProperty(value = "排序顺序，asc(顺序),desc(倒序)",required = true)
     private String order;
 
     private boolean paging = true;

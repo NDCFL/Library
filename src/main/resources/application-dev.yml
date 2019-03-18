@@ -1,5 +1,5 @@
 cflworks:
-  uploadPath: F:/var/uploaded_files/
+  uploadPath: C:/var/uploaded_files/
 logging:
   level:
     root: info
@@ -10,7 +10,7 @@ spring:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/library?useUnicode=true&characterEncoding=utf8
     username: root
-    password: cfl,1997
+    password: root
     initialSize: 1
     minIdle: 3
     maxActive: 20
