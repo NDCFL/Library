@@ -5,12 +5,12 @@
 
 	<select id="get" resultType="top.cflwork.vo.DeptVo">
 		select
-		`dept_id`,`parent_id`,`name`,`order_num`,`del_flag` from sys_dept
+		`dept_id`,`parent_id`,`name`,`order_num`,`del_flag`,`library_id` from sys_dept
 		where dept_id = #{value}
 	</select>
 
 	<select id="list" resultType="top.cflwork.vo.DeptVo">
-		select `dept_id`,`parent_id`,`name`,`order_num`,`del_flag` from
+		select `dept_id`,`parent_id`,`name`,`order_num`,`del_flag`,`library_id` from
 		sys_dept
 		<where>
 			<if test="deptId != null and deptId != ''"> and dept_id = #{deptId} </if>
@@ -18,6 +18,7 @@
 			<if test="name != null and name != ''"> and name = #{name} </if>
 			<if test="orderNum != null and orderNum != ''"> and order_num = #{orderNum} </if>
 			<if test="delFlag != null and delFlag != ''"> and del_flag = #{delFlag} </if>
+			<if test="libraryId != null and libraryId!=''">and `library_id` = #{libraryId}</if>
 		</where>
 		<choose>
 			<when test="sort != null and sort.trim() != ''">
@@ -33,13 +34,14 @@
 	</select>
 
 	<select id="count" resultType="long">
-		select count(*) from sys_dept
+		select count(id) from sys_dept
 		<where>
 			<if test="deptId != null and deptId != ''"> and dept_id = #{deptId} </if>
 			<if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
 			<if test="name != null and name != ''"> and name = #{name} </if>
 			<if test="orderNum != null and orderNum != ''"> and order_num = #{orderNum} </if>
 			<if test="delFlag != null and delFlag != ''"> and del_flag = #{delFlag} </if>
+			<if test="libraryId != null and libraryId!=''">and `library_id` = #{libraryId}</if>
 		</where>
 	</select>
 
@@ -51,7 +53,8 @@
 		`parent_id`,
 		`name`,
 		`order_num`,
-		`del_flag`
+		`del_flag`,
+		`library_id`
 		)
 		values
 		(
@@ -59,7 +62,8 @@
 		#{parentId},
 		#{name},
 		#{orderNum},
-		#{delFlag}
+		#{delFlag},
+		#{libraryId}
 		)
 	</insert>
 
@@ -69,7 +73,8 @@
 			<if test="parentId != null">`parent_id` = #{parentId}, </if>
 			<if test="name != null">`name` = #{name}, </if>
 			<if test="orderNum != null">`order_num` = #{orderNum}, </if>
-			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+			<if test="delFlag != null">`del_flag` = #{delFlag},</if>
+			<if test="libraryId != null">and `library_id` = #{libraryId},</if>
 		</set>
 		where dept_id = #{deptId}
 	</update>
@@ -91,6 +96,6 @@
 	</select>
 
     <select id="getDeptUserNumber" resultType="long">
-		select count(*) from sys_user where dept_id = #{value}
+		select count(dept_id) from sys_user where dept_id = #{value}
 	</select>
 </mapper>

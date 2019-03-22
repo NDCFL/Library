@@ -32,4 +32,11 @@ public interface MenuService {
 	Set<String> listPerms(String userId);
 
 	int batchSave(List<MenuVo> menuVoList);
+
+	Tree<MenuVo> getLibraryTree(String id);
+
+	Tree<MenuVo> getTreeList(String libraryId);
+
+
+    Tree<MenuVo> getTreeListInfo(String id);
 }

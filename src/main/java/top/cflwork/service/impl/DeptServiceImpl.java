@@ -60,9 +60,11 @@ public class DeptServiceImpl implements DeptService {
 	}
 
 	@Override
-	public Tree<DeptVo> getTree() {
+	public Tree<DeptVo> getTree(String libraryId) {
 		List<Tree<DeptVo>> trees = new ArrayList<Tree<DeptVo>>();
-		List<DeptVo> sysDepts = sysDeptMapper.list(new HashMap<String,Object>(16));
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("libraryId",libraryId);
+		List<DeptVo> sysDepts = sysDeptMapper.list(map);
 		for (DeptVo sysDept : sysDepts) {
 			Tree<DeptVo> tree = new Tree<DeptVo>();
 			tree.setId(sysDept.getDeptId().toString());

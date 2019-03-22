@@ -25,6 +25,11 @@ public class ShiroUtils {
     public static String getUserId() {
         return getUser().getUserId();
     }
+
+    public static String getUserLibraryId() {
+        return getUser().getLibraryId();
+    }
+
     public static void logout() {
         getSubjct().logout();
     }

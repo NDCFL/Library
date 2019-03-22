@@ -25,6 +25,9 @@ import top.cflwork.service.ReadUserService;
 import top.cflwork.vo.SendVo;
 import top.cflwork.vo.xmlvo.ReadRootVo;
 
+import static top.cflwork.util.ShiroUtils.getUser;
+import static top.cflwork.util.ShiroUtils.getUserLibraryId;
+
 /**
  * 读者管理
  * 
@@ -51,6 +54,7 @@ public class ReadUserController {
 	@RequiresPermissions("readUser:list")
 	public PageUtils list(ReadUserVo readUserVo){
 		//查询列表数据
+		readUserVo.setLibraryId(getUserLibraryId());
 		List<ReadUserVo> readUserList = readUserService.list(readUserVo);
 		Long total = readUserService.count(readUserVo);
 		PageUtils pageUtils = new PageUtils(readUserList, total);
@@ -78,13 +82,14 @@ public class ReadUserController {
 	@PostMapping("/save")
 	@RequiresPermissions("readUser:add")
 	public R save( ReadUserVo readUser){
-		readUser.setPassword(MD5Utils.encrypt(readUser.getName(), "66666666"));
+		readUser.setPassword(MD5Utils.encrypt(readUser.getName(), readUser.getPassword()));
 		readUser.setExpress(0);
 		readUser.setExpressStatus(0);
 		readUser.setFaceImg("/face.gif");
 		readUser.setPassword(MD5Utils.encrypt(readUser.getName(), readUser.getPassword()));
+		readUser.setLibraryId(getUserLibraryId());
 		if(readUserService.save(readUser)>0){
-			return R.ok("新增成功，默认密码8个6");
+			return R.ok("新增成功，默认密码8个1");
 		}
 		return R.error("新增失败");
 	}

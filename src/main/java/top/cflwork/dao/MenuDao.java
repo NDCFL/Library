@@ -37,4 +37,6 @@ public interface MenuDao {
 	int batchSave(List<MenuVo> menuVoList);
 
 	String[] findByParentId(String id);
+
+	List<MenuVo> getList(String libraryId);
 }

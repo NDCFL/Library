@@ -171,4 +171,11 @@
 	<select id="findByParentId" resultType="string">
 		select menu_id from sys_menu where parent_id=#{id}
 	</select>
+
+	<select id="getList" resultType="top.cflwork.vo.MenuVo">
+		select
+		`menu_id`,`parent_id`,`name`,`url`,`perms`,`type`,`icon`,`order_num`,`gmt_create`,`gmt_modified`,`authority_id`
+		from sys_menu where menu_id in (select menu_id from sys_role_library_menu where library_id = #{libraryId} )
+	</select>
+
 </mapper>

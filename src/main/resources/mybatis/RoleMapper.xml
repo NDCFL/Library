@@ -5,13 +5,13 @@
 
 	<select id="get" resultType="top.cflwork.vo.RoleVo">
 		select
-		`role_id`,`role_name`,`role_sign`,`remark`,`user_id_create`,`gmt_create`,`gmt_modified`
+		`role_id`,`role_name`,`role_sign`,`remark`,`user_id_create`,`gmt_create`,`gmt_modified`,`library_id`
 		from sys_role where role_id = #{value}
 	</select>
 
 	<select id="list" resultType="top.cflwork.vo.RoleVo">
 		select
-		`role_id`,`role_name`,`role_sign`,`remark`,`user_id_create`,`gmt_create`,`gmt_modified`
+		`role_id`,`role_name`,`role_sign`,`remark`,`user_id_create`,`gmt_create`,`gmt_modified`,`library_id`
 		from sys_role
 		<where>
 			<if test="roleId != null and roleId != ''"> and role_id = #{roleId} </if>
@@ -21,6 +21,7 @@
 			<if test="userIdCreate != null and userIdCreate != ''"> and user_id_create = #{userIdCreate} </if>
 			<if test="gmtCreate != null and gmtCreate != ''"> and gmt_create = #{gmtCreate} </if>
 			<if test="gmtModified != null and gmtModified != ''"> and gmt_modified = #{gmtModified} </if>
+			<if test="libraryId != null and libraryId != ''"> and library_id = #{libraryId} </if>
 		</where>
 		<choose>
 			<when test="sort != null and sort.trim() != ''">
@@ -45,6 +46,7 @@
 			<if test="userIdCreate != null and userIdCreate != ''"> and user_id_create = #{userIdCreate} </if>
 			<if test="gmtCreate != null and gmtCreate != ''"> and gmt_create = #{gmtCreate} </if>
 			<if test="gmtModified != null and gmtModified != ''"> and gmt_modified = #{gmtModified} </if>
+			<if test="libraryId != null and libraryId != ''"> and library_id = #{libraryId} </if>
 		</where>
 	</select>
 
@@ -52,23 +54,25 @@
 		useGeneratedKeys="true" keyProperty="roleId">
 		insert into sys_role
 		(
-		`id`,
+		`role_id`,
 		`role_name`,
 		`role_sign`,
 		`remark`,
 		`user_id_create`,
 		`gmt_create`,
-		`gmt_modified`
+		`gmt_modified`,
+		`library_id`
 		)
 		values
 		(
-		#{id},
+		#{roleId},
 		#{roleName},
 		#{roleSign},
 		#{remark},
 		#{userIdCreate},
 		#{gmtCreate},
-		#{gmtModified}
+		#{gmtModified},
+		#{libraryId}
 		)
 	</insert>
 
@@ -81,6 +85,7 @@
 			<if test="userIdCreate != null">`user_id_create` = #{userIdCreate}, </if>
 			<if test="gmtCreate != null">`gmt_create` = #{gmtCreate}, </if>
 			<if test="gmtModified != null">`gmt_modified` = #{gmtModified}</if>
+			<if test="libraryId != null"> library_id = #{libraryId} </if>
 		</set>
 		where role_id = #{roleId}
 	</update>

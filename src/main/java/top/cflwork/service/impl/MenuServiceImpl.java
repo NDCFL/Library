@@ -1,11 +1,14 @@
 package top.cflwork.service.impl;
 
 import top.cflwork.common.SequenceId;
+import top.cflwork.dao.RoleDao;
+import top.cflwork.dao.RoleLibraryMenuDao;
 import top.cflwork.util.BuildTree;
 import top.cflwork.dao.MenuDao;
 import top.cflwork.dao.RoleMenuDao;
 import top.cflwork.vo.MenuVo;
 import top.cflwork.service.MenuService;
+import top.cflwork.vo.RoleVo;
 import top.cflwork.vo.Tree;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+
+import static top.cflwork.util.ShiroUtils.getUser;
 
 @Service
 @Transactional(readOnly = true,rollbackFor = Exception.class)
@@ -24,6 +29,10 @@ public class MenuServiceImpl implements MenuService  {
 	RoleMenuDao roleMenuMapper;
     @Autowired
     private SequenceId sequenceId;
+    @Autowired
+	private RoleDao roleDao;
+    @Autowired
+	private RoleLibraryMenuDao roleLibraryMenuDao;
 	/**
 	 * @param
 	 * @return 树形菜单
@@ -182,6 +191,57 @@ public class MenuServiceImpl implements MenuService  {
 	}
 
 	@Override
+    public Tree<MenuVo> getTreeList(String libraryId) {
+        List<Tree<MenuVo>> trees = new ArrayList<Tree<MenuVo>>();
+        List<MenuVo> menuVos = menuMapper.getList(getUser().getLibraryId());
+        for (MenuVo sysMenuVo : menuVos) {
+            Tree<MenuVo> tree = new Tree<MenuVo>();
+            tree.setId(sysMenuVo.getMenuId().toString());
+            tree.setParentId(sysMenuVo.getParentId().toString());
+            tree.setText(sysMenuVo.getName());
+            trees.add(tree);
+        }
+        // 默认顶级菜单为０，根据数据库实际情况调整
+        Tree<MenuVo> t = BuildTree.build(trees);
+        return t;
+    }
+
+    @Override
+    public Tree<MenuVo> getTreeListInfo(String id) {
+		RoleVo roleVo = roleDao.get(id);
+        // 根据roleId查询权限
+        List<MenuVo> menus = menuMapper.getList(roleVo.getLibraryId());
+        List<String> menuIds = roleMenuMapper.listMenuIdByRoleId(id);
+        List<String> temp = menuIds;
+        for (MenuVo menu : menus) {
+            if (temp.contains(menu.getParentId())) {
+                menuIds.remove(menu.getParentId());
+            }
+        }
+        List<Tree<MenuVo>> trees = new ArrayList<Tree<MenuVo>>();
+        List<MenuVo> menuVos = menuMapper.getList(roleVo.getLibraryId());
+        for (MenuVo sysMenuVo : menuVos) {
+            Tree<MenuVo> tree = new Tree<MenuVo>();
+            tree.setId(sysMenuVo.getMenuId().toString());
+            tree.setParentId(sysMenuVo.getParentId().toString());
+            tree.setText(sysMenuVo.getName());
+            Map<String, Object> state = new HashMap<>(16);
+            String menuId = sysMenuVo.getMenuId();
+            if (menuIds.contains(menuId)) {
+                state.put("selected", true);
+            } else {
+                state.put("selected", false);
+            }
+            tree.setState(state);
+            trees.add(tree);
+        }
+        // 默认顶级菜单为０，根据数据库实际情况调整
+        Tree<MenuVo> t = BuildTree.build(trees);
+        return t;
+    }
+
+
+	@Override
 	public Tree<MenuVo> getTree(String id) {
 		// 根据roleId查询权限
 		List<MenuVo> menus = menuMapper.list(new HashMap<String, Object>(16));
@@ -250,5 +310,40 @@ public class MenuServiceImpl implements MenuService  {
 		List<Tree<MenuVo>> list = BuildTree.buildList(trees, "0");
 		return list;
 	}
+
+
+	@Override
+	public Tree<MenuVo> getLibraryTree(String id) {
+		// 根据roleId查询权限
+		List<MenuVo> menus = menuMapper.list(new HashMap<String, Object>(16));
+		List<String> menuIds = roleLibraryMenuDao.listLibraryMenuIdByLibraryId(id);
+		List<String> temp = menuIds;
+		for (MenuVo menu : menus) {
+			if (temp.contains(menu.getParentId())) {
+				menuIds.remove(menu.getParentId());
+			}
+		}
+		List<Tree<MenuVo>> trees = new ArrayList<Tree<MenuVo>>();
+		List<MenuVo> menuVos = menuMapper.list(new HashMap<String, Object>(16));
+		for (MenuVo sysMenuVo : menuVos) {
+			Tree<MenuVo> tree = new Tree<MenuVo>();
+			tree.setId(sysMenuVo.getMenuId().toString());
+			tree.setParentId(sysMenuVo.getParentId().toString());
+			tree.setText(sysMenuVo.getName());
+			Map<String, Object> state = new HashMap<>(16);
+			String menuId = sysMenuVo.getMenuId();
+			if (menuIds.contains(menuId)) {
+				state.put("selected", true);
+			} else {
+				state.put("selected", false);
+			}
+			tree.setState(state);
+			trees.add(tree);
+		}
+		// 默认顶级菜单为０，根据数据库实际情况调整
+		Tree<MenuVo> t = BuildTree.build(trees);
+		return t;
+	}
+
 
 }

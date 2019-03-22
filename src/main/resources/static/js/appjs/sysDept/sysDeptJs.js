@@ -68,7 +68,7 @@ layui.config({
                                 + '\')"><i class="fa fa-plus"></i>新增</a> ';
                             var d = '<a class="layui-badge layui-bg-red '
                                 + s_remove_h
-                                + '" href="#" title="删除"  mce_href="#" onclick="remove(\''
+                                + '" href="#" title="删除"  mce_href="#" onclick="removeone(\''
                                 + item.deptId
                                 + '\')"><i class="fa fa-remove"></i>删除</a> ';
                             return e + d + p;
@@ -104,7 +104,6 @@ function add(pId) {
     });
 }
 function edit(id) {
-    alert(id);
     layer.open({
         type : 2,
         title : '编辑',

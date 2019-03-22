@@ -115,6 +115,10 @@ public class MenuController extends BaseController {
 		}
 	}
 
+	/**
+	 * 图书馆权限查询
+	 * @return
+	 */
 	@GetMapping("/tree")
 	@ResponseBody
 	public Tree<MenuVo> tree() {
@@ -122,10 +126,41 @@ public class MenuController extends BaseController {
 		return tree;
 	}
 
+	/**
+	 * 给图书馆权限修改
+	 * @param roleLibraryId
+	 * @return
+	 */
+	@GetMapping("/getTree/{roleLibraryId}")
+	@ResponseBody
+	public Tree<MenuVo> getTree(@PathVariable("roleLibraryId") String roleLibraryId) {
+		Tree<MenuVo> tree = menuService.getLibraryTree(roleLibraryId);
+		return tree;
+	}
+
+
+	/**
+	 * 角色分配修改
+	 * @param roleId
+	 * @return
+	 */
 	@GetMapping("/tree/{roleId}")
 	@ResponseBody
 	public Tree<MenuVo> tree(@PathVariable("roleId") String roleId) {
-		Tree<MenuVo> tree = menuService.getTree(roleId);
+		Tree<MenuVo> tree = menuService.getTreeListInfo(roleId);
 		return tree;
 	}
+
+	/**
+	 * 角色权限的获取分配修改
+	 * @param
+	 * @return
+	 */
+	@GetMapping("/getTreeList")
+	@ResponseBody
+	public Tree<MenuVo> getTreeList() {
+		Tree<MenuVo> tree = menuService.getTreeList(getUser().getLibraryId());
+		return tree;
+	}
+
 }

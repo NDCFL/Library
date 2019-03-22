@@ -1,11 +1,8 @@
 package top.cflwork.service;
 
-import top.cflwork.vo.DeptVo;
-import top.cflwork.vo.UserVo;
-import top.cflwork.vo.Tree;
+import top.cflwork.vo.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import top.cflwork.vo.UserPwdVo;
 
 import java.util.List;
 import java.util.Map;
@@ -50,4 +47,8 @@ public interface UserService {
     int updatePersonalImg(String base64,String userId) throws Exception;
 
 	int updateFaceImg(UserVo userVo);
+
+	Tree<LibraryVo> getLibraryTree();
+
+
 }

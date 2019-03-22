@@ -41,4 +41,6 @@ public class NewBookVo implements Serializable {
     private String faceImg;
     @ApiModelProperty(value = "分页对象",required = true)
     private Pager pager;
+    @ApiModelProperty("图书编号")
+    private String libraryId;
 }

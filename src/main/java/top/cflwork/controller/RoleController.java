@@ -1,5 +1,6 @@
 package top.cflwork.controller;
 
+import com.xiaoleilu.hutool.date.DateUtil;
 import top.cflwork.common.annotation.Log;
 import top.cflwork.config.Constant;
 import top.cflwork.controller.BaseController;
@@ -12,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/role")
 @Controller
@@ -31,7 +34,9 @@ public class RoleController extends BaseController {
 	@GetMapping("/list")
 	@ResponseBody()
 	public List<RoleVo> list() {
-		List<RoleVo> roles = roleService.list();
+		Map<String,Object> map = new HashMap<>();
+		map.put("libraryId",getLibraryId());
+		List<RoleVo> roles = roleService.list(map);
 		return roles;
 	}
 
@@ -56,6 +61,11 @@ public class RoleController extends BaseController {
 	@PostMapping("/save")
 	@ResponseBody()
 	public R save(RoleVo role) {
+		role.setGmtCreate(DateUtil.now());
+		role.setGmtModified(DateUtil.now());
+		role.setUserIdCreate(getUserId());
+		//图书馆编号
+		role.setLibraryId(getUser().getLibraryId());
 		if (roleService.save(role) > 0) {
 			return R.ok();
 		} else {
@@ -68,6 +78,7 @@ public class RoleController extends BaseController {
 	@PostMapping("/update")
 	@ResponseBody()
 	public R update(RoleVo role) {
+		role.setGmtModified(DateUtil.now());
 		if (roleService.update(role) > 0) {
 			return R.ok();
 		} else {

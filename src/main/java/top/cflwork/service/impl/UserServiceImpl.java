@@ -1,18 +1,16 @@
 package top.cflwork.service.impl;
 
+import top.cflwork.common.SequenceId;
 import top.cflwork.config.CflworksConfig;
+import top.cflwork.dao.LibraryDao;
 import top.cflwork.service.UserRoleService;
 import top.cflwork.util.*;
 import top.cflwork.dao.DeptDao;
 import top.cflwork.dao.UserDao;
 import top.cflwork.dao.UserRoleDao;
-import top.cflwork.vo.DeptVo;
-import top.cflwork.vo.UserVo;
-import top.cflwork.vo.UserRoleVo;
+import top.cflwork.vo.*;
 import top.cflwork.service.FileService;
 import top.cflwork.service.UserService;
-import top.cflwork.vo.FileListVo;
-import top.cflwork.vo.Tree;
 import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import top.cflwork.vo.UserPwdVo;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -41,6 +38,10 @@ public class UserServiceImpl implements UserService {
     private FileService sysFileService;
     @Autowired
     private CflworksConfig cflworksConfig;
+    @Autowired
+    private SequenceId sequenceId;
+    @Autowired
+    private LibraryDao libraryDao;
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Override
@@ -48,7 +49,18 @@ public class UserServiceImpl implements UserService {
     public UserVo get(String id) {
         List<String> roleIds = userRoleService.listRoleId(id);
         UserVo user = userDao.get(id);
-        user.setDeptName(deptDao.get(user.getDeptId()).getName());
+        DeptVo deptVo = deptDao.get(user.getDeptId());
+        LibraryVo libraryVo = libraryDao.get(user.getLibraryId());
+        if(deptVo==null){
+            user.setDeptName("无");
+        }else{
+            user.setDeptName(deptDao.get(user.getDeptId()).getName());
+        }
+        if(libraryVo==null){
+            user.setLibraryName("无");
+        }else{
+            user.setLibraryName(libraryDao.get(user.getLibraryId()).getName());
+        }
         user.setRoleIds(roleIds);
         return user;
     }
@@ -66,6 +78,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public int save(UserVo user) {
+        user.setUserId(sequenceId.nextId());
         int count = userDao.save(user);
         String userId = user.getUserId();
         List<String> roles = user.getRoleIds();
@@ -209,5 +222,43 @@ public class UserServiceImpl implements UserService {
     public int updateFaceImg(UserVo userVo) {
         return userDao.updateFaceImg(userVo);
     }
+
+    public Tree<LibraryVo> getLibraryTree() {
+        List<Tree<LibraryVo>> trees = new ArrayList<Tree<LibraryVo>>();
+        List<LibraryVo> librarys = libraryDao.list(new HashMap<String, Object>(16));
+        String[] pLibrarys = libraryDao.listParentLibrary();
+        String[] uLibrarys = userDao.listAllLibrary();
+        String[] allLibrarys = (String[]) ArrayUtils.addAll(pLibrarys, uLibrarys);
+        for (LibraryVo library : librarys) {
+            if (!ArrayUtils.contains(allLibrarys, library.getLibraryId())) {
+                continue;
+            }
+            Tree<LibraryVo> tree = new Tree<LibraryVo>();
+            tree.setId(library.getLibraryId().toString());
+            tree.setParentId(library.getParentId().toString());
+            tree.setText(library.getName());
+            Map<String, Object> state = new HashMap<>(16);
+            state.put("opened", true);
+            state.put("mType", "library");
+            tree.setState(state);
+            trees.add(tree);
+        }
+        List<UserVo> users = userDao.list(new HashMap<String, Object>(16));
+        for (UserVo user : users) {
+            Tree<LibraryVo> tree = new Tree<LibraryVo>();
+            tree.setId(user.getUserId().toString());
+            tree.setParentId(user.getLibraryId().toString());
+            tree.setText(user.getName());
+            Map<String, Object> state = new HashMap<>(16);
+            state.put("opened", true);
+            state.put("mType", "user");
+            tree.setState(state);
+            trees.add(tree);
+        }
+        // 默认顶级菜单为０，根据数据库实际情况调整
+        Tree<LibraryVo> t = BuildTree.build(trees);
+        return t;
+    }
+
 
 }

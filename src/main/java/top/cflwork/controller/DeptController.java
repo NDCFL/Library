@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import top.cflwork.vo.TreePageVo;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,7 @@ public class DeptController extends BaseController {
 	public TreePageVo<DeptVo> list() {
 		TreePageVo<DeptVo> treePageVo = new TreePageVo<>();
 		Map<String, Object> query = new HashMap<>(16);
+		query.put("libraryId",getUser().getLibraryId());
 		List<DeptVo> sysDeptList = sysDeptService.list(query);
 		treePageVo.setCode(0);
 		treePageVo.setData(sysDeptList);
@@ -88,6 +90,7 @@ public class DeptController extends BaseController {
 	@RequestMapping("/save")
 	@RequiresPermissions("sysDept:add")
 	public R save(DeptVo sysDept) {
+		sysDept.setLibraryId(getUser().getLibraryId());
 		if (sysDeptService.save(sysDept) > 0) {
 			return R.ok();
 		}
@@ -144,7 +147,7 @@ public class DeptController extends BaseController {
 	@ResponseBody
 	public Tree<DeptVo> tree() {
 		Tree<DeptVo> tree = new Tree<DeptVo>();
-		tree = sysDeptService.getTree();
+		tree = sysDeptService.getTree(getUser().getLibraryId());
 		return tree;
 	}
 

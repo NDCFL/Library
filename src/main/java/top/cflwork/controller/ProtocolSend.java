@@ -26,7 +26,7 @@ public class ProtocolSend {
         //图书检索
 //        geteBook();
         //获取书目信息
-//        geteBookList();
+        geteBookList();
         //馆藏信息
 //        geteGc();
         //获取借阅记录
@@ -36,7 +36,7 @@ public class ProtocolSend {
         //新书通报
 //        getxstb();
 //        排行榜
-        getphb();
+//        getphb();
 	}
 
 	public static String geteRead(){

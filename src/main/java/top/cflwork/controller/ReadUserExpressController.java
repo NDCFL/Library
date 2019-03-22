@@ -17,7 +17,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("readUserExpress")
-public class ReadUserExpressController {
+public class ReadUserExpressController  extends BaseController {
     @Autowired
     private ReadUserService readUserService;
     @Autowired
@@ -33,6 +33,7 @@ public class ReadUserExpressController {
     @RequiresPermissions("readUserExpress:list")
     public PageUtils list(ReadUserVo readUserVo){
         //查询列表数据
+        readUserVo.setLibraryId(getLibraryId());
         List<ReadUserVo> readUserList = readUserService.list(readUserVo);
         Long total = readUserService.count(readUserVo);
         PageUtils pageUtils = new PageUtils(readUserList, total);

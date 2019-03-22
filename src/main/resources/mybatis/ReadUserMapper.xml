@@ -4,12 +4,12 @@
 <mapper namespace="top.cflwork.dao.ReadUserDao">
 
     <select id="get" resultType="top.cflwork.vo.ReadUserVo">
-		select `id`,`name`,`sex`,`age`,`face_img`,`phone`,`password`,`card_num`,`card_pwd`,`card_rc_date`,`id_card`,`qq`,`wx`,`email`,`work_adress`,`is_active`,`remark`,`adress`,`update_time`,`create_time`,`express`,`express_status` from sys_read_user
+		select `id`,`name`,`sex`,`age`,`face_img`,`phone`,`password`,`card_num`,`card_pwd`,`card_rc_date`,`id_card`,`qq`,`wx`,`email`,`work_adress`,`is_active`,`remark`,`adress`,`update_time`,`create_time`,`express`,`express_status`,`library_id` from sys_read_user
         where id=#{id}
 	</select>
     <select id="list" resultType="top.cflwork.vo.ReadUserVo">
         select
-        `id`,`name`,`sex`,`age`,`face_img`,`phone`,`password`,`card_num`,`card_pwd`,`card_rc_date`,`id_card`,`qq`,`wx`,`email`,`work_adress`,`is_active`,`remark`,`adress`,`update_time`,`create_time`,`express`,`express_status`
+        `id`,`name`,`sex`,`age`,`face_img`,`phone`,`password`,`card_num`,`card_pwd`,`card_rc_date`,`id_card`,`qq`,`wx`,`email`,`work_adress`,`is_active`,`remark`,`adress`,`update_time`,`create_time`,`express`,`express_status`,`library_id`
         from sys_read_user
         <where>
             <if test="id != null and id != ''">and id = #{id}</if>
@@ -34,6 +34,7 @@
             <if test="createTime != null and endTime != null">and create_time between  #{createTime} and #{endTime}</if>
             <if test="express != null and district != ''">and express = #{express}</if>
             <if test="expressStatus != null and expressStatus != ''">and express_status = #{expressStatus}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
         </where>
         <choose>
             <when test="pager.sort != null and pager.order != null">
@@ -73,6 +74,7 @@
             <if test="createTime != null and endTime != null">and create_time between  #{createTime} and #{endTime}</if>
             <if test="express != null and district != ''">and express = #{express}</if>
             <if test="expressStatus != null and expressStatus != ''">and express_status = #{expressStatus}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
         </where>
     </select>
 
@@ -100,7 +102,8 @@
 			`update_time`, 
 			`create_time`,
 			`express`,
-			`express_status`
+			`express_status`,
+			`library_id`
 		)
 		values
 		(
@@ -125,7 +128,8 @@
 			#{updateTime}, 
 			#{createTime},
 			#{express},
-			#{expressStatus}
+			#{expressStatus},
+			#{libraryId}
 		)
 	</insert>
 
@@ -151,7 +155,8 @@
         `remark`,
         `adress`,
         `update_time`,
-        `create_time`
+        `create_time`,
+        `library_id`
         )
         values
         <foreach collection="list" item="readUserVo" separator=",">
@@ -175,7 +180,8 @@
             #{readUserVo.remark},
             #{readUserVo.adress},
             #{readUserVo.updateTime},
-            #{readUserVo.createTime}
+            #{readUserVo.createTime},
+            #{readUserVo.libraryId}
             )
         </foreach>
     </insert>
@@ -204,6 +210,7 @@
             <if test="createTime != null">`create_time` = #{createTime},</if>
             <if test="express != null">express = #{express},</if>
             <if test="expressStatus != null">express_status = #{expressStatus},</if>
+            <if test="libraryId != null">library_id = #{libraryId},</if>
         </set>
         where id = #{id}
     </update>
@@ -245,6 +252,7 @@
             <if test="createTime != null">and create_time = #{createTime}</if>
             <if test="express != null">and express = #{express}</if>
             <if test="expressStatus != null">and express_status = #{expressStatus}</if>
+            <if test="libraryId != null and remark != ''">and library_id = #{libraryId}</if>
         </where>
     </select>
 

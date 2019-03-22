@@ -1,6 +1,7 @@
 package top.cflwork.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ public interface RoleService {
 
 	RoleVo get(String id);
 
-	List<RoleVo> list();
+	List<RoleVo> list(Map<String,Object> map);
 
 	int save(RoleVo role);
 

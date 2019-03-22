@@ -35,5 +35,7 @@ public class DeptVo implements Serializable {
 	private String ids[];
 	@ApiModelProperty("分页对象")
 	private Pager pager;
+	//图书馆编号
+	private String libraryId;
 
 }

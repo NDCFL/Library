@@ -4,12 +4,12 @@
 <mapper namespace="top.cflwork.dao.UserDao">
 
     <select id="get" resultType="top.cflwork.vo.UserVo">
-		select `user_id`,`username`,`name`,`password`,`dept_id`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`head_icon`,`live_address`,`hobby`,`province`,`city`,`district` from sys_user where user_id = #{value}
+		select `user_id`,`username`,`name`,`password`,`dept_id`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`head_icon`,`live_address`,`hobby`,`province`,`city`,`district`,`library_id` from sys_user where user_id = #{value}
 	</select>
 
     <select id="list" resultType="top.cflwork.vo.UserVo">
         select
-        `user_id`,`username`,`name`,`password`,`dept_id`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`head_icon`,`live_address`,`hobby`,`province`,`city`,`district`
+        `user_id`,`username`,`name`,`password`,`dept_id`,`email`,`mobile`,`status`,`user_id_create`,`gmt_create`,`gmt_modified`,`sex`,`birth`,`head_icon`,`live_address`,`hobby`,`province`,`city`,`district`,`library_id`
         from sys_user
         <where>
             <if test="userId != null and userId != ''">and user_id = #{userId}</if>
@@ -31,6 +31,7 @@
             <if test="province != null and province != ''">and province = #{province}</if>
             <if test="city != null and city != ''">and city = #{city}</if>
             <if test="district != null and district != ''">and district = #{district}</if>
+            <if test="libraryId != null and libraryId!=''">and library_id = #{libraryId}</if>
         </where>
         <choose>
             <when test="sort != null and sort.trim() != ''">
@@ -67,13 +68,14 @@
             <if test="province != null and province != ''">and province = #{province}</if>
             <if test="city != null and city != ''">and city = #{city}</if>
             <if test="district != null and district != ''">and district = #{district}</if>
+            <if test="libraryId != null and libraryId!=''">and library_id = #{libraryId}</if>
         </where>
     </select>
 
     <insert id="save" parameterType="top.cflwork.vo.UserVo" useGeneratedKeys="true" keyProperty="userId">
 		insert into sys_user
 		(
-			`id`,
+			`user_id`,
 			`username`, 
 			`name`, 
 			`password`, 
@@ -91,11 +93,12 @@
 			`hobby`, 
 			`province`, 
 			`city`, 
-			`district`
+			`district`,
+			`library_id`
 		)
 		values
 		(
-			#{id},
+			#{userId},
 			#{username}, 
 			#{name}, 
 			#{password}, 
@@ -113,7 +116,8 @@
 			#{hobby}, 
 			#{province}, 
 			#{city}, 
-			#{district}
+			#{district},
+			#{libraryId}
 		)
 	</insert>
 
@@ -137,7 +141,8 @@
             <if test="hobby != null">`hobby` = #{hobby},</if>
             <if test="province != null">`province` = #{province},</if>
             <if test="city != null">`city` = #{city},</if>
-            <if test="district != null">`district` = #{district}</if>
+            <if test="district != null">`district` = #{district},</if>
+            <if test="libraryId != null">`library_id` = #{libraryId},</if>
 
         </set>
         where user_id = #{userId}
@@ -157,4 +162,9 @@
     <select id="listAllDept" resultType="String">
 				select DISTINCT dept_id from sys_user
 	</select>
+
+    <select id="listAllLibrary" resultType="String">
+        select DISTINCT library_id from sys_user
+    </select>
+
 </mapper>

@@ -73,5 +73,7 @@ public class ReadUserVo implements Serializable {
     private Integer express;
     @ApiModelProperty("是否有快递资格")
     private Integer expressStatus;
+    @ApiModelProperty("图书馆编号")
+    private String libraryId;
 
 }

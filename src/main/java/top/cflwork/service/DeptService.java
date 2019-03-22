@@ -29,7 +29,7 @@ public interface DeptService {
 	
 	int batchRemove(String[] deptIds);
 
-	Tree<DeptVo> getTree();
+	Tree<DeptVo> getTree(String libraryId);
 
 	boolean checkDeptHasUser(String deptId);
 }

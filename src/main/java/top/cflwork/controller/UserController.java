@@ -52,6 +52,7 @@ public class UserController extends BaseController {
 	@ApiOperation(value="获取用户列表", notes="")
 	public PageUtils list(@RequestParam Map<String, Object> params) {
 		// 查询列表数据
+		params.put("libraryId",getUser().getLibraryId());
 		Query query = new Query(params);
 		List<UserVo> sysUserList = userService.list(query);
 		Long total = userService.count(query);
@@ -63,7 +64,9 @@ public class UserController extends BaseController {
 	@Log("添加用户")
 	@GetMapping("/add")
 	public String add(Model model) {
-		List<RoleVo> roles = roleService.list();
+		Map<String,Object> map = new HashMap<>();
+		map.put("libraryId",getLibraryId());
+		List<RoleVo> roles = roleService.list(map);
 		model.addAttribute("roles", roles);
 		return prefix + "/add";
 	}
@@ -74,7 +77,9 @@ public class UserController extends BaseController {
 	public String edit(Model model, @PathVariable("id") String id) {
 		UserVo userVo = userService.get(id);
 		model.addAttribute("user", userVo);
-		List<RoleVo> roles = roleService.list(id);
+		Map<String,Object> map = new HashMap<>();
+		map.put("libraryId",getLibraryId());
+		List<RoleVo> roles = roleService.list(map);
 		model.addAttribute("roles", roles);
 		return prefix+"/edit";
 	}
@@ -85,7 +90,7 @@ public class UserController extends BaseController {
 	@ResponseBody
 	public R save(UserVo user) {
 		user.setPassword(MD5Utils.encrypt(user.getUsername(), user.getPassword()));
-
+		user.setLibraryId(getLibraryId());
 		if (userService.save(user) > 0) {
 			return R.ok();
 		}

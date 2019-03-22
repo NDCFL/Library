@@ -34,4 +34,6 @@ public interface UserDao {
 
 	int updateFaceImg(UserVo userVo);
 
+	String[] listAllLibrary();
+
 }

@@ -1,10 +1,7 @@
 package top.cflwork.service.impl;
 
 import java.beans.Transient;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -40,8 +37,8 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private SequenceId sequenceId;
     @Override
-    public List<RoleVo> list() {
-        List<RoleVo> roles = roleMapper.list(new HashMap<>(16));
+    public List<RoleVo> list(Map<String,Object> map) {
+        List<RoleVo> roles = roleMapper.list(map);
         return roles;
     }
 

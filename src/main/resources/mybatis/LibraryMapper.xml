@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.cflwork.dao.LibraryDao">
+
+	<select id="get" resultType="top.cflwork.vo.LibraryVo">
+		select
+		`library_id`,`parent_id`,`name`,`order_num`,`del_flag` from sys_library
+		where library_id = #{value}
+	</select>
+
+	<select id="list" resultType="top.cflwork.vo.LibraryVo">
+		select `library_id`,`parent_id`,`name`,`order_num`,`del_flag` from
+		sys_library
+		<where>
+			<if test="libraryId != null and libraryId != ''"> and library_id = #{libraryId} </if>
+			<if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
+			<if test="name != null and name != ''"> and name = #{name} </if>
+			<if test="orderNum != null and orderNum != ''"> and order_num = #{orderNum} </if>
+			<if test="delFlag != null and delFlag != ''"> and del_flag = #{delFlag} </if>
+		</where>
+		<choose>
+			<when test="sort != null and sort.trim() != ''">
+				order by ${sort} ${order}
+			</when>
+			<otherwise>
+				order by library_id desc
+			</otherwise>
+		</choose>
+		<if test="pageIndex != null and pageSize != null">
+			limit #{pageIndex}, #{pageSize}
+		</if>
+	</select>
+
+	<select id="count" resultType="long">
+		select count(*) from sys_library
+		<where>
+			<if test="libraryId != null and libraryId != ''"> and library_id = #{libraryId} </if>
+			<if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
+			<if test="name != null and name != ''"> and name = #{name} </if>
+			<if test="orderNum != null and orderNum != ''"> and order_num = #{orderNum} </if>
+			<if test="delFlag != null and delFlag != ''"> and del_flag = #{delFlag} </if>
+		</where>
+	</select>
+
+	<insert id="save" parameterType="top.cflwork.vo.LibraryVo"
+		useGeneratedKeys="true" keyProperty="libraryId">
+		insert into sys_library
+		(
+		`library_id`,
+		`parent_id`,
+		`name`,
+		`order_num`,
+		`del_flag`
+		)
+		values
+		(
+		#{libraryId},
+		#{parentId},
+		#{name},
+		#{orderNum},
+		#{delFlag}
+		)
+	</insert>
+
+	<update id="update" parameterType="top.cflwork.vo.LibraryVo">
+		update sys_library
+		<set>
+			<if test="parentId != null">`parent_id` = #{parentId}, </if>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="orderNum != null">`order_num` = #{orderNum}, </if>
+			<if test="delFlag != null">`del_flag` = #{delFlag}</if>
+		</set>
+		where library_id = #{libraryId}
+	</update>
+
+	<delete id="remove">
+		delete from sys_library where library_id = #{value}
+	</delete>
+
+	<delete id="batchRemove">
+		delete from sys_library where library_id in
+		<foreach item="libraryId" collection="array" open="(" separator=","
+			close=")">
+			#{libraryId}
+		</foreach>
+	</delete>
+	
+	<select id="listParentLibrary" resultType="string">
+		select DISTINCT parent_id from sys_library
+	</select>
+
+    <select id="getLibraryUserNumber" resultType="long">
+		select count(*) from sys_user where library_id = #{value}
+	</select>
+</mapper>

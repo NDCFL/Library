@@ -57,4 +57,7 @@ public class UserVo implements Serializable {
     @ApiModelProperty("分页对象")
     private Pager pager;
 
+    private String libraryId;
+    private String libraryName;
+
 }

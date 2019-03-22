@@ -14,6 +14,10 @@ public class BaseController {
 		return getUser().getUserId();
 	}
 
+	public String getLibraryId() {
+		return getUser().getLibraryId();
+	}
+
 	public String getUsername() {
 		return getUser().getUsername();
 	}

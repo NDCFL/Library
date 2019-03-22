@@ -61,4 +61,5 @@ public class TestController {
         jpushReceiver.sendPush(JSONUtil.toJsonStr(push));
         System.out.println("消息推送=================");
     }
+
 }
