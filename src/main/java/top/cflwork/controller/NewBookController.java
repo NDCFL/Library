@@ -36,7 +36,7 @@ import top.cflwork.util.R;
 @Controller
 @RequestMapping("/newBook")
 @Api(value = "/newBook",description = "新书通报")
-public class NewBookController {
+public class NewBookController extends BaseController{
 	@Autowired
 	private NewBookService newBookService;
 	
@@ -50,6 +50,9 @@ public class NewBookController {
 	@ApiOperation("分页获取新书通报列表，也可以根据指定的参数搜索")
 	public PageUtils list(@RequestBody @ApiParam("参数是个json对象，") NewBookVo newBookVo){
 		//查询列表数据
+		if(!getUser().getName().equals("超级管理员")){
+			newBookVo.setLibraryId(getLibraryId());
+		}
 		List<NewBookVo> newBookList = newBookService.list(newBookVo);
 		Long total = newBookService.count(newBookVo);
 		PageUtils pageUtils = new PageUtils(newBookList, total);
@@ -61,6 +64,9 @@ public class NewBookController {
 	@ApiOperation("分页获取新书通报列表，也可以根据指定的参数搜索")
 	public PageUtils findList(NewBookVo newBookVo){
 		//查询列表数据
+		if(!getUser().getName().equals("超级管理员")){
+			newBookVo.setLibraryId(getLibraryId());
+		}
 		List<NewBookVo> newBookList = newBookService.list(newBookVo);
 		Long total = newBookService.count(newBookVo);
 		PageUtils pageUtils = new PageUtils(newBookList, total);
@@ -72,6 +78,9 @@ public class NewBookController {
 	@ApiOperation("分页获取新书通报列表，也可以根据指定的参数搜索")
 	public List<NewBookVo> listAll(NewBookVo newBookVo){
 		//查询列表数据
+		if(!getUser().getName().equals("超级管理员")){
+			newBookVo.setLibraryId(getLibraryId());
+		}
 		List<NewBookVo> newBookList = newBookService.list(newBookVo);
 		return newBookList;
 	}
@@ -102,6 +111,7 @@ public class NewBookController {
 	@ResponseBody
 	@PostMapping("/save")
 	public R save( NewBookVo newBook){
+		newBook.setLibraryId(getLibraryId());
 		if(newBookService.save(newBook)>0){
 			return R.ok("新增成功");
 		}

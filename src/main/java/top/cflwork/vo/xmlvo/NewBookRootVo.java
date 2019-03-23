@@ -38,6 +38,8 @@ public class NewBookRootVo  implements Serializable {
     private String pageNo;
     @ApiModelProperty(value = "页条数",required = true)
     private String pageSize;
+    @ApiModelProperty("图书馆编号")
+    private String libraryId;
 
 
 }

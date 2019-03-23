@@ -1,9 +1,8 @@
-var path = "http://file.mykefang.com/";
 //生成用户数据
 $('#mytab').bootstrapTable({
     method: 'post',
-    contentType: "application/x-www-form-urlencoded",
-    url: "/newBook/listAll",//要请求数据的文件路径
+    contentType: "application/x-www-form-urlencoded",//必须要有！！！！
+    url: "/integralType/list",//要请求数据的文件路径
     toolbar: '#toolbar',//指定工具栏
     striped: true, //是否显示行间隔色
     dataField: "res",
@@ -36,53 +35,20 @@ $('#mytab').bootstrapTable({
             valign: 'middle'
         },
         {
-            field: 'faceImg',
-            title: '封面',
-            align: 'center',
-            sortable: true,
-            formatter: function (value, row, index) {
-                return '<img src="'+path+value+'" style="width: 60px;height: 80px" />';
-            }
-        },
-        {
-            field: 'title',
-            title: '图书标题',
+            field: 'name',
+            title: '积分名称',
             align: 'center',
             sortable: true
         },
         {
-            field: 'publisher',
-            title: '出版社',
+            field: 'code',
+            title: '积分码',
             align: 'center',
             sortable: true
         },
         {
-            field: 'publishDate',
-            title: '出版时间',
-            align: 'center',
-            sortable: true
-        },
-        {
-            field: 'author',
-            title: '作者',
-            align: 'center',
-            sortable: true
-        },
-        {
-            field: 'isbn',
-            title: 'isbn',
-            align: 'center',
-            sortable: true
-        },
-        {
-            field: 'callno',
-            title: 'callno',
-            align: 'center',
-            sortable: true
-        },
-        {
-            field: 'intdtion',
-            title: '简介',
+            field: 'createTime',
+            title: '创建时间',
             align: 'center',
             sortable: true
         },
@@ -91,9 +57,16 @@ $('#mytab').bootstrapTable({
             align: 'center',
             field: '',
             formatter: function (value, row, index) {
-                var e = '<a title="编辑" href="javascript:void(0);" id="newBook"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
+                var e = '<a title="编辑" href="javascript:void(0);" id="integralType"  data-toggle="modal" data-id="\'' + row.id + '\'" data-target="#myModal" onclick="return edit(\'' + row.id + '\')"><i class="glyphicon glyphicon-pencil" alt="修改" style="color:green">修改</i></a> ';
                 var d = '<a title="删除" href="javascript:void(0);" onclick="del(\'' + row.id + '\',' + row.isActive + ')"><i class="glyphicon glyphicon-trash" alt="删除" style="color:red">删除</i></a> ';
-                return e + d ;
+                var f = '';
+                if (row.isActive == 1) {
+                    f = '<a title="启用" href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 0 + ')"><i class="glyphicon glyphicon-ok-sign" style="color:green">启用</i></a> ';
+                } else if (row.isActive == 0) {
+                    f = '<a title="停用" href="javascript:void(0);" onclick="updatestatus(\'' + row.id + '\',' + 1 + ')"><i class="glyphicon glyphicon-remove-sign"  style="color:red">停用</i></a> ';
+                }
+
+                return e + d;
             }
         }
     ],
@@ -125,7 +98,7 @@ function queryParams(params) {
         //请求第几页
         'pager.pageIndex': this.pageNumber,
         //排序字段
-        'pager.sort': 'publish_date',
+        'pager.sort': 'create_time',
         //排序方式
         'pager.order': 'desc',
         searchVal: title
@@ -160,7 +133,7 @@ function del(id, status) {
         return;
     }
     layer.confirm('确认要删除吗？', function (index) {
-        $.post("/newBook/remove",
+        $.post("/integralType/remove",
             {
                 "id": id
             },
@@ -178,7 +151,7 @@ function del(id, status) {
 }
 
 function edit(name) {
-    $.get("/newBook/edit/" + name,
+    $.get("/integralType/edit/" + name,
         function (data) {
             $("#updateform").autofill(data);
         },
@@ -187,7 +160,7 @@ function edit(name) {
 }
 
 function updatestatus(id, status) {
-    $.post("/newBook/update",
+    $.post("/integralType/update",
         {
             "id": id,
             "status": status
@@ -214,11 +187,11 @@ function updatestatus(id, status) {
 
 //查询按钮事件
 $('#search_btn').click(function () {
-    $('#mytab').bootstrapTable('refresh', {url: '/newBook/listAll'});
+    $('#mytab').bootstrapTable('refresh', {url: '/integralType/list'});
 })
 
 function refush() {
-    $('#mytab').bootstrapTable('refresh', {url: '/newBook/listAll'});
+    $('#mytab').bootstrapTable('refresh', {url: '/integralType/list'});
 }
 
 $('#updateform').bootstrapValidator({
@@ -230,27 +203,30 @@ $('#updateform').bootstrapValidator({
     },
     fields: {
         name: {
-            message: '用户名验证失败',
+            message: '积分名称验证失败',
             validators: {
                 notEmpty: {
-                    message: '用户名称不能为空'
-                },
-                stringLength: {
-                    min: 2,
-                    max: 30,
-                    message: '分类名称长度必须在2到30位之间'
+                    message: '积分名称不能为空'
+                }
+            }
+        },
+        code: {
+            message: '积分码验证失败',
+            validators: {
+                notEmpty: {
+                    message: '积分码不能为空'
                 }
             }
         }
     }
 });
 $("#update").click(function () {
-    $('#updateform').data('bootstrapValidator').validate();
-    if (!$('#updateform').data('bootstrapValidator').isValid()) {
-        return;
-    }
+    // $('#updateform').data('bootstrapValidator').validate();
+    // if (!$('#updateform').data('bootstrapValidator').isValid()) {
+    //     return;
+    // }
     $.post(
-        "/newBook/update",
+        "/integralType/update",
         $('#updateform').serialize(),
         function (result) {
             if (result.code == 0) {
@@ -273,27 +249,30 @@ $('#formadd').bootstrapValidator({
     },
     fields: {
         name: {
-            message: '用户名验证失败',
+            message: '积分名称验证失败',
             validators: {
                 notEmpty: {
-                    message: '分类名称不能为空'
-                },
-                stringLength: {
-                    min: 2,
-                    max: 30,
-                    message: '分类名称长度必须在2到30位之间'
+                    message: '积分名称不能为空'
+                }
+            }
+        },
+        code: {
+            message: '积分码验证失败',
+            validators: {
+                notEmpty: {
+                    message: '积分码不能为空'
                 }
             }
         }
     }
 });
 $("#add").click(function () {
-    $('#formadd').data('bootstrapValidator').validate();
-    if (!$('#formadd').data('bootstrapValidator').isValid()) {
-        return;
-    }
+    // $('#formadd').data('bootstrapValidator').validate();
+    // if (!$('#formadd').data('bootstrapValidator').isValid()) {
+    //     return;
+    // }
     $.post(
-        "/newBook/save",
+        "/integralType/save",
         $('#formadd').serialize(),
         function (result) {
             if (result.code == 0) {
@@ -324,7 +303,7 @@ function batchRemove() {
             ids[i] = row['id'];
         });
         $.post(
-            "/newBook/batchRemove",
+            "/integralType/batchRemove",
             {
                 "ids": ids
             }, function (data) {
@@ -364,7 +343,7 @@ function deleteMany() {
 $("#updateSta").click(function () {
     layer.confirm('确认要执行批量修改状态吗？', function (index) {
         $.post(
-            "/newBook/deleteManyNewBook",
+            "/integralType/deleteManyIntegralType",
             {
                 "manyId": $("#statusId").val(),
                 "status": $("#status").val()

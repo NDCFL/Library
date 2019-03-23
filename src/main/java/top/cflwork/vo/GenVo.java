@@ -52,4 +52,6 @@ public class GenVo implements Serializable {
     private String address;
     @ApiModelProperty("结束时间")
     private String endsTime;
+    @ApiModelProperty("图书馆编号")
+    private String libraryId;
 }

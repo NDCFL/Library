@@ -31,7 +31,7 @@ import top.cflwork.util.R;
  
 @Controller
 @RequestMapping("/borrow")
-public class BorrowController {
+public class BorrowController extends BaseController{
 	@Autowired
 	private BorrowService borrowService;
 	
@@ -46,6 +46,7 @@ public class BorrowController {
 	@RequiresPermissions("borrow:list")
 	public List<BorrowVo> list(BorrowVo borrowVo){
 		//查询列表数据
+		borrowVo.setLibraryId(getLibraryId());
 		List<BorrowVo> borrowList = borrowService.list(borrowVo);
 //		Long total = borrowService.count(borrowVo);
 //		PageUtils pageUtils = new PageUtils(borrowList, total);
@@ -81,6 +82,7 @@ public class BorrowController {
 	@PostMapping("/save")
 	@RequiresPermissions("borrow:add")
 	public R save( BorrowVo borrow){
+		borrow.setLibraryId(getLibraryId());
 		if(borrowService.save(borrow)>0){
 			return R.ok("新增成功");
 		}

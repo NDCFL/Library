@@ -31,5 +31,5 @@ public interface ReadingRoomDao {
 
 	int batchSave(List<ReadingRoomVo> readingRoomList);
 
-	List<Select2Vo> getReaddingRoom();
+	List<Select2Vo> getReaddingRoom(String libraryId);
 }

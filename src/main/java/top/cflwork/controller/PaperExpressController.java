@@ -31,7 +31,7 @@ import top.cflwork.util.R;
  
 @Controller
 @RequestMapping("/paperExpress")
-public class PaperExpressController {
+public class PaperExpressController extends BaseController{
 	@Autowired
 	private PaperExpressService paperExpressService;
 	
@@ -46,6 +46,7 @@ public class PaperExpressController {
 	@RequiresPermissions("paperExpress:list")
 	public PageUtils list(PaperExpressVo paperExpressVo){
 		//查询列表数据
+		paperExpressVo.setLibraryId(getLibraryId());
 		List<PaperExpressVo> paperExpressList = paperExpressService.list(paperExpressVo);
 		Long total = paperExpressService.count(paperExpressVo);
 		PageUtils pageUtils = new PageUtils(paperExpressList, total);
@@ -81,6 +82,7 @@ public class PaperExpressController {
 	@PostMapping("/save")
 	@RequiresPermissions("paperExpress:add")
 	public R save( PaperExpressVo paperExpress){
+		paperExpress.setLibraryId(getLibraryId());
 		if(paperExpressService.save(paperExpress)>0){
 			return R.ok("新增成功");
 		}
@@ -127,7 +129,10 @@ public class PaperExpressController {
     @ResponseBody
     @RequiresPermissions("paperExpress:batchSave")
     public R batchSave(List<PaperExpressVo> paperExpressList){
-			paperExpressService.batchSave(paperExpressList);
+    	paperExpressList.stream().forEach(e->{
+    		e.setLibraryId(getLibraryId());
+		});
+    	paperExpressService.batchSave(paperExpressList);
         return R.ok("批量新增成功");
     }
 }

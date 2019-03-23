@@ -1,6 +1,7 @@
 package top.cflwork.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +24,10 @@ import top.cflwork.common.Pager;
 import top.cflwork.common.ResponseJson;
 import top.cflwork.common.XmlSendUtil;
 import top.cflwork.config.Constant;
+import top.cflwork.service.LibraryService;
 import top.cflwork.service.NewBookService;
 import top.cflwork.util.JaXmlBeanUtil;
+import top.cflwork.vo.LibraryVo;
 import top.cflwork.vo.MetatableVo;
 import top.cflwork.service.MetatableService;
 import top.cflwork.util.PageUtils;
@@ -45,11 +48,13 @@ import top.cflwork.vo.xmlvo.*;
 @Controller
 @RequestMapping("/metatable")
 @Api(value = "/metatable",description = "图书书目信息模块")
-public class MetatableController {
+public class MetatableController extends BaseController{
 	@Autowired
 	private MetatableService metatableService;
 	@Autowired
 	private NewBookService newBookService;
+	@Autowired
+	private LibraryService libraryService;
 	@Autowired
 	private XmlSendUtil xmlSendUtil;
 	@GetMapping("metatablePage")
@@ -63,6 +68,7 @@ public class MetatableController {
 	@RequiresPermissions("metatable:list")
 	public List<MetatableVo> list(MetatableVo metatableVo){
 		//查询列表数据
+		metatableVo.setLibraryId(getLibraryId());
 		List<MetatableVo> metatableList = metatableService.list(metatableVo);
 //		Long total = metatableService.count(metatableVo);
 //		PageUtils pageUtils = new PageUtils(metatableList, total);
@@ -91,6 +97,7 @@ public class MetatableController {
 	@PostMapping("/save")
 	@RequiresPermissions("metatable:add")
 	public R save( MetatableVo metatable){
+		metatable.setLibraryId(getLibraryId());
 		if(metatableService.save(metatable)>0){
 			return R.ok("新增成功");
 		}
@@ -164,6 +171,9 @@ public class MetatableController {
 				}else{
 					//数据正常
 					List<BookSearchVo> bookSearchVoList = bookSearchRootVo1.getText();
+					bookSearchVoList.stream().forEach(e->{
+						e.setLibraryId(bookSearchRootVo.getLibraryId());
+					});
 					metatableService.batchSaveBook(bookSearchVoList);
 					return new ResponseJson(true,bookSearchRootVo1);
 				}
@@ -329,6 +339,9 @@ public class MetatableController {
                     return new ResponseJson(false, "服务器接口异常");
                 }else{
                 	if(newBookRootVo1.getText()!=null){
+                		newBookRootVo1.getText().stream().forEach(e->{
+                			e.setLibraryId(newBookRootVo.getLibraryId());
+						});
 						newBookService.bachSaveNewBook(newBookRootVo1.getText());
 					}
                     return new ResponseJson(true,newBookRootVo1);
@@ -350,6 +363,16 @@ public class MetatableController {
 		Long total = newBookService.count(newBookVo);
 		PageUtils pageUtils = new PageUtils(newBookList, total);
 		return pageUtils;
+	}
+
+	@ResponseBody
+	@PostMapping("/getLibraryList")
+	@ApiOperation("获取图书馆列表")
+	public List<LibraryVo> getLibraryList(){
+		//查询列表数据
+		LibraryVo libraryVo = new LibraryVo();
+		List<LibraryVo> libraryVoList = libraryService.list(new HashMap<>(16));
+		return libraryVoList;
 	}
 
 	public static void main(String[] args) {

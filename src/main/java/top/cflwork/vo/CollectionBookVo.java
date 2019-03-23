@@ -45,4 +45,6 @@ public class CollectionBookVo implements Serializable {
     private Double price;
     @ApiModelProperty("分页对象")
     private Pager pager;
+    @ApiModelProperty("图书馆编号")
+    private String libraryId;
 }

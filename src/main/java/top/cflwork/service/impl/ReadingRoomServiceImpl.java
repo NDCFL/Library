@@ -71,7 +71,7 @@ public class ReadingRoomServiceImpl implements ReadingRoomService {
     }
 
 	@Override
-	public List<Select2Vo> getReaddingRoom() {
-		return readingRoomDao.getReaddingRoom();
+	public List<Select2Vo> getReaddingRoom(String libraryId) {
+		return readingRoomDao.getReaddingRoom(libraryId);
 	}
 }

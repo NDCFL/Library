@@ -65,6 +65,8 @@ public class NewBooksVo implements Serializable{
     @ApiModelProperty("图书封面")
     private String faceImg = "/book.gif";
 
+    @ApiModelProperty("图书馆编号")
+    private String libraryId;
 
     /**
      <title><![CDATA[老舍]]></title>

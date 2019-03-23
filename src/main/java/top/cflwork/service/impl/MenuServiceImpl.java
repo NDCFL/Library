@@ -210,7 +210,12 @@ public class MenuServiceImpl implements MenuService  {
     public Tree<MenuVo> getTreeListInfo(String id) {
 		RoleVo roleVo = roleDao.get(id);
         // 根据roleId查询权限
-        List<MenuVo> menus = menuMapper.getList(roleVo.getLibraryId());
+		List<MenuVo> menus = new ArrayList<>();
+		if(getUser().getUsername().equals("admin")){
+			menus = menuMapper.list(new HashMap<>());
+		}else{
+			menus = menuMapper.getList(roleVo.getLibraryId());
+		}
         List<String> menuIds = roleMenuMapper.listMenuIdByRoleId(id);
         List<String> temp = menuIds;
         for (MenuVo menu : menus) {
@@ -219,8 +224,7 @@ public class MenuServiceImpl implements MenuService  {
             }
         }
         List<Tree<MenuVo>> trees = new ArrayList<Tree<MenuVo>>();
-        List<MenuVo> menuVos = menuMapper.getList(roleVo.getLibraryId());
-        for (MenuVo sysMenuVo : menuVos) {
+        for (MenuVo sysMenuVo : menus) {
             Tree<MenuVo> tree = new Tree<MenuVo>();
             tree.setId(sysMenuVo.getMenuId().toString());
             tree.setParentId(sysMenuVo.getParentId().toString());

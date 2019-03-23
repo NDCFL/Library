@@ -42,4 +42,7 @@ public class ReaderBookVo implements Serializable {
     private Date createTime;
     @ApiModelProperty("分页对象")
     private Pager pager;
+    @ApiModelProperty("图书馆编号")
+    private String libraryId;
+
 }

@@ -32,4 +32,7 @@ public class SeatVo implements Serializable {
     private Pager pager;
     @ApiModelProperty("阅览室名称")
     private String readdingName;
+    @ApiModelProperty("图书馆编号")
+    private String libraryId;
+
 }

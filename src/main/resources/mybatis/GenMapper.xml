@@ -9,7 +9,7 @@
 	</select>
 
     <select id="list" resultType="top.cflwork.vo.GenVo">
-        select s.id,s.read_user_id,s.title,s.content,s.gen_have,s.shape,s.status,s.reason,s.end_time,s.create_time,u.name as readUserName,u.phone as phone,u.email as email,u.work_adress as workAddress,u.adress as address from sys_gen s left join sys_read_user u on s.read_user_id=u.id
+        select s.id,s.read_user_id,s.title,s.content,s.gen_have,s.shape,s.status,s.reason,s.end_time,s.create_time,s.library_id,u.name as readUserName,u.phone as phone,u.email as email,u.work_adress as workAddress,u.adress as address from sys_gen s left join sys_read_user u on s.read_user_id=u.id
         <where>
             <if test="id != null and id != ''">and s.id = #{id}</if>
             <if test="readUserId != null and readUserId != ''">and s.read_user_id = #{readUserId}</if>
@@ -21,6 +21,7 @@
             <if test="reason != null and reason != ''">and s.reason like concat('%${reason}%')</if>
             <if test="endTime != null">and s.end_time = #{endTime}</if>
             <if test="createTime != null and endsTime != null">and s.create_time between  #{createTime} and #{endsTime}</if>
+            <if test="libraryId != null and libraryId != ''">and s.library_id = #{libraryId}</if>
         </where>
         <choose>
             <when test="pager.sort != null and pager.order != null">
@@ -48,6 +49,7 @@
             <if test="reason != null and reason != ''">and s.reason like concat('%${reason}%')</if>
             <if test="endTime != null">and s.end_time = #{endTime}</if>
             <if test="createTime != null and endsTime != null">and s.create_time between  #{createTime} and #{endsTime}</if>
+            <if test="libraryId != null and libraryId != ''">and s.library_id = #{libraryId}</if>
         </where>
     </select>
 
@@ -63,7 +65,8 @@
 			status,
 			reason,
 			end_time,
-			create_time
+			create_time,
+			library_id
 		)
 		values
 		(
@@ -76,7 +79,8 @@
 			#{status},
 			#{reason},
 			#{endTime},
-			now()
+			now(),
+			#{libraryId}
 		)
 	</insert>
 
@@ -92,7 +96,8 @@
         status,
         reason,
         end_time,
-        create_time
+        create_time,
+        library_id
         )
         values
         <foreach collection="list" item="genVo" separator=",">
@@ -106,7 +111,8 @@
             #{genVo.status},
             #{genVo.reason},
             #{genVo.endTime},
-            now()
+            now(),
+            #{genVo.libraryId}
             )
         </foreach>
     </insert>
@@ -122,7 +128,8 @@
             <if test="status != null">status = #{status},</if>
             <if test="reason != null">reason = #{reason},</if>
             <if test="endTime != null">end_time = #{endTime},</if>
-            <if test="createTime != null">create_time = #{createTime}</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
         </set>
         where id = #{id}
     </update>

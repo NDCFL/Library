@@ -3,22 +3,23 @@
 
 <mapper namespace="top.cflwork.dao.SpaceDao">
 
-	<select id="get" resultType="top.cflwork.vo.SpaceVo">
-		select `id`,`title`,`location`,`people_num`,`content`,`is_active`,`create_time` from sys_space
+    <select id="get" resultType="top.cflwork.vo.SpaceVo">
+		select `id`,`title`,`location`,`people_num`,`content`,`is_active`,`create_time`,`library_id` from sys_space
         where id=#{id}
 	</select>
 
-	<select id="list" resultType="top.cflwork.vo.SpaceVo">
-		select `id`,`title`,`location`,`people_num`,`content`,`is_active`,`create_time` from sys_space
-        <where>  
-		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="title != null and title != ''"> and title = #{title} </if>
-		  		  <if test="location != null and location != ''"> and location = #{location} </if>
-		  		  <if test="peopleNum != null and peopleNum != ''"> and people_num = #{peopleNum} </if>
-		  		  <if test="content != null and content != ''"> and content = #{content} </if>
-		  		  <if test="isActive != null and isActive != ''"> and is_active = #{isActive} </if>
-		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
-		  		</where>
+    <select id="list" resultType="top.cflwork.vo.SpaceVo">
+        select `id`,`title`,`location`,`people_num`,`content`,`is_active`,`create_time` from sys_space
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="title != null and title != ''">and title = #{title}</if>
+            <if test="location != null and location != ''">and location = #{location}</if>
+            <if test="peopleNum != null and peopleNum != ''">and people_num = #{peopleNum}</if>
+            <if test="content != null and content != ''">and content = #{content}</if>
+            <if test="isActive != null and isActive != ''">and is_active = #{isActive}</if>
+            <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
+        </where>
         <choose>
             <when test="pager.sort != null and pager.order != null">
                 order by ${pager.sort} ${pager.order}
@@ -30,22 +31,23 @@
         <if test="pager.pageIndex != null and pager.pageSize != null">
             limit #{pager.pageIndex}, #{pager.pageSize}
         </if>
-	</select>
-	
- 	<select id="count" resultType="long">
-		select count(id) from sys_space
-		 <where>  
-		  		  <if test="id != null and id != ''"> and id = #{id} </if>
-		  		  <if test="title != null and title != ''"> and title = #{title} </if>
-		  		  <if test="location != null and location != ''"> and location = #{location} </if>
-		  		  <if test="peopleNum != null and peopleNum != ''"> and people_num = #{peopleNum} </if>
-		  		  <if test="content != null and content != ''"> and content = #{content} </if>
-		  		  <if test="isActive != null and isActive != ''"> and is_active = #{isActive} </if>
-		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
-		  		</where>
-	</select>
-	 
-	<insert id="save" parameterType="top.cflwork.vo.SpaceVo">
+    </select>
+
+    <select id="count" resultType="long">
+        select count(id) from sys_space
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="title != null and title != ''">and title = #{title}</if>
+            <if test="location != null and location != ''">and location = #{location}</if>
+            <if test="peopleNum != null and peopleNum != ''">and people_num = #{peopleNum}</if>
+            <if test="content != null and content != ''">and content = #{content}</if>
+            <if test="isActive != null and isActive != ''">and is_active = #{isActive}</if>
+            <if test="createTime != null">and create_time = #{createTime}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="top.cflwork.vo.SpaceVo">
 		insert into sys_space
 		(
 			`id`, 
@@ -54,7 +56,8 @@
 			`people_num`, 
 			`content`, 
 			`is_active`, 
-			`create_time`
+			`create_time`,
+			`library_id`
 		)
 		values
 		(
@@ -64,58 +67,62 @@
 			#{peopleNum}, 
 			#{content}, 
 			#{isActive}, 
-			now()
+			now(),
+			#{libraryId}
 		)
 	</insert>
 
     <insert id="batchSave" parameterType="top.cflwork.vo.SpaceVo">
         insert into sys_space
         (
-					                `id`, 
-								                `title`, 
-								                `location`, 
-								                `people_num`, 
-								                `content`, 
-								                `is_active`, 
-								                `create_time`
-					        )
+        `id`,
+        `title`,
+        `location`,
+        `people_num`,
+        `content`,
+        `is_active`,
+        `create_time`,
+        `library_id`
+        )
         values
         <foreach collection="list" item="spaceVo" separator=",">
-			(
-												#{spaceVo.id}, 
-																#{spaceVo.title}, 
-																#{spaceVo.location}, 
-																#{spaceVo.peopleNum}, 
-																#{spaceVo.content}, 
-																#{spaceVo.isActive}, 
-																now()
-										)
-		</foreach>
+            (
+            #{spaceVo.id},
+            #{spaceVo.title},
+            #{spaceVo.location},
+            #{spaceVo.peopleNum},
+            #{spaceVo.content},
+            #{spaceVo.isActive},
+            now(),
+            #{libraryId}
+            )
+        </foreach>
     </insert>
 
-	<update id="update" parameterType="top.cflwork.vo.SpaceVo">
-		update sys_space 
-		<set>
-			<if test="title != null">`title` = #{title}, </if>
-			<if test="location != null">`location` = #{location}, </if>
-			<if test="peopleNum != null">`people_num` = #{peopleNum}, </if>
-			<if test="content != null">`content` = #{content}, </if>
-			<if test="isActive != null">`is_active` = #{isActive}, </if>
-			<if test="createTime != null">`create_time` = #{createTime}</if>
-		</set>
-		where id = #{id}
-	</update>
-	
-	<delete id="remove">
+    <update id="update" parameterType="top.cflwork.vo.SpaceVo">
+        update sys_space
+        <set>
+            <if test="title != null">`title` = #{title},</if>
+            <if test="location != null">`location` = #{location},</if>
+            <if test="peopleNum != null">`people_num` = #{peopleNum},</if>
+            <if test="content != null">`content` = #{content},</if>
+            <if test="isActive != null">`is_active` = #{isActive},</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="libraryId != null and libraryId != ''">library_id = #{libraryId}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="remove">
 		delete from sys_space where id=#{id}
 
 	</delete>
-	
-	<delete id="batchRemove">
-		delete from sys_space where id in 
-		<foreach item="id" collection="array" open="(" separator="," close=")">
-			#{id}
-		</foreach>
-	</delete>
+
+    <delete id="batchRemove">
+        delete from sys_space where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 
 </mapper>

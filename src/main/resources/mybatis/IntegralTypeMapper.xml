@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.cflwork.dao.IntegralTypeDao">
+
+    <select id="get" resultType="top.cflwork.vo.IntegralTypeVo">
+		select `id`,`name`,`code`,`library_id`,`create_time` from sys_integral_type
+        where id=#{id}
+	</select>
+
+    <select id="list" resultType="top.cflwork.vo.IntegralTypeVo">
+        select `id`,`name`,`code`,`library_id`,`create_time` from sys_integral_type
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="name != null and name != ''">and name = #{name}</if>
+            <if test="code != null and code != ''">and code = #{code}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
+            <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+        </where>
+        <choose>
+            <when test="pager.sort != null and pager.order != null">
+                order by ${pager.sort} ${pager.order}
+            </when>
+            <otherwise>
+                order by id desc
+            </otherwise>
+        </choose>
+        <if test="pager!=null and  pager.paging">
+            <if test="pager.pageIndex != null and pager.pageSize != null">
+                limit #{pager.pageIndex}, #{pager.pageSize}
+            </if>
+        </if>
+    </select>
+
+    <select id="count" resultType="long">
+        select count(id) from sys_integral_type
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="name != null and name != ''">and name = #{name}</if>
+            <if test="code != null and code != ''">and code = #{code}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
+            <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="top.cflwork.vo.IntegralTypeVo">
+		insert into sys_integral_type
+		(
+			`id`, 
+			`name`, 
+			`code`, 
+			`library_id`, 
+			`create_time`
+		)
+		values
+		(
+			#{id}, 
+			#{name}, 
+			#{code}, 
+			#{libraryId}, 
+			now()
+		)
+	</insert>
+
+    <insert id="batchSave" parameterType="top.cflwork.vo.IntegralTypeVo">
+        insert into sys_integral_type
+        (
+        `id`,
+        `name`,
+        `code`,
+        `library_id`,
+        `create_time`
+        )
+        values
+        <foreach collection="list" item="integralTypeVo" separator=",">
+            (
+            #{integralTypeVo.id},
+            #{integralTypeVo.name},
+            #{integralTypeVo.code},
+            #{integralTypeVo.libraryId},
+            now()
+            )
+        </foreach>
+    </insert>
+
+    <update id="update" parameterType="top.cflwork.vo.IntegralTypeVo">
+        update sys_integral_type
+        <set>
+            <if test="name != null">`name` = #{name},</if>
+            <if test="code != null">`code` = #{code},</if>
+            <if test="libraryId != null">`library_id` = #{libraryId},</if>
+            <if test="createTime != null">`create_time` = #{createTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="remove">
+		delete from sys_integral_type where id=#{id}
+
+	</delete>
+
+    <delete id="batchRemove">
+        delete from sys_integral_type where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

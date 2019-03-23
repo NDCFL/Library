@@ -31,7 +31,7 @@ import top.cflwork.util.R;
  
 @Controller
 @RequestMapping("/gen")
-public class GenController {
+public class GenController extends BaseController {
 	@Autowired
 	private GenService genService;
 	
@@ -46,6 +46,7 @@ public class GenController {
 	@RequiresPermissions("gen:list")
 	public PageUtils list(GenVo genVo){
 		//查询列表数据
+		genVo.setLibraryId(getLibraryId());
 		List<GenVo> genList = genService.list(genVo);
 		Long total = genService.count(genVo);
 		PageUtils pageUtils = new PageUtils(genList, total);
@@ -82,6 +83,7 @@ public class GenController {
 	@RequiresPermissions("gen:add")
 	public R save( GenVo gen){
 		gen.setStatus(3);
+		gen.setLibraryId(getLibraryId());
 		if(genService.save(gen)>0){
 			return R.ok("新增成功");
 		}

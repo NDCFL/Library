@@ -32,7 +32,7 @@ import top.cflwork.vo.Select2Vo;
  
 @Controller
 @RequestMapping("/readingRoom")
-public class ReadingRoomController {
+public class ReadingRoomController extends BaseController{
 	@Autowired
 	private ReadingRoomService readingRoomService;
 	
@@ -47,6 +47,7 @@ public class ReadingRoomController {
 	@RequiresPermissions("readingRoom:list")
 	public List<ReadingRoomVo> list(ReadingRoomVo readingRoomVo){
 		//查询列表数据
+		readingRoomVo.setLibraryId(getLibraryId());
 		List<ReadingRoomVo> readingRoomList = readingRoomService.list(readingRoomVo);
 //		Long total = readingRoomService.count(readingRoomVo);
 //		PageUtils pageUtils = new PageUtils(readingRoomList, total);
@@ -82,6 +83,7 @@ public class ReadingRoomController {
 	@PostMapping("/save")
 	@RequiresPermissions("readingRoom:add")
 	public R save( ReadingRoomVo readingRoom){
+		readingRoom.setLibraryId(getLibraryId());
 		if(readingRoomService.save(readingRoom)>0){
 			return R.ok("新增成功");
 		}
@@ -138,7 +140,8 @@ public class ReadingRoomController {
 	@PostMapping( "/getReaddingRoom")
 	@ResponseBody
 	public List<Select2Vo> getReaddingRoom(){
-		return readingRoomService.getReaddingRoom();
+
+		return readingRoomService.getReaddingRoom(getLibraryId());
 	}
 
 }

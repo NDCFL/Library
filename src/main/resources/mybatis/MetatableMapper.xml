@@ -4,13 +4,13 @@
 <mapper namespace="top.cflwork.dao.MetatableDao">
 
     <select id="get" resultType="top.cflwork.vo.MetatableVo">
-        select `id`,`title`,`author`,`isbn`,`publisher`,`publish_date`,`callno`,`classno`,`abbstract`,`price`,`publish_name`,`publish_address`,`ctrlno`,`subject`,`publish`,`note`,`version`,`asset_count`,`metaid`,`metatable`,`face_img` from sys_metatable
+        select `id`,`title`,`author`,`isbn`,`publisher`,`publish_date`,`callno`,`classno`,`abbstract`,`price`,`publish_name`,`publish_address`,`ctrlno`,`subject`,`publish`,`note`,`version`,`asset_count`,`metaid`,`metatable`,`face_img`,`library_id` from sys_metatable
         where id=#{id}
     </select>
 
     <select id="list" resultType="top.cflwork.vo.MetatableVo">
         select
-        `id`,`title`,`author`,`isbn`,`publisher`,`publish_date`,`callno`,`classno`,`abbstract`,`price`,`publish_name`,`publish_address`,`ctrlno`,`subject`,`publish`,`note`,`version`,`asset_count`,`metaid`,`metatable`,`face_img`
+        `id`,`title`,`author`,`isbn`,`publisher`,`publish_date`,`callno`,`classno`,`abbstract`,`price`,`publish_name`,`publish_address`,`ctrlno`,`subject`,`publish`,`note`,`version`,`asset_count`,`metaid`,`metatable`,`face_img`,`library_id`
         from sys_metatable
         <where>
             <if test="id != null and id != ''">and id = #{id}</if>
@@ -34,6 +34,7 @@
             <if test="metaid != null and metaid != ''">and metaid = #{metaid}</if>
             <if test="metatable != null and metatable != ''">and metatable = #{metatable}</if>
             <if test="faceImg != null and faceImg != ''">and face_img = #{faceImg}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
         </where>
         <choose>
             <when test="pager.sort != null and pager.order != null">
@@ -74,6 +75,7 @@
             <if test="metaid != null and metaid != ''">and metaid = #{metaid}</if>
             <if test="metatable != null and metatable != ''">and metatable = #{metatable}</if>
             <if test="faceImg != null and faceImg != ''">and face_img = #{faceImg}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
         </where>
     </select>
 
@@ -100,7 +102,8 @@
         `asset_count`,
         `metaid`,
         `metatable`,
-        `face_img`
+        `face_img`,
+		`library_id`
         )
         values
         (
@@ -124,7 +127,8 @@
         #{assetCount},
         #{metaid},
         #{metatable},
-        #{faceImg}
+        #{faceImg},
+		#{libraryId}
         )
     </insert>
 
@@ -151,7 +155,8 @@
         `asset_count`,
         `metaid`,
         `metatable`,
-        `face_img`
+        `face_img`,
+        `library_id`
         )
         values
         <foreach collection="list" item="metatableVo" separator=",">
@@ -176,7 +181,8 @@
             #{metatableVo.assetCount},
             #{metatableVo.metaid},
             #{metatableVo.metatable},
-            #{metatableVo.faceImg}
+            #{metatableVo.faceImg},
+            #{metatableVo.libraryId}
             )
         </foreach>
     </insert>
@@ -203,7 +209,8 @@
             <if test="assetCount != null">`asset_count` = #{assetCount},</if>
             <if test="metaid != null">`metaid` = #{metaid},</if>
             <if test="metatable != null">`metatable` = #{metatable},</if>
-            <if test="faceImg != null">`face_img` = #{faceImg}</if>
+            <if test="faceImg != null">`face_img` = #{faceImg},</if>
+            <if test="libraryId != null and libraryId != ''">library_id = #{libraryId}</if>
         </set>
         where id = #{id}
     </update>
@@ -233,7 +240,8 @@
         `asset_count`,
         `metaid`,
         `metatable`,
-        `price`
+        `price`,
+        `library_id`
         )values
         <foreach collection="list" item="metatableVo" separator=",">
             (
@@ -248,7 +256,8 @@
             #{metatableVo.assetCount},
             #{metatableVo.metaid},
             #{metatableVo.metatable},
-            #{metatableVo.price}
+            #{metatableVo.price},
+            #{metatableVo.libraryId}
             )
         </foreach>
     </insert>
@@ -274,7 +283,8 @@
             <if test="assetCount != null">`asset_count` = #{assetCount},</if>
             <if test="metaid != null">`metaid` = #{metaid},</if>
             <if test="metatable != null">`metatable` = #{metatable},</if>
-            <if test="faceImg != null">`face_img` = #{faceImg}</if>
+            <if test="faceImg != null">`face_img` = #{faceImg},</if>
+            <if test="libraryId != null and libraryId != ''">library_id = #{libraryId}</if>
         </set>
         where `metaid` = #{metaid} and metatable=#{metatable}
     </update>

@@ -19,7 +19,7 @@ import java.util.Date;
 @Data
 public class MetatableVo implements Serializable {
     private static final long serialVersionUID = 1L;
-    @ApiModelProperty("")
+    @ApiModelProperty("图书编号")
     private String id;
     @ApiModelProperty("书名")
     private String title;
@@ -63,4 +63,6 @@ public class MetatableVo implements Serializable {
     private String faceImg;
     @ApiModelProperty("分页对象")
     private Pager pager;
+    @ApiModelProperty("图书馆编号")
+    private String libraryId;
 }

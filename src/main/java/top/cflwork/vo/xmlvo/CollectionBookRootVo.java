@@ -37,5 +37,6 @@ public class CollectionBookRootVo implements Serializable {
     private String metaid;
     @ApiModelProperty(value = "metatable",required = true)
     private String metatable;
-
+    @ApiModelProperty("图书馆编号")
+    private String libraryId;
 }

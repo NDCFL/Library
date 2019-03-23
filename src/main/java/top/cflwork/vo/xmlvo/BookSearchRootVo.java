@@ -46,5 +46,8 @@ public class BookSearchRootVo implements Serializable {
     @ApiModelProperty(value = "搜索内容,参数必填",required =true)
     private String searchValue;
 
+    @ApiModelProperty(value = "图书馆编号",required = true)
+    private String libraryId;
+
 
 }

@@ -4,7 +4,7 @@
 <mapper namespace="top.cflwork.dao.CourierOrderDao">
 
     <select id="get" resultType="top.cflwork.vo.CourierOrderVo">
-		select `id`,`read_user_id`,`read_user_name`,`read_user_card_num`,`courier_phone`,`courier_idcard`,`courier_adress`,`create_time` from sys_courier_order
+		select `id`,`read_user_id`,`read_user_name`,`read_user_card_num`,`courier_phone`,`courier_idcard`,`courier_adress`,`create_time`,`library_id` from sys_courier_order
         where id=#{id}
 	</select>
 
@@ -21,6 +21,7 @@
             <if test="courierIdcard != null and courierIdcard != ''">and courier_idcard  like concat('%${courierIdcard}%')</if>
             <if test="courierAdress != null and courierAdress != ''">and courier_adress  like concat('%${courierAdress}%')</if>
             <if test="createTime != null and endTime != null">and create_time between  #{createTime} and #{endTime}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
         </where>
         <choose>
             <when test="pager.sort != null and pager.order != null">
@@ -46,6 +47,7 @@
             <if test="courierIdcard != null and courierIdcard != ''">and courier_idcard  like concat('%${courierIdcard}%')</if>
             <if test="courierAdress != null and courierAdress != ''">and courier_adress  like concat('%${courierAdress}%')</if>
             <if test="createTime != null and endTime != null">and create_time between  #{createTime} and #{endTime}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
         </where>
     </select>
 
@@ -59,7 +61,8 @@
 			`courier_phone`, 
 			`courier_idcard`, 
 			`courier_adress`, 
-			`create_time`
+			`create_time`,
+			`library_id`
 		)
 		values
 		(
@@ -70,7 +73,8 @@
 			#{courierPhone}, 
 			#{courierIdcard}, 
 			#{courierAdress}, 
-			#{createTime}
+			#{createTime},
+			#{libraryId}
 		)
 	</insert>
 
@@ -84,7 +88,8 @@
         `courier_phone`,
         `courier_idcard`,
         `courier_adress`,
-        `create_time`
+        `create_time`,
+        `library_id`
         )
         values
         <foreach collection="list" item="courierOrderVo" separator=",">
@@ -96,7 +101,8 @@
             #{courierOrderVo.courierPhone},
             #{courierOrderVo.courierIdcard},
             #{courierOrderVo.courierAdress},
-            #{courierOrderVo.createTime}
+            #{courierOrderVo.createTime},
+            #{courierOrderVo.libraryId}
             )
         </foreach>
     </insert>
@@ -110,7 +116,8 @@
             <if test="courierPhone != null">`courier_phone` = #{courierPhone},</if>
             <if test="courierIdcard != null">`courier_idcard` = #{courierIdcard},</if>
             <if test="courierAdress != null">`courier_adress` = #{courierAdress},</if>
-            <if test="createTime != null">`create_time` = #{createTime}</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
         </set>
         where id = #{id}
     </update>

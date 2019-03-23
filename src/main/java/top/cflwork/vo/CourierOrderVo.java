@@ -38,4 +38,6 @@ public class CourierOrderVo implements Serializable {
     private Pager pager;
     @ApiModelProperty("结束时间")
     private Date endTime;
+    @ApiModelProperty("图书馆编号")
+    private String libraryId;
 }

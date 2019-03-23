@@ -39,4 +39,7 @@ public interface MenuDao {
 	String[] findByParentId(String id);
 
 	List<MenuVo> getList(String libraryId);
+
+	List<String> menuList();
+
 }

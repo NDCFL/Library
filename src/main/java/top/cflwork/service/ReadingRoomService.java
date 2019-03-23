@@ -33,5 +33,5 @@ public interface ReadingRoomService {
 
     int batchSave(List<ReadingRoomVo> readingRoomList);
 
-	List<Select2Vo> getReaddingRoom();
+	List<Select2Vo> getReaddingRoom(String libraryId);
 }

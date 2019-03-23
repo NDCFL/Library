@@ -31,7 +31,7 @@ import top.cflwork.util.R;
  
 @Controller
 @RequestMapping("/space")
-public class SpaceController {
+public class SpaceController extends BaseController{
 	@Autowired
 	private SpaceService spaceService;
 	
@@ -46,6 +46,7 @@ public class SpaceController {
 	@RequiresPermissions("space:list")
 	public List<SpaceVo> list(SpaceVo spaceVo){
 		//查询列表数据
+		spaceVo.setLibraryId(getLibraryId());
 		List<SpaceVo> spaceList = spaceService.list(spaceVo);
 //		Long total = spaceService.count(spaceVo);
 //		PageUtils pageUtils = new PageUtils(spaceList, total);
@@ -82,6 +83,7 @@ public class SpaceController {
 	@RequiresPermissions("space:add")
 	public R save( SpaceVo space){
 		space.setIsActive(0);
+		space.setLibraryId(getLibraryId());
 		if(spaceService.save(space)>0){
 			return R.ok("新增成功");
 		}

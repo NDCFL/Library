@@ -76,5 +76,6 @@ public class BookSearchVo implements Serializable {
     private String price;
     @ApiModelProperty("封面需要加上前缀")
     private String faceImg = "/book.gif";
-
+    @ApiModelProperty("图书馆编号")
+    private String libraryId;
 }

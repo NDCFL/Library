@@ -4,12 +4,12 @@
 <mapper namespace="top.cflwork.dao.ReadingRoomDao">
 
     <select id="get" resultType="top.cflwork.vo.ReadingRoomVo">
-		select `id`,`title`,`location`,`people_num`,`content`,`is_active`,`create_time` from sys_reading_room
+		select `id`,`title`,`location`,`people_num`,`content`,`is_active`,`create_time`,`library_id` from sys_reading_room
         where id=#{id}
 	</select>
 
     <select id="list" resultType="top.cflwork.vo.ReadingRoomVo">
-        select `id`,`title`,`location`,`people_num`,`content`,`is_active`,`create_time` from sys_reading_room
+        select `id`,`title`,`location`,`people_num`,`content`,`is_active`,`create_time`,`library_id` from sys_reading_room
         <where>
             <if test="id != null and id != ''">and id = #{id}</if>
             <if test="title != null and title != ''">and title = #{title}</if>
@@ -18,6 +18,7 @@
             <if test="content != null and content != ''">and content = #{content}</if>
             <if test="isActive != null and isActive != ''">and is_active = #{isActive}</if>
             <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
         </where>
         <choose>
             <when test="pager.sort != null and pager.order != null">
@@ -42,6 +43,7 @@
             <if test="content != null and content != ''">and content = #{content}</if>
             <if test="isActive != null and isActive != ''">and is_active = #{isActive}</if>
             <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
         </where>
     </select>
 
@@ -54,7 +56,8 @@
 			`people_num`, 
 			`content`, 
 			`is_active`, 
-			`create_time`
+			`create_time`,
+			`library_id`
 		)
 		values
 		(
@@ -64,7 +67,8 @@
 			#{peopleNum}, 
 			#{content}, 
 			#{isActive}, 
-			now()
+			now(),
+			#{libraryId}
 		)
 	</insert>
 
@@ -77,7 +81,8 @@
         `people_num`,
         `content`,
         `is_active`,
-        `create_time`
+        `create_time`,
+        `library_id`
         )
         values
         <foreach collection="list" item="readingRoomVo" separator=",">
@@ -88,7 +93,8 @@
             #{readingRoomVo.peopleNum},
             #{readingRoomVo.content},
             #{readingRoomVo.isActive},
-            now()
+            now(),
+            #{readingRoomVo.libraryId}
             )
         </foreach>
     </insert>
@@ -101,7 +107,8 @@
             <if test="peopleNum != null">`people_num` = #{peopleNum},</if>
             <if test="content != null">`content` = #{content},</if>
             <if test="isActive != null">`is_active` = #{isActive},</if>
-            <if test="createTime != null">`create_time` = #{createTime}</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="libraryId != null and libraryId != ''">library_id = #{libraryId}</if>
         </set>
         where id = #{id}
     </update>

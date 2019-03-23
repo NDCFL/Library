@@ -4,13 +4,13 @@
 <mapper namespace="top.cflwork.dao.NewBookDao">
 
     <select id="get" resultType="top.cflwork.vo.NewBookVo">
-		select `id`,`title`,`publisher`,`publish_date`,`author`,`isbn`,`callno`,`metaid`,`metatable`,`intdtion`,`face_img` from sys_new_book
+		select `id`,`title`,`publisher`,`publish_date`,`author`,`isbn`,`callno`,`metaid`,`metatable`,`intdtion`,`face_img`,`library_id` from sys_new_book
         where id=#{id}
 	</select>
 
     <select id="list" resultType="top.cflwork.vo.NewBookVo">
         select
-        `id`,`title`,`publisher`,`publish_date`,`author`,`isbn`,`callno`,`metaid`,`metatable`,`intdtion`,`face_img` from
+        `id`,`title`,`publisher`,`publish_date`,`author`,`isbn`,`callno`,`metaid`,`metatable`,`intdtion`,`face_img`,`library_id` from
         sys_new_book
         <where>
             <if test="id != null and id != ''">and id = #{id}</if>
@@ -24,6 +24,7 @@
             <if test="metatable != null and metatable != ''">and metatable = #{metatable}</if>
             <if test="intdtion != null and intdtion != ''">and intdtion = #{intdtion}</if>
             <if test="faceImg != null and faceImg != ''">and face_img = #{faceImg}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
         </where>
         <choose>
             <when test="pager.sort != null and pager.order != null">
@@ -54,6 +55,7 @@
             <if test="metatable != null and metatable != ''">and metatable = #{metatable}</if>
             <if test="intdtion != null and intdtion != ''">and intdtion = #{intdtion}</if>
             <if test="faceImg != null and faceImg != ''">and face_img = #{faceImg}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
         </where>
     </select>
 
@@ -70,7 +72,8 @@
 			`metaid`, 
 			`metatable`, 
 			`intdtion`, 
-			`face_img`
+			`face_img`,
+			`library_id`
 		)
 		values
 		(
@@ -84,7 +87,8 @@
 			#{metaid}, 
 			#{metatable}, 
 			#{intdtion}, 
-			#{faceImg}
+			#{faceImg},
+			#{libraryId}
 		)
 	</insert>
 
@@ -101,7 +105,8 @@
         `metaid`,
         `metatable`,
         `intdtion`,
-        `face_img`
+        `face_img`,
+        `library_id`
         )
         values
         <foreach collection="list" item="newBookVo" separator=",">
@@ -116,7 +121,8 @@
             #{newBookVo.metaid},
             #{newBookVo.metatable},
             #{newBookVo.intdtion},
-            #{newBookVo.faceImg}
+            #{newBookVo.faceImg},
+            #{newBookVo.libraryId}
             )
         </foreach>
     </insert>
@@ -133,7 +139,8 @@
             <if test="metaid != null">`metaid` = #{metaid},</if>
             <if test="metatable != null">`metatable` = #{metatable},</if>
             <if test="intdtion != null">`intdtion` = #{intdtion},</if>
-            <if test="faceImg != null">`face_img` = #{faceImg}</if>
+            <if test="faceImg != null">`face_img` = #{faceImg},</if>
+            <if test="libraryId != null">library_id = #{libraryId},</if>
         </set>
         where id = #{id}
     </update>
@@ -164,7 +171,8 @@
         `metaid`,
         `metatable`,
         `intdtion`,
-        `face_img`
+        `face_img`,
+        `library_id`
         )
         values
         <foreach collection="list" item="newBookVo" separator=",">
@@ -179,7 +187,8 @@
             #{newBookVo.metaid},
             #{newBookVo.metatable},
             #{newBookVo.intdtion},
-            #{newBookVo.faceImg}
+            #{newBookVo.faceImg},
+            #{newBookVo.libraryId}
             )
         </foreach>
     </insert>

@@ -44,4 +44,6 @@ public class PaperExpressVo implements Serializable {
     private Pager pager;
     @ApiModelProperty("终止时间")
     private Date endTime;
+    @ApiModelProperty("图书馆编号")
+    private String libraryId;
 }

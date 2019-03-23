@@ -4,18 +4,19 @@
 <mapper namespace="top.cflwork.dao.SeatDao">
 
     <select id="get" resultType="top.cflwork.vo.SeatVo">
-		select s.`id`,s.`title`,s.`readding_id`,s.`status`,s.`create_time`,r.title as 'readdingName' from sys_seat s left join sys_reading_room r on s.readding_id=r.id
+		select s.`id`,s.`title`,s.`readding_id`,s.`status`,s.`create_time`,s.`library_id`,r.title as 'readdingName' from sys_seat s left join sys_reading_room r on s.readding_id=r.id
         where  s.id=#{id}
 	</select>
 
     <select id="list" resultType="top.cflwork.vo.SeatVo">
-        select s.`id`,s.`title`,s.`readding_id`,s.`status`,s.`create_time`,r.title as 'readdingName' from sys_seat s left join sys_reading_room r on s.readding_id=r.id
+        select s.`id`,s.`title`,s.`readding_id`,s.`status`,s.`create_time`,s.`library_id`,r.title as 'readdingName' from sys_seat s left join sys_reading_room r on s.readding_id=r.id
         <where>
             <if test="id != null and id != ''">and s.id = #{id}</if>
             <if test="title != null and title != ''">and s.title = #{title}</if>
             <if test="readdingId != null and readdingId != ''">and s.readding_id = #{readdingId}</if>
             <if test="status != null and status != ''">and s.status = #{status}</if>
             <if test="createTime != null and createTime != ''">and s.create_time = #{createTime}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
         </where>
         <choose>
             <when test="pager.sort != null and pager.order != null">
@@ -38,6 +39,7 @@
             <if test="readdingId != null and readdingId != ''">and readding_id = #{readdingId}</if>
             <if test="status != null and status != ''">and status = #{status}</if>
             <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
         </where>
     </select>
 
@@ -48,7 +50,8 @@
 			`title`, 
 			`readding_id`, 
 			`status`, 
-			`create_time`
+			`create_time`,
+			`library_id`
 		)
 		values
 		(
@@ -56,7 +59,8 @@
 			#{title}, 
 			#{readdingId}, 
 			#{status}, 
-			#{createTime}
+			#{createTime},
+			#{libraryId}
 		)
 	</insert>
 
@@ -67,7 +71,8 @@
         `title`,
         `readding_id`,
         `status`,
-        `create_time`
+        `create_time`,
+        `library_id`
         )
         values
         <foreach collection="list" item="seatVo" separator=",">
@@ -76,7 +81,8 @@
             #{seatVo.title},
             #{seatVo.readdingId},
             #{seatVo.status},
-            #{seatVo.createTime}
+            #{seatVo.createTime},
+            #{seatVo.libraryId}
             )
         </foreach>
     </insert>
@@ -87,7 +93,8 @@
             <if test="title != null">`title` = #{title},</if>
             <if test="readdingId != null">`readding_id` = #{readdingId},</if>
             <if test="status != null">`status` = #{status},</if>
-            <if test="createTime != null">`create_time` = #{createTime}</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="libraryId != null and libraryId != ''">library_id = #{libraryId}</if>
         </set>
         where id = #{id}
     </update>

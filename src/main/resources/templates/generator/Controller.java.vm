@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ${package}.vo.${className}Vo;
 import ${package}.service.${className}Service;
+import top.cflwork.controller.BaseController;
 import top.cflwork.util.PageUtils;
 import top.cflwork.util.Query;
 import top.cflwork.util.R;
@@ -31,7 +32,7 @@ import top.cflwork.util.R;
  
 @Controller
 @RequestMapping("/${classname}")
-public class ${className}Controller {
+public class ${className}Controller extends BaseController{
 	@Autowired
 	private ${className}Service ${classname}Service;
 	
@@ -46,6 +47,7 @@ public class ${className}Controller {
 	@RequiresPermissions("${classname}:list")
 	public PageUtils list(${className}Vo ${classname}Vo){
 		//查询列表数据
+			${classname}Vo.setLibraryId(getLibraryId());
 		List<${className}Vo> ${classname}List = ${classname}Service.list(${classname}Vo);
 		Long total = ${classname}Service.count(${classname}Vo);
 		PageUtils pageUtils = new PageUtils(${classname}List, total);
@@ -90,6 +92,7 @@ public class ${className}Controller {
 	@PostMapping("/save")
 	@RequiresPermissions("${classname}:add")
 	public R save( ${className}Vo ${classname}){
+			${classname}.setLibraryId(getLibraryId());
 		if(${classname}Service.save(${classname})>0){
 			return R.ok("新增成功");
 		}

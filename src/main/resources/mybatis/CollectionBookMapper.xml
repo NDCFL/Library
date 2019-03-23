@@ -4,13 +4,13 @@
 <mapper namespace="top.cflwork.dao.CollectionBookDao">
 
     <select id="get" resultType="top.cflwork.vo.CollectionBookVo">
-		select `id`,`barcode`,`callno`,`retudate`,`regdate`,`shiftno`,`status`,`sublib`,`local`,`cursublib`,`curlocal`,`price` from sys_collection_book
+		select `id`,`barcode`,`callno`,`retudate`,`regdate`,`shiftno`,`status`,`sublib`,`local`,`cursublib`,`curlocal`,`price`,`library_id` from sys_collection_book
         where id=#{id}
 	</select>
 
     <select id="list" resultType="top.cflwork.vo.CollectionBookVo">
         select
-        `id`,`barcode`,`callno`,`retudate`,`regdate`,`shiftno`,`status`,`sublib`,`local`,`cursublib`,`curlocal`,`price`
+        `id`,`barcode`,`callno`,`retudate`,`regdate`,`shiftno`,`status`,`sublib`,`local`,`cursublib`,`curlocal`,`price`,`library_id`
         from sys_collection_book
         <where>
             <if test="id != null and id != ''">and id = #{id}</if>
@@ -25,6 +25,7 @@
             <if test="cursublib != null and cursublib != ''">and cursublib = #{cursublib}</if>
             <if test="curlocal != null and curlocal != ''">and curlocal = #{curlocal}</if>
             <if test="price != null and price != ''">and price = #{price}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
         </where>
         <choose>
             <when test="pager.sort != null and pager.order != null">
@@ -56,6 +57,7 @@
             <if test="cursublib != null and cursublib != ''">and cursublib = #{cursublib}</if>
             <if test="curlocal != null and curlocal != ''">and curlocal = #{curlocal}</if>
             <if test="price != null and price != ''">and price = #{price}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
         </where>
     </select>
 
@@ -73,7 +75,8 @@
 			`local`, 
 			`cursublib`, 
 			`curlocal`, 
-			`price`
+			`price`,
+			`library_id`
 		)
 		values
 		(
@@ -88,7 +91,8 @@
 			#{local}, 
 			#{cursublib}, 
 			#{curlocal}, 
-			#{price}
+			#{price},
+			#{libraryId}
 		)
 	</insert>
 
@@ -106,7 +110,8 @@
         `local`,
         `cursublib`,
         `curlocal`,
-        `price`
+        `price`,
+        `library_id`
         )
         values
         <foreach collection="list" item="collectionBookVo" separator=",">
@@ -122,7 +127,8 @@
             #{collectionBookVo.local},
             #{collectionBookVo.cursublib},
             #{collectionBookVo.curlocal},
-            #{collectionBookVo.price}
+            #{collectionBookVo.price},
+            #{collectionBookVo.libraryId}
             )
         </foreach>
     </insert>
@@ -140,7 +146,8 @@
             <if test="local != null">`local` = #{local},</if>
             <if test="cursublib != null">`cursublib` = #{cursublib},</if>
             <if test="curlocal != null">`curlocal` = #{curlocal},</if>
-            <if test="price != null">`price` = #{price}</if>
+            <if test="price != null">`price` = #{price},</if>
+            <if test="libraryId != null and libraryId != ''">library_id = #{libraryId}</if>
         </set>
         where id = #{id}
     </update>

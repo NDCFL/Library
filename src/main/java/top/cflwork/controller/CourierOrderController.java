@@ -31,7 +31,7 @@ import top.cflwork.util.R;
  
 @Controller
 @RequestMapping("/courierOrder")
-public class CourierOrderController {
+public class CourierOrderController extends BaseController{
 	@Autowired
 	private CourierOrderService courierOrderService;
 	
@@ -46,6 +46,7 @@ public class CourierOrderController {
 	@RequiresPermissions("courierOrder:list")
 	public PageUtils list(CourierOrderVo courierOrderVo){
 		//查询列表数据
+		courierOrderVo.setLibraryId(getLibraryId());
 		List<CourierOrderVo> courierOrderList = courierOrderService.list(courierOrderVo);
 		Long total = courierOrderService.count(courierOrderVo);
 		PageUtils pageUtils = new PageUtils(courierOrderList, total);
@@ -81,6 +82,7 @@ public class CourierOrderController {
 	@PostMapping("/save")
 	@RequiresPermissions("courierOrder:add")
 	public R save( CourierOrderVo courierOrder){
+		courierOrder.setLibraryId(getLibraryId());
 		if(courierOrderService.save(courierOrder)>0){
 			return R.ok("新增成功");
 		}

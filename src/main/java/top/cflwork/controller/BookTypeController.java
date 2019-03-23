@@ -31,7 +31,7 @@ import top.cflwork.util.R;
  
 @Controller
 @RequestMapping("/bookType")
-public class BookTypeController {
+public class BookTypeController extends BaseController{
 	@Autowired
 	private BookTypeService bookTypeService;
 	
@@ -46,6 +46,7 @@ public class BookTypeController {
 	@RequiresPermissions("bookType:list")
 	public PageUtils list(BookTypeVo bookTypeVo){
 		//查询列表数据
+		bookTypeVo.setLibraryId(getLibraryId());
 		List<BookTypeVo> bookTypeList = bookTypeService.list(bookTypeVo);
 		Long total = bookTypeService.count(bookTypeVo);
 		PageUtils pageUtils = new PageUtils(bookTypeList, total);
@@ -69,6 +70,7 @@ public class BookTypeController {
 	public R save( BookTypeVo bookType){
 		bookType.setParentId("0");
 		bookType.setIsActive(0);
+		bookType.setLibraryId(getLibraryId());
 		if(bookTypeService.save(bookType)>0){
 			return R.ok("新增成功");
 		}

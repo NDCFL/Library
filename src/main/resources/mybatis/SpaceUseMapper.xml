@@ -4,13 +4,13 @@
 <mapper namespace="top.cflwork.dao.SpaceUseDao">
 
     <select id="get" resultType="top.cflwork.vo.SpaceUseVo">
-		select `id`,`read_user_id`,`space_id`,`title`,`people_num`,`use_time`,`remark`,`name`,`phone`,`status`,`reason`,`create_time` from sys_space_use
+		select `id`,`read_user_id`,`space_id`,`title`,`people_num`,`use_time`,`remark`,`name`,`phone`,`status`,`reason`,`create_time`,`library_id` from sys_space_use
         where id=#{id}
 	</select>
 
     <select id="list" resultType="top.cflwork.vo.SpaceUseVo">
         select
-        `id`,`read_user_id`,`space_id`,`title`,`people_num`,`use_time`,`remark`,`name`,`phone`,`status`,`reason`,`create_time`
+        `id`,`read_user_id`,`space_id`,`title`,`people_num`,`use_time`,`remark`,`name`,`phone`,`status`,`reason`,`create_time`,`library_id`
         from sys_space_use
         <where>
             <if test="id != null and id != ''">and id = #{id}</if>
@@ -25,6 +25,7 @@
             <if test="status != null and status != ''">and status = #{status}</if>
             <if test="reason != null and reason != ''">and reason = #{reason}</if>
             <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
         </where>
         <choose>
             <when test="pager.sort != null and pager.order != null">
@@ -54,6 +55,7 @@
             <if test="status != null and status != ''">and status = #{status}</if>
             <if test="reason != null and reason != ''">and reason = #{reason}</if>
             <if test="createTime != null and createTime != ''">and create_time = #{createTime}</if>
+            <if test="libraryId != null and libraryId != ''">and library_id = #{libraryId}</if>
         </where>
     </select>
 
@@ -71,7 +73,8 @@
 			`phone`, 
 			`status`, 
 			`reason`, 
-			`create_time`
+			`create_time`,
+			`library_id`
 		)
 		values
 		(
@@ -86,7 +89,8 @@
 			#{phone}, 
 			#{status}, 
 			#{reason}, 
-			#{createTime}
+			#{createTime},
+			#{libraryId}
 		)
 	</insert>
 
@@ -104,7 +108,8 @@
         `phone`,
         `status`,
         `reason`,
-        `create_time`
+        `create_time`,
+        `library_id`
         )
         values
         <foreach collection="list" item="spaceUseVo" separator=",">
@@ -120,7 +125,8 @@
             #{spaceUseVo.phone},
             #{spaceUseVo.status},
             #{spaceUseVo.reason},
-            #{spaceUseVo.createTime}
+            #{spaceUseVo.createTime},
+            #{spaceUseVo.libraryId}
             )
         </foreach>
     </insert>
@@ -138,7 +144,8 @@
             <if test="phone != null">`phone` = #{phone},</if>
             <if test="status != null">`status` = #{status},</if>
             <if test="reason != null">`reason` = #{reason},</if>
-            <if test="createTime != null">`create_time` = #{createTime}</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="libraryId != null and libraryId != ''">library_id = #{libraryId}</if>
         </set>
         where id = #{id}
     </update>

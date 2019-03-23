@@ -31,7 +31,7 @@ import top.cflwork.util.R;
  
 @Controller
 @RequestMapping("/seat")
-public class SeatController {
+public class SeatController extends BaseController{
 	@Autowired
 	private SeatService seatService;
 	
@@ -46,6 +46,7 @@ public class SeatController {
 	@RequiresPermissions("seat:list")
 	public List<SeatVo> list(SeatVo seatVo){
 		//查询列表数据
+		seatVo.setLibraryId(getLibraryId());
 		List<SeatVo> seatList = seatService.list(seatVo);
 //		Long total = seatService.count(seatVo);
 //		PageUtils pageUtils = new PageUtils(seatList, total);
@@ -82,6 +83,7 @@ public class SeatController {
 	@RequiresPermissions("seat:add")
 	public R save( SeatVo seat){
 		seat.setStatus("0");
+		seat.setLibraryId(getLibraryId());
 		if(seatService.save(seat)>0){
 			return R.ok("新增成功");
 		}

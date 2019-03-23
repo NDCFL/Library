@@ -167,6 +167,9 @@ public class ReadUserController {
 	@ApiOperation(value = "读者登录：传入卡号(cardNum)，密码(password)", notes = "返回读者信息")
 	public ResponseJson login(@RequestBody ReadUserVo readUserVo) {
 		try{
+			if(null==readUserVo.getLibraryId() || "".equals(readUserVo.getLibraryId())){
+				return new ResponseJson(false,"请选择图书馆");
+			}
 			ReadUserVo u = new ReadUserVo();
 			u.setCardNum(readUserVo.getCardNum());
 			long cnt = readUserService.count(u);

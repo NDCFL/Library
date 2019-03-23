@@ -40,4 +40,6 @@ public class SeatUseVo implements Serializable {
     private String readingRoomName;
     @ApiModelProperty("分页对象")
     private Pager pager;
+    @ApiModelProperty("图书馆编号")
+    private String libraryId;
 }
